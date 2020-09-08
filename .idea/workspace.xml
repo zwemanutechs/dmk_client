@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e6227a14-8f91-4f53-8eb2-6598713bae5e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/favicon-96x96.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/logo/dormakaba_transparent.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/logo/dormakaba_transparent.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/home/home.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/rinse-di/action-constants/rinseDi-actionTypesjs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/rinse-di/actions/rinseDI-actions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/rinse-di/container/rinse-di.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/rinse-di/reducers/rinseDI-reducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/constants/table-constants.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layout/actions/main-menu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layout/container/main_layout.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layout/container/main_layout.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layout/reducer/main-menu-reducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/breadcum/breadcrumbs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/mat-diaglog/action-constants/maxDialog-actionTypes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/mat-diaglog/actions/maxDialog-action.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/mat-diaglog/container/mat-dialog.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/mat-diaglog/reducer/maxDialog-reducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/mui-datatable/container/custamize-table-toolbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\work\git\dmk\client\dmk_client\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1hDc3gJZjsfHz23D7hwr6VBcvBZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/shared/breadcum" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\breadcum" />
+      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\mui-datatable" />
+      <recent name="C:\work\git\dmk\client\dmk_client\src\assets" />
+      <recent name="C:\work\git\dmk\client\dmk_client\public" />
+      <recent name="C:\work\git\dmk\client\dmk_client\public\images\logo" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\mat-diaglog\container" />
+      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\mat-diaglog" />
+      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\mui-datatable\container" />
+      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\mui-datatable" />
+      <recent name="C:\work\git\dmk\client\dmk_client\src\components\rinse-di\container" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.npm start">
+    <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
+      <method v="2" />
+    </configuration>
+    <configuration name="npm start" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e6227a14-8f91-4f53-8eb2-6598713bae5e" name="Default Changelist" comment="" />
+      <created>1599548905056</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1599548905056</updated>
+      <workItem from="1599548906945" duration="20328000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="522" y="227" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599550957782">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="522" y="227" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864@0.0.1536.864" timestamp="1599550957782" />
+    <state width="1515" height="291" key="GridCell.Tab.0.bottom" timestamp="1599562086245">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1515" height="291" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1599562086245" />
+    <state width="1515" height="291" key="GridCell.Tab.0.center" timestamp="1599562086245">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1515" height="291" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1599562086245" />
+    <state width="1515" height="291" key="GridCell.Tab.0.left" timestamp="1599562086245">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1515" height="291" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1599562086245" />
+    <state width="1515" height="291" key="GridCell.Tab.0.right" timestamp="1599562086245">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1515" height="291" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1599562086245" />
+  </component>
+</project>
