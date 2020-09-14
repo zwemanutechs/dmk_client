@@ -1,5 +1,7 @@
 export const RDI_GET = "RDI_GET";
 export const RDI_OPEN_DIAG = "RDI_OPEN_DIAG";
+export const RDI_CLOSE_DIAG = "RDI_CLOSE_DIAG";
+export const RDI_FORM_CHANGE = "RDI_FORM_CHANGE";
 export const RDI_SAVE = "RDI_SAVE";
 export const RDI_UPDATE = "RDI_UPDATE";
 export const RDI_DELETE = "RDI_DELETE";

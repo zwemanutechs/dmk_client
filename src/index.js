@@ -1,20 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from "redux";
+import { createStore, applyMiddleware, compose  } from "redux";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import './index.css';
 import App from './App';
 import { createBrowserHistory } from 'history'
 import * as serviceWorker from './serviceWorker';
-
+import thunk from 'redux-thunk';
 import rootReducer from "./reducers";
 import { Router, Route } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
-
 const store = createStore(
     rootReducer,
-    composeWithDevTools()
+    applyMiddleware(thunk),
 );
 export const history = createBrowserHistory();
 

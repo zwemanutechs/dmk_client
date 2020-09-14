@@ -24,6 +24,7 @@ import {Link} from "react-router-dom";
 import SimpleBreadCrumbs from "../../shared/breadcum/breadcrumbs"
 import CompanyLogo from "../../assets/images/logo/dormakaba_transparent.png"
 import WavesIcon from '@material-ui/icons/Waves';
+import TimerIcon from '@material-ui/icons/Timer';
 
 const drawerWidth = 240;
 
@@ -164,6 +165,11 @@ class MainLayout extends Component {
                         <ListItem key={2} button component={Link} to="/RinseDI" style={{minHeight: 45,}}>
                             <ListItemIcon><WavesIcon /> </ListItemIcon>
                             <ListItemText primary={"Rinse DI"} />
+                        </ListItem>
+                        <Divider/>
+                        <ListItem key={3} button component={Link} to="/RinseOne" style={{minHeight: 45,}}>
+                            <ListItemIcon><TimerIcon /> </ListItemIcon>
+                            <ListItemText primary={"Rinse One"} />
                         </ListItem>
                         <Divider/>
                     </List>

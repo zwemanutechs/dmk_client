@@ -3,7 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import AddIcon from "@material-ui/icons/Add";
 import { withStyles } from "@material-ui/core/styles";
-import { openDialog, closeDialog} from '../../mat-diaglog/actions/maxDialog-action'
+import { openDialog, closeDialog} from '../../mat-diaglog/actions/maxDialog-action';
 import {connect} from "react-redux";
 import compose from "recompose/compose";
 
@@ -20,7 +20,7 @@ class CustomTableToolbar extends React.Component {
 
 
     handleClick = () => {
-        return this.props.openDialog(true);
+        return this.props.openDialog(true, 'ADD');
     };
 
     render() {
@@ -39,7 +39,8 @@ class CustomTableToolbar extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    digOpen: state.diagItemActions.digOpen
+    digOpen: state.diagItemActions.digOpen,
+    title: state.diagItemActions.title
 });
 
 export default compose(

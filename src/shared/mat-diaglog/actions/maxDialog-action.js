@@ -1,8 +1,9 @@
 import { OPEN_DIAG, CLOSE_DIAG } from "../action-constants/maxDialog-actionTypes";
 
-export const openDialog = digValue => ({
+export const openDialog = (digValue, title) => ({
     type: OPEN_DIAG, // mandatory key
-    digValue
+    digValue,
+    title
 });
 
 export const closeDialog = digValue => ({

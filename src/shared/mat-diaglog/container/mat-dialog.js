@@ -11,53 +11,68 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputLabel from '@material-ui/core/InputLabel';
 import { openDialog, closeDialog} from '../actions/maxDialog-action'
 import {connect} from "react-redux";
+import TextField from "@material-ui/core/TextField";
+import {useMediaQuery, useTheme} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     form: {
         display: 'flex',
         flexDirection: 'column',
         margin: 'auto',
-        width: 'fit-content',
+        width: '100%',
     },
     formControl: {
         marginTop: theme.spacing(2),
-        minWidth: 120,
+        width: '100%',
+        margin: 4
     },
     formControlLabel: {
         marginTop: theme.spacing(1),
+    },
+    paper: {
+        minWidth: "500px",
+        [theme.breakpoints.up('md')]: {
+            position: 'absolute',
+            left: '30%',
+            right: '30%',
+            top: 80
+        },
     },
 }));
 
 function MaxWidthDialog(props) {
     const classes = useStyles();
-
-    const handelClose = () =>{
-        return props.closeDialog(false);
-    };
-
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     return (
-        <Dialog
-            fullWidth={false}
-            maxWidth={'md'}
-            open={props.digOpen}
-            onClose={handelClose}
-            aria-labelledby="max-width-dialog-title"
-        >
-            <DialogTitle id="max-width-dialog-title">Add</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    <form className={classes.form} noValidate>
-                        <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="max-width">PH Meter</InputLabel>
-                        </FormControl>
-                    </form>
-                </DialogContentText>
-            </DialogContent>
-        </Dialog>
+        <div style={{minWidth: 400}}>
+            <Dialog
+                fullScreen={fullScreen}
+                maxWidth = {'md'}
+                open={props.digOpen}
+                onClose={props.formClose}
+                classes={{paper: classes.paper}}
+                aria-labelledby="max-width-dialog-title"
+            >
+                <DialogTitle id="max-width-dialog-title" onClose={props.formClose}>{`${props.title} ${props.contentTitle}`}</DialogTitle>
+                <DialogContent>
+                    {props.content}
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={props.formClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={props.formSubmit} color="primary">
+                        Save
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
     )
 }
 const mapStateToProps = state => ({
-    digOpen: state.diagItemActions.digOpen
+    digOpen: state.diagItemActions.digOpen,
+    title: state.diagItemActions.title
 });
 
 export default connect(

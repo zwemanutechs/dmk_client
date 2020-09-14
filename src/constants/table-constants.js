@@ -12,5 +12,8 @@ export const tableCustomizeToolBarSingleSelect = {
         return (
             <CustomTableToolbar />
         );
+    },
+    onRowsClick: (rowData, rowMeta) => {
+
     }
 };

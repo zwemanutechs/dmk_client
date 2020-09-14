@@ -28,6 +28,18 @@
   color: #61dafb;
 }
 
+.success > .MuiSnackbarContent-root {
+  background-color: rgb(48, 202, 55) !important;
+}
+
+.error > .MuiSnackbarContent-root {
+  background-color: rgb(213, 42, 41) !important;
+}
+
+.warning > .MuiSnackbarContent-root {
+  background-color: rgb(231, 150, 39) !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

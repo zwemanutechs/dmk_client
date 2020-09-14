@@ -1,6 +1,7 @@
 const diagItemActions = (
     state = {
-        digOpen: false
+        digOpen: false,
+        title: ''
     },
     action
 ) => {
@@ -8,12 +9,13 @@ const diagItemActions = (
         case "OPEN_DIAG":
             return {
                 ...state,
-                digOpen: true
+                digOpen: true,
+                title: action.title
             };
         case "CLOSE_DIAG":
             return {
                 ...state,
-                digOpen: false
+                digOpen: false,
             };
         default:
             return state;

@@ -1,0 +1,8 @@
+applications:
+- name: DMKUI
+  instances: 1
+  routes:
+  - route: dmkv1.apps.eu1.mindsphere.io
+  buildpacks:
+    - staticfile_buildpack
+  memory: 256M
