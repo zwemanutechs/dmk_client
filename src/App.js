@@ -14,6 +14,8 @@ class App extends Component {
               <Main_layout>
                   <Route exact path="/Home" render={() => <Home />}/>
                   <Route exact path="/RinseDI" render={() => <RinseDi />}/>
+                  <Route exact path="/RinseOne" render={() => <RinseDi />}/>
+                  <Route exact path="/RinseTwo" render={() => <RinseDi />}/>
               </Main_layout>
               <MuiSnackBar/>
           </div>

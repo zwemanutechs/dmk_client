@@ -90,10 +90,10 @@ class RinseDi extends Component{
     render() {
         return (
             <div>
-                <MUITable title={"RINSE DI"} data={this.state.data} columns={columns} options={this.tableCustomizeToolBarSingleSelect()} />
+                <MUITable title={"RINSE 2"} data={this.state.data} columns={columns} options={this.tableCustomizeToolBarSingleSelect()} />
                 <MaxWidthDialog
                     content={<RinseDIAddOrEdit dataSet={this.props.rinseDIDataSet} handelChange={this.handelChange}/> }
-                    contentTitle={"RINSE DI"}
+                    contentTitle={"RINSE 2"}
                     formClose={this.handelFormClose}
                     formSubmit={this.handelFormSubmit}/>
             </div>

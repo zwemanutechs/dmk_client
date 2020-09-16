@@ -23,8 +23,18 @@ import {withRouter} from "react-router";
 import {Link} from "react-router-dom";
 import SimpleBreadCrumbs from "../../shared/breadcum/breadcrumbs"
 import CompanyLogo from "../../assets/images/logo/dormakaba_transparent.png"
-import WavesIcon from '@material-ui/icons/Waves';
-import TimerIcon from '@material-ui/icons/Timer';
+import Degreasing from '../../assets/images/svg/degreasing.svg';
+import Rinse1 from '../../assets/images/svg/rinse_1.svg';
+import Rinse2 from '../../assets/images/svg/rinse_2.svg'
+import Rinse3 from '../../assets/images/svg/rinse_3.svg'
+import RinseDIIcon from '../../assets/images/svg/rinse_di.svg'
+import Oven from '../../assets/images/svg/oven.svg'
+import PaintBooth from '../../assets/images/svg/painting_booth.svg'
+import Evaporator from '../../assets/images/svg/evaporator.svg'
+import Icon from "@material-ui/core/Icon";
+import AutorenewOutlinedIcon from '@material-ui/icons/AutorenewOutlined';
+import FilterTiltShiftOutlinedIcon from '@material-ui/icons/FilterTiltShiftOutlined';
+import KitchenOutlinedIcon from '@material-ui/icons/KitchenOutlined';
 
 const drawerWidth = 240;
 
@@ -111,6 +121,11 @@ class MainLayout extends Component {
         return value ? this.props.openMenu(true) : this.props.closeMenu(false);
     };
 
+    onMenuSelect = (to, formId) => {
+        localStorage.setItem('FormID', formId);
+        this.props.history.push(to);
+    };
+
     render() {
         return (
             <div className={this.props.classes.root}>
@@ -157,19 +172,64 @@ class MainLayout extends Component {
                     </div>
                     <Divider />
                     <List component="div" disablePadding dense={true} >
-                        <ListItem key={1} button component={Link} to="/Home" style={{minHeight: 45,}}>
+                        <ListItem key={1} button component={Link} to="/Home" style={{minHeight: 47,}}>
                             <ListItemIcon><HomeIcon /> </ListItemIcon>
                             <ListItemText primary={"Home"} />
                         </ListItem>
                         <Divider/>
-                        <ListItem key={2} button component={Link} to="/RinseDI" style={{minHeight: 45,}}>
-                            <ListItemIcon><WavesIcon /> </ListItemIcon>
+                        <ListItem key={2} button component={Link} to="/RinseDI" style={{minHeight: 47}}>
+                            <ListItemIcon><Icon><img src={RinseDIIcon} width="25" height="25"/></Icon></ListItemIcon>
                             <ListItemText primary={"Rinse DI"} />
                         </ListItem>
                         <Divider/>
-                        <ListItem key={3} button component={Link} to="/RinseOne" style={{minHeight: 45,}}>
-                            <ListItemIcon><TimerIcon /> </ListItemIcon>
+                        <ListItem key={3} button component={Link} to="/RinseOne" style={{minHeight: 47,}}>
+                            <ListItemIcon><Icon><img src={Rinse1} width="25" height="25"/></Icon></ListItemIcon>
                             <ListItemText primary={"Rinse One"} />
+                        </ListItem>
+                        <Divider/>
+                        <ListItem key={3} button component={Link} onClick={e => {this.onMenuSelect("/RinseTwo", 'f123-f435')}} style={{minHeight: 47,}}>
+                            <ListItemIcon><Icon><img src={Rinse2} width="25" height="25"/></Icon></ListItemIcon>
+                            <ListItemText primary={"Rinse Two"} />
+                        </ListItem>
+                        <Divider/>
+                        <ListItem key={3} button component={Link} to="/RinseOne" style={{minHeight: 47,}}>
+                            <ListItemIcon><Icon><img src={Rinse3} width="25" height="25"/></Icon></ListItemIcon>
+                            <ListItemText primary={"Rinse Three"} />
+                        </ListItem>
+                        <Divider/>
+                        <ListItem key={4} button component={Link} to="/Degreasing" style={{minHeight: 47,}}>
+                            <ListItemIcon><Icon><img src={Degreasing} width="25" height="25"/></Icon></ListItemIcon>
+                            <ListItemText primary={"Degreasing"} />
+                        </ListItem>
+                        <Divider/>
+                        <ListItem key={4} button component={Link} to="/PaintBooth" style={{minHeight: 47,}}>
+                            <ListItemIcon><Icon><img src={PaintBooth} width="25" height="25"/></Icon></ListItemIcon>
+                            <ListItemText primary={"Paint Booth"} />
+                        </ListItem>
+                        <Divider/>
+                        <ListItem key={4} button component={Link} to="/PaintBooth" style={{minHeight: 47,}}>
+                            <ListItemIcon><Icon><img src={Oven} width="25" height="25"/></Icon></ListItemIcon>
+                            <ListItemText primary={"Oven"} />
+                        </ListItem>
+                        <Divider/>
+                        <ListItem key={4} button component={Link} to="/PaintBooth" style={{minHeight: 47,}}>
+                            <ListItemIcon><Icon><img src={Evaporator} width="25" height="25"/></Icon></ListItemIcon>
+                            <ListItemText primary={"Neu & Evaporator"} />
+                        </ListItem>
+                        <Divider/>
+                        <ListItem key={4} button component={Link} to="/PaintBooth" style={{minHeight: 47,}}>
+                            <ListItemIcon><AutorenewOutlinedIcon/></ListItemIcon>
+                            <ListItemText primary={"Conversion"} />
+                        </ListItem>
+                        <Divider/>
+                        <ListItem key={4} button component={Link} to="/PaintBooth" style={{minHeight: 47,}}>
+                            <ListItemIcon><FilterTiltShiftOutlinedIcon/></ListItemIcon>
+                            <ListItemText primary={"Passivation"} />
+                        </ListItem>
+                        <Divider/>
+                        <ListItem key={4} button component={Link} to="/PaintBooth" style={{minHeight: 47,}}>
+                            <ListItemIcon><KitchenOutlinedIcon/></ListItemIcon>
+                            <ListItemText primary={"Paint Cabinet"} />
                         </ListItem>
                         <Divider/>
                     </List>
