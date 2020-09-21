@@ -28,11 +28,11 @@ class CustomTableToolbar extends React.Component {
 
         return (
             <React.Fragment>
-                <Tooltip title={"add"}>
-                    <IconButton className={classes.iconButton} onClick={this.handleClick}>
-                        <AddIcon className={classes.deleteIcon} />
-                    </IconButton>
-                </Tooltip>
+                {/*<Tooltip title={"add"}>*/}
+                {/*    <IconButton className={classes.iconButton} onClick={this.handleClick}>*/}
+                {/*        <AddIcon className={classes.deleteIcon} />*/}
+                {/*    </IconButton>*/}
+                {/*</Tooltip>*/}
             </React.Fragment>
         );
     }
