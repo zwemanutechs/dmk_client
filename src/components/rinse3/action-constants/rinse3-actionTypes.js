@@ -1,0 +1,10 @@
+export const R3_GET = "R3_GET";
+export const R3_OPEN_DIAG = "R3_OPEN_DIAG";
+export const R3_CLOSE_DIAG = "R3_CLOSE_DIAG";
+export const R3_FORM_CHANGE = "R3_FORM_CHANGE";
+export const R3_SAVE = "R3_SAVE";
+export const R3_UPDATE = "R3_UPDATE";
+export const R3_DELETE = "R3_DELETE";
+export const R3_PRINT_PDF = "R3_PRINT_PDF";
+export const R3_PRINT_CSV = "R3_PRINT_CSV";
+export const R3_FILTER = "R3_FILTER";

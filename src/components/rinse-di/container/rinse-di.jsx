@@ -42,32 +42,20 @@ class RinseDi extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            page: 0,
-            count: 1,
-            rowsPerPage: 10,
             sortOrder: {},
-            data: [],
         }
     }
 
     componentDidMount() {
-        this.getData(this.state.page, this.state.rowsPerPage)
+       this.getData(this.props.page, this.props.rowsPerPage)
     }
 
     getData(pageNo, pageSize) {
-        get(`/rinsedi?pageNo=${pageNo}&pageSize=${pageSize}`).then(response => response.json())
-            .then(data => {
-                console.log(data);
-                if (data.code === true) {
-                    this.setState({data: data.data.data, count: data.data.count})
-                }
-            }).catch(function (err) {
-            console.log('Fetch Error :-S', err);
-        });
+        this.props.rdiGet(pageNo, pageSize);
     }
 
     handelEdit = (rowData, rowMeta) => {
-        this.props.rdiOpenDiag(this.state.data[rowMeta.dataIndex], 'UPDATE');
+        this.props.rdiOpenDiag(this.props.data[rowMeta.dataIndex], 'UPDATE');
     };
 
     handelFormClose = () => {
@@ -98,8 +86,7 @@ class RinseDi extends Component {
         selectableRows: 'multiple',
         filterType: 'dropdown',
         responsive: 'simple',
-        count: this.state.count,
-        rowsPerPage: this.state.rowsPerPage,
+        count: this.props.count,
         customToolbar: () => {
             return (
                 <CustomTableToolbar/>
@@ -110,6 +97,7 @@ class RinseDi extends Component {
             console.log(action, tableState);
             switch (action) {
                 case 'changePage':
+                case 'changeRowsPerPage':
                     this.getData(tableState.page, tableState.rowsPerPage);
                     break;
                 case 'sort':
@@ -127,7 +115,7 @@ class RinseDi extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"RINSE DI"} data={this.state.data} columns={columns} options={this.tableCustomizeToolBarSingleSelect()}/>
+                <MUITable title={"RINSE DI"} data={this.props.data} columns={columns} options={this.tableCustomizeToolBarSingleSelect()}/>
                 <MaxWidthDialog
                     content={<RinseDIAddOrEdit dataSet={this.props.rinseDIDataSet} handelChange={this.handelChange}/>}
                     contentTitle={"RINSE DI"}
@@ -143,10 +131,14 @@ const mapStateToProps = state => ({
     digOpen: state.diagItemActions.digOpen,
     rinseDIDataSet: state.rinseDIItemActions.rinseDIDataSet,
     snackOpen: state.snackItemActions.snackOpen,
+    data:state.rinseDIItemActions.data,
+    count:state.rinseDIItemActions.count,
+    page:state.rinseDIItemActions.page,
+    rowsPerPage:state.rinseDIItemActions.rowsPerPage,
 });
 
 
 export default connect(
     mapStateToProps,
-    {openDialog, rdiOpenDiag, rdiCloseDiag, rdiSave, rdiFormChange, openSnack, closeSnack},
+    {rdiGet,openDialog, rdiOpenDiag, rdiCloseDiag, rdiSave, rdiFormChange, openSnack, closeSnack},
 )(RinseDi)

@@ -1,6 +1,9 @@
 const rinseDIItemActions = (
     state = {
-        rinseDI: [],
+        data: [],
+        page: 0,
+        count: 1,
+        rowsPerPage: 10,
         rinseDIDataSet: {
             phMeter: 0,
             waterGuage: 0,
@@ -15,7 +18,8 @@ const rinseDIItemActions = (
         case "RDI_GET":
             return {
                 ...state,
-                rinseDI: [...state.rinseDI, action.name]
+                data: action.data.data,
+                count: action.data.count
             };
         case "RDI_OPEN_DIAG":
             return {
@@ -39,7 +43,7 @@ const rinseDIItemActions = (
                 ...state,
                 openDialog: false,
                 rinseDIDataSet: {...state.rinseDIDataSet,  rinseDIDataSet: action.rdiModel},
-                rinseDI: [...state.rinseDI, action.name]
+                data: [...state.data, action.name]
             };
         default:
             return state;

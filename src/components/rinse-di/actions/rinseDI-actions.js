@@ -8,10 +8,11 @@ import {
     RDI_PRINT_CSV,
     RDI_PRINT_PDF,
     RDI_CLOSE_DIAG, RDI_FORM_CHANGE
-} from '../action-constants/rinseDi-actionTypesjs';
+} from '../action-constants/rinseDi-actionTypes';
 import {OPEN_MENU} from "../../../layout/action-constants/menu-actionTypes";
 import {closeDialog, openDialog} from "../../../shared/mat-diaglog/actions/maxDialog-action";
 import {CLOSE_DIAG} from "../../../shared/mat-diaglog/action-constants/maxDialog-actionTypes";
+import {get} from "../../../appservices/http-services/httpservices";
 
 const rdiModel = {
     phMeter: 0,
@@ -22,11 +23,16 @@ const rdiModel = {
 
 export const rdiGet = (page, take) => {
     return function (dispatch) {
-        const requestURL = `http://pokeapi.co/api/v2/pokemon/${page}/${take}`;
-        dispatch({
-            type: RDI_GET,
-            promise: fetch(requestURL)
-        })
+        return  get(`/rinsedi?pageNo=${page}&pageSize=${take}`).then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.code === true) {
+                    dispatch({
+                        type: RDI_GET,
+                        data: data.data
+                    })
+                }
+            });
     }
 };
 

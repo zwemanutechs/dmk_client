@@ -182,17 +182,17 @@ class MainLayout extends Component {
                             <ListItemText primary={"Rinse DI"} />
                         </ListItem>
                         <Divider/>
-                        <ListItem key={3} button component={Link} to="/RinseOne" style={{minHeight: 47,}}>
+                        <ListItem key={3} button component={Link} to="/RinseOne" style={{minHeight: 47}}>
                             <ListItemIcon><Icon><img src={Rinse1} width="25" height="25"/></Icon></ListItemIcon>
-                            <ListItemText primary={"Rinse One"} />
+                            <ListItemText primary={"Rinse 1"} />
                         </ListItem>
                         <Divider/>
-                        <ListItem key={3} button component={Link} onClick={e => {this.onMenuSelect("/RinseTwo", 'f123-f435')}} style={{minHeight: 47,}}>
+                        <ListItem key={3} button component={Link} to="/RinseTwo" style={{minHeight: 47}}>
                             <ListItemIcon><Icon><img src={Rinse2} width="25" height="25"/></Icon></ListItemIcon>
                             <ListItemText primary={"Rinse Two"} />
                         </ListItem>
                         <Divider/>
-                        <ListItem key={3} button component={Link} to="/RinseOne" style={{minHeight: 47,}}>
+                        <ListItem key={3} button component={Link} to="/RinseThree" style={{minHeight: 47,}}>
                             <ListItemIcon><Icon><img src={Rinse3} width="25" height="25"/></Icon></ListItemIcon>
                             <ListItemText primary={"Rinse Three"} />
                         </ListItem>
@@ -206,11 +206,11 @@ class MainLayout extends Component {
                             <ListItemIcon><Icon><img src={PaintBooth} width="25" height="25"/></Icon></ListItemIcon>
                             <ListItemText primary={"Paint Booth"} />
                         </ListItem>
-                        <Divider/>
-                        <ListItem key={4} button component={Link} to="/PaintBooth" style={{minHeight: 47,}}>
-                            <ListItemIcon><Icon><img src={Oven} width="25" height="25"/></Icon></ListItemIcon>
-                            <ListItemText primary={"Oven"} />
-                        </ListItem>
+                        {/*<Divider/>*/}
+                        {/*<ListItem key={4} button component={Link} to="/PaintBooth" style={{minHeight: 47,}}>*/}
+                        {/*    <ListItemIcon><Icon><img src={Oven} width="25" height="25"/></Icon></ListItemIcon>*/}
+                        {/*    <ListItemText primary={"Oven"} />*/}
+                        {/*</ListItem>*/}
                         <Divider/>
                         <ListItem key={4} button component={Link} to="/PaintBooth" style={{minHeight: 47,}}>
                             <ListItemIcon><Icon><img src={Evaporator} width="25" height="25"/></Icon></ListItemIcon>

@@ -10,10 +10,11 @@ import * as serviceWorker from './serviceWorker';
 import thunk from 'redux-thunk';
 import rootReducer from "./reducers";
 import { Router, Route } from 'react-router';
+import apiMiddleware from "./middleware/api";
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 const store = createStore(
     rootReducer,
-    applyMiddleware(thunk),
+    applyMiddleware(thunk,apiMiddleware),
 );
 export const history = createBrowserHistory();
 
