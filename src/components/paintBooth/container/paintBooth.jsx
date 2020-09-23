@@ -1,18 +1,24 @@
 import React, {Component} from 'react';
 import {openSnack, closeSnack} from "../../../shared/snackbar/actions/snackbar-actions";
-import { r3Get} from "../actions/rinse3-actions";
+import {paintBoothGet} from "../actions/paintBooth-actions";
 import CustomTableToolbar from "../../../shared/mui-datatable/container/custamize-table-toolbar";
 import {connect} from "react-redux";
 import MUITable from "../../../shared/mui-datatable/container/mui-table";
 
-const columns = [{label: 'Ph Meter', name: 'ph'},
-    {label: 'Water supply from DI Water Tank', name: 'waterSupplyFromDiWaterTank'},
+const columns = [
+    {label: 'High Tension ESTA1 R11', name: 'highTensionEsta1R11'},
+    {label: 'High Tension ESTA1 R12', name: 'highTensionEsta1R12'},
+    {label: 'High Tension ESTA2 R11', name: 'highTensionEsta2R11'},
+    {label: 'Paint Pressure', name: 'paintPressure'},
+    {label: 'Paint Pressure At R11', name: 'paintPressureAtR11'},
+    {label: 'Paint Pressure At R12', name: 'paintPressureAtR12'},
+    {label: 'Touch Up Room 1 Air Flow', name: 'touchUpRoom1AirFlow'},
+    {label: 'Touch Up Room 2 Air Flow', name: 'touchUpRoom2AirFlow'},
     {
-    label: 'Updated At',
-    name: 'updatedat', options: {
-        filter: false,
-        customBodyRender: (value, tableMeta, updateValue) => (
-            <span>
+        label: 'Updated At', name: 'updatedat', options: {
+            filter: false,
+            customBodyRender: (value, tableMeta, updateValue) => (
+                <span>
               {new Date(value).toLocaleString("en-GB", {
                   year: "numeric",
                   month: "short",
@@ -22,11 +28,11 @@ const columns = [{label: 'Ph Meter', name: 'ph'},
                   second: "numeric"
               })}
             </span>
-        )
-    }
-}, {label: 'Updated By', name: 'updatedby'}];
+            )
+        }
+    }, {label: 'Updated By', name: 'updatedby'}];
 
-class Rinse3 extends Component {
+class PaintBooth extends Component {
 
     constructor(props) {
         super(props);
@@ -36,13 +42,13 @@ class Rinse3 extends Component {
     }
 
     componentDidMount() {
-       this.getData(this.props.page, this.props.rowsPerPage)
+        this.getData(this.props.page, this.props.rowsPerPage)
     }
 
     getData(pageNo, pageSize) {
-        this.props.r3Get(pageNo, pageSize);
+        this.props.paintBoothGet(pageNo, pageSize);
     }
-    
+
     options = () => ({
         filter: true,
         selectableRows: false,
@@ -74,7 +80,8 @@ class Rinse3 extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"RINSE 3"} data={this.props.data} columns={columns} options={this.options()}/>
+                <MUITable title={"Paint Booth"} data={this.props.data} columns={columns}
+                          options={this.options()}/>
             </div>
         );
     }
@@ -83,16 +90,16 @@ class Rinse3 extends Component {
 const mapStateToProps = state => ({
     title: state.diagItemActions.title,
     digOpen: state.diagItemActions.digOpen,
-    rinse3DataSet: state.rinse3ItemActions.rinse3DataSet,
+    paintBoothDataSet: state.paintBoothItemActions.paintBoothDataSet,
     snackOpen: state.snackItemActions.snackOpen,
-    data:state.rinse3ItemActions.data,
-    count:state.rinse3ItemActions.count,
-    page:state.rinse3ItemActions.page,
-    rowsPerPage:state.rinse3ItemActions.rowsPerPage,
+    data: state.paintBoothItemActions.data,
+    count: state.paintBoothItemActions.count,
+    page: state.paintBoothItemActions.page,
+    rowsPerPage: state.paintBoothItemActions.rowsPerPage,
 });
 
 
 export default connect(
     mapStateToProps,
-    {r3Get, openSnack, closeSnack},
-)(Rinse3)
+    {paintBoothGet, openSnack, closeSnack},
+)(PaintBooth)

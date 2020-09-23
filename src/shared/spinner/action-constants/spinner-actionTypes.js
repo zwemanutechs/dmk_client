@@ -1,0 +1,2 @@
+export const OPEN_SPINNER = "OPEN_SPINNER";
+export const CLOSE_SPINNER = "CLOSE_SPINNER";

@@ -1,21 +1,20 @@
-import {DEGREASING_GET} from '../action-constants/degreasing-actionTypes';
-import {OPEN_SNACK} from '../../../shared/snackbar/action-constants/snackbar-actionTypes';
+import {PAINTBOOTH_GET} from '../action-constants/paintBooth-actionTypes';
 import {apiAction} from "../../../appservices/api-services";
 import {snackError} from "../../../constants/app-constants";
 
 
-export const degreasingGet = (page, take) => {
+export const paintBoothGet = (page, take) => {
     return apiAction({
-        url: `/degreasing?pageNo=${page}&pageSize=${take}`,
+        url: `/paintBooth?pageNo=${page}&pageSize=${take}`,
         onSuccess: (data) => {
             return {
-                type: DEGREASING_GET,
+                type: PAINTBOOTH_GET,
                 data: data
             };
         },
         onFailure: (error) => {
             return {
-                type: OPEN_SNACK,
+                type: 'OPEN_SNACK',
                 status:false,
                 message:'Server Error',
                 snackType:snackError

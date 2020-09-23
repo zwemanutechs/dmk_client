@@ -19,9 +19,9 @@ const apiMiddleware = ({dispatch}) => next => action => {
     } = action.payload;
 
 
-    if (label) {
+    // if (label) {
         dispatch(apiStart(label));
-    }
+    // }
 
     fetch(baseUrl + url, {
         method: method,
@@ -42,9 +42,9 @@ const apiMiddleware = ({dispatch}) => next => action => {
             }
         })
         .finally(() => {
-            if (label) {
+            // if (label) {
                 dispatch(apiEnd(label));
-            }
+            // }
         });
 };
 

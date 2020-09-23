@@ -9,7 +9,6 @@ export function apiAction({
                               },
                               onFailure = () => {
                               },
-                              label = "",
                               headersOverride = null
                           }) {
     return {
@@ -21,7 +20,6 @@ export function apiAction({
             accessToken,
             onSuccess,
             onFailure,
-            label,
             headersOverride
         }
     };

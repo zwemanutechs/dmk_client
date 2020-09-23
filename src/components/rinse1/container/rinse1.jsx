@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {openSnack, closeSnack} from "../../../shared/snackbar/actions/snackbar-actions";
+import {openSpinner} from "../../../shared/spinner/actions/spinner-actions";
 import { r1Get} from "../actions/rinse1-actions";
 import CustomTableToolbar from "../../../shared/mui-datatable/container/custamize-table-toolbar";
 import {connect} from "react-redux";
@@ -44,9 +45,9 @@ class Rinse1 extends Component {
         this.props.r1Get(pageNo, pageSize);
     }
 
-    tableCustomizeToolBarSingleSelect = () => ({
+    options = () => ({
         filter: true,
-        selectableRows: 'multiple',
+        selectableRows: false,
         filterType: 'dropdown',
         responsive: 'simple',
         count: this.props.count,
@@ -75,7 +76,7 @@ class Rinse1 extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"RINSE 1"} data={this.props.data} columns={columns} options={this.tableCustomizeToolBarSingleSelect()}/>
+                <MUITable title={"RINSE 1"} data={this.props.data} columns={columns} options={this.options()}/>
             </div>
         );
     }
@@ -89,11 +90,11 @@ const mapStateToProps = state => ({
     data:state.rinse1ItemActions.data,
     count:state.rinse1ItemActions.count,
     page:state.rinse1ItemActions.page,
-    rowsPerPage:state.rinse1ItemActions.rowsPerPage,
+    rowsPerPage:state.rinse1ItemActions.rowsPerPage
 });
 
 
 export default connect(
     mapStateToProps,
-    {r1Get, openSnack, closeSnack},
+    {r1Get, openSnack, closeSnack,openSpinner},
 )(Rinse1)

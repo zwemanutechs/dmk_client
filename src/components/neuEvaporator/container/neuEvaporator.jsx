@@ -1,24 +1,53 @@
 import React, {Component} from 'react';
 import {openSnack, closeSnack} from "../../../shared/snackbar/actions/snackbar-actions";
-import {degreasingGet} from "../actions/degreasing-actions";
+import {neuEvaporatorGet} from "../actions/neuEvaporator-actions";
 import CustomTableToolbar from "../../../shared/mui-datatable/container/custamize-table-toolbar";
 import {connect} from "react-redux";
 import MUITable from "../../../shared/mui-datatable/container/mui-table";
 
 const columns = [
-    {label: 'Concentration', name: 'concentration'},
-    {label: 'Oil Skimming', name: 'oilSkimming'},
-    {label: 'Water Supply From Tank 2', name: 'waterSupplyFromTank2'},
-    {
-        label: 'Concentration Below 2% Top-up Chemical', name: 'concentrationTopUp', options: {
+    {label: 'pH  Tank3', name: 'phTank3'},
+    {label: 'Feed Rate Evaporator  Tank 3', name: 'feedRateEvaporatorTank3'},
+    {label: 'pH HMI Tank3', name: 'phHmiTank3'},
+    {label: 'pH Tank6', name: 'phTank6'},
+    {label: 'Water Sample Tank6', name: 'waterSampleInBottleTank6', options: {
+            filter: false,
+            customBodyRender: (value, tableMeta, updateValue) => (
+                <span>
+              {value ? 'Good' : 'Bad'}
+            </span>
+            )
+        }},
+    {label: 'Conductivity', name: 'conductivity'},
+    {label: 'Water Level Tank6', name: 'waterLevelTank6'},
+    {label: 'Flow Rate Tank6', name: 'flowRateTank6'},
+    {label: 'Water Quality Tank7', name: 'waterQualityTank7', options: {
+            filter: false,
+            customBodyRender: (value, tableMeta, updateValue) => (
+                <span>
+              {value ? 'Good' : 'Bad'}
+            </span>
+            )
+        }},
+    {label: 'Water Level Tank7', name: 'waterLevelTank7'},
+    {label: 'Water Level (Litre) Tank8', name: 'waterLevelLitreTank8'},
+    {label: 'Any Abnormal Usage Tank8', name: 'anyAbnormalUsageTank8', options: {
             filter: false,
             customBodyRender: (value, tableMeta, updateValue) => (
                 <span>
               {value ? 'Yes' : 'No'}
             </span>
             )
-        }
-    },
+        }},
+    {label: 'Water Level (Litre) Tank9', name: 'waterLevelTank9'},
+    {label: 'Any Abnormal Usage Tank9', name: 'anyAbnormalUsageTank9', options: {
+            filter: false,
+            customBodyRender: (value, tableMeta, updateValue) => (
+                <span>
+              {value ? 'Yes' : 'No'}
+            </span>
+            )
+        }},
     {
         label: 'Updated At', name: 'updatedat', options: {
             filter: false,
@@ -37,7 +66,7 @@ const columns = [
         }
     }, {label: 'Updated By', name: 'updatedby'}];
 
-class Degreasing extends Component {
+class NeuEvaporator extends Component {
 
     constructor(props) {
         super(props);
@@ -51,7 +80,7 @@ class Degreasing extends Component {
     }
 
     getData(pageNo, pageSize) {
-        this.props.degreasingGet(pageNo, pageSize);
+        this.props.neuEvaporatorGet(pageNo, pageSize);
     }
 
     options = () => ({
@@ -85,7 +114,7 @@ class Degreasing extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"Degreasing"} data={this.props.data} columns={columns}
+                <MUITable title={"Neu Evaporator"} data={this.props.data} columns={columns}
                           options={this.options()}/>
             </div>
         );
@@ -95,16 +124,16 @@ class Degreasing extends Component {
 const mapStateToProps = state => ({
     title: state.diagItemActions.title,
     digOpen: state.diagItemActions.digOpen,
-    degreasingDataSet: state.degreasingItemActions.degreasingDataSet,
+    neuEvaporatorDataSet: state.neuEvaporatorItemActions.neuEvaporatorDataSet,
     snackOpen: state.snackItemActions.snackOpen,
-    data: state.degreasingItemActions.data,
-    count: state.degreasingItemActions.count,
-    page: state.degreasingItemActions.page,
-    rowsPerPage: state.degreasingItemActions.rowsPerPage,
+    data: state.neuEvaporatorItemActions.data,
+    count: state.neuEvaporatorItemActions.count,
+    page: state.neuEvaporatorItemActions.page,
+    rowsPerPage: state.neuEvaporatorItemActions.rowsPerPage,
 });
 
 
 export default connect(
     mapStateToProps,
-    {degreasingGet, openSnack, closeSnack},
-)(Degreasing)
+    {neuEvaporatorGet, openSnack, closeSnack},
+)(NeuEvaporator)

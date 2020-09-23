@@ -1,13 +1,12 @@
 import { API_START, API_END, ACCESS_DENIED, API_ERROR } from "./types";
+import { OPEN_SPINNER,CLOSE_SPINNER } from "../../shared/spinner/action-constants/spinner-actionTypes";
 
-export const apiStart = label => ({
-  type: API_START,
-  payload: label
+export const apiStart = () => ({
+  type: OPEN_SPINNER
 });
 
-export const apiEnd = label => ({
-  type: API_END,
-  payload: label
+export const apiEnd = () => ({
+  type: CLOSE_SPINNER,
 });
 
 export const accessDenied = url => ({

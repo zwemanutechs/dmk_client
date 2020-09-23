@@ -43,9 +43,9 @@ class Rinse2 extends Component {
         this.props.r2Get(pageNo, pageSize);
     }
     
-    tableCustomizeToolBarSingleSelect = () => ({
+    options = () => ({
         filter: true,
-        selectableRows: 'multiple',
+        selectableRows: false,
         filterType: 'dropdown',
         responsive: 'simple',
         count: this.props.count,
@@ -74,7 +74,7 @@ class Rinse2 extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"RINSE 2"} data={this.props.data} columns={columns} options={this.tableCustomizeToolBarSingleSelect()}/>
+                <MUITable title={"RINSE 2"} data={this.props.data} columns={columns} options={this.options()}/>
             </div>
         );
     }

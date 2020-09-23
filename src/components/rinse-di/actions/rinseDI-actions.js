@@ -13,6 +13,9 @@ import {OPEN_MENU} from "../../../layout/action-constants/menu-actionTypes";
 import {closeDialog, openDialog} from "../../../shared/mat-diaglog/actions/maxDialog-action";
 import {CLOSE_DIAG} from "../../../shared/mat-diaglog/action-constants/maxDialog-actionTypes";
 import {get} from "../../../appservices/http-services/httpservices";
+import {apiAction} from "../../../appservices/api-services";
+import {snackError} from "../../../constants/app-constants";
+import {OPEN_SNACK} from '../../../shared/snackbar/action-constants/snackbar-actionTypes';
 
 const rdiModel = {
     phMeter: 0,
@@ -22,18 +25,37 @@ const rdiModel = {
 };
 
 export const rdiGet = (page, take) => {
-    return function (dispatch) {
-        return  get(`/rinsedi?pageNo=${page}&pageSize=${take}`).then(response => response.json())
-            .then(data => {
-                console.log(data);
-                if (data.code === true) {
-                    dispatch({
-                        type: RDI_GET,
-                        data: data.data
-                    })
-                }
-            });
-    }
+    return apiAction({
+    url: `/rinsedi?pageNo=${page}&pageSize=${take}`,
+    onSuccess: (data)=>{
+        return {
+            type: RDI_GET,
+            data: data
+        };
+    },
+    onFailure: (error) => {
+        return {
+            type: OPEN_SNACK,
+            status:false,
+            message:'Server Error',
+            snackType:snackError
+        };
+    },
+    label: RDI_GET
+});
+
+    // return function (dispatch) {
+    //     return  get(`/rinsedi?pageNo=${page}&pageSize=${take}`).then(response => response.json())
+    //         .then(data => {
+    //             console.log(data);
+    //             if (data.code === true) {
+    //                 dispatch({
+    //                     type: RDI_GET,
+    //                     data: data.data
+    //                 })
+    //             }
+    //         });
+    // }
 };
 
 export const rdiOpenDiag = (dataSet, title) => (dispatch) => {

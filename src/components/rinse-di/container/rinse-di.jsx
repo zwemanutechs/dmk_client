@@ -4,7 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import AddIcon from "@material-ui/icons/Add";
 import {withStyles} from "@material-ui/core/styles";
-import {tableCustomizeToolBarSingleSelect} from "../../../constants/table-constants";
+import {options} from "../../../constants/table-constants";
 import MaxWidthDialog from "../../../shared/mat-diaglog/container/mat-dialog";
 import Main_layout from "../../../layout/container/main_layout";
 import {openDialog, closeDialog} from "../../../shared/mat-diaglog/actions/maxDialog-action";
@@ -81,9 +81,9 @@ class RinseDi extends Component {
         this.props.rdiFormChange(newState);
     };
 
-    tableCustomizeToolBarSingleSelect = () => ({
+    options = () => ({
         filter: true,
-        selectableRows: 'multiple',
+        selectableRows: false,
         filterType: 'dropdown',
         responsive: 'simple',
         count: this.props.count,
@@ -115,7 +115,7 @@ class RinseDi extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"RINSE DI"} data={this.props.data} columns={columns} options={this.tableCustomizeToolBarSingleSelect()}/>
+                <MUITable title={"RINSE DI"} data={this.props.data} columns={columns} options={this.options()}/>
                 <MaxWidthDialog
                     content={<RinseDIAddOrEdit dataSet={this.props.rinseDIDataSet} handelChange={this.handelChange}/>}
                     contentTitle={"RINSE DI"}

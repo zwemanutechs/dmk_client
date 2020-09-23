@@ -9,6 +9,11 @@ import Rinse2 from "./components/rinse2/container/rinse2";
 import Rinse3 from "./components/rinse3/container/rinse3";
 import Degreasing from "./components/degreasing/container/degreasing";
 import MuiSnackBar from "./shared/snackbar/container/snackbar";
+import Spinner from "./shared/spinner/container/spinner";
+import PaintBooth from "./components/paintBooth/container/paintBooth";
+import NeuEvaporator from "./components/neuEvaporator/container/neuEvaporator";
+import Passivation from "./components/passivation/container/passivation";
+import PaintCabinet from "./components/paintCabinet/container/paintCabinet";
 
 class App extends Component {
 
@@ -22,7 +27,12 @@ class App extends Component {
                   <Route exact path="/RinseTwo" render={() => <Rinse2 />}/>
                   <Route exact path="/RinseThree" render={() => <Rinse3 />}/>
                   <Route exact path="/Degreasing" render={() => <Degreasing />}/>
+                  <Route exact path="/PaintBooth" render={() => <PaintBooth />}/>
+                  <Route exact path="/NeuEvaporator" render={() => <NeuEvaporator />}/>
+                  <Route exact path="/Passivation" render={() => <Passivation />}/>
+                  <Route exact path="/PaintCabinet" render={() => <PaintCabinet />}/>
               </Main_layout>
+              <Spinner/>
               <MuiSnackBar/>
           </div>
     );

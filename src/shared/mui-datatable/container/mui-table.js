@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import MUIDataTable from "mui-datatables";
 import {withStyles} from "@material-ui/styles";
+import { CircularProgress, Typography } from '@material-ui/core';
 
 const defaultTableStyles = theme => ({
     root: {},
@@ -27,7 +28,7 @@ class MUITable extends Component{
 
     render() {
         return (
-            <MUIDataTable title={this.props.title} data={this.props.data} columns={this.props.columns} options={this.props.options} />
+            <MUIDataTable title={this.props.title} data={this.props.data} columns={this.props.columns} options={this.props.options}/>
         );
     }
 }
