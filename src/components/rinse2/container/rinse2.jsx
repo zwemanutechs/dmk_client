@@ -62,9 +62,9 @@ class Rinse2 extends Component {
                 case 'changeRowsPerPage':
                     this.getData(tableState.page, tableState.rowsPerPage);
                     break;
-                case 'sort':
-                    this.sort(tableState.page, tableState.sortOrder);
-                    break;
+                //case 'sort':
+                    //this.sort(tableState.page, tableState.sortOrder);
+                    //break;
                 default:
                     console.log('action not handled.');
             }

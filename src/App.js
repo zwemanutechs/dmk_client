@@ -14,6 +14,7 @@ import PaintBooth from "./components/paintBooth/container/paintBooth";
 import NeuEvaporator from "./components/neuEvaporator/container/neuEvaporator";
 import Passivation from "./components/passivation/container/passivation";
 import PaintCabinet from "./components/paintCabinet/container/paintCabinet";
+import Conversion from "./components/conversion/container/conversion";
 
 class App extends Component {
 
@@ -31,6 +32,7 @@ class App extends Component {
                   <Route exact path="/NeuEvaporator" render={() => <NeuEvaporator />}/>
                   <Route exact path="/Passivation" render={() => <Passivation />}/>
                   <Route exact path="/PaintCabinet" render={() => <PaintCabinet />}/>
+                  <Route exact path="/Conversion" render={() => <Conversion />}/>
               </Main_layout>
               <Spinner/>
               <MuiSnackBar/>
