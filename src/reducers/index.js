@@ -9,6 +9,7 @@ import paintBoothItemActions from "../components/paintBooth/reducers/paintBooth-
 import neuEvaporatorItemActions from "../components/neuEvaporator/reducers/neuEvaporator-reducer";
 import passivationItemActions from "../components/passivation/reducers/passivation-reducer";
 import paintCabinetItemActions from "../components/paintCabinet/reducers/paintCabinet-reducer";
+import conversionItemActions from "../components/conversion/reducers/conversion-reducer";
 import diagItemActions from "../shared/mat-diaglog/reducer/maxDialog-reducer";
 import snackItemActions from "../shared/snackbar/reducer/snackbar-reducer";
 import spinnerItemActions from "../shared/spinner/reducer/spinner-reducer";
@@ -25,6 +26,7 @@ export default combineReducers({
     neuEvaporatorItemActions,
     passivationItemActions,
     paintCabinetItemActions,
+    conversionItemActions,
     snackItemActions,
     spinnerItemActions
 });

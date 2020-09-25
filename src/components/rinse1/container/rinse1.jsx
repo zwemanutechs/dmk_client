@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {openSnack, closeSnack} from "../../../shared/snackbar/actions/snackbar-actions";
 import {openSpinner} from "../../../shared/spinner/actions/spinner-actions";
-import { r1Get} from "../actions/rinse1-actions";
+import { conversionGet} from "../actions/rinse1-actions";
 import CustomTableToolbar from "../../../shared/mui-datatable/container/custamize-table-toolbar";
 import {connect} from "react-redux";
 import MUITable from "../../../shared/mui-datatable/container/mui-table";
@@ -42,7 +42,7 @@ class Rinse1 extends Component {
     }
 
     getData(pageNo, pageSize) {
-        this.props.r1Get(pageNo, pageSize);
+        this.props.conversionGet(pageNo, pageSize);
     }
 
     options = () => ({
@@ -64,9 +64,9 @@ class Rinse1 extends Component {
                 case 'changeRowsPerPage':
                     this.getData(tableState.page, tableState.rowsPerPage);
                     break;
-                case 'sort':
-                    this.sort(tableState.page, tableState.sortOrder);
-                    break;
+                //case 'sort':
+                    //this.sort(tableState.page, tableState.sortOrder);
+                    //break;
                 default:
                     console.log('action not handled.');
             }
@@ -96,5 +96,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {r1Get, openSnack, closeSnack,openSpinner},
+    {conversionGet, openSnack, closeSnack,openSpinner},
 )(Rinse1)
