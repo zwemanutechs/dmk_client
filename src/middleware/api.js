@@ -1,7 +1,9 @@
 import {API} from "../appservices/api-services/types";
 import {accessDenied, apiError, apiStart, apiEnd} from "../appservices/api-services/api";
 
-const baseUrl = "https://localhost:44394/backend";
+const baseUrl = "";
+    //"/backend";
+    //"https://localhost:44394/backend";
 const apiMiddleware = ({dispatch}) => next => action => {
     next(action);
 
@@ -26,7 +28,7 @@ const apiMiddleware = ({dispatch}) => next => action => {
     fetch(baseUrl + url, {
         method: method,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         body: data
     }).then(response => response.json())

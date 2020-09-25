@@ -187,22 +187,22 @@ class MainLayout extends Component {
                             <ListItemText primary={"Rinse 1"} />
                         </ListItem>
                         <Divider/>
-                        <ListItem key={3} button component={Link} to="/RinseTwo" style={{minHeight: 47}}>
+                        <ListItem key={4} button component={Link} to="/RinseTwo" style={{minHeight: 47}}>
                             <ListItemIcon><Icon><img src={Rinse2} width="25" height="25"/></Icon></ListItemIcon>
                             <ListItemText primary={"Rinse Two"} />
                         </ListItem>
                         <Divider/>
-                        <ListItem key={3} button component={Link} to="/RinseThree" style={{minHeight: 47,}}>
+                        <ListItem key={5} button component={Link} to="/RinseThree" style={{minHeight: 47,}}>
                             <ListItemIcon><Icon><img src={Rinse3} width="25" height="25"/></Icon></ListItemIcon>
                             <ListItemText primary={"Rinse Three"} />
                         </ListItem>
                         <Divider/>
-                        <ListItem key={4} button component={Link} to="/Degreasing" style={{minHeight: 47,}}>
+                        <ListItem key={6} button component={Link} to="/Degreasing" style={{minHeight: 47,}}>
                             <ListItemIcon><Icon><img src={Degreasing} width="25" height="25"/></Icon></ListItemIcon>
                             <ListItemText primary={"Degreasing"} />
                         </ListItem>
                         <Divider/>
-                        <ListItem key={4} button component={Link} to="/PaintBooth" style={{minHeight: 47,}}>
+                        <ListItem key={7} button component={Link} to="/PaintBooth" style={{minHeight: 47,}}>
                             <ListItemIcon><Icon><img src={PaintBooth} width="25" height="25"/></Icon></ListItemIcon>
                             <ListItemText primary={"Paint Booth"} />
                         </ListItem>
@@ -212,22 +212,22 @@ class MainLayout extends Component {
                         {/*    <ListItemText primary={"Oven"} />*/}
                         {/*</ListItem>*/}
                         <Divider/>
-                        <ListItem key={4} button component={Link} to="/NeuEvaporator" style={{minHeight: 47,}}>
+                        <ListItem key={8} button component={Link} to="/NeuEvaporator" style={{minHeight: 47,}}>
                             <ListItemIcon><Icon><img src={Evaporator} width="25" height="25"/></Icon></ListItemIcon>
                             <ListItemText primary={"Neu & Evaporator"} />
                         </ListItem>
                         <Divider/>
-                        <ListItem key={4} button component={Link} to="/Conversion" style={{minHeight: 47,}}>
+                        <ListItem key={9} button component={Link} to="/Conversion" style={{minHeight: 47,}}>
                             <ListItemIcon><AutorenewOutlinedIcon/></ListItemIcon>
                             <ListItemText primary={"Conversion"} />
                         </ListItem>
                         <Divider/>
-                        <ListItem key={4} button component={Link} to="/Passivation" style={{minHeight: 47,}}>
+                        <ListItem key={10} button component={Link} to="/Passivation" style={{minHeight: 47,}}>
                             <ListItemIcon><FilterTiltShiftOutlinedIcon/></ListItemIcon>
                             <ListItemText primary={"Passivation"} />
                         </ListItem>
                         <Divider/>
-                        <ListItem key={4} button component={Link} to="/PaintCabinet" style={{minHeight: 47,}}>
+                        <ListItem key={11} button component={Link} to="/PaintCabinet" style={{minHeight: 47,}}>
                             <ListItemIcon><KitchenOutlinedIcon/></ListItemIcon>
                             <ListItemText primary={"Paint Cabinet"} />
                         </ListItem>

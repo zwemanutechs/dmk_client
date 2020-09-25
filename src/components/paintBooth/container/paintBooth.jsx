@@ -62,7 +62,6 @@ class PaintBooth extends Component {
         },
         serverSide: true,
         onTableChange: (action, tableState) => {
-            console.log(action, tableState);
             switch (action) {
                 case 'changePage':
                 case 'changeRowsPerPage':

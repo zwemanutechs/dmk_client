@@ -2,35 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6227a14-8f91-4f53-8eb2-6598713bae5e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/RinseDI.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/RinseDI.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/factory.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/factory_cannon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/loading.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/oven.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/packing.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/rinse_water.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/water_flow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/water_icon-icons.com_58530.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/water_ladder.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/water_wink.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/logo/Dormakaba_two_line.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/logo/android-icon-192x192.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/logo/apple-icon-180x180.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/logo/dormakaba-logo-400x210.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/logo/favicon-96x96.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/svg/degreasing.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/svg/evaporator.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/svg/painting_booth.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/svg/rinse_1.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/svg/rinse_2.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/svg/rinse_3.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/svg/rinse_di.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/middleware/api-constants.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/middleware/custom-apiMiddleware.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/charts/chart-constants.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/charts/line/action-constants/lineChart-actionTypes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/charts/line/actions/lineChart-actions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/charts/line/container/lineChart.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/charts/line/reducers/lineChart-reducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/appservices/http-services/httpservices.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/appservices/http-services/httpservices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/container/home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/paintBooth/container/paintBooth.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/paintBooth/container/paintBooth.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/rinse-di/container/rinse-di.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rinse-di/container/rinse-di.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/layout/container/main_layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/container/main_layout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +54,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/assets/images/svg" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/shared/charts/line" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -72,19 +62,19 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\work\git\dmk\client\dmk_client\src\assets\images\logo" />
-      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\mat-diaglog\container" />
-      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\mat-diaglog" />
-      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\mui-datatable\container" />
-      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\mui-datatable" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\charts\line" />
       <recent name="C:\work\git\dmk\client\dmk_client\src\assets\images\svg" />
       <recent name="C:\work\git\dmk\client\dmk_client\src\assets\images\icons" />
       <recent name="C:\work\git\dmk\client\dmk_client\build" />
       <recent name="C:\work\git\dmk\client\dmk_client" />
-      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\breadcum" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\work\git\dmk\client\dmk_client\src\components\home\container" />
+      <recent name="C:\work\git\dmk\client\dmk_client\src\assets\images\logo" />
+      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\mat-diaglog\container" />
+      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\mat-diaglog" />
+      <recent name="C:\work\git\dmk\client\dmk_client\src\shared\mui-datatable\container" />
     </key>
   </component>
   <component name="RunManager" selected="npm.npm start">
@@ -114,7 +104,9 @@
       <updated>1599548905056</updated>
       <workItem from="1599548906945" duration="38152000" />
       <workItem from="1599814922845" duration="10525000" />
-      <workItem from="1600227318571" duration="2711000" />
+      <workItem from="1600227318571" duration="6872000" />
+      <workItem from="1600676631497" duration="3059000" />
+      <workItem from="1600940556830" duration="16926000" />
     </task>
     <servers />
   </component>
@@ -122,30 +114,66 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="522" y="227" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599654852109">
+    <state x="522" y="227" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601028740026">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="522" y="227" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864@0.0.1536.864" timestamp="1599654852109" />
+    <state x="522" y="227" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864@0.0.1536.864" timestamp="1601028740026" />
     <state x="391" y="27" key="CommitChangelistDialog2" timestamp="1600057272277">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="391" y="27" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1600057272277" />
-    <state width="1515" height="79" key="GridCell.Tab.0.bottom" timestamp="1600083691160">
+    <state width="1537" height="262" key="GridCell.Tab.0.bottom" timestamp="1601029639878">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1515" height="79" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1600083691160" />
-    <state width="1515" height="79" key="GridCell.Tab.0.center" timestamp="1600083691160">
+    <state width="1537" height="262" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1601029639878" />
+    <state width="1899" height="79" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1600309551265" />
+    <state width="1537" height="262" key="GridCell.Tab.0.center" timestamp="1601029639878">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1515" height="79" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1600083691160" />
-    <state width="1515" height="79" key="GridCell.Tab.0.left" timestamp="1600083691160">
+    <state width="1537" height="262" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1601029639878" />
+    <state width="1899" height="79" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1600309551264" />
+    <state width="1537" height="262" key="GridCell.Tab.0.left" timestamp="1601029639878">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1515" height="79" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1600083691160" />
-    <state width="1515" height="79" key="GridCell.Tab.0.right" timestamp="1600083691160">
+    <state width="1537" height="262" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1601029639878" />
+    <state width="1899" height="79" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1600309551264" />
+    <state width="1537" height="262" key="GridCell.Tab.0.right" timestamp="1601029639878">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1515" height="79" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1600083691160" />
+    <state width="1537" height="262" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1601029639878" />
+    <state width="1899" height="79" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1600309551264" />
+    <state width="1537" height="262" key="GridCell.Tab.1.bottom" timestamp="1601029639879">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1537" height="262" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1601029639879" />
+    <state width="1537" height="262" key="GridCell.Tab.1.center" timestamp="1601029639879">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1537" height="262" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1601029639879" />
+    <state width="1537" height="262" key="GridCell.Tab.1.left" timestamp="1601029639879">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1537" height="262" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1601029639879" />
+    <state width="1537" height="262" key="GridCell.Tab.1.right" timestamp="1601029639879">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1537" height="262" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1601029639879" />
+    <state width="1537" height="262" key="GridCell.Tab.2.bottom" timestamp="1601029639880">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1537" height="262" key="GridCell.Tab.2.bottom/0.0.1536.864@0.0.1536.864" timestamp="1601029639880" />
+    <state width="1537" height="262" key="GridCell.Tab.2.center" timestamp="1601029639880">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1537" height="262" key="GridCell.Tab.2.center/0.0.1536.864@0.0.1536.864" timestamp="1601029639880" />
+    <state width="1537" height="262" key="GridCell.Tab.2.left" timestamp="1601029639880">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1537" height="262" key="GridCell.Tab.2.left/0.0.1536.864@0.0.1536.864" timestamp="1601029639880" />
+    <state width="1537" height="262" key="GridCell.Tab.2.right" timestamp="1601029639880">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1537" height="262" key="GridCell.Tab.2.right/0.0.1536.864@0.0.1536.864" timestamp="1601029639880" />
     <state x="425" y="197" key="run.anything.popup" timestamp="1600058788537">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

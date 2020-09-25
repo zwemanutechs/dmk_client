@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Route, withRouter } from 'react-router'
 import './App.css';
 import Main_layout from "./layout/container/main_layout";
-import Home from "./components/home/home";
+import Home from "./components/home/container/home";
 import RinseDi from "./components/rinse-di/container/rinse-di";
 import Rinse1 from "./components/rinse1/container/rinse1";
 import Rinse2 from "./components/rinse2/container/rinse2";
