@@ -3,9 +3,8 @@ import {API} from "../../../../appservices/api-services/types";
 import {OPEN_SNACK} from "../../../snackbar/action-constants/snackbar-actionTypes";
 import {snackError} from "../../../../constants/app-constants";
 
-export const lineChartFetchData = (fetchUrl, keys, payload) => ({
-   type: FETCH,
-   payload: payload,
+export const lineChartFetchData = (fetchUrl, keys) => ({
+   payload: '',
     meta: {
        type: API,
         url: fetchUrl,

@@ -14,24 +14,23 @@ function AppLineChart(props) {
     }, []);
 
     function fetchData () {
-        props.lineChartFetchData('https://covidapi.info/api/v1/country/SGP/timeseries/2020-03-15/2020-06-25', ['confirmed', 'deaths', 'recovered'])
+        props.lineChartFetchData('https://covidapi.info/api/v1/country/SGP/timeseries/2020-03-15/2020-04-25', ['confirmed', 'deaths', 'recovered'])
     }
 
     return (
         props.loading
-            ? <Skeleton variant="rect" width={210} height={118} />
-            :<Card>
-                <CardContent>
-                    <LineChart width={300} height={100} data={props.data}>
+            ? <Skeleton variant="rect" width={300} height={300} />
+            :<Card style={{maxWidth: 300}}>
+                    <LineChart width={290} height={300} data={props.data} style={{margin: 5}}>
+                        <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="date" />
                         <YAxis />
                         <Tooltip />
                         {
-                            props.legendKeys.map((dataKey, i) => <Line key={i} type="monotone" dataKey={dataKey} stroke={colours[i]} strokeWidth={2} />)
+                            props.legendKeys.map((dataKey, i) => <Line key={i} type="monotone" dataKey={dataKey} stroke={colours[i]}  activeDot={{ r: 8 }}/>)
                         }
 
                     </LineChart>
-                </CardContent>
             </Card>
     );
 }
