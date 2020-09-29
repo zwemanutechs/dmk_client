@@ -12,13 +12,11 @@ import {openSnack, closeSnack} from "../../../shared/snackbar/actions/snackbar-a
 import {rdiOpenDiag, rdiGet, rdiCloseDiag, rdiSave, rdiFormChange} from "../actions/rinseDI-actions";
 import RinseDIAddOrEdit from "./rinse-di-addOrEdit";
 import CustomTableToolbar from "../../../shared/mui-datatable/container/custamize-table-toolbar";
-import rinseDIItemActions from "../reducers/rinseDI-reducer";
 import {connect} from "react-redux";
 import MUITable from "../../../shared/mui-datatable/container/mui-table";
 import {snackSuccess} from "../../../constants/app-constants";
-import {get} from "../../../appservices/http-services/httpservices";
 
-const columns = [{label: 'Ph Meter', name: 'phMeter'}, {label: 'Water Guage', name: 'waterGauge'}, {
+const columns = [{label: 'Ph Meter', name: 'phMeter'}, {label: 'Water Guage', name: 'waterGuage'}, {
     label: 'Updated At',
     name: 'updatedat', options: {
         filter: false,
@@ -114,7 +112,7 @@ class RinseDi extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"RINSE DI"} data={this.props.data} columns={columns} options={this.options()}/>
+                <MUITable title={"RINSE DI"} data={this.props.data} columns={columns} options={this.options()} loading={this.props.loading}/>
                 <MaxWidthDialog
                     content={<RinseDIAddOrEdit dataSet={this.props.rinseDIDataSet} handelChange={this.handelChange}/>}
                     contentTitle={"RINSE DI"}
@@ -134,6 +132,7 @@ const mapStateToProps = state => ({
     count:state.rinseDIItemActions.count,
     page:state.rinseDIItemActions.page,
     rowsPerPage:state.rinseDIItemActions.rowsPerPage,
+    loading:state.rinseDIItemActions.loading
 });
 
 

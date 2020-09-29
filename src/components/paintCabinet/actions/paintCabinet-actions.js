@@ -1,25 +1,24 @@
 import {PAINTCABINET_GET} from '../action-constants/paintCabinet-actionTypes';
-import {apiAction} from "../../../appservices/api-services";
 import {snackError} from "../../../constants/app-constants";
+import {API} from "../../../appservices/api-services/types";
+import {OPEN_SNACK} from "../../../shared/snackbar/action-constants/snackbar-actionTypes";
 
 
-export const paintCabinetGet = (page, take) => {
-    return apiAction({
-        url: `/paintCabinet?pageNo=${page}&pageSize=${take}`,
-        onSuccess: (data) => {
-            return {
-                type: PAINTCABINET_GET,
-                data: data
-            };
-        },
-        onFailure: (error) => {
-            return {
-                type: 'OPEN_SNACK',
-                status:false,
-                message:'Server Error',
-                snackType:snackError
-            };
-        }
-    });
-};
-
+export const paintCabinetGet = (page, take) =>({
+    payload: '',
+    meta: {
+        type: API,
+        url:  `https://localhost:44394/backend/paintCabinet?pageNo=${page}&pageSize=${take}`,
+        onSuccess: (data) => ({
+            type: PAINTCABINET_GET,
+            data: data.data,
+            legendKey: ''
+        }),
+        onFailure: (error) => ({
+            type: OPEN_SNACK,
+            status:false,
+            message:'Server Error',
+            snackType:snackError
+        })
+    }
+});

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import MUIDataTable from "mui-datatables";
 import {withStyles} from "@material-ui/styles";
-import { CircularProgress, Typography } from '@material-ui/core';
+import {Skeleton} from '@material-ui/lab';
 
 const defaultTableStyles = theme => ({
     root: {},
@@ -28,7 +28,11 @@ class MUITable extends Component{
 
     render() {
         return (
-            <MUIDataTable title={this.props.title} data={this.props.data} columns={this.props.columns} options={this.props.options}/>
+            <div>
+                {this.props.loading?
+                <Skeleton width={'100%'} height={200}/>:
+                <MUIDataTable title={this.props.title} data={this.props.data} columns={this.props.columns} options={this.props.options}/>}
+            </div>
         );
     }
 }

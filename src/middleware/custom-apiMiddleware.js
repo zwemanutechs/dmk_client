@@ -1,4 +1,4 @@
-import {accessDenied, apiEnd, apiError} from "../appservices/api-services/api";
+import {accessDenied, apiError} from "../appservices/api-services/api";
 
 const apiMiddleware = store => next => action => {
     if (!action.meta || action.meta.type !== 'API') {

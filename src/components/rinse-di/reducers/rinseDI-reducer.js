@@ -10,7 +10,8 @@ const rinseDIItemActions = (
             createdAt: new Date().toLocaleString(),
             createdBy: 'admin'
         },
-        openDialog: false
+        openDialog: false,
+        loading:true
     },
     action
 ) => {
@@ -19,7 +20,8 @@ const rinseDIItemActions = (
             return {
                 ...state,
                 data: action.data.data,
-                count: action.data.count
+                count: action.data.count,
+                loading: false
             };
         case "RDI_OPEN_DIAG":
             return {

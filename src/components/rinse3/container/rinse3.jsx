@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import MUITable from "../../../shared/mui-datatable/container/mui-table";
 
 const columns = [{label: 'Ph Meter', name: 'ph'},
-    {label: 'Water supply from DI Water Tank', name: 'waterSupplyFromDiWaterTank'},
+    {label: 'Water supply from DI Water Tank', name: 'waterSupplyFromDiWaterTunk'},
     {
     label: 'Updated At',
     name: 'updatedat', options: {
@@ -74,7 +74,7 @@ class Rinse3 extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"RINSE 3"} data={this.props.data} columns={columns} options={this.options()}/>
+                <MUITable title={"RINSE 3"} data={this.props.data} columns={columns} options={this.options()} loading={this.props.loading}/>
             </div>
         );
     }
@@ -89,6 +89,7 @@ const mapStateToProps = state => ({
     count:state.rinse3ItemActions.count,
     page:state.rinse3ItemActions.page,
     rowsPerPage:state.rinse3ItemActions.rowsPerPage,
+    loading:state.rinse3ItemActions.loading
 });
 
 
