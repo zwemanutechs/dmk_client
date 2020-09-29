@@ -23,7 +23,7 @@ class CustomizedAxisTick extends PureComponent {
 
         return (
             <g transform={`translate(${x},${y})`}>
-                <text x={0} y={0} dy={6} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
+                <text x={0} y={0} dy={3} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
             </g>
         );
     }
@@ -31,13 +31,11 @@ class CustomizedAxisTick extends PureComponent {
 
 function AppLineChart(props) {
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    function fetchData () {
-        props.lineChartFetchData(props.url, props.keys)
-    }
+    // useEffect(() => fetchData(), []);
+    //
+    // function fetchData () {
+    //     props.lineChartFetchData(props.url, props.keys)
+    // }
 
     return (
         props.loading
@@ -61,9 +59,8 @@ function AppLineChart(props) {
 }
 
 const mapStateToProps = state => ({
-    data: state.lineChartItemActions.data,
-    loading: state.lineChartItemActions.loading,
-    legendKeys: state.lineChartItemActions.legendKeys
+    // data: state.lineChartItemActions.data,
+    // legendKeys: state.lineChartItemActions.legendKeys
 });
 
 export default connect(

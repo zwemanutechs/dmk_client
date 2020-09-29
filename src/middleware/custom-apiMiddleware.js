@@ -20,7 +20,6 @@ const apiMiddleware = store => next => action => {
             }
             return json; // For the next promise in the chain
         }).catch(error => {
-            console.log(error);
         store.dispatch(apiError(error));
         if (typeof action.meta.onFailure === 'function') {
             store.dispatch(action.meta.onFailure(error));
