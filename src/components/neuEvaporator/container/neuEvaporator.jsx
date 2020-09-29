@@ -114,8 +114,7 @@ class NeuEvaporator extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"Neu Evaporator"} data={this.props.data} columns={columns}
-                          options={this.options()}/>
+                <MUITable title={"Neu Evaporator"} data={this.props.data} columns={columns} options={this.options()} loading={this.props.loading}/>
             </div>
         );
     }
@@ -130,6 +129,7 @@ const mapStateToProps = state => ({
     count: state.neuEvaporatorItemActions.count,
     page: state.neuEvaporatorItemActions.page,
     rowsPerPage: state.neuEvaporatorItemActions.rowsPerPage,
+    loading: state.neuEvaporatorItemActions.loading,
 });
 
 

@@ -75,7 +75,7 @@ class Conversion extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"CONVERSION"} data={this.props.data} columns={columns} options={this.options()}/>
+                <MUITable title={"CONVERSION"} data={this.props.data} columns={columns} options={this.options()} loading={this.props.loading}/>
             </div>
         );
     }
@@ -89,7 +89,8 @@ const mapStateToProps = state => ({
     data:state.conversionItemActions.data,
     count:state.conversionItemActions.count,
     page:state.conversionItemActions.page,
-    rowsPerPage:state.conversionItemActions.rowsPerPage
+    rowsPerPage:state.conversionItemActions.rowsPerPage,
+    loading:state.conversionItemActions.loading
 });
 
 

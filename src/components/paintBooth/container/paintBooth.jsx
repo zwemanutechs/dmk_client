@@ -10,8 +10,8 @@ const columns = [
     {label: 'High Tension ESTA1 R12', name: 'highTensionEsta1R12'},
     {label: 'High Tension ESTA2 R11', name: 'highTensionEsta2R11'},
     {label: 'Paint Pressure', name: 'paintPressure'},
-    {label: 'Paint Pressure At R11', name: 'paintPressureAtR11'},
-    {label: 'Paint Pressure At R12', name: 'paintPressureAtR12'},
+    {label: 'Paint Pressure At R11', name: 'paintPreasureAtR11'},
+    {label: 'Paint Pressure At R12', name: 'paintPreasureAtR12'},
     {label: 'Touch Up Room 1 Air Flow', name: 'touchUpRoom1AirFlow'},
     {label: 'Touch Up Room 2 Air Flow', name: 'touchUpRoom2AirFlow'},
     {
@@ -79,8 +79,7 @@ class PaintBooth extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"Paint Booth"} data={this.props.data} columns={columns}
-                          options={this.options()}/>
+                <MUITable title={"Paint Booth"} data={this.props.data} columns={columns} options={this.options()} loading={this.props.loading}/>
             </div>
         );
     }
@@ -95,6 +94,7 @@ const mapStateToProps = state => ({
     count: state.paintBoothItemActions.count,
     page: state.paintBoothItemActions.page,
     rowsPerPage: state.paintBoothItemActions.rowsPerPage,
+    loading: state.paintBoothItemActions.loading,
 });
 
 

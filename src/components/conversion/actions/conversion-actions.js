@@ -1,31 +1,30 @@
 import {
-    CONVERSION_GET,
+    CONVERSION_GET
 } from '../action-constants/conversion-actionTypes';
 import {OPEN_SNACK} from '../../../shared/snackbar/action-constants/snackbar-actionTypes';
-import {apiAction} from "../../../appservices/api-services/index";
 import {snackError} from "../../../constants/app-constants";
+import {API} from "../../../appservices/api-services/types";
 
 
-export const conversionGet = (page, take) => {
-    return apiAction({
-        url: `/conversion?pageNo=${page}&pageSize=${take}`,
-        onSuccess: (data)=>{
-            return {
-                type: CONVERSION_GET,
-                data: data
-            };
-        },
-        onFailure: (error) => {
-            return {
-                type: OPEN_SNACK,
-                status:false,
-                message:'Server Error',
-                snackType:snackError
-            };
-        },
-        label: CONVERSION_GET
-    });
-};
+export const conversionGet = (page, take) => ({
+    payload: '',
+    meta: {
+        type: API,
+        url: `https://localhost:44394/backend/conversion?pageNo=${page}&pageSize=${take}`,
+        onSuccess: (data) => ({
+            type: CONVERSION_GET,
+            data: data.data,
+            legendKey: ''
+        }),
+        onFailure: (error) => ({
+            type: OPEN_SNACK,
+            status: false,
+            message: 'Server Error',
+            snackType: snackError
+        })
+    }
+});
+
 
 
 

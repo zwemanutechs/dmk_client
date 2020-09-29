@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {openSnack, closeSnack} from "../../../shared/snackbar/actions/snackbar-actions";
 import {openSpinner} from "../../../shared/spinner/actions/spinner-actions";
-import { conversionGet} from "../actions/rinse1-actions";
+import { rinse1Get} from "../actions/rinse1-actions";
 import CustomTableToolbar from "../../../shared/mui-datatable/container/custamize-table-toolbar";
 import {connect} from "react-redux";
 import MUITable from "../../../shared/mui-datatable/container/mui-table";
@@ -42,7 +42,7 @@ class Rinse1 extends Component {
     }
 
     getData(pageNo, pageSize) {
-        this.props.conversionGet(pageNo, pageSize);
+        this.props.rinse1Get(pageNo, pageSize);
     }
 
     options = () => ({
@@ -64,9 +64,9 @@ class Rinse1 extends Component {
                 case 'changeRowsPerPage':
                     this.getData(tableState.page, tableState.rowsPerPage);
                     break;
-                //case 'sort':
-                    //this.sort(tableState.page, tableState.sortOrder);
-                    //break;
+                case 'sort':
+                    this.sort(tableState.page, tableState.sortOrder);
+                    break;
                 default:
                     console.log('action not handled.');
             }
@@ -76,7 +76,7 @@ class Rinse1 extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"RINSE 1"} data={this.props.data} columns={columns} options={this.options()}/>
+                <MUITable title={"RINSE 1"} data={this.props.data} columns={columns} options={this.options()} loading={this.props.loading}/>
             </div>
         );
     }
@@ -90,11 +90,12 @@ const mapStateToProps = state => ({
     data:state.rinse1ItemActions.data,
     count:state.rinse1ItemActions.count,
     page:state.rinse1ItemActions.page,
-    rowsPerPage:state.rinse1ItemActions.rowsPerPage
+    rowsPerPage:state.rinse1ItemActions.rowsPerPage,
+    loading:state.rinse1ItemActions.loading,
 });
 
 
 export default connect(
     mapStateToProps,
-    {conversionGet, openSnack, closeSnack,openSpinner},
+    {rinse1Get, openSnack, closeSnack,openSpinner},
 )(Rinse1)

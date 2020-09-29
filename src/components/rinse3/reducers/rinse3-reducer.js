@@ -4,6 +4,7 @@ const rinse3ItemActions = (
         page: 0,
         count: 3,
         rowsPerPage: 30,
+        loading:true
     },
     action
 ) => {
@@ -12,9 +13,9 @@ const rinse3ItemActions = (
             return {
                 ...state,
                 data: action.data.data,
-                count: action.data.count
+                count: action.data.count,
+                loading: false
             };
-
         default:
             return state;
     }

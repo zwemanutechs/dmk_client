@@ -74,7 +74,7 @@ class Rinse2 extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"RINSE 2"} data={this.props.data} columns={columns} options={this.options()}/>
+                <MUITable title={"RINSE 2"} data={this.props.data} columns={columns} options={this.options()} loading={this.props.loading}/>
             </div>
         );
     }
@@ -89,6 +89,7 @@ const mapStateToProps = state => ({
     count:state.rinse2ItemActions.count,
     page:state.rinse2ItemActions.page,
     rowsPerPage:state.rinse2ItemActions.rowsPerPage,
+    loading:state.rinse2ItemActions.loading
 });
 
 

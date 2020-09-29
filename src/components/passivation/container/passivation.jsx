@@ -83,8 +83,7 @@ class Passivation extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"Passivation"} data={this.props.data} columns={columns}
-                          options={this.options()}/>
+                <MUITable title={"Passivation"} data={this.props.data} columns={columns} options={this.options()} loading={this.props.loading}/>
             </div>
         );
     }
@@ -99,6 +98,7 @@ const mapStateToProps = state => ({
     count: state.passivationItemActions.count,
     page: state.passivationItemActions.page,
     rowsPerPage: state.passivationItemActions.rowsPerPage,
+    loading: state.passivationItemActions.loading,
 });
 
 

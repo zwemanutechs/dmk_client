@@ -85,8 +85,7 @@ class Degreasing extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"Degreasing"} data={this.props.data} columns={columns}
-                          options={this.options()}/>
+                <MUITable title={"Degreasing"} data={this.props.data} columns={columns} options={this.options()} loading={this.props.loading}/>
             </div>
         );
     }
@@ -101,6 +100,7 @@ const mapStateToProps = state => ({
     count: state.degreasingItemActions.count,
     page: state.degreasingItemActions.page,
     rowsPerPage: state.degreasingItemActions.rowsPerPage,
+    loading: state.degreasingItemActions.loading,
 });
 
 

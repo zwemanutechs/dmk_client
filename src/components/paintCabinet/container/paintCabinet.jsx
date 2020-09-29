@@ -41,7 +41,7 @@ const columns = [
     {label: 'Top Cabinet2 Cabinet Humidity', name: 'topCabinet2CabinetHumidity'},
     {label: 'Top Cabinet2 Cabinet Temperature', name: 'topCabinet2CabinetTemperature'},
     {label: 'Top Cabinet2 DI Water Check', name: 'topCabinet2DiWaterCheck'},
-    {label: 'Top Cabinet2 HardenerPressureTankTank3', name: 'topCabinet2HardenerPressureTankTank3'},
+    {label: 'Top Cabinet2 Hardener Pressure Tank3', name: 'topCabinet2HardenerPressureTankTank3'},
     {label: 'Top Cabinet2 Hardener Tank3', name: 'topCabinet2HardenerTank3'},
     {label: 'Top Cabinet2 Paint Test Temperature', name: 'topCabinet2PaintTestTemperature'},
     {label: 'Top Cabinet2 Paint Test Visocity', name: 'topCabinet2PaintTestVisocity'},
@@ -111,8 +111,7 @@ class PaintCabinet extends Component {
     render() {
         return (
             <div>
-                <MUITable title={"Paint Cabinet"} data={this.props.data} columns={columns}
-                          options={this.options()}/>
+                <MUITable title={"Paint Cabinet"} data={this.props.data} columns={columns} options={this.options()} loading={this.props.loading}/>
             </div>
         );
     }
@@ -127,6 +126,7 @@ const mapStateToProps = state => ({
     count: state.paintCabinetItemActions.count,
     page: state.paintCabinetItemActions.page,
     rowsPerPage: state.paintCabinetItemActions.rowsPerPage,
+    loading: state.paintCabinetItemActions.loading,
 });
 
 

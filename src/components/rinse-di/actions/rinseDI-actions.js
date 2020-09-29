@@ -12,10 +12,10 @@ import {
 import {OPEN_MENU} from "../../../layout/action-constants/menu-actionTypes";
 import {closeDialog, openDialog} from "../../../shared/mat-diaglog/actions/maxDialog-action";
 import {CLOSE_DIAG} from "../../../shared/mat-diaglog/action-constants/maxDialog-actionTypes";
-import {get} from "../../../appservices/http-services/httpservices";
-import {apiAction} from "../../../appservices/api-services";
 import {snackError} from "../../../constants/app-constants";
 import {OPEN_SNACK} from '../../../shared/snackbar/action-constants/snackbar-actionTypes';
+import {OPEN_SPINNER,CLOSE_SPINNER} from '../../../shared/spinner/action-constants/spinner-actionTypes';
+import {API} from "../../../appservices/api-services/types";
 
 const rdiModel = {
     phMeter: 0,
@@ -24,46 +24,31 @@ const rdiModel = {
     updatedBy: 'Admin'
 };
 
-export const rdiGet = (page, take) => {
-    return apiAction({
-    url: `/rinsedi?pageNo=${page}&pageSize=${take}`,
-    onSuccess: (data)=>{
-        return {
+export const rdiGet = (page, take) => ({
+    payload: '',
+    meta: {
+        type: API,
+        url: `https://localhost:44394/backend/rinsedi?pageNo=${page}&pageSize=${take}`,
+        onSuccess: (data) => ({
             type: RDI_GET,
-            data: data
-        };
-    },
-    onFailure: (error) => {
-        return {
+            data: data.data,
+            legendKey: ''
+        }),
+        onFailure: (error) => ({
             type: OPEN_SNACK,
-            status:false,
-            message:'Server Error',
-            snackType:snackError
-        };
-    },
-    label: RDI_GET
+            status: false,
+            message: 'Server Error',
+            snackType: snackError
+        }),
+    }
 });
 
-    // return function (dispatch) {
-    //     return  get(`/rinsedi?pageNo=${page}&pageSize=${take}`).then(response => response.json())
-    //         .then(data => {
-    //             console.log(data);
-    //             if (data.code === true) {
-    //                 dispatch({
-    //                     type: RDI_GET,
-    //                     data: data.data
-    //                 })
-    //             }
-    //         });
-    // }
-};
-
 export const rdiOpenDiag = (dataSet, title) => (dispatch) => {
-        dispatch(openDialog(true, title));
-        dispatch({
-            type: RDI_OPEN_DIAG, // mandatory key
-            dataSet
-        });
+    dispatch(openDialog(true, title));
+    dispatch({
+        type: RDI_OPEN_DIAG, // mandatory key
+        dataSet
+    });
 };
 
 export const rdiCloseDiag = () => (dispatch) => {

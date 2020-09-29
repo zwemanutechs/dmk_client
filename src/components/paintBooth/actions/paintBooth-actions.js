@@ -1,25 +1,25 @@
 import {PAINTBOOTH_GET} from '../action-constants/paintBooth-actionTypes';
-import {apiAction} from "../../../appservices/api-services";
 import {snackError} from "../../../constants/app-constants";
+import {API} from "../../../appservices/api-services/types";
+import {OPEN_SNACK} from "../../../shared/snackbar/action-constants/snackbar-actionTypes";
 
 
-export const paintBoothGet = (page, take) => {
-    return apiAction({
-        url: `/paintBooth?pageNo=${page}&pageSize=${take}`,
-        onSuccess: (data) => {
-            return {
-                type: PAINTBOOTH_GET,
-                data: data
-            };
-        },
-        onFailure: (error) => {
-            return {
-                type: 'OPEN_SNACK',
-                status:false,
-                message:'Server Error',
-                snackType:snackError
-            };
-        }
-    });
-};
+export const paintBoothGet = (page, take) => ({
+    payload: '',
+    meta: {
+        type: API,
+        url: `https://localhost:44394/backend/paintBooth?pageNo=${page}&pageSize=${take}`,
+        onSuccess: (data) => ({
+            type: PAINTBOOTH_GET,
+            data: data.data,
+            legendKey: ''
+        }),
+        onFailure: (error) => ({
+            type: OPEN_SNACK,
+            status: false,
+            message: 'Server Error',
+            snackType: snackError
+        })
+    }
+});
 
