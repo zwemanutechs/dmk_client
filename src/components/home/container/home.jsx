@@ -13,7 +13,8 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import  from "../../../middleware/custom-apiMiddleware"
+import NotificationCard from "../../../shared/notification-card/container/notificationCard";
+// import  from "../../../middleware/custom-apiMiddleware"
 
 class Home extends Component{
 
@@ -458,74 +459,36 @@ class Home extends Component{
                        </InfiniteCarousel>
                    </Card>
                </Grid>
+
                <Grid item xs={12} md={4}>
-                   <Card >
-                       <CardHeader
-                           avatar={
-                               <Avatar aria-label="recipe">
-                                   D
-                               </Avatar>
-                           }
-                           title="Degreasing"
-                           subheader="September 14, 2020"
-                       />
-                       <List dense={true}>
-                           <ListItem>
-                               <ListItemIcon>
-                                   <ErrorOutlineOutlinedIcon color="secondary"/>
-                               </ListItemIcon>
-                               <ListItemText
-                                   primary="System detect the high value."
-                               />
-                           </ListItem>
-                       </List>
-                   </Card>
+                   <NotificationCard formName="RinseDI"/>
                </Grid>
                <Grid item xs={12} md={4}>
-                   <Card style={{margin: 10}}>
-                       <CardHeader
-                           avatar={
-                               <Avatar aria-label="recipe">
-                                   O
-                               </Avatar>
-                           }
-                           title="Oven"
-                           subheader="September 14, 2020"
-                       />
-                       <List dense={true}>
-                           <ListItem>
-                               <ListItemIcon>
-                                   <ErrorOutlineOutlinedIcon color="secondary"/>
-                               </ListItemIcon>
-                               <ListItemText
-                                   primary="System detect the high value."
-                               />
-                           </ListItem>
-                       </List>
-                   </Card>
+                   <NotificationCard formName="Rinse1"/>
                </Grid>
                <Grid item xs={12} md={4}>
-                   <Card style={{margin: 10}}>
-                       <CardHeader
-                           avatar={
-                               <Avatar aria-label="recipe">
-                                   RDI
-                               </Avatar>
-                           }
-                           title="Rinse DI"
-                           subheader="September 14, 2020"
-                       />
-                       <List dense={true}>
-                           <ListItem>
-                               <ListItemIcon>
-                                   <ErrorOutlineOutlinedIcon color="secondary"/>
-                               </ListItemIcon>
-                               <ListItemText
-                                   primary="System detect the high value."
-                               />
-                           </ListItem>
-                       </List>
-                   </Card>
+                   <NotificationCard formName="Rinse2"/>
+               </Grid>
+               <Grid item xs={12} md={4}>
+                   <NotificationCard formName="Rinse3"/>
+               </Grid>
+               <Grid item xs={12} md={4}>
+                   <NotificationCard formName="Passivation"/>
+               </Grid>
+               <Grid item xs={12} md={4}>
+                   <NotificationCard formName="PaintBooth"/>
+               </Grid>
+               <Grid item xs={12} md={4}>
+                   <NotificationCard formName="PaintCabinet"/>
+               </Grid>
+               <Grid item xs={12} md={4}>
+                   <NotificationCard formName="Conversion"/>
+               </Grid>
+               <Grid item xs={12} md={4}>
+                   <NotificationCard formName="NeuEvaporator"/>
+               </Grid>
+               <Grid item xs={12} md={4}>
+                   <NotificationCard formName="Degreasing"/>
                </Grid>
            </Grid>
         );
