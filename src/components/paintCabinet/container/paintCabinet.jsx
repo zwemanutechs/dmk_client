@@ -45,6 +45,44 @@ const columns = [
     {label: 'Top Cabinet2 Hardener Tank3', name: 'topCabinet2HardenerTank3'},
     {label: 'Top Cabinet2 Paint Test Temperature', name: 'topCabinet2PaintTestTemperature'},
     {label: 'Top Cabinet2 Paint Test Visocity', name: 'topCabinet2PaintTestVisocity'},
+    {label: 'Primer Cabinet1 R11 Temperature', name: 'primerCabinet1R11Temperature'},
+    {label: 'Primer Cabinet1 R11 Humidity', name: 'primerCabinet1R11Humidity'},
+    {label: 'Primer Cabinet1 Paint Test Viscosity', name: 'primerCabinet1PaintTestViscosity'},
+    {label: 'Primer Cabinet1 Paint Test Temperature', name: 'primerCabinet1PaintTestTemperature'},
+    {label: 'Primer Cabinet1 DI Water Check', name: 'primerCabinet1DiWaterCheck'},
+    {label: 'Primer Cabinet1 Undon Light Inspection', name: 'primerCabinet1UndonLightInspection', options: {
+            filter: false,
+            customBodyRender: (value, tableMeta, updateValue) => (
+                <span>
+              {value ? 'Yes' : 'No'}
+            </span>
+            )
+        }},
+    {label: 'Primer Cabinet1 White Primer Inlet Tank1', name: 'primerCabinet1WhitePrimerInletTank1'},
+    {label: 'Primer Cabinet1 White Primer Outlet Tank1', name: 'primerCabinet1WhitePrimerOutletTank1'},
+    {label: 'Primer Cabinet1 Black Primer Inlet Tank2', name: 'primerCabinet1BlackPrimerInletTank2'},
+    {label: 'Primer Cabinet1 Black Primer Outlet Tank2', name: 'primerCabinet1BlackPrimerOutletTank2'},
+    {label: 'Primer Cabinet1 Hardener Tank3', name: 'primerCabinet1HardenerTank3'},
+    {label: 'Primer Cabinet1 Hardener Pressure Tank3', name: 'primerCabinet1HardenerPressureTank3'},
+    {label: 'Primer Cabinet2 R12 Temperature', name: 'primerCabinet2R12Temperature'},
+    {label: 'Primer Cabinet2 R12 Humidity', name: 'primerCabinet2R12Humidity'},
+    {label: 'Primer Cabinet2 Paint Test Viscosity', name: 'primerCabinet2PaintTestViscosity'},
+    {label: 'Primer Cabinet2 Paint Test Temperature', name: 'primerCabinet2PaintTestTemperature'},
+    {label: 'Primer Cabinet2 DI Water Check', name: 'primerCabinet2DiWaterCheck'},
+    {label: 'Primer Cabinet2 Undon Light Inspection', name: 'primerCabinet2UndonLightInspection', options: {
+            filter: false,
+            customBodyRender: (value, tableMeta, updateValue) => (
+                <span>
+              {value ? 'Yes' : 'No'}
+            </span>
+            )
+        }},
+    {label: 'Primer Cabinet2 White Primer Inlet Tank1', name: 'primerCabinet2WhitePrimerInletTank1'},
+    {label: 'Primer Cabinet2 White Primer Outlet Tank1', name: 'primerCabinet2WhitePrimerOutletTank1'},
+    {label: 'Primer Cabinet2 Black Primer Inlet Tank2', name: 'primerCabinet2BlackPrimerInletTank2'},
+    {label: 'Primer Cabinet2 Black Primer Outlet Tank2', name: 'primerCabinet2BlackPrimerOutletTank2'},
+    {label: 'Primer Cabinet2 Hardener Tank3', name: 'primerCabinet2HardenerTank3'},
+    {label: 'Primer Cabinet2 Hardener Pressure Tank3', name: 'primerCabinet2HardenerPressureTank3'},
     {
         label: 'Updated At', name: 'updatedat', options: {
             filter: false,
@@ -61,7 +99,8 @@ const columns = [
             </span>
             )
         }
-    }, {label: 'Updated By', name: 'updatedby'}];
+    },
+    {label: 'Updated By', name: 'updatedby'}];
 
 class PaintCabinet extends Component {
 
