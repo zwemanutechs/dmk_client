@@ -7,7 +7,7 @@ export const notificationCardFetchData = (formName,datetime) => ({
    payload: '',
     meta: {
        type: API,
-        url: `https://localhost:44394/backend/dashboard/notification/${formName}/${datetime}`,
+        url: `dashboard/notification/${formName}/${datetime}`,
         onSuccess: (data) => ({
             type: NOTIFICATION_GET,
             data: data.data,

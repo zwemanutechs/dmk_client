@@ -8,7 +8,7 @@ export const neuEvaporatorGet = (page, take) => ({
     payload: '',
     meta: {
         type: API,
-        url: `https://localhost:44394/backend/neuEvaporator?pageNo=${page}&pageSize=${take}`,
+        url: `neuEvaporator?pageNo=${page}&pageSize=${take}`,
         onSuccess: (data) => ({
             type: NEUEVAPORATOR_GET,
             data: data.data,

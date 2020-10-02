@@ -10,7 +10,7 @@ export const conversionGet = (page, take) => ({
     payload: '',
     meta: {
         type: API,
-        url: `https://localhost:44394/backend/conversion?pageNo=${page}&pageSize=${take}`,
+        url: `conversion?pageNo=${page}&pageSize=${take}`,
         onSuccess: (data) => ({
             type: CONVERSION_GET,
             data: data.data,
