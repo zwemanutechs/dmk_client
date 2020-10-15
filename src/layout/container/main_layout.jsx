@@ -95,7 +95,8 @@ const useStyles = theme => ({
             width: drawerWidth,
         },
         [theme.breakpoints.between('xs', 'sm')]:{
-            width: 240,
+            position: 'Fixed',
+            zIndex: 999
         },
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
@@ -107,7 +108,7 @@ const useStyles = theme => ({
             width: theme.spacing(7) + 1,
         },
         [theme.breakpoints.between('xs', 'sm')]:{
-            width: 0,
+            display: 'none'
         },
         overflowX: 'hidden',
         transition: theme.transitions.create('width', {

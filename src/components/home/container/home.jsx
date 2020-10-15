@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import {Temperature, Humidity} from 'react-environment-chart';
 import ReactInterval from 'react-interval';
 import {Animated} from "react-animated-css";
+import NotificationCard from "../../../shared/notification-card/container/notificationCard";
 
 class Home extends Component {
     constructor(props) {
