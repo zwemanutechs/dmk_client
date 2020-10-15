@@ -36,7 +36,6 @@ function AppLineChart(props) {
     // function fetchData () {
     //     props.lineChartFetchData(props.url, props.keys)
     // }
-
     return (
         props.loading
             ? <Skeleton variant="rect" width={props.width} height={props.height}/>
@@ -51,7 +50,7 @@ function AppLineChart(props) {
                         }
                         <Tooltip />
                         {
-                            props.legendKeys.map((dataKey, i) => <Line key={`l${i}`} type="monotone" dataKey={dataKey} stroke={colours[i]} strokeWidth={1} label={<CustomizedLabel />}/>)
+                            props.keys.map((dataKey, i) => <Line key={`l${i}`} type="monotone" dataKey={dataKey} stroke={colours[i]} strokeWidth={1} label={<CustomizedLabel />}/>)
                         }
 
             </LineChart>
@@ -60,10 +59,8 @@ function AppLineChart(props) {
 
 const mapStateToProps = state => ({
     // data: state.lineChartItemActions.data,
-    // legendKeys: state.lineChartItemActions.legendKeys
+    // legendKeys: state.lineChartItemActions.legendKeys,
+    // loading: state.lineChartItemActions.loading,
 });
 
-export default connect(
-    mapStateToProps,
-    {lineChartFetchData}
-)(AppLineChart)
+export default AppLineChart;

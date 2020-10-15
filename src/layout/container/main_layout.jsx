@@ -35,6 +35,7 @@ import Icon from "@material-ui/core/Icon";
 import AutorenewOutlinedIcon from '@material-ui/icons/AutorenewOutlined';
 import FilterTiltShiftOutlinedIcon from '@material-ui/icons/FilterTiltShiftOutlined';
 import KitchenOutlinedIcon from '@material-ui/icons/KitchenOutlined';
+import Hidden from "@material-ui/core/Hidden";
 
 const drawerWidth = 240;
 
@@ -51,15 +52,35 @@ const useStyles = theme => ({
         background: 'lightslategray'
     },
     appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
+        [theme.breakpoints.between('md', 'xl')]:{
+            marginLeft: drawerWidth,
+            width: `calc(100% - ${drawerWidth}px)`,
+            transition: theme.transitions.create(['width', 'margin'], {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+        },
     },
     menuButton: {
-        marginRight: 36,
+        [theme.breakpoints.between('md', 'xl')]:{
+            marginRight: 36,
+        },
+        [theme.breakpoints.between('xs', 'sm')]:{
+            marginRight: 5,
+        }
+    },
+    menuButtonHide: {
+        [theme.breakpoints.between('md', 'xl')]:{
+            display: 'none',
+        },
+        [theme.breakpoints.between('xs', 'sm')]:{
+            display: 'inline',
+        }
+    },
+    logoHide:{
+        [theme.breakpoints.between('md', 'xl')]:{
+            display: 'none',
+        },
     },
     hide: {
         display: 'none',
@@ -70,22 +91,30 @@ const useStyles = theme => ({
         whiteSpace: 'nowrap',
     },
     drawerOpen: {
-        width: drawerWidth,
+        [theme.breakpoints.between('md', 'xl')]:{
+            width: drawerWidth,
+        },
+        [theme.breakpoints.between('xs', 'sm')]:{
+            width: 240,
+        },
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
     drawerClose: {
+        [theme.breakpoints.between('md', 'xl')]:{
+            width: theme.spacing(7) + 1,
+        },
+        [theme.breakpoints.between('xs', 'sm')]:{
+            width: 0,
+        },
+        overflowX: 'hidden',
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        overflowX: 'hidden',
-        width: theme.spacing(7) + 1,
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9) + 1,
-        },
+
     },
     toolbar: {
         display: 'flex',
@@ -140,15 +169,15 @@ class MainLayout extends Component {
                         <IconButton
                             color="default"
                             aria-label="open drawer"
-                            onClick={e => this.handelMenuOpen(true)}
+                            onClick={e => this.handelMenuOpen(!this.props.Open)}
                             edge="start"
                             className={clsx(this.props.classes.menuButton, {
-                                [this.props.classes.hide]: this.props.Open,
+                                [this.props.classes.menuButtonHide]: this.props.Open,
                             })}
                         >
                             <MenuIcon />
                         </IconButton>
-                        <img src={CompanyLogo} className={clsx({[this.props.classes.hide]: this.props.Open})} alt="Kitten" height="40" width="170" />
+                        <img src={CompanyLogo} className={clsx({[this.props.classes.logoHide]: this.props.Open})} alt="Kitten" height="40" width="170" />
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -168,7 +197,9 @@ class MainLayout extends Component {
                         <IconButton onClick={e => this.handelMenuOpen(false)}>
                             {this.props.theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                         </IconButton>
-                        <img src={CompanyLogo} className={clsx({[this.props.classes.hide]: !this.props.Open})} alt="Kitten" height="40" width="170" />
+                        <Hidden mdDown>
+                            <img src={CompanyLogo} className={clsx({[this.props.classes.hide]: !this.props.Open})} alt="Kitten" height="40" width="170" />
+                        </Hidden>
                     </div>
                     <Divider />
                     <List component="div" disablePadding dense={true} >
