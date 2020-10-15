@@ -28,7 +28,7 @@ export const rdiGet = (page, take) => ({
     payload: '',
     meta: {
         type: API,
-        url: `https://localhost:44394/backend/rinsedi?pageNo=${page}&pageSize=${take}`,
+        url: `rinsedi?pageNo=${page}&pageSize=${take}`,
         onSuccess: (data) => ({
             type: RDI_GET,
             data: data.data,

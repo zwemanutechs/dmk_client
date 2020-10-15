@@ -8,7 +8,7 @@ export const degreasingGet = (page, take) => ({
     payload: '',
     meta: {
         type: API,
-        url: `https://localhost:44394/backend/degreasing?pageNo=${page}&pageSize=${take}`,
+        url: `degreasing?pageNo=${page}&pageSize=${take}`,
         onSuccess: (data) => ({
             type: DEGREASING_GET,
             data: data.data,

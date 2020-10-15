@@ -8,7 +8,7 @@ export const rinse1Get = (page, take) => ({
     payload: '',
     meta: {
         type: API,
-        url:  `https://localhost:44394/backend/rinse1?pageNo=${page}&pageSize=${take}`,
+        url:  `rinse1?pageNo=${page}&pageSize=${take}`,
         onSuccess: (data) => ({
             type: R1_GET,
             data: data.data,

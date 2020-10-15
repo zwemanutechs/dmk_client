@@ -8,7 +8,7 @@ export const paintCabinetGet = (page, take) =>({
     payload: '',
     meta: {
         type: API,
-        url:  `https://localhost:44394/backend/paintCabinet?pageNo=${page}&pageSize=${take}`,
+        url:  `paintCabinet?pageNo=${page}&pageSize=${take}`,
         onSuccess: (data) => ({
             type: PAINTCABINET_GET,
             data: data.data,

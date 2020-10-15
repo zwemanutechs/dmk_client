@@ -8,7 +8,7 @@ export const paintBoothGet = (page, take) => ({
     payload: '',
     meta: {
         type: API,
-        url: `https://localhost:44394/backend/paintBooth?pageNo=${page}&pageSize=${take}`,
+        url: `paintBooth?pageNo=${page}&pageSize=${take}`,
         onSuccess: (data) => ({
             type: PAINTBOOTH_GET,
             data: data.data,

@@ -1,5 +1,5 @@
 import {accessDenied, apiError} from "../appservices/api-services/api";
-
+const  baseUrl = "https://localhost:44394/backend/";
 const apiMiddleware = store => next => action => {
     if (!action.meta || action.meta.type !== 'API') {
         return next(action);
@@ -11,7 +11,7 @@ const apiMiddleware = store => next => action => {
     const fetchOptions = Object.assign({}, action.meta);
 
     // Make the request
-    fetch(url, fetchOptions)
+    fetch(baseUrl+url, fetchOptions)
         // convert the response to json
         .then(resp => resp.json())
         .then(json => {

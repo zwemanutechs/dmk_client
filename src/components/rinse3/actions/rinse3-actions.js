@@ -7,7 +7,7 @@ export const r3Get = (page, take) => ({
     payload: '',
     meta: {
         type: API,
-        url:  `https://localhost:44394/backend/rinse3?pageNo=${page}&pageSize=${take}`,
+        url:  `rinse3?pageNo=${page}&pageSize=${take}`,
         onSuccess: (data) => ({
             type: R3_GET,
             data: data.data,

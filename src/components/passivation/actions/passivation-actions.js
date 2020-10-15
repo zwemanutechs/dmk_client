@@ -8,7 +8,7 @@ export const passivationGet = (page, take) =>  ({
     payload: '',
     meta: {
         type: API,
-        url:  `https://localhost:44394/backend/passivation?pageNo=${page}&pageSize=${take}`,
+        url:  `passivation?pageNo=${page}&pageSize=${take}`,
         onSuccess: (data) => ({
             type: PASSIVATION_GET,
             data: data.data,
