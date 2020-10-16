@@ -29,17 +29,34 @@
     -->
     <title>Dormakaba</title>
     <style>
-      #root:before{
+      .container{z-index: 1;}
+      .container:before{
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
         background-image: url("./images/logo/background_image.png");
+        background-position: center center;
+        width: 80%;
         background-repeat: no-repeat;
-        background-size: contain;
-        opacity: 0.3;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        opacity: 0.2;
+        height: 100%;
       }
     </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div class="container">
+      <div id="root"></div>
+    </div>
+
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
