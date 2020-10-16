@@ -43,7 +43,6 @@ class Rinse1 extends Component {
         super(props);
         this.state = {
             sortOrder: {},
-            data:[{'ph': 1.0, 'waterOverflowToWasteWaterTank1': 2.1, 'waterSupplyFromTank3': 3.1}, {'ph': 1.2, 'waterOverflowToWasteWaterTank1': 1.1, 'waterSupplyFromTank3': 2.1}]
         };
     }
 

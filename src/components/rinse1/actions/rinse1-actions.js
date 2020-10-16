@@ -1,6 +1,6 @@
 import {R1_GET} from '../action-constants/rinse1-actionTypes';
 import {OPEN_SNACK} from '../../../shared/snackbar/action-constants/snackbar-actionTypes';
-import {snackError} from "../../../constants/app-constants";
+import {APIGET, APIADD, APIUPDATE, APIDELETE, snackError} from "../../../constants/app-constants";
 import {API} from "../../../appservices/api-services/types";
 
 
@@ -8,6 +8,7 @@ export const rinse1Get = (page, take) => ({
     payload: '',
     meta: {
         type: API,
+        method: APIGET,
         url:  `rinse1?pageNo=${page}&pageSize=${take}`,
         onSuccess: (data) => ({
             type: R1_GET,

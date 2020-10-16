@@ -1,11 +1,5 @@
 import {accessDenied, apiError} from "../appservices/api-services/api";
-import axios from "axios";
-const  baseUrl = "https://localhost:44394/backend/";
-
-const client = axios.create({
-    baseURL: baseUrl,
-
-});
+import {client} from "./axios-middleware";
 
 const apiMiddleware = store => next => action => {
     if (!action.meta || action.meta.type !== 'API') {
