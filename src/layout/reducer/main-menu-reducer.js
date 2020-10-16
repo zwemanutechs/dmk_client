@@ -1,6 +1,8 @@
 const itemActions = (
     state = {
-        Open: false
+        Open: false,
+        menus: [],
+        error: false
     },
     action
 ) => {
@@ -14,6 +16,18 @@ const itemActions = (
             return {
                 ...state,
                 Open: false
+            };
+        case "GET_MENU":
+            return {
+                ...state,
+                menus: action.payload
+            };
+        case "USER_ERROR":
+            return {
+                ...state,
+                Open: false,
+                menus: [],
+                error: true
             };
         default:
             return state;

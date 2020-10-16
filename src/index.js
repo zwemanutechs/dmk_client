@@ -12,6 +12,7 @@ import rootReducer from "./reducers";
 import { Router, Route } from 'react-router';
 import apiMiddleware  from './middleware/custom-apiMiddleware';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import {BrowserRouter} from "react-router-dom";
 const store = createStore(
     rootReducer,
     applyMiddleware(thunk, apiMiddleware),
@@ -20,9 +21,9 @@ export const history = createBrowserHistory();
 
 ReactDOM.render(
   <Provider store={store}>
-      <Router history={history}>
+      <BrowserRouter history={history}>
           <App />
-      </Router>
+      </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

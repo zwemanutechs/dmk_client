@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import clsx from 'clsx';
 import { connect } from "react-redux";
-import { openMenu, closeMenu } from "../actions/main-menu";
+import { openMenu, closeMenu, getMenu } from "../actions/main-menu";
 import {withStyles, useTheme} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -19,8 +18,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import compose from 'recompose/compose'
-import {withRouter} from "react-router";
-import {Link} from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import SimpleBreadCrumbs from "../../shared/breadcum/breadcrumbs"
 import CompanyLogo from "../../assets/images/logo/dormakaba_transparent.png"
 import Degreasing from '../../assets/images/svg/degreasing.svg';
@@ -28,7 +26,6 @@ import Rinse1 from '../../assets/images/svg/rinse_1.svg';
 import Rinse2 from '../../assets/images/svg/rinse_2.svg'
 import Rinse3 from '../../assets/images/svg/rinse_3.svg'
 import RinseDIIcon from '../../assets/images/svg/rinse_di.svg'
-import Oven from '../../assets/images/svg/oven.svg'
 import PaintBooth from '../../assets/images/svg/painting_booth.svg'
 import Evaporator from '../../assets/images/svg/evaporator.svg'
 import Icon from "@material-ui/core/Icon";
@@ -144,7 +141,10 @@ class MainLayout extends Component {
 
     constructor(props) {
         super(props);
+    }
 
+    componentDidMount() {
+        this.props.getMenu();
     }
 
     handelMenuOpen = (value) => {
@@ -279,13 +279,16 @@ class MainLayout extends Component {
 }
 
 const mapStateToProps = state => ({
-    Open: state.itemActions.Open
+    Open: state.itemActions.Open,
+    menus: state.itemActions.menus,
+    error: state.itemActions.error
 });
 
 export default compose(
+    withRouter,
     withStyles(useStyles, { withTheme: true }),
     connect(
         mapStateToProps,
-        { openMenu, closeMenu },
+        { openMenu, closeMenu, getMenu },
     ),
-)(withRouter(MainLayout));
+)(MainLayout);
