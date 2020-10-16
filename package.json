@@ -23,6 +23,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "ReactMobileViewTable": "file:../../../../../Users/zwe.htatnaing/Desktop/Dormakaba/ReactMobileViewTable-1.0.0.tgz",
+    "axios": "^0.20.0",
     "clsx": "^1.1.1",
     "compose": "^0.1.2",
     "history": "^4.10.1",

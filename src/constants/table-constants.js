@@ -4,16 +4,8 @@ import React from "react";
 
 export const tableCustomizeToolBarSingleSelect = {
     filter: true,
-    selectableRows: 'multiple',
+    selectableRows: 'none',
     filterType: 'dropdown',
     responsive: 'simple',
     rowsPerPage: 10,
-    customToolbar: () => {
-        return (
-            <CustomTableToolbar />
-        );
-    },
-    onRowsClick: (rowData, rowMeta) => {
-
-    }
 };

@@ -8,6 +8,7 @@ import compose from 'recompose/compose'
 import MUITable from "../../../shared/mui-datatable/container/mui-table";
 import MobileTable from "ReactMobileViewTable";
 import {withWidth, isWidthDown} from "@material-ui/core";
+import {tableCustomizeToolBarSingleSelect} from "../../../constants/table-constants";
 
 const columns = [
     {label: 'Ph Meter', name: 'ph'},
@@ -51,7 +52,7 @@ class Rinse1 extends Component {
     }
 
     getData(pageNo, pageSize) {
-        //this.props.rinse1Get(pageNo, pageSize);
+        this.props.rinse1Get(pageNo, pageSize);
     }
 
     options = () => ({
@@ -67,7 +68,6 @@ class Rinse1 extends Component {
         },
         serverSide: true,
         onTableChange: (action, tableState) => {
-            console.log(action, tableState);
             switch (action) {
                 case 'changePage':
                 case 'changeRowsPerPage':
@@ -85,10 +85,10 @@ class Rinse1 extends Component {
     render() {
         return (
             isWidthDown('sm', this.props.width) ? <React.Fragment>
-                <MobileTable columns={columns} title={"RINSE 1"} data={this.state.data} handleClick={e => console.log(e)}/>
+                <MobileTable columns={columns} title={"RINSE 1"} data={this.props.data} handleClick={e => console.log(e)}/>
                 </React.Fragment>
                 :<React.Fragment>
-                    <MUITable title={"RINSE 1"} data={this.props.data} columns={columns} options={this.options()} loading={this.props.loading}/>
+                    <MUITable title={"RINSE 1"} data={this.props.data} columns={columns} accessRight={{Create: true, Update: true, Delete: false}} options={tableCustomizeToolBarSingleSelect} loading={this.props.loading}/>
                 </React.Fragment>
         );
     }

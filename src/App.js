@@ -18,7 +18,15 @@ import Conversion from "./components/conversion/container/conversion";
 
 class App extends Component {
 
-  render() {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+
+    }
+
+    render() {
     return (
           <div>
               <Main_layout>
