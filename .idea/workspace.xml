@@ -2,8 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6227a14-8f91-4f53-8eb2-6598713bae5e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/rinse1/container/rinse1-addOrEdit.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/rinse1/model/model.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/rinse1/validator/form-validator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/rinse1/action-constants/rinse1-actionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rinse1/action-constants/rinse1-actionTypes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/rinse1/actions/rinse1-actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rinse1/actions/rinse1-actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/rinse1/container/rinse1.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rinse1/container/rinse1.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/rinse1/reducers/rinse1-reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rinse1/reducers/rinse1-reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/actions/main-menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/actions/main-menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/axios-middleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/axios-middleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/custom-apiMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/custom-apiMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/mat-diaglog/action-constants/maxDialog-actionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/mat-diaglog/action-constants/maxDialog-actionTypes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/mat-diaglog/actions/maxDialog-action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/mat-diaglog/actions/maxDialog-action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/mat-diaglog/container/mat-dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/mat-diaglog/container/mat-dialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/mat-diaglog/reducer/maxDialog-reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/mat-diaglog/reducer/maxDialog-reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/mui-datatable/container/mui-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/mui-datatable/container/mui-table.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +56,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/assets/images/logo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -77,6 +95,18 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -97,6 +127,7 @@
       <workItem from="1601604364130" duration="7519000" />
       <workItem from="1601864766476" duration="32417000" />
       <workItem from="1602814019809" duration="19978000" />
+      <workItem from="1603075173495" duration="23321000" />
     </task>
     <servers />
   </component>
@@ -112,24 +143,28 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="391" y="27" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1600057272277" />
-    <state width="1921" height="270" key="GridCell.Tab.0.bottom" timestamp="1602841601906">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1899" height="179" key="GridCell.Tab.0.bottom" timestamp="1603090504370">
+      <screen x="3840" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="179" key="GridCell.Tab.0.bottom/0.0.1536.824/3840.0.1920.1040@3840.0.1920.1040" timestamp="1603090504370" />
     <state width="1537" height="88" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1602755661594" />
     <state width="1921" height="270" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1602841601906" />
-    <state width="1921" height="270" key="GridCell.Tab.0.center" timestamp="1602841601906">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1899" height="179" key="GridCell.Tab.0.center" timestamp="1603090504369">
+      <screen x="3840" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="179" key="GridCell.Tab.0.center/0.0.1536.824/3840.0.1920.1040@3840.0.1920.1040" timestamp="1603090504369" />
     <state width="1537" height="88" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1602755661593" />
     <state width="1921" height="270" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1602841601906" />
-    <state width="1921" height="270" key="GridCell.Tab.0.left" timestamp="1602841601905">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1899" height="179" key="GridCell.Tab.0.left" timestamp="1603090504369">
+      <screen x="3840" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="179" key="GridCell.Tab.0.left/0.0.1536.824/3840.0.1920.1040@3840.0.1920.1040" timestamp="1603090504369" />
     <state width="1537" height="88" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1602755661593" />
     <state width="1921" height="270" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1602841601905" />
-    <state width="1921" height="270" key="GridCell.Tab.0.right" timestamp="1602841601906">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1899" height="179" key="GridCell.Tab.0.right" timestamp="1603090504370">
+      <screen x="3840" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="179" key="GridCell.Tab.0.right/0.0.1536.824/3840.0.1920.1040@3840.0.1920.1040" timestamp="1603090504370" />
     <state width="1537" height="88" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1602755661594" />
     <state width="1921" height="270" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1602841601906" />
     <state width="1921" height="196" key="GridCell.Tab.1.bottom" timestamp="1602825009655">

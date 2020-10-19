@@ -31,16 +31,15 @@ class App extends Component {
                 if(response && response.status === 200 && response.data.code){
                     localStorage.setItem('access-data', response.data.data);
                 }else if(response && response.status === 403){
-                    this.props.history.push('/Forbidden');
+                    //this.props.history.push('/Forbidden');
                 }
             }).catch((err) => {
-                this.props.history.push('/Forbidden');
+                //this.props.history.push('/Forbidden');
         });
     }
 
     render() {
     return (
-        <div>
             <Switch>
                 <Route exact path="/Forbidden" render={() => <ForbiddenPage />}/>
                 <Main_layout>
@@ -60,8 +59,6 @@ class App extends Component {
                 <Spinner/>
                 <MuiSnackBar/>
             </Switch>
-        </div>
-
     );
   }
 }

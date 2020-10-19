@@ -13,9 +13,7 @@ export const closeMenu = name => ({
 
 export const getMenu = () => async dispatch => {
   try{
-      console.log(localStorage.getItem('access-data'));
       const response = await client.get('Auth/AccessMenu',{headers : {'AccessToken' : localStorage.getItem('access-data')}});
-      console.log(response);
       if(response && response.status === 200){
           dispatch({
               type: GET,

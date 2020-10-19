@@ -29,10 +29,8 @@ class MUITable extends Component{
 
     configureAccessRight = () => {
         let tableOptions = this.props.options;
-        console.log(this.props.accessRight);
         if(this.props.accessRight && this.props.accessRight.Create){
-            console.log('create');
-            tableOptions = Object.assign({}, tableOptions, {customToolbar: () => <CustomTableToolbar />});
+            tableOptions = Object.assign({}, tableOptions, {customToolbar: () => <CustomTableToolbar/>});
         }
         if(this.props.accessRight && this.props.accessRight.Update){
             tableOptions = Object.assign({}, tableOptions, {onRowsClick: (rowData, rowMeta) => this.props.handleUpdate});
@@ -40,7 +38,6 @@ class MUITable extends Component{
         if(this.props.accessRight && this.props.accessRight.Delete){
             tableOptions = Object.assign({}, tableOptions, {selectableRows: 'multiple'});
         }
-        console.log(tableOptions);
         return tableOptions;
     };
 

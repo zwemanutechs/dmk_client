@@ -8,6 +8,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { openDialog, closeDialog} from '../actions/maxDialog-action'
 import {connect} from "react-redux";
 import {useMediaQuery, useTheme} from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import green from "@material-ui/core/colors/green";
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -33,6 +35,14 @@ const useStyles = makeStyles((theme) => ({
             top: 80
         },
     },
+    buttonProgress: {
+        color: green[500],
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        marginTop: -12,
+        marginLeft: -12,
+    },
 }));
 
 function MaxWidthDialog(props) {
@@ -43,6 +53,7 @@ function MaxWidthDialog(props) {
         <div style={{minWidth: 400}}>
             <Dialog
                 fullScreen={fullScreen}
+                disableBackdropClick={true}
                 maxWidth = {'md'}
                 open={props.digOpen}
                 onClose={props.formClose}
@@ -54,11 +65,12 @@ function MaxWidthDialog(props) {
                     {props.content}
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={props.formClose} color="primary">
+                    <Button autoFocus onClick={props.formClose} color="primary" disabled={props.onFormSubmit}>
                         Cancel
                     </Button>
-                    <Button onClick={props.formSubmit} color="primary">
+                    <Button onClick={props.formSubmit} color="primary" disabled={props.onFormSubmit}>
                         Save
+                        {props.onFormSubmit && <CircularProgress size={24} className={classes.buttonProgress} />}
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -67,7 +79,8 @@ function MaxWidthDialog(props) {
 }
 const mapStateToProps = state => ({
     digOpen: state.diagItemActions.digOpen,
-    title: state.diagItemActions.title
+    title: state.diagItemActions.title,
+    submitted: state.diagItemActions.submitted
 });
 
 export default connect(

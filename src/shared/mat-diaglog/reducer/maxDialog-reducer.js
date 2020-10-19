@@ -1,6 +1,7 @@
 const diagItemActions = (
     state = {
         digOpen: false,
+        submitted: false,
         title: ''
     },
     action
@@ -16,6 +17,12 @@ const diagItemActions = (
             return {
                 ...state,
                 digOpen: false,
+                submitted: false,
+            };
+        case "ON_SUBMIT":
+            return {
+                ...state,
+                submitted: true,
             };
         default:
             return state;
