@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1),
     },
     paper: {
-        minWidth: "500px",
+        minWidth: "250px",
         [theme.breakpoints.up('md')]: {
             position: 'absolute',
             left: '30%',
@@ -60,8 +60,8 @@ function MaxWidthDialog(props) {
                 classes={{paper: classes.paper}}
                 aria-labelledby="max-width-dialog-title"
             >
-                <DialogTitle id="max-width-dialog-title" onClose={props.formClose}>{`${props.title} ${props.contentTitle}`}</DialogTitle>
-                <DialogContent>
+                <DialogTitle id="max-width-dialog-title" onClose={props.formClose} style={{backgroundColor: fullScreen ? '#e4002b':'white', color: fullScreen ? 'white': 'black'}}>{`${props.title} ${props.contentTitle}`}</DialogTitle>
+                <DialogContent style={{flex: fullScreen ? 'inherit': '1 1 auto'}}>
                     {props.content}
                 </DialogContent>
                 <DialogActions>

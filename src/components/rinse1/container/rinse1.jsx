@@ -99,7 +99,7 @@ class Rinse1 extends Component {
                     }
                     {
                         isWidthDown('sm', this.props.width) ?
-                            <Fab size="medium" color="secondary" onClick={this.handelMobileOnAdd} aria-label="add" style={{ flex: 1, position: 'fixed', right: 20, bottom: 10, zIndex: 999, backgroundColor: '#f50057'}}>
+                            <Fab size="medium" color="secondary" onClick={this.handelMobileOnAdd} aria-label="add" style={{ flex: 1, position: 'fixed', right: 30, bottom: 30, zIndex: 999, backgroundColor: '#f50057'}}>
                                 <AddIcon />
                             </Fab>
                             : <React.Fragment>

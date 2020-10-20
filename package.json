@@ -2,6 +2,7 @@
   "name": "dmk_client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./index.html",
   "babel": {
     "presets": [
       "@babel/preset-env",
