@@ -45,15 +45,20 @@ const rinse1ItemActions = (
         case "R1_UPDATE":
             const updatedDataIndex = state.data.findIndex(d => d.id === action.data.id);
             if(updatedDataIndex >= 0){
+                let listData = [...state.data];
+                listData[updatedDataIndex] = action.data;
                 return {
-                    data: [...state.data[updatedDataIndex], action.data ],
-                    loading: false
+                    data: listData,
+                    rinse1DataSet: r1Model,
+                    loading: false,
+                    onSubmit: false
                 };
             }else{
                 return {
                     data: state.data,
                     loading: false,
-                    errorCode: 3
+                    errorCode: 3,
+                    onSubmit: false
                 }
             };
         case "R1_DELETE":

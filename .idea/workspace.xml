@@ -4,11 +4,8 @@
     <list default="true" id="e6227a14-8f91-4f53-8eb2-6598713bae5e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rinse1/action-constants/rinse1-actionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rinse1/action-constants/rinse1-actionTypes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rinse1/actions/rinse1-actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rinse1/actions/rinse1-actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rinse1/container/rinse1.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rinse1/container/rinse1.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/rinse1/reducers/rinse1-reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rinse1/reducers/rinse1-reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/mui-datatable/container/mui-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/mui-datatable/container/mui-table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/custom-apiMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/custom-apiMiddleware.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +111,7 @@
       <workItem from="1601604364130" duration="7519000" />
       <workItem from="1601864766476" duration="32417000" />
       <workItem from="1602814019809" duration="19978000" />
-      <workItem from="1603075173495" duration="34485000" />
+      <workItem from="1603075173495" duration="35982000" />
     </task>
     <servers />
   </component>

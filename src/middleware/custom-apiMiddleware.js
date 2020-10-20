@@ -74,6 +74,8 @@ const apiMiddleware = store => next => action => {
         });
     }
     else if(action.meta.method === 'UPDATE'){
+        action.payload.CreatedAt = new Date();
+        action.payload.UpdatedAt = new Date();
         // Make the PUT request
         client.put(url, action.payload)
             // Accessing Call Back
