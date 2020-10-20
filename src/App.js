@@ -17,12 +17,17 @@ import PaintCabinet from "./components/paintCabinet/container/paintCabinet";
 import Conversion from "./components/conversion/container/conversion";
 import {client} from "./middleware/axios-middleware";
 import ForbiddenPage from "./components/errorPages/403";
+import FactoryLoader from "./assets/images/icons/factoryloader.gif";
+import Grid from "@material-ui/core/Grid";
 
 class App extends Component {
 
     constructor(props) {
         super(props);
         localStorage.clear();
+        this.state = {
+            accessToken: ''
+        }
     }
 
     componentDidMount() {
@@ -30,17 +35,28 @@ class App extends Component {
             .then(response => {
                 if(response && response.status === 200 && response.data.code){
                     localStorage.setItem('access-data', response.data.data);
+                    // Wait for local storage
+                    setTimeout(
+                        function() {
+                            this.setState({accessToken: localStorage.getItem('access-data')});
+                        }
+                            .bind(this),
+                        4000
+                    );
                 }else if(response && response.status === 403){
-                    //this.props.history.push('/Forbidden');
+                    this.props.history.push('/Forbidden');
                 }
             }).catch((err) => {
-                //this.props.history.push('/Forbidden');
+                this.props.history.push('/Forbidden');
         });
     }
 
     render() {
     return (
-            <Switch>
+        this.state.accessToken === '' ? <Grid container direction="column" alignItems="center" justify="center" style={{minHeight: 750, height: '100%'}}>
+                <img src={FactoryLoader} width={150} height={150} alt="loader"/>
+        </Grid>
+            : <Switch>
                 <Route exact path="/Forbidden" render={() => <ForbiddenPage />}/>
                 <Main_layout>
                     <Route exact path="/" render={() => <Home />}/>

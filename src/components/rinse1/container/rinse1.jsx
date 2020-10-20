@@ -11,7 +11,10 @@ import {tableCustomizeToolBarSingleSelect} from "../../../constants/table-consta
 import MaxWidthDialog from "../../../shared/mat-diaglog/container/mat-dialog";
 import Grid from "@material-ui/core/Grid";
 import RinseOneAddOrEdit from "./rinse1-addOrEdit";
+import { openDialog, closeDialog} from '../../../shared/mat-diaglog/actions/maxDialog-action';
 import {snackSuccess} from "../../../constants/app-constants";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from '@material-ui/icons/Add';
 
 const columns = [
     {label: 'Ph Meter', name: 'ph'},
@@ -75,6 +78,10 @@ class Rinse1 extends Component {
         }
     };
 
+    handelMobileOnAdd = () => {
+        this.props.openDialog(true, 'ADD')
+    };
+
     render() {
         return (
             <Grid container direction="row" justify="center">
@@ -83,6 +90,14 @@ class Rinse1 extends Component {
                         isWidthDown('sm', this.props.width) ?
                             <MobileTable columns={columns} title={"RINSE 1"} data={this.props.data} handleClick={e => console.log(e)}/>
                             :<MUITable title={"RINSE ONE"} data={this.props.data} columns={columns} accessRight={{Create: true, Update: true, Delete: false}} options={tableCustomizeToolBarSingleSelect} loading={this.props.loading}/>
+                    }
+                    {
+                        isWidthDown('sm', this.props.width) ?
+                            <Fab size="medium" color="secondary" onClick={this.handelMobileOnAdd} aria-label="add" style={{ flex: 1, position: 'fixed', right: 20, bottom: 10, zIndex: 999, backgroundColor: '#f50057'}}>
+                                <AddIcon />
+                            </Fab>
+                            : <React.Fragment>
+                            </React.Fragment>
                     }
                     <MaxWidthDialog
                         content={<RinseOneAddOrEdit dataSet={this.props.rinse1DataSet} handelChange={this.handelChange}  onFormSubmit={this.props.onSubmit} formError={this.props.formError}/>}
@@ -116,6 +131,6 @@ export default compose(
     withWidth(),
     connect(
         mapStateToProps,
-        {onDialogClose, onFormSubmition, rinse1Get, rinse1Add, r1FormChange, openSnack, closeSnack,openSpinner},
+        {openDialog, onDialogClose, onFormSubmition, rinse1Get, rinse1Add, r1FormChange, openSnack, closeSnack,openSpinner},
     )
 )(Rinse1)
