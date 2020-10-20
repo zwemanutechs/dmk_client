@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {openSnack, closeSnack} from "../../../shared/snackbar/actions/snackbar-actions";
 import {openSpinner} from "../../../shared/spinner/actions/spinner-actions";
-import { r1FormChange, onDialogClose, onFormSubmition, rinse1Get, rinse1Add} from "../actions/rinse1-actions";
+import { r1FormChange, onDialogClose, onFormSubmition, onRowClick, rinse1Get, rinse1Add, rinse1Update} from "../actions/rinse1-actions";
 import {connect} from "react-redux";
 import compose from 'recompose/compose'
 import MUITable from "../../../shared/mui-datatable/container/mui-table";
@@ -56,8 +56,8 @@ class Rinse1 extends Component {
        this.getData(this.props.page, this.props.rowsPerPage)
     }
 
-    getData(pageNo, pageSize) {
-        this.props.rinse1Get(pageNo, pageSize);
+    async getData(pageNo, pageSize) {
+        await this.props.rinse1Get(pageNo, pageSize);
     }
 
     handelChange = (propertyName, propertyValue) => {
@@ -72,7 +72,7 @@ class Rinse1 extends Component {
     handelFormSubmit = async () => {
         await this.props.onFormSubmition();
         if (this.props.title === 'UPDATE') {
-
+            this.props.rinse1Update(this.props.rinse1DataSet);
         } else {
             this.props.rinse1Add(this.props.rinse1DataSet);
         }
@@ -82,6 +82,12 @@ class Rinse1 extends Component {
         this.props.openDialog(true, 'ADD')
     };
 
+    onUpdate = async (rowData, rowMeta) => {
+        console.log(rowData, rowMeta);
+        const updateData = this.props.data[rowMeta.dataIndex];
+        this.props.onRowClick(updateData);
+    };
+
     render() {
         return (
             <Grid container direction="row" justify="center">
@@ -89,7 +95,7 @@ class Rinse1 extends Component {
                     {
                         isWidthDown('sm', this.props.width) ?
                             <MobileTable columns={columns} title={"RINSE 1"} data={this.props.data} handleClick={e => console.log(e)}/>
-                            :<MUITable title={"RINSE ONE"} data={this.props.data} columns={columns} accessRight={{Create: true, Update: true, Delete: false}} options={tableCustomizeToolBarSingleSelect} loading={this.props.loading}/>
+                            :<MUITable title={"RINSE ONE"} data={this.props.data} columns={columns} accessRight={{Create: true, Update: true, Delete: false}} options={tableCustomizeToolBarSingleSelect} loading={this.props.loading} handleUpdate={this.onUpdate}/>
                     }
                     {
                         isWidthDown('sm', this.props.width) ?
@@ -131,6 +137,6 @@ export default compose(
     withWidth(),
     connect(
         mapStateToProps,
-        {openDialog, onDialogClose, onFormSubmition, rinse1Get, rinse1Add, r1FormChange, openSnack, closeSnack,openSpinner},
+        {openDialog, onDialogClose, onFormSubmition, onRowClick, rinse1Get, rinse1Add, rinse1Update, r1FormChange, openSnack, closeSnack,openSpinner},
     )
 )(Rinse1)

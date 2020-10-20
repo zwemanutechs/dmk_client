@@ -53,25 +53,27 @@ class App extends Component {
 
     render() {
     return (
-        this.state.accessToken === '' ? <Grid container direction="column" alignItems="center" justify="center" style={{minHeight: 750, height: '100%'}}>
-                <img src={FactoryLoader} width={150} height={150} alt="loader"/>
-        </Grid>
-            : <Switch>
+            <Switch>
                 <Route exact path="/Forbidden" render={() => <ForbiddenPage />}/>
-                <Main_layout>
-                    <Route exact path="/" render={() => <Home />}/>
-                    <Route path="/Home" render={() => <Home />}/>
-                    <Route path="/RinseDI" render={() => <RinseDi />}/>
-                    <Route path="/RinseOne" render={() => <Rinse1 />}/>
-                    <Route path="/RinseTwo" render={() => <Rinse2 />}/>
-                    <Route path="/RinseThree" render={() => <Rinse3 />}/>
-                    <Route path="/Degreasing" render={() => <Degreasing />}/>
-                    <Route path="/PaintBooth" render={() => <PaintBooth />}/>
-                    <Route path="/NeuEvaporator" render={() => <NeuEvaporator />}/>
-                    <Route path="/Passivation" render={() => <Passivation />}/>
-                    <Route path="/PaintCabinet" render={() => <PaintCabinet />}/>
-                    <Route path="/Conversion" render={() => <Conversion />}/>
-                </Main_layout>
+                {
+                    this.state.accessToken === '' ? <Route><Grid container direction="column" alignItems="center" justify="center" style={{minHeight: 750, height: '100%'}}>
+                        <img src={FactoryLoader} width={150} height={150} alt="loader"/>
+                        </Grid></Route>
+                        :<Main_layout>
+                            <Route exact path="/" render={() => <Home />}/>
+                            <Route path="/Home" render={() => <Home />}/>
+                            <Route path="/RinseDI" render={() => <RinseDi />}/>
+                            <Route path="/RinseOne" render={() => <Rinse1 />}/>
+                            <Route path="/RinseTwo" render={() => <Rinse2 />}/>
+                            <Route path="/RinseThree" render={() => <Rinse3 />}/>
+                            <Route path="/Degreasing" render={() => <Degreasing />}/>
+                            <Route path="/PaintBooth" render={() => <PaintBooth />}/>
+                            <Route path="/NeuEvaporator" render={() => <NeuEvaporator />}/>
+                            <Route path="/Passivation" render={() => <Passivation />}/>
+                            <Route path="/PaintCabinet" render={() => <PaintCabinet />}/>
+                            <Route path="/Conversion" render={() => <Conversion />}/>
+                        </Main_layout>
+                }
                 <Spinner/>
                 <MuiSnackBar/>
             </Switch>

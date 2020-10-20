@@ -88,6 +88,12 @@ const rinse1ItemActions = (
                 loading: false,
                 errorCode: 0,
             };
+        case "R1_ON_ROWCLICK":
+            return {
+                ...state,
+                rinse1DataSet: action.dataSet
+            };
+
         default:
             return state;
     }

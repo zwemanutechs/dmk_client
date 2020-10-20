@@ -5,13 +5,15 @@ import {
     R1_DELETE,
     R1_FORM_ERROR,
     R1_FORM_CHANGE,
-    R1_CLOSE_DIAG, R1_ON_FORMSUBMIT
+    R1_CLOSE_DIAG,
+    R1_ON_FORMSUBMIT,
+    R1_ON_ROWCLICK
 } from '../action-constants/rinse1-actionTypes';
 import {OPEN_SNACK} from '../../../shared/snackbar/action-constants/snackbar-actionTypes';
 import {APIGET, APIADD, APIUPDATE, APIDELETE, snackError} from "../../../constants/app-constants";
 import {API} from "../../../appservices/api-services/types";
 import {formValidation} from "../validator/form-validator";
-import {closeDialog} from "../../../shared/mat-diaglog/actions/maxDialog-action";
+import {closeDialog, openDialog} from "../../../shared/mat-diaglog/actions/maxDialog-action";
 
 export const rinse1Get = (page, take) => ({
     payload: '',
@@ -70,6 +72,43 @@ export const rinse1Add = (data) => async dispatch => {
     }
 };
 
+export const rinse1Update = (data) => async dispatch => {
+    try {
+        const formValid = await formValidation(data);
+        if(formValid && formValid.valid){
+            dispatch({
+                payload: data,
+                meta: {
+                    type: API,
+                    method: APIUPDATE,
+                    url: `rinse1/update`,
+                    onSuccess: (data) => dispatch => {
+                        dispatch(closeDialog(false, ''));
+                        dispatch({
+                            type: R1_UPDATE,
+                            data: data.data,
+                            legendKey: ''
+                        });
+                    },
+                    onFailure: (error) => ({
+                        type: OPEN_SNACK,
+                        status:false,
+                        message:'Oops, something went wrong please try again later.',
+                        snackType:snackError
+                    })
+                }
+            });
+        }else{
+            dispatch({
+                type: R1_FORM_ERROR,
+                validateResult: formValid
+            });
+        }
+    }catch (e) {
+
+    }
+};
+
 export const r1FormChange = (updatedDataSet) => ({
     type: R1_FORM_CHANGE,
     updatedDataSet
@@ -84,6 +123,14 @@ export const onDialogClose = () => async dispatch => {
     dispatch({
       type: R1_CLOSE_DIAG
   })
+};
+
+export const onRowClick = (dataSet) => dispatch => {
+  dispatch({
+      type: R1_ON_ROWCLICK,
+      dataSet
+  });
+  dispatch(openDialog(true, 'UPDATE'));
 };
 
 

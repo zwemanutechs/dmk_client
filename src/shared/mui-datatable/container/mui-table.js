@@ -33,7 +33,7 @@ class MUITable extends Component{
             tableOptions = Object.assign({}, tableOptions, {customToolbar: () => <CustomTableToolbar/>});
         }
         if(this.props.accessRight && this.props.accessRight.Update){
-            tableOptions = Object.assign({}, tableOptions, {onRowsClick: (rowData, rowMeta) => this.props.handleUpdate});
+            tableOptions = Object.assign({}, tableOptions, {onRowClick: (rowData, rowMeta) => this.props.handleUpdate(rowData, rowMeta)});
         }
         if(this.props.accessRight && this.props.accessRight.Delete){
             tableOptions = Object.assign({}, tableOptions, {selectableRows: 'multiple'});
