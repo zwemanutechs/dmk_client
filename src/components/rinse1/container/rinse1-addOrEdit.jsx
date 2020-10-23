@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState, useEffect, Component, PureComponent} from "react";
 import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import NumberFormat from "react-number-format";
+import {withStyles} from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = theme => ({
     form: {
         display: 'flex',
         flexDirection: 'column',
@@ -29,126 +29,142 @@ const useStyles = makeStyles((theme) => ({
             top: 80
         },
     },
-}));
+});
 
-function RinseOneAddOrEdit(props) {
-    const classes = useStyles();
-    const [formFields, setformFields] = useState({
-        ph:{valid: true, errorMessage: ''},
-        waterOverflowToWasteWaterTank1:{valid: true, errorMessage: ''},
-        waterSupplyFromTank3:{valid: true, errorMessage: ''},
-        waterSupplyFromTank6:{valid: true, errorMessage: ''},
-    });
+class RinseOneAddOrEdit extends Component {
 
-    useEffect(() => {
-        if(props.formError && !props.formError.valid && Array.isArray(props.formError.errors)){
-            let invalidState = formFields;
-            props.formError.errors.forEach((err) => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ph:{valid: true, errorMessage: '', value: this.props.dataSet.ph},
+            waterOverflowToWasteWaterTank1:{valid: true, errorMessage: '', value: this.props.dataSet.waterOverflowToWasteWaterTank1},
+            waterSupplyFromTank3:{valid: true, errorMessage: '', value: this.props.dataSet.waterSupplyFromTank3},
+            waterSupplyFromTank6:{valid: true, errorMessage: '', value: this.props.dataSet.waterSupplyFromTank6},
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.formError !== this.props.formError){
+            let invalidState = {...this.state};
+            this.props.formError.errors.forEach((err) => {
                 invalidState[err.property].valid = false;
                 invalidState[err.property].errorMessage = err.message;
             });
-            setformFields(prevformFields => ({...prevformFields, ...invalidState}));
+            this.setState(state => ({invalidState}));
         }
-    }, [props.formError]);
+    }
 
-    const onChange = (propertyName, propertyValue) => {
-        let validState = formFields;
-        if(propertyValue && propertyValue > 0){
-            validState[propertyName].valid = true;
-            validState[propertyName].message = '';
+    onChange = (propertyName, propertyValue) => {
+        let validState = {...this.state};
+        if(!this.props.formError.valid){
+            if(propertyValue > 0){
+                validState[propertyName].valid = true;
+                validState[propertyName].message = '';
+            }
         }
-        setformFields(prevformFields => ({...prevformFields, ...validState}));
-        props.handelChange(propertyName, propertyValue);
+        validState[propertyName].value = propertyValue;
+        this.setState(state => ({validState}));
     };
 
-    return (
-        <form className={classes.form}>
-            {/** PH Meter ***/}
-            <Grid item xs={12}>
-                <FormControl className={classes.formControl}>
-                    <NumberFormat
-                        id="phmeter"
-                        label="PH Meter"
-                        customInput={TextField}
-                        value={props.dataSet.ph}
-                        fullWidth={true}
-                        defaultValue={0.00}
-                        onValueChange={ value => onChange('ph', value.floatValue)}
-                        onFocus={event => {event.target.select();}}
-                        decimalScale={2}
-                        thousandSeparator={false}
-                        fixedDecimalScale={true}
-                        error={!formFields.ph.valid}
-                        helperText={!formFields.ph.valid ? formFields.ph.errorMessage : ''}
-                        disabled={props.onFormSubmit}
-                    />
-                </FormControl>
-            </Grid>
-            {/** End PH Meter **/}
-            {/** Water Overflow Waste Water From Tank 1 ***/}
-            <Grid item xs={12}>
-                <FormControl className={classes.formControl}>
-                    <NumberFormat
-                        id="waterOverflowToWasteWaterTank1"
-                        label="Tank-1 Waste Water"
-                        customInput={TextField}
-                        value={props.dataSet.waterOverflowToWasteWaterTank1}
-                        defaultValue={0.00}
-                        onValueChange={ value => onChange('waterOverflowToWasteWaterTank1', value.floatValue)}
-                        onFocus={event => {event.target.select();}}
-                        decimalScale={2}
-                        thousandSeparator={false}
-                        fixedDecimalScale={true}
-                        error={!formFields.waterOverflowToWasteWaterTank1.valid}
-                        helperText={!formFields.waterOverflowToWasteWaterTank1.valid ? formFields.waterOverflowToWasteWaterTank1.errorMessage : ''}
-                        disabled={props.onFormSubmit}
-                    />
-                </FormControl>
-            </Grid>
-            {/** End Water Overflow Waste Water From Tank 1 **/}
-            {/** Tank-3 Water Supply ***/}
-            <Grid item xs={12}>
-                <FormControl className={classes.formControl}>
-                    <NumberFormat
-                        id="waterSupplyFromTank3"
-                        label="Tank-3 Water Supply"
-                        customInput={TextField}
-                        value={props.dataSet.waterSupplyFromTank3}
-                        defaultValue={0.00}
-                        onValueChange={ value => onChange('waterSupplyFromTank3', value.floatValue)}
-                        onFocus={event => {event.target.select();}}
-                        decimalScale={2}
-                        thousandSeparator={false}
-                        fixedDecimalScale={true}
-                        error={!formFields.waterSupplyFromTank3.valid}
-                        helperText={!formFields.waterSupplyFromTank3.valid ? formFields.waterSupplyFromTank3.errorMessage : ''}
-                        disabled={props.onFormSubmit}
-                    />
-                </FormControl>
-            </Grid>
-            {/** End Tank-3 Water Supply **/}
-            {/** Tank-3 Water Supply ***/}
-            <Grid item xs={12}>
-                <FormControl className={classes.formControl}>
-                    <NumberFormat
-                        id="waterSupplyFromTank6"
-                        label="Tank-3 Water Supply"
-                        customInput={TextField}
-                        value={props.dataSet.waterSupplyFromTank6}
-                        defaultValue={0.00}
-                        onValueChange={ value => onChange('waterSupplyFromTank6', value.floatValue)}
-                        onFocus={event => {event.target.select();}}
-                        decimalScale={2}
-                        thousandSeparator={false}
-                        fixedDecimalScale={true}
-                        error={!formFields.waterSupplyFromTank6.valid}
-                        helperText={!formFields.waterSupplyFromTank6.valid ? formFields.waterSupplyFromTank6.errorMessage : ''}
-                        disabled={props.onFormSubmit}
-                    />
-                </FormControl>
-            </Grid>
-            {/** End Tank-3 Water Supply **/}
-        </form>
-    )
+    onBlur = (propertyName) => {
+        this.props.handelChange(propertyName, this.state[propertyName].value);
+    };
+
+    render() {
+        return (
+            <form className={this.props.classes.form}>
+                {/** PH Meter ***/}
+                <Grid item xs={12}>
+                    <FormControl className={this.props.classes.formControl}>
+                        <NumberFormat
+                            id="phmeter"
+                            label="PH Meter"
+                            customInput={TextField}
+                            value={this.state.ph.value}
+                            fullWidth={true}
+                            defaultValue={0.00}
+                            onValueChange={ value => this.onChange('ph', value.floatValue)}
+                            onBlur={e => this.onBlur('ph')}
+                            onFocus={event => {event.target.select();}}
+                            decimalScale={2}
+                            thousandSeparator={false}
+                            fixedDecimalScale={true}
+                            error={!this.state.ph.valid}
+                            helperText={!this.state.ph.valid ? this.state.ph.errorMessage : ''}
+                            disabled={this.props.onFormSubmit}
+                        />
+                    </FormControl>
+                </Grid>
+                {/** End PH Meter **/}
+                {/** Water Overflow Waste Water From Tank 1 ***/}
+                <Grid item xs={12}>
+                    <FormControl className={this.props.classes.formControl}>
+                        <NumberFormat
+                            id="waterOverflowToWasteWaterTank1"
+                            label="Tank-1 Waste Water"
+                            customInput={TextField}
+                            value={this.state.waterOverflowToWasteWaterTank1.value}
+                            defaultValue={0.00}
+                            onValueChange={ value => this.onChange('waterOverflowToWasteWaterTank1', value.floatValue)}
+                            onBlur={e => this.onBlur('waterOverflowToWasteWaterTank1')}
+                            onFocus={event => {event.target.select();}}
+                            decimalScale={2}
+                            thousandSeparator={false}
+                            fixedDecimalScale={true}
+                            error={!this.state.waterOverflowToWasteWaterTank1.valid}
+                            helperText={!this.state.waterOverflowToWasteWaterTank1.valid ? this.state.waterOverflowToWasteWaterTank1.errorMessage : ''}
+                            disabled={this.props.onFormSubmit}
+                        />
+                    </FormControl>
+                </Grid>
+                {/** End Water Overflow Waste Water From Tank 1 **/}
+                {/** Tank-3 Water Supply ***/}
+                <Grid item xs={12}>
+                    <FormControl className={this.props.classes.formControl}>
+                        <NumberFormat
+                            id="waterSupplyFromTank3"
+                            label="Tank-3 Water Supply"
+                            customInput={TextField}
+                            value={this.state.waterSupplyFromTank3.value}
+                            defaultValue={0.00}
+                            onValueChange={ value => this.onChange('waterSupplyFromTank3', value.floatValue)}
+                            onBlur={e => this.onBlur('waterSupplyFromTank3')}
+                            onFocus={event => {event.target.select();}}
+                            decimalScale={2}
+                            thousandSeparator={false}
+                            fixedDecimalScale={true}
+                            error={!this.state.waterSupplyFromTank3.valid}
+                            helperText={!this.state.waterSupplyFromTank3.valid ? this.state.waterSupplyFromTank3.errorMessage : ''}
+                            disabled={this.props.onFormSubmit}
+                        />
+                    </FormControl>
+                </Grid>
+                {/** End Tank-3 Water Supply **/}
+                {/** Tank-3 Water Supply ***/}
+                <Grid item xs={12}>
+                    <FormControl className={this.props.classes.formControl}>
+                        <NumberFormat
+                            id="waterSupplyFromTank6"
+                            label="Tank-3 Water Supply"
+                            customInput={TextField}
+                            value={this.state.waterSupplyFromTank6.value}
+                            defaultValue={0.00}
+                            onValueChange={ value => this.onChange('waterSupplyFromTank6', value.floatValue)}
+                            onBlur={e => this.onBlur('waterSupplyFromTank6')}
+                            onFocus={event => {event.target.select();}}
+                            decimalScale={2}
+                            thousandSeparator={false}
+                            fixedDecimalScale={true}
+                            error={!this.state.waterSupplyFromTank6.valid}
+                            helperText={!this.state.waterSupplyFromTank6.valid ? this.state.waterSupplyFromTank6.errorMessage : ''}
+                            disabled={this.props.onFormSubmit}
+                        />
+                    </FormControl>
+                </Grid>
+                {/** End Tank-3 Water Supply **/}
+            </form>
+        )
+    }
 }
-export default RinseOneAddOrEdit;
+
+export default withStyles(useStyles, { withTheme: true })(RinseOneAddOrEdit);

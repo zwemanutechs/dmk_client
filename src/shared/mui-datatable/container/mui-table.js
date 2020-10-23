@@ -3,6 +3,7 @@ import MUIDataTable from "mui-datatables";
 import {withStyles} from "@material-ui/styles";
 import {Skeleton} from '@material-ui/lab';
 import CustomTableToolbar from "./custamize-table-toolbar";
+import {MDUP} from "../../../constants/app-constants";
 
 const defaultTableStyles = theme => ({
     root: {},
@@ -29,14 +30,17 @@ class MUITable extends Component{
 
     configureAccessRight = () => {
         let tableOptions = this.props.options;
+        tableOptions = Object.assign({}, tableOptions, {count: this.props.totalCount});
+        tableOptions = Object.assign({}, tableOptions, {onChangePage: (pageNumber) => this.props.onPageChange(pageNumber)});
         if(this.props.accessRight && this.props.accessRight.Create){
             tableOptions = Object.assign({}, tableOptions, {customToolbar: () => <CustomTableToolbar/>});
         }
         if(this.props.accessRight && this.props.accessRight.Update){
-            tableOptions = Object.assign({}, tableOptions, {onRowClick: (rowData, rowMeta) => this.props.handleUpdate(rowData, rowMeta)});
+            tableOptions = Object.assign({}, tableOptions, {onRowClick: (rowData, rowMeta) => this.props.handleUpdate(rowData, rowMeta, MDUP)});
         }
         if(this.props.accessRight && this.props.accessRight.Delete){
             tableOptions = Object.assign({}, tableOptions, {selectableRows: 'multiple'});
+            tableOptions = Object.assign({}, tableOptions, {onRowsDelete: (rowsDeleted) => this.props.handelDelete(rowsDeleted)});
         }
         return tableOptions;
     };

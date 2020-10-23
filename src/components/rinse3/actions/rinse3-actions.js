@@ -1,7 +1,8 @@
 import {R3_GET} from '../action-constants/rinse3-actionTypes';
 import {snackError} from "../../../constants/app-constants";
 import {OPEN_SNACK} from '../../../shared/snackbar/action-constants/snackbar-actionTypes';
-import {API} from "../../../appservices/api-services/types";
+import {API} from "../../../constants/api-constants";
+
 
 export const r3Get = (page, take) => ({
     payload: '',

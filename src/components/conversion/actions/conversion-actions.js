@@ -3,7 +3,8 @@ import {
 } from '../action-constants/conversion-actionTypes';
 import {OPEN_SNACK} from '../../../shared/snackbar/action-constants/snackbar-actionTypes';
 import {snackError} from "../../../constants/app-constants";
-import {API} from "../../../appservices/api-services/types";
+import {API} from "../../../constants/api-constants";
+
 
 
 export const conversionGet = (page, take) => ({

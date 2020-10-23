@@ -1,7 +1,6 @@
 import {validate} from "revalidator";
 
 export const formValidation = formFields => {
-    console.log(formFields);
     return validate(formFields, {
         properties: {
             ph: {

@@ -1,7 +1,7 @@
 import {PAINTBOOTH_GET} from '../action-constants/paintBooth-actionTypes';
 import {snackError} from "../../../constants/app-constants";
-import {API} from "../../../appservices/api-services/types";
 import {OPEN_SNACK} from "../../../shared/snackbar/action-constants/snackbar-actionTypes";
+import {API} from "../../../constants/api-constants";
 
 
 export const paintBoothGet = (page, take) => ({

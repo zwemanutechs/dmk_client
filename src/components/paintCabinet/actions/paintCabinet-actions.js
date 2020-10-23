@@ -1,7 +1,7 @@
 import {PAINTCABINET_GET} from '../action-constants/paintCabinet-actionTypes';
 import {snackError} from "../../../constants/app-constants";
-import {API} from "../../../appservices/api-services/types";
 import {OPEN_SNACK} from "../../../shared/snackbar/action-constants/snackbar-actionTypes";
+import {API} from "../../../constants/api-constants";
 
 
 export const paintCabinetGet = (page, take) =>({

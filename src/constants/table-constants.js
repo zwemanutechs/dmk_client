@@ -3,9 +3,10 @@ import React from "react";
 
 
 export const tableCustomizeToolBarSingleSelect = {
+    serverSide: true,
     filter: true,
     selectableRows: 'none',
     filterType: 'dropdown',
-    responsive: 'simple',
+    responsive: 'vertical',
     rowsPerPage: 10,
 };

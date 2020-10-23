@@ -52,7 +52,7 @@ class App extends Component {
     }
 
     render() {
-    return (
+    return (<React.Fragment>
             <Switch>
                 <Route exact path="/Forbidden" render={() => <ForbiddenPage />}/>
                 {
@@ -74,9 +74,10 @@ class App extends Component {
                             <Route path="/Conversion" render={() => <Conversion />}/>
                         </Main_layout>
                 }
-                <Spinner/>
-                <MuiSnackBar/>
             </Switch>
+            <Spinner/>
+            <MuiSnackBar/>
+        </React.Fragment>
     );
   }
 }

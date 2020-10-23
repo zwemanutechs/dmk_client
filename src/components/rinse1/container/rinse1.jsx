@@ -1,20 +1,25 @@
 import React, {Component} from 'react';
 import {openSnack, closeSnack} from "../../../shared/snackbar/actions/snackbar-actions";
 import {openSpinner} from "../../../shared/spinner/actions/spinner-actions";
-import { r1FormChange, onDialogClose, onFormSubmition, onRowClick, rinse1Get, rinse1Add, rinse1Update} from "../actions/rinse1-actions";
 import {connect} from "react-redux";
 import compose from 'recompose/compose'
 import MUITable from "../../../shared/mui-datatable/container/mui-table";
-import MobileTable from "ReactMobileViewTable";
 import {withWidth, isWidthDown} from "@material-ui/core";
 import {tableCustomizeToolBarSingleSelect} from "../../../constants/table-constants";
 import MaxWidthDialog from "../../../shared/mat-diaglog/container/mat-dialog";
 import Grid from "@material-ui/core/Grid";
 import RinseOneAddOrEdit from "./rinse1-addOrEdit";
 import { openDialog, closeDialog} from '../../../shared/mat-diaglog/actions/maxDialog-action';
-import {snackSuccess} from "../../../constants/app-constants";
+import {MDUP, ROWPERPAGE, snackSuccess} from "../../../constants/app-constants";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from '@material-ui/icons/Add';
+//import MobileTable from "../../../shared/MobileTable";
+import MobileTable from "ReactMobileViewTable";
+import {r1Model} from "../model/model";
+import {get, post, put, deleteRange} from "../../../middleware/axios-middleware";
+import {formValidation} from "../validator/form-validator";
+import {sortByUpdatedAt} from "../../../appservices/app-services";
+import MobileView from "../../../shared/mobileview-table/mobileview-table";
 
 const columns = [
     {label: 'Ph Meter', name: 'ph'},
@@ -48,44 +53,137 @@ class Rinse1 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            sortOrder: {},
-        };
+            tableData: [],
+            totalCount: 0,
+            formData: r1Model,
+            formError: [],
+            loading : true,
+            onProgress: false,
+        }
     }
 
-    componentDidMount() {
-       this.getData(this.props.page, this.props.rowsPerPage)
-    }
-
-    async getData(pageNo, pageSize) {
-        await this.props.rinse1Get(pageNo, pageSize);
-    }
-
-    handelChange = (propertyName, propertyValue) => {
-        let newDataSet = this.props.rinse1DataSet;
-        this.props.r1FormChange({...newDataSet, [propertyName]: propertyValue});
+    async componentDidMount() {
+       await this.getData(this.props.page, this.props.rowsPerPage);
     };
 
-    handelFormClose = () => {
-        this.props.onDialogClose();
-    };
-
-    handelFormSubmit = async () => {
-        await this.props.onFormSubmition();
-        if (this.props.title === 'UPDATE') {
-            this.props.rinse1Update(this.props.rinse1DataSet);
-        } else {
-            this.props.rinse1Add(this.props.rinse1DataSet);
+    /***
+     * Fetch the Data
+     * **/
+    getData = async (pageNo) => {
+        const response = await get(`rinse1?pageNo=${pageNo === undefined ? 0: pageNo}&pageSize=${10}`);
+        if(response){
+            this.setState(state =>
+                ({
+                    tableData: response.data.data.data,
+                    totalCount: response.data.data.count,
+                    loading: false
+                }));
         }
     };
 
-    handelMobileOnAdd = () => {
-        this.props.openDialog(true, 'ADD')
+    /**
+     * Capture the user handel changes
+     * */
+    handelChange = (propertyName, propertyValue) => {
+        let newDataSet = {...this.state.formData};
+        newDataSet[propertyName] = propertyValue;
+        this.setState({formData: newDataSet});
     };
 
-    onUpdate = async (rowData, rowMeta) => {
-        console.log(rowData, rowMeta);
-        const updateData = this.props.data[rowMeta.dataIndex];
-        this.props.onRowClick(updateData);
+    /***
+     * Form Submit
+     * * * We will send the user new or modified data to backend server
+     * **/
+    handelFormSubmit = async () => {
+        this.setState({onProgress: true});
+        const hasError = await formValidation(this.state.formData);
+        if(hasError && !hasError.valid){
+            this.setState({formError: hasError, onProgress: false});
+        }else{
+            if(this.props.title === 'UPDATE'){
+                const response = await put('rinse1/update', this.state.formData);
+                if(response && response.data.code){
+                    const dataIndex = this.state.tableData.findIndex(x => x.id === response.data.data.id);
+                    if(dataIndex >= 0){
+                        const tableData = this.state.tableData;
+                        tableData.splice(dataIndex, 1);
+                        this.setState(state => ({tableData: [...tableData, response.data.data], formData: r1Model, onProgress: false}), () => this.props.closeDialog(false, ''));
+                    }
+                }
+            }else{
+                const response = await post('rinse1/add', this.state.formData);
+                if(response && response.data.code){
+                    this.setState(state => ({tableData: [response.data.data, ...state.tableData], formData: r1Model, onProgress: false}), () => this.props.closeDialog(false, ''));
+                }
+            }
+        }
+    };
+
+    /***
+     * Initialize the selected row Data to bind in Dialog Content
+     * ***/
+    onUpdate = async (rowData, rowMeta, size) => {
+        if(size === MDUP){
+            const updateData = this.state.tableData[rowMeta.dataIndex];
+            this.setState({formData: updateData}, () => this.props.openDialog(true, 'UPDATE'));
+        }else{
+            const updateData = this.state.tableData.find(x => x.id === rowData.id);
+            this.setState({formData: updateData}, () => this.props.openDialog(true, 'UPDATE'));
+        }
+    };
+
+    /***
+     * Handel User Deletion
+     * **/
+    onDelete = (rowData) => new Promise(async (resolve, reject) => {
+        if(Array.isArray(rowData.data) && rowData.data.length > 0){
+                let deleteList = [];
+                rowData.data.forEach((deletedRowData) => {
+                   const deletedData = this.state.tableData[deletedRowData.dataIndex];
+                   if(deletedData){
+                       deleteList.push(deletedData);
+                   }
+                });
+                const response = await deleteRange('rinse1/deleterange', deleteList);
+                if(response && response.data.code){
+                    let newDataList = [...this.state.tableData];
+                    deleteList.forEach((deletedItems) => {
+                        const deletedItemIndex = newDataList.findIndex(x => x.id === deletedItems.id);
+                        if(deletedItemIndex >= 0){
+                            newDataList.splice(deletedItemIndex, 1);
+                        }
+                    });
+                    this.setState(state => ({tableData: newDataList}), () => resolve());
+                }else{
+                    reject();
+                }
+            }
+        else {
+            reject();
+        }
+    });
+
+    /***
+     * On Swipe Deletion on Mobile
+     *
+     * **/
+    onSwipeDelete = (rowData) => new Promise((resolve, reject) => {
+        const deletedDataIndex = this.state.tableData.findIndex(x => x.id === rowData.id);
+        if(deletedDataIndex >= 0){
+            this.onDelete({data: [{dataIndex: deletedDataIndex}]}).then(res => resolve()).catch((rej) => reject());
+        }else{
+            reject();
+        }
+    });
+
+
+    ;
+    /***
+     * Handel Form Cancel
+     * **/
+    onFormClose = async () => {
+        await this.props.closeDialog(false, '');
+        this.setState(state => ({formData: r1Model}));
     };
 
     render() {
@@ -93,24 +191,63 @@ class Rinse1 extends Component {
             <Grid container direction="row" justify="center">
                 <Grid item xs={12}>
                     {
-                        isWidthDown('sm', this.props.width) ?
-                            <MobileTable columns={columns} title={"RINSE 1"} data={this.props.data} handleClick={e => console.log(e)}/>
-                            :<MUITable title={"RINSE ONE"} data={this.props.data} columns={columns} accessRight={{Create: true, Update: true, Delete: false}} options={tableCustomizeToolBarSingleSelect} loading={this.props.loading} handleUpdate={this.onUpdate}/>
+                        /***
+                         * ** Render according to device break point
+                         *  'SM' and down for Mobile View
+                         *  'MD' and up for Desktop view
+                         * ***/
+                        isWidthDown('xs', this.props.width) ?
+                            /***
+                             * Mobile View
+                             * **/
+                            <MobileView columns={columns}
+                                         title={"RINSE ONE"}
+                                         data={this.state.tableData}
+                                         nextData={this.getData}
+                                         totalCount={this.state.totalCount}
+                                         handleClick={this.onUpdate}
+                                         handelDelete={this.onSwipeDelete}
+                                         sortValue={'Updated At'}
+                            />
+                            /***
+                             * Desktop View
+                             * **/
+                            :<MUITable title={"RINSE ONE"}
+                                       totalCount={this.state.totalCount}
+                                       data={this.state.tableData.sort(sortByUpdatedAt)}
+                                       columns={columns}
+                                       accessRight={{Create: true, Update: true, Delete: true}}
+                                       options={tableCustomizeToolBarSingleSelect}
+                                       loading={this.state.loading}
+                                       onPageChange={this.getData}
+                                       handleUpdate={this.onUpdate}
+                                       handelDelete={this.onDelete}
+                            />
                     }
                     {
-                        isWidthDown('sm', this.props.width) ?
-                            <Fab size="medium" color="secondary" onClick={this.handelMobileOnAdd} aria-label="add" style={{ flex: 1, position: 'fixed', right: 30, bottom: 30, zIndex: 999, backgroundColor: '#f50057'}}>
+                        /***
+                         * * Render Float button for Creation
+                         *  if device width is 'SM' and down we will show 'Add' floating button
+                         * **/
+                        isWidthDown('xs', this.props.width) ?
+                            <Fab size="medium" color="secondary" onClick={e => this.props.openDialog(true, 'ADD')} aria-label="add" style={{ flex: 1, position: 'fixed', right: 30, bottom: 30, zIndex: 999, backgroundColor: '#f50057'}}>
                                 <AddIcon />
                             </Fab>
                             : <React.Fragment>
                             </React.Fragment>
                     }
+                    {/***
+                     * * Material Dialog for Creation and Update
+                     * * * * we will render Medium size Dialog for 'MD' and UP
+                     * * * * * * and
+                     * * * * Full Screen Dialog for 'SM' and Down
+                     * **/}
                     <MaxWidthDialog
-                        content={<RinseOneAddOrEdit dataSet={this.props.rinse1DataSet} handelChange={this.handelChange}  onFormSubmit={this.props.onSubmit} formError={this.props.formError}/>}
+                        content={<RinseOneAddOrEdit dataSet={this.state.formData} handelChange={this.handelChange}  onFormSubmit={this.state.onProgress} formError={this.state.formError}/>}
                         contentTitle={"RINSE ONE"}
-                        formClose={this.handelFormClose}
+                        formClose={this.onFormClose}
                         formSubmit={this.handelFormSubmit}
-                        onFormSubmit={this.props.onSubmit}
+                        onFormSubmit={this.state.onProgress}
                     />
                 </Grid>
             </Grid>
@@ -121,22 +258,12 @@ class Rinse1 extends Component {
 const mapStateToProps = state => ({
     title: state.diagItemActions.title,
     digOpen: state.diagItemActions.digOpen,
-    rinse1DataSet: state.rinse1ItemActions.rinse1DataSet,
-    snackOpen: state.snackItemActions.snackOpen,
-    data:state.rinse1ItemActions.data,
-    count:state.rinse1ItemActions.count,
-    page:state.rinse1ItemActions.page,
-    rowsPerPage:state.rinse1ItemActions.rowsPerPage,
-    loading:state.rinse1ItemActions.loading,
-    onSubmit: state.rinse1ItemActions.onSubmit,
-    formError: state.rinse1ItemActions.formError
 });
-
 
 export default compose(
     withWidth(),
     connect(
         mapStateToProps,
-        {openDialog, onDialogClose, onFormSubmition, onRowClick, rinse1Get, rinse1Add, rinse1Update, r1FormChange, openSnack, closeSnack,openSpinner},
+        {openDialog, closeDialog, openSnack, closeSnack,openSpinner},
     )
 )(Rinse1)

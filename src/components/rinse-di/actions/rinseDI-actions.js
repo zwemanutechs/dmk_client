@@ -15,7 +15,8 @@ import {CLOSE_DIAG} from "../../../shared/mat-diaglog/action-constants/maxDialog
 import {snackError} from "../../../constants/app-constants";
 import {OPEN_SNACK} from '../../../shared/snackbar/action-constants/snackbar-actionTypes';
 import {OPEN_SPINNER,CLOSE_SPINNER} from '../../../shared/spinner/action-constants/spinner-actionTypes';
-import {API} from "../../../appservices/api-services/types";
+import {API} from "../../../constants/api-constants";
+
 
 const rdiModel = {
     phMeter: 0,

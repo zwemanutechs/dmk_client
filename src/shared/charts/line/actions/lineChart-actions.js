@@ -1,7 +1,7 @@
 import {FETCH, GET} from '../action-constants/lineChart-actionTypes'
-import {API} from "../../../../appservices/api-services/types";
 import {OPEN_SNACK} from "../../../snackbar/action-constants/snackbar-actionTypes";
 import {snackError} from "../../../../constants/app-constants";
+import {API} from "../../../../constants/api-constants";
 
 export const lineChartFetchData = (fetchUrl, keys) => ({
    payload: '',

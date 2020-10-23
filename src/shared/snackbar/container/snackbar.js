@@ -5,7 +5,7 @@ import {openSnack, closeSnack}  from '../actions/snackbar-actions';
 import {connect} from "react-redux";
 
 function MuiSnackBar(props) {
-    console.log(props);
+
     const handelSnackClose = () =>{
         return props.closeSnack(false);
     };
@@ -13,8 +13,10 @@ function MuiSnackBar(props) {
     return(
         <Snackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            autoHideDuration={6000}
             open={props.snackOpen}
             onClose={handelSnackClose}
+            onExit={handelSnackClose}
             message={props.message}
             className={props.snackType}
             key={'h1'}

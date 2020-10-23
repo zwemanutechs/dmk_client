@@ -1,7 +1,7 @@
 import {NOTIFICATION_FETCH, NOTIFICATION_GET} from '../action-constants/notificationCard-actionTypes'
-import {API} from "../../../appservices/api-services/types";
 import {OPEN_SNACK} from "../../snackbar/action-constants/snackbar-actionTypes";
 import {snackError} from "../../../constants/app-constants";
+import {API} from "../../../constants/api-constants";
 
 export const notificationCardFetchData = (formName,datetime) => ({
    payload: '',
