@@ -113,7 +113,7 @@ class Rinse1 extends Component {
             }else{
                 const response = await post('rinse1/add', this.state.formData);
                 if(response && response.data.code){
-                    this.setState(state => ({tableData: [response.data.data, ...state.tableData], formData: r1Model, onProgress: false}), () => this.props.closeDialog(false, ''));
+                    this.setState(state => ({tableData: [response.data.data, ...state.tableData], formData: r1Model, onProgress: false,totalCount:state.totalCount+1}), () => this.props.closeDialog(false, ''));
                 }
             }
         }
@@ -153,7 +153,7 @@ class Rinse1 extends Component {
                             newDataList.splice(deletedItemIndex, 1);
                         }
                     });
-                    this.setState(state => ({tableData: newDataList}), () => resolve());
+                    this.setState(state => ({tableData: newDataList,totalCount:state.totalCount-1}), () => resolve());
                 }else{
                     reject();
                 }

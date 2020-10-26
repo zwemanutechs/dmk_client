@@ -31,7 +31,7 @@ const useStyles = theme => ({
     },
 });
 
-class RinseOneAddOrEdit extends Component {
+class RinseTwoAddOrEdit extends Component {
 
     constructor(props) {
         super(props);
@@ -39,7 +39,7 @@ class RinseOneAddOrEdit extends Component {
             ph:{valid: true, errorMessage: '', value: this.props.dataSet.ph},
             waterOverflowToWasteWaterTank1:{valid: true, errorMessage: '', value: this.props.dataSet.waterOverflowToWasteWaterTank1},
             waterSupplyFromTank3:{valid: true, errorMessage: '', value: this.props.dataSet.waterSupplyFromTank3},
-            waterSupplyFromTank6:{valid: true, errorMessage: '', value: this.props.dataSet.waterSupplyFromTank6},
+            waterSupplyFromTank4:{valid: true, errorMessage: '', value: this.props.dataSet.waterSupplyFromTank4},
         }
     }
 
@@ -96,67 +96,23 @@ class RinseOneAddOrEdit extends Component {
                     </FormControl>
                 </Grid>
                 {/** End PH Meter **/}
-                {/** Water Overflow Waste Water From Tank 1 ***/}
-                <Grid item xs={12}>
-                    <FormControl className={this.props.classes.formControl}>
-                        <NumberFormat
-                            id="waterOverflowToWasteWaterTank1"
-                            label="Tank-1 Waste Water"
-                            customInput={TextField}
-                            value={this.state.waterOverflowToWasteWaterTank1.value}
-                            defaultValue={0.00}
-                            onValueChange={ value => this.onChange('waterOverflowToWasteWaterTank1', value.floatValue)}
-                            onBlur={e => this.onBlur('waterOverflowToWasteWaterTank1')}
-                            onFocus={event => {event.target.select();}}
-                            decimalScale={2}
-                            thousandSeparator={false}
-                            fixedDecimalScale={true}
-                            error={!this.state.waterOverflowToWasteWaterTank1.valid}
-                            helperText={!this.state.waterOverflowToWasteWaterTank1.valid ? this.state.waterOverflowToWasteWaterTank1.errorMessage : ''}
-                            disabled={this.props.onFormSubmit}
-                        />
-                    </FormControl>
-                </Grid>
-                {/** End Water Overflow Waste Water From Tank 1 **/}
                 {/** Tank-3 Water Supply ***/}
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
                         <NumberFormat
-                            id="waterSupplyFromTank3"
-                            label="Tank-3 Water Supply"
+                            id="waterSupplyFromTank4"
+                            label="Tank-4 Water Supply"
                             customInput={TextField}
-                            value={this.state.waterSupplyFromTank3.value}
+                            value={this.state.waterSupplyFromTank4.value}
                             defaultValue={0.00}
-                            onValueChange={ value => this.onChange('waterSupplyFromTank3', value.floatValue)}
-                            onBlur={e => this.onBlur('waterSupplyFromTank3')}
+                            onValueChange={ value => this.onChange('waterSupplyFromTank4', value.floatValue)}
+                            onBlur={e => this.onBlur('waterSupplyFromTank4')}
                             onFocus={event => {event.target.select();}}
                             decimalScale={2}
                             thousandSeparator={false}
                             fixedDecimalScale={true}
-                            error={!this.state.waterSupplyFromTank3.valid}
-                            helperText={!this.state.waterSupplyFromTank3.valid ? this.state.waterSupplyFromTank3.errorMessage : ''}
-                            disabled={this.props.onFormSubmit}
-                        />
-                    </FormControl>
-                </Grid>
-                {/** End Tank-3 Water Supply **/}
-                {/** Tank-3 Water Supply ***/}
-                <Grid item xs={12}>
-                    <FormControl className={this.props.classes.formControl}>
-                        <NumberFormat
-                            id="waterSupplyFromTank6"
-                            label="Tank-6 Water Supply"
-                            customInput={TextField}
-                            value={this.state.waterSupplyFromTank6.value}
-                            defaultValue={0.00}
-                            onValueChange={ value => this.onChange('waterSupplyFromTank6', value.floatValue)}
-                            onBlur={e => this.onBlur('waterSupplyFromTank6')}
-                            onFocus={event => {event.target.select();}}
-                            decimalScale={2}
-                            thousandSeparator={false}
-                            fixedDecimalScale={true}
-                            error={!this.state.waterSupplyFromTank6.valid}
-                            helperText={!this.state.waterSupplyFromTank6.valid ? this.state.waterSupplyFromTank6.errorMessage : ''}
+                            error={!this.state.waterSupplyFromTank4.valid}
+                            helperText={!this.state.waterSupplyFromTank4.valid ? this.state.waterSupplyFromTank4.errorMessage : ''}
                             disabled={this.props.onFormSubmit}
                         />
                     </FormControl>
@@ -167,4 +123,4 @@ class RinseOneAddOrEdit extends Component {
     }
 }
 
-export default withStyles(useStyles, { withTheme: true })(RinseOneAddOrEdit);
+export default withStyles(useStyles, { withTheme: true })(RinseTwoAddOrEdit);

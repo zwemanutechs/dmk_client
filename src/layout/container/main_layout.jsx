@@ -216,7 +216,7 @@ class MainLayout extends Component {
                         <Divider/>
                         <ListItem key={3} button component={Link} to="/RinseOne" style={{minHeight: 47}}>
                             <ListItemIcon><Icon><img src={Rinse1} width="25" height="25"/></Icon></ListItemIcon>
-                            <ListItemText primary={"Rinse 1"} />
+                            <ListItemText primary={"Rinse One"} />
                         </ListItem>
                         <Divider/>
                         <ListItem key={4} button component={Link} to="/RinseTwo" style={{minHeight: 47}}>
