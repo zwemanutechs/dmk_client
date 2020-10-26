@@ -37,8 +37,6 @@ class RinseTwoAddOrEdit extends Component {
         super(props);
         this.state = {
             ph:{valid: true, errorMessage: '', value: this.props.dataSet.ph},
-            waterOverflowToWasteWaterTank1:{valid: true, errorMessage: '', value: this.props.dataSet.waterOverflowToWasteWaterTank1},
-            waterSupplyFromTank3:{valid: true, errorMessage: '', value: this.props.dataSet.waterSupplyFromTank3},
             waterSupplyFromTank4:{valid: true, errorMessage: '', value: this.props.dataSet.waterSupplyFromTank4},
         }
     }

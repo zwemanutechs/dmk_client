@@ -1,6 +1,8 @@
 import React, {useState, useEffect, Component, PureComponent} from "react";
 import Grid from "@material-ui/core/Grid";
+import Switch from "@material-ui/core/Switch";
 import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
 import NumberFormat from "react-number-format";
 import {withStyles} from "@material-ui/core/styles";
@@ -31,13 +33,13 @@ const useStyles = theme => ({
     },
 });
 
-class RinseThreeAddOrEdit extends Component {
+class PassivationAddOrEdit extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            ph:{valid: true, errorMessage: '', value: this.props.dataSet.ph},
-            waterSupplyFromDiWaterTank:{valid: true, errorMessage: '', value: this.props.dataSet.waterSupplyFromDiWaterTank},
+            concentration:{valid: true, errorMessage: '', value: this.props.dataSet.concentration},
+            concentrationBelowTopUp:{valid: true, errorMessage: '', value: this.props.dataSet.concentrationBelowTopUp}
         }
     }
 
@@ -75,50 +77,42 @@ class RinseThreeAddOrEdit extends Component {
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
                         <NumberFormat
-                            id="phmeter"
-                            label="PH Meter"
+                            id="concentration"
+                            label="Concentration"
                             customInput={TextField}
-                            value={this.state.ph.value}
+                            value={this.state.concentration.value}
                             fullWidth={true}
                             defaultValue={0.00}
-                            onValueChange={ value => this.onChange('ph', value.floatValue)}
-                            onBlur={e => this.onBlur('ph')}
+                            onValueChange={ value => this.onChange('concentration', value.floatValue)}
+                            onBlur={e => this.onBlur('concentration')}
                             onFocus={event => {event.target.select();}}
                             decimalScale={2}
                             thousandSeparator={false}
                             fixedDecimalScale={true}
-                            error={!this.state.ph.valid}
-                            helperText={!this.state.ph.valid ? this.state.ph.errorMessage : ''}
+                            error={!this.state.concentration.valid}
+                            helperText={!this.state.concentration.valid ? this.state.concentration.errorMessage : ''}
                             disabled={this.props.onFormSubmit}
                         />
                     </FormControl>
                 </Grid>
                 {/** End PH Meter **/}
-                {/** Tank-3 Water Supply ***/}
+                {/** If Concentration Below Top Up 0.5% Top-up Chemical ***/}
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
-                        <NumberFormat
-                            id="waterSupplyFromDiWaterTank"
-                            label="DI Tank Water Supply"
-                            customInput={TextField}
-                            value={this.state.waterSupplyFromDiWaterTank.value}
-                            defaultValue={0.00}
-                            onValueChange={ value => this.onChange('waterSupplyFromDiWaterTank', value.floatValue)}
-                            onBlur={e => this.onBlur('waterSupplyFromDiWaterTank')}
-                            onFocus={event => {event.target.select();}}
-                            decimalScale={2}
-                            thousandSeparator={false}
-                            fixedDecimalScale={true}
-                            error={!this.state.waterSupplyFromDiWaterTank.valid}
-                            helperText={!this.state.waterSupplyFromDiWaterTank.valid ? this.state.waterSupplyFromDiWaterTank.errorMessage : ''}
-                            disabled={this.props.onFormSubmit}
-                        />
+                        <FormLabel component="legend">If concentration below 0.5% top-up chemical</FormLabel>
+                        <Grid component="label" container alignItems="center" spacing={1}>
+                            <Grid item>No</Grid>
+                            <Grid item>
+                                <Switch checked={this.state.concentrationBelowTopUp.value} onChange={event => {this.onChange('concentrationBelowTopUp', event.target.checked);this.onBlur('concentrationBelowTopUp');}} name="concentrationBelowTopUp" />
+                            </Grid>
+                            <Grid item>Yes</Grid>
+                        </Grid>
                     </FormControl>
                 </Grid>
-                {/** End Tank-3 Water Supply **/}
+                {/** If Concentration Below Top Up 0.5% Chemical **/}
             </form>
         )
     }
 }
 
-export default withStyles(useStyles, { withTheme: true })(RinseThreeAddOrEdit);
+export default withStyles(useStyles, { withTheme: true })(PassivationAddOrEdit);

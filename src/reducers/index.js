@@ -1,11 +1,8 @@
 import { combineReducers } from "redux";
 import itemActions from "../layout/reducer/main-menu-reducer";
-import rinseDIItemActions from "../components/rinse-di/reducers/rinseDI-reducer";
-import rinse3ItemActions from "../components/rinse3/reducers/rinse3-reducer";
 import degreasingItemActions from "../components/degreasing/reducers/degreasing-reducer";
 import paintBoothItemActions from "../components/paintBooth/reducers/paintBooth-reducer";
 import neuEvaporatorItemActions from "../components/neuEvaporator/reducers/neuEvaporator-reducer";
-import passivationItemActions from "../components/passivation/reducers/passivation-reducer";
 import paintCabinetItemActions from "../components/paintCabinet/reducers/paintCabinet-reducer";
 import conversionItemActions from "../components/conversion/reducers/conversion-reducer";
 import diagItemActions from "../shared/mat-diaglog/reducer/maxDialog-reducer";
@@ -17,12 +14,9 @@ import notificationCardItemActions from "../shared/notification-card/reducers/no
 export default combineReducers({
     itemActions,
     diagItemActions,
-    rinseDIItemActions,
-    rinse3ItemActions,
     degreasingItemActions,
     paintBoothItemActions,
     neuEvaporatorItemActions,
-    passivationItemActions,
     paintCabinetItemActions,
     conversionItemActions,
     snackItemActions,
