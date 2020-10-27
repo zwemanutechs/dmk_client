@@ -1,0 +1,17 @@
+export const neuEvaporatorModel = {
+    phTank6: 0.00,
+    feedRateEvaporatorTank3: 0.00,
+    phTank3: 0.00,
+    phHmiTank3: "",
+    waterSampleInBottleTank6: false,
+    monthlyCalibrationOfPhMeterTank3: false,
+    conductivity: 0.00,
+    waterLevelTank6: 0.00,
+    flowRateTank6: 0.00,
+    waterQualityTank7: false,
+    waterLevelTank7: "",
+    waterLevelLitreTank8: 0.00,
+    anyAbnormalUsageTank8: false,
+    waterLevelTank9: 0.00,
+    anyAbnormalUsageTank9: false,
+};
