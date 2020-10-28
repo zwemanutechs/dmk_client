@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
             position: 'absolute',
             left: '30%',
             right: '30%',
-            top: 80
+            top: 80,
+            maxHeight:"600px"
         },
     },
     buttonProgress: {
