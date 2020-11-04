@@ -19,7 +19,7 @@ class NotificationCard extends Component {
     }
 
     componentDidMount() {
-        this.props.notificationCardFetchData(this.props.formName, new Date().toISOString());
+        //this.props.notificationCardFetchData(this.props.formName, new Date().toISOString());
     }
 
     render() {

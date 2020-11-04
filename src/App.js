@@ -56,9 +56,9 @@ class App extends Component {
             <Switch>
                 <Route exact path="/Forbidden" render={() => <ForbiddenPage />}/>
                 {
-                    this.state.accessToken === '' ? <Route><Grid container direction="column" alignItems="center" justify="center" style={{minHeight: '100vh', height: '100%'}}>
+                    this.state.accessToken === '' ? <Grid container direction="column" alignItems="center" justify="center" style={{minHeight: '100vh', height: '100%'}}>
                         <img src={FactoryLoader} width={150} height={150} alt="loader"/>
-                        </Grid></Route>
+                        </Grid>
                         :<Main_layout>
                             <Route exact path="/" render={() => <Home />}/>
                             <Route path="/Home" render={() => <Home />}/>

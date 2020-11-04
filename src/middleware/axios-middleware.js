@@ -10,11 +10,12 @@ import {
 } from "../constants/app-constants";
 import {OPEN_SNACK} from "../shared/snackbar/action-constants/snackbar-actionTypes";
 import {store} from "../index";
+import {BASEURI} from "../constants/api-constants";
 
-const  baseUrl = "https://localhost:44394/backend/";
+//const  baseUrl = "https://localhost:44394/backend/";
 
 export const client = axios.create({
-    baseURL: baseUrl,
+    baseURL: BASEURI,
     headers: {
         'AccessToken': 'eyJJZCI6ImUzYzZmODNmLTI0ZjMtNDUzNy05MTE3LWY1ZmJkMGYxMmRmMCIsIlJvbGUiOiI2ODdkOGJlMi0wNDAzLTQ0NTctOWIxYi0xMGQ4YTljNGYxMjcifQ=='
     }
@@ -23,6 +24,7 @@ export const client = axios.create({
 client.interceptors.response.use(response => {
     return response;
 }, error => {
+    console.log(error);
     if(error && (error.response.status === 401 || error.response.status === 403)){
         window.location = '/Forbidden';
     }else{
@@ -40,6 +42,13 @@ client.interceptors.response.use(response => {
  * ***/
 export const get = (url) => {
     return client.get(url);
+};
+
+/**
+ * Make Get Request to Other Origin
+ * ***/
+export const getFromOtherOrigin = (url) => {
+  return axios.get(url);
 };
 
 /**

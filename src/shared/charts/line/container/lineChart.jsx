@@ -39,10 +39,10 @@ function AppLineChart(props) {
     return (
         props.loading
             ? <Skeleton variant="rect" width={props.width} height={props.height}/>
-            :<LineChart width={props.width} height={props.height} data={props.data} margin={{top: 10, right: 10, left: 10, bottom: 10}}>
+            :<LineChart width={props.width} height={props.height} data={props.data}>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey={props.xDataKey} fontSize={12} height={60} allowDuplicatedCategory={false} tick={<CustomizedAxisTick />}/>
-                        <YAxis/>
+                        <XAxis interval="preserveStartEnd" dataKey={props.xDataKey} fontSize={12} height={20} allowDuplicatedCategory={false} />
+                        <YAxis interval="preserveStartEnd"/>
                         {
                             Array.isArray(props.referenceLineData) && props.referenceLineData.length > 0
                                 ? props.referenceLineData.map((refLine, ri) => ( <ReferenceLine key={`r${ri}`} y={refLine.value} label={refLine.label} stroke="red" />))
@@ -50,7 +50,7 @@ function AppLineChart(props) {
                         }
                         <Tooltip />
                         {
-                            props.keys.map((dataKey, i) => <Line key={`l${i}`} type="monotone" dataKey={dataKey} stroke={colours[i]} strokeWidth={1} label={<CustomizedLabel />}/>)
+                            props.keys.map((dataKey, i) => <Line key={`l${i}`} type="monotone" dataKey={dataKey} stroke={colours[i]} strokeWidth={1} />)
                         }
 
             </LineChart>
