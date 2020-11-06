@@ -303,26 +303,26 @@ class Home extends Component {
                                                        assetId='04427cfe799146e792ff3bf4f274feab'
                                                        aspectName='WaterDryer'
                                                        parameterName='WaterDryer_190_TT_01'
-                                                       customSegmentStops={[0, 60, 63, 65]}
-                                                       segmentColors={['#ff162c', '#0be91e', '#ff162c']}
+                                                       customSegmentStops={[0, 30, 45, 75]}
+                                                       segmentColors={['#46ff25', '#e9c94b', '#ff162c']}
                                                        minValue={0}
                                                        segmentsLength={3}
-                                                       maxValue={65}
+                                                       maxValue={75}
                                                        unit='°C'
                                                        needleHeight={0.8}
                                                        segmentLabels={[
                                                            {
-                                                               text: '60 °C',
+                                                               text: '30 °C',
                                                                position: 'OUTSIDE',
-                                                               color: '#ff162c',
+                                                               color: '#46ff25',
                                                            },
                                                            {
-                                                               text: '0 °C',
+                                                               text: '45 °C',
                                                                position: 'OUTSIDE',
-                                                               color: '#0be91e',
+                                                               color: '#e9c94b',
                                                            },
                                                            {
-                                                               text: '65 °C',
+                                                               text: '75 °C',
                                                                position: 'OUTSIDE',
                                                                color: '#ff162c',
                                                            },
@@ -384,24 +384,23 @@ class Home extends Component {
                                                        assetId='04427cfe799146e792ff3bf4f274feab'
                                                        aspectName='IntermediateOven'
                                                        parameterName='IntermediateOven_220_TT_02'
-                                                       customSegmentStops={[0, 60, 63, 75]}
-                                                       segmentColors={['#ff162c', '#0be91e', '#ff162c']}
+                                                       customSegmentStops={[0, 30, 45, 75]}
+                                                       segmentColors={['#46ff25', '#e9c94b', '#ff162c']}
                                                        minValue={0}
                                                        segmentsLength={3}
                                                        maxValue={75}
                                                        unit='°C'
                                                        needleHeight={0.8}
-                                                       dataPoint='mindsphere'
                                                        segmentLabels={[
                                                            {
-                                                               text: '60 °C',
+                                                               text: '30 °C',
                                                                position: 'OUTSIDE',
-                                                               color: '#ff162c',
+                                                               color: '#46ff25',
                                                            },
                                                            {
-                                                               text: '0 °C',
+                                                               text: '45 °C',
                                                                position: 'OUTSIDE',
-                                                               color: '#0be91e',
+                                                               color: '#e9c94b',
                                                            },
                                                            {
                                                                text: '75 °C',
@@ -466,24 +465,23 @@ class Home extends Component {
                                                        assetId='04427cfe799146e792ff3bf4f274feab'
                                                        aspectName='FinalOven'
                                                        parameterName='FinalOven1_251_TT_02'
-                                                       customSegmentStops={[0, 60, 63, 75]}
-                                                       segmentColors={['#ff162c', '#0be91e', '#ff162c']}
+                                                       customSegmentStops={[0, 30, 45, 75]}
+                                                       segmentColors={['#46ff25', '#e9c94b', '#ff162c']}
                                                        minValue={0}
                                                        segmentsLength={3}
                                                        maxValue={75}
                                                        unit='°C'
                                                        needleHeight={0.8}
-                                                       dataPoint='mindsphere'
                                                        segmentLabels={[
                                                            {
-                                                               text: '60 °C',
+                                                               text: '30 °C',
                                                                position: 'OUTSIDE',
-                                                               color: '#ff162c',
+                                                               color: '#46ff25',
                                                            },
                                                            {
-                                                               text: '0 °C',
+                                                               text: '45 °C',
                                                                position: 'OUTSIDE',
-                                                               color: '#0be91e',
+                                                               color: '#e9c94b',
                                                            },
                                                            {
                                                                text: '75 °C',
@@ -548,24 +546,23 @@ class Home extends Component {
                                                        assetId='04427cfe799146e792ff3bf4f274feab'
                                                        aspectName='FinalOven'
                                                        parameterName='FinalOven2_252_TT_02'
-                                                       customSegmentStops={[0, 60, 63, 75]}
-                                                       segmentColors={['#ff162c', '#0be91e', '#ff162c']}
+                                                       customSegmentStops={[0, 30, 45, 75]}
+                                                       segmentColors={['#46ff25', '#e9c94b', '#ff162c']}
                                                        minValue={0}
                                                        segmentsLength={3}
                                                        maxValue={75}
                                                        unit='°C'
                                                        needleHeight={0.8}
-                                                       dataPoint='mindsphere'
                                                        segmentLabels={[
                                                            {
-                                                               text: '60 °C',
+                                                               text: '30 °C',
                                                                position: 'OUTSIDE',
-                                                               color: '#ff162c',
+                                                               color: '#46ff25',
                                                            },
                                                            {
-                                                               text: '0 °C',
+                                                               text: '45 °C',
                                                                position: 'OUTSIDE',
-                                                               color: '#0be91e',
+                                                               color: '#e9c94b',
                                                            },
                                                            {
                                                                text: '75 °C',
@@ -589,11 +586,11 @@ class Home extends Component {
                                                        assetId='04427cfe799146e792ff3bf4f274feab'
                                                        aspectName='FinalOven'
                                                        parameterName='FinalOven2_252_THR_02'
-                                                       customSegmentStops={[0, 17, 18, 32]}
-                                                       segmentColors={['#87ffeb', '#6ee991']}
+                                                       customSegmentStops={[0, 17, 47, 100]}
+                                                       segmentColors={['#6ee991', '#dee957', '#ff9545']}
                                                        minValue={0}
                                                        segmentsLength={2}
-                                                       maxValue={32}
+                                                       maxValue={100}
                                                        unit='%'
                                                        needleHeight={0.8}
                                                        dataPoint='mindsphere'
@@ -604,9 +601,14 @@ class Home extends Component {
                                                                color: '#6ee991',
                                                            },
                                                            {
-                                                               text: '32%',
+                                                               text: '47%',
                                                                position: 'OUTSIDE',
-                                                               color: '#87ffeb',
+                                                               color: '#dee957',
+                                                           },
+                                                           {
+                                                               text: '70%',
+                                                               position: 'OUTSIDE',
+                                                               color: '#ff9545',
                                                            },
                                                        ]}
                                                        ringWidth={45}
@@ -637,21 +639,21 @@ class Home extends Component {
                                    />
                                    <CardContent>
                                        <Grid container direction="row" justify="center" spacing={2}>
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <MindAspectDashboard*/}
-                                           {/*        title='Paint Booth ESTA 1 Room Air Flow'*/}
-                                           {/*        assetId='cbd91e78437f46f3a0452e4cf17dc17a'*/}
-                                           {/*        assetName='ESTA'*/}
-                                           {/*        variableName='ESTA_200_PDZA_01'*/}
-                                           {/*        referenceLineData={[]}*/}
-                                           {/*        dataKey={'_time'}*/}
-                                           {/*        keys={['ESTA_200_PDZA_01']}*/}
-                                           {/*        limit={1000}*/}
-                                           {/*        dataPoint='mindsphere'*/}
-                                           {/*    />*/}
-                                           {/*</Grid>*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <MindAspectDashboard*!/*/}
+                                       {/*    /!*        title='Paint Booth ESTA 1 Room Air Flow'*!/*/}
+                                       {/*    /!*        assetId='cbd91e78437f46f3a0452e4cf17dc17a'*!/*/}
+                                       {/*    /!*        assetName='ESTA'*!/*/}
+                                       {/*    /!*        variableName='ESTA_200_PDZA_01'*!/*/}
+                                       {/*    /!*        referenceLineData={[]}*!/*/}
+                                       {/*    /!*        dataKey={'_time'}*!/*/}
+                                       {/*    /!*        keys={['ESTA_200_PDZA_01']}*!/*/}
+                                       {/*    /!*        limit={1000}*!/*/}
+                                       {/*    /!*        dataPoint='mindsphere'*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
 
-                                           {/***ESTA 1*/}
+                                       {/*    /!***ESTA 1*!/*/}
                                            <Grid item xs={12} md={3} className="chartbox">
                                                <TemperatureMeter
                                                    title='Paint Booth ESTA 1 Room Temperature'
@@ -704,7 +706,7 @@ class Home extends Component {
                                                </Grid>
                                            </Grid>
 
-                                           {/***ESTA 2*/}
+                                       {/*    /!***ESTA 2*!/*/}
                                            <Grid item xs={12} md={3} className="chartbox">
                                                <TemperatureMeter
                                                    title='Paint Booth ESTA 2 Room Temperature'
@@ -757,316 +759,316 @@ class Home extends Component {
                                                </Grid>
                                            </Grid>
 
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Paint Booth ESTA 1 Room Humidity*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Paint Booth ESTA 2 Room Air Flow*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Paint Booth Room ESTA2 Temperature*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Paint Booth ESTA 2 Room Humidity*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Primer Cabinet 1 Temperature*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Primer Cabinet 1 Humidity*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Primer Cabinet 1 Paint viscosity*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Primer Cabinet 2 Temperature*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Primer Cabinet 2 Humidity*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Primer Cabinet 2 Paint viscosity*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*** Top Coat 1 ***/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Top Coat 1 Temperature*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Top Coat 1 Humidity*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*** Top Coat 2 ***/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Top Coat 2 Temperature*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
-                                           {/*<Grid item xs={12} md={3} className="chartbox">*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography style={{color: 'blue'}} gutterBottom>*/}
-                                           {/*            Top Coat 2 Humidity*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*    <AppLineChart*/}
-                                           {/*        key={1}*/}
-                                           {/*        data={[]}*/}
-                                           {/*        loading={this.state.decreasing.isFetching}*/}
-                                           {/*        keys={[]}*/}
-                                           {/*        width={350}*/}
-                                           {/*        height={300}*/}
-                                           {/*        xDataKey={''}*/}
-                                           {/*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*/}
-                                           {/*    />*/}
-                                           {/*    <Grid item xs={12} style={{textAlign: "center"}}>*/}
-                                           {/*        <Typography variant="overline"  color="textSecondary" gutterBottom>*/}
-                                           {/*            <strong>Current Value: 0</strong>*/}
-                                           {/*        </Typography>*/}
-                                           {/*    </Grid>*/}
-                                           {/*</Grid>*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Paint Booth ESTA 1 Room Humidity*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Paint Booth ESTA 2 Room Air Flow*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Paint Booth Room ESTA2 Temperature*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Paint Booth ESTA 2 Room Humidity*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Primer Cabinet 1 Temperature*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Primer Cabinet 1 Humidity*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Primer Cabinet 1 Paint viscosity*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Primer Cabinet 2 Temperature*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Primer Cabinet 2 Humidity*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Primer Cabinet 2 Paint viscosity*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*** Top Coat 1 ***!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Top Coat 1 Temperature*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Top Coat 1 Humidity*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*** Top Coat 2 ***!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Top Coat 2 Temperature*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
+                                       {/*    /!*<Grid item xs={12} md={3} className="chartbox">*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography style={{color: 'blue'}} gutterBottom>*!/*/}
+                                       {/*    /!*            Top Coat 2 Humidity*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*    <AppLineChart*!/*/}
+                                       {/*    /!*        key={1}*!/*/}
+                                       {/*    /!*        data={[]}*!/*/}
+                                       {/*    /!*        loading={this.state.decreasing.isFetching}*!/*/}
+                                       {/*    /!*        keys={[]}*!/*/}
+                                       {/*    /!*        width={350}*!/*/}
+                                       {/*    /!*        height={300}*!/*/}
+                                       {/*    /!*        xDataKey={''}*!/*/}
+                                       {/*    /!*        referenceLineData={[{value: 4000, label: 'Max'},{value: 3000, label: 'Min'}]}*!/*/}
+                                       {/*    /!*    />*!/*/}
+                                       {/*    /!*    <Grid item xs={12} style={{textAlign: "center"}}>*!/*/}
+                                       {/*    /!*        <Typography variant="overline"  color="textSecondary" gutterBottom>*!/*/}
+                                       {/*    /!*            <strong>Current Value: 0</strong>*!/*/}
+                                       {/*    /!*        </Typography>*!/*/}
+                                       {/*    /!*    </Grid>*!/*/}
+                                       {/*    /!*</Grid>*!/*/}
                                        </Grid>
                                    </CardContent>
                                </Card>

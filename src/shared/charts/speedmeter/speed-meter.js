@@ -29,11 +29,6 @@ class SpeedMeter extends Component{
 
     render() {
         return (
-            <React.Fragment>
-                {
-                    this.state.isFetching ?
-                    <Skeleton variant="rect" width={this.props.width} height={100}/>
-                    :
                     <ReactSpeedometer
                     width={this.props.width}
                     needleHeightRatio={this.props.needleHeight}
@@ -53,8 +48,6 @@ class SpeedMeter extends Component{
                     textColor={'#000000'}
                     paddingVertical={5}
                     />
-                }
-            </React.Fragment>
         );
     }
 }
