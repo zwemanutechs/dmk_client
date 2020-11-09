@@ -69,6 +69,10 @@
   background-color: #fe6164;
 }
 
+.jss2{
+  background: transparent !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
