@@ -124,7 +124,13 @@ export default class Dialogs extends Component {
   // };
 
   render() {
-    const { showDialogChart, onClose, data, fetchGraphAPI } = this.props;
+    const {
+      showDialogChart,
+      onClose,
+      data,
+      fetchGraphAPI,
+      tilesDetails,
+    } = this.props;
 
     return (
       <Dialog
@@ -154,7 +160,11 @@ export default class Dialogs extends Component {
             type="area"
             height={130}
           /> */}
-          <ChartPanel data={data} fetchGraphAPI={fetchGraphAPI}></ChartPanel>
+          <ChartPanel
+            data={data}
+            fetchGraphAPI={fetchGraphAPI}
+            tilesDetails={tilesDetails}
+          ></ChartPanel>
         </DialogContent>
       </Dialog>
     );

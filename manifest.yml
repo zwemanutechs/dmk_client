@@ -5,4 +5,4 @@ applications:
   - route: dorkadev-client.apps.eu1.mindsphere.io
   buildpacks:
     - staticfile_buildpack
-  memory: 512M
+  memory: 1024M

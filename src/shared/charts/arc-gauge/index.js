@@ -218,54 +218,60 @@ class ArcGauge extends Component {
   }
 
   render() {
-    const { border, data } = this.props;
+    const { border, data, fetchGraphAPI, graphState } = this.props;
     const { showDialogChart } = this.state;
 
     return (
-      <GaugeWrapper
-        border={border}
-        onClick={() => {
-          this.setState({ showDialogChart: !showDialogChart });
-        }}
-      >
-        <div
-          style={{
-            color: "#0F3790",
-            width: "100%",
-            fontWeight: "800",
-            padding: "0 2px 0 2px",
+      <>
+        <GaugeWrapper
+          border={border}
+          onClick={() => {
+            if (fetchGraphAPI) fetchGraphAPI(1, data);
+            this.setState({ showDialogChart: !showDialogChart });
           }}
         >
-          <span
+          <div
             style={{
-              float: "left",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              // width: "55px",
+              color: "#0F3790",
+              width: "100%",
+              fontWeight: "800",
+              padding: "0 2px 0 2px",
             }}
           >
-            {data && data.title}
-          </span>
-          <span
-            style={{
-              float: "right",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              width: "53px",
-            }}
-          >
-            {data && data.title2}
-          </span>
-        </div>
-        <ZingChart ref={this.chart} data={this.state.config} height="150" />
+            <span
+              style={{
+                float: "left",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                // width: "55px",
+              }}
+            >
+              {data && data.title}
+            </span>
+            <span
+              style={{
+                float: "right",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                width: "53px",
+              }}
+            >
+              {data && data.title2}
+            </span>
+          </div>
+          <ZingChart ref={this.chart} data={this.state.config} height="150" />
+        </GaugeWrapper>
         <Dialogs
-          data={[12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3]}
+          data={graphState}
+          // data={[12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3]}
           showDialogChart={showDialogChart}
           onClose={(showDialogChart) => this.setState({ showDialogChart })}
+          fetchGraphAPI={fetchGraphAPI}
+          tilesDetails={data}
         />
-      </GaugeWrapper>
+      </>
     );
   }
 }

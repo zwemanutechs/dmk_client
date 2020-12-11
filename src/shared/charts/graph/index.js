@@ -75,7 +75,7 @@ export default class Graph extends Component {
               color: COLOR.blue,
             }}
             onClick={() => {
-              if (fetchGraphAPI) fetchGraphAPI(1);
+              if (fetchGraphAPI) fetchGraphAPI(1, data);
               this.setState({ showDialogChart: !showDialogChart });
             }}
           >
@@ -113,7 +113,7 @@ export default class Graph extends Component {
                     />
                   </label>
                 </div>
-                <div
+                {/* <div
                   style={{
                     width: "100%",
                     textAlign: "left",
@@ -122,19 +122,19 @@ export default class Graph extends Component {
                   }}
                 >
                   {data && data.unit}
-                </div>
+                </div> */}
               </Grid>
               <Grid item xs={6}>
                 <div>Last hr</div>
                 <div>
-                  {false ? (
+                  {data && data.lastHr >= 0 ? (
                     <ChangeHistoryIcon style={{ marginBottom: "-7px" }} />
                   ) : (
                     <DetailsIcon
                       style={{ marginBottom: "-7px", color: COLOR.red }}
                     />
                   )}
-                  {data && data.lastHr}
+                  {data && data.lastHr}%
                 </div>
                 <Sparklines data={data && data.sparklines} limit={5}>
                   <SparklinesLine
@@ -167,8 +167,9 @@ export default class Graph extends Component {
         <Dialogs
           data={graphState}
           showDialogChart={showDialogChart}
-          fetchGraphAPI={fetchGraphAPI}
           onClose={(showDialogChart) => this.setState({ showDialogChart })}
+          fetchGraphAPI={fetchGraphAPI}
+          tilesDetails={data}
         />
       </Grid>
     );
