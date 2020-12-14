@@ -1,0 +1,344 @@
+import React, { Component } from "react";
+// import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+// import CardContent from "@material-ui/core/CardContent";
+import Grid from "@material-ui/core/Grid";
+// import { ArrowUpwardOutlined, ArrowDownwardOutlined } from "@material-ui/icons";
+// import
+// {Dialog,
+// DialogContent,
+// Typography,
+// IconButton,}
+// "@material-ui/core";
+// import MuiDialogTitle from "@material-ui/core/DialogTitle";
+// import ChartPanel from "./ChartPanel";
+// import CloseIcon from "@material-ui/icons/Close";
+import { Sparklines, SparklinesLine } from "react-sparklines";
+// import dashboardTileServices from "../../../appservices/dashboardTileServices/dashboardTileServices";
+// import { CircularProgress } from "@material-ui/core";
+import NumberFormat from "react-number-format";
+
+// class Graph extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       dashboardItems: [],
+//       production: {},
+//       offSpec: {},
+//       qpr: {},
+//       safety: {},
+//       environment: {},
+//       manning: {},
+//       electrical: {},
+//       fuel: {},
+//       water: {},
+//       waterBalance: {},
+//     };
+//   }
+
+//   componentDidMount() {
+//     this.initTiles();
+//   }
+
+//   async initTiles() {
+//     this.loadForProduction();
+//     this.loadForOffSpec();
+//     this.loadForQPR();
+//     this.loadForSafety();
+//     this.loadForEnvironment();
+//     this.loadForManning();
+//     this.loadForElectrical();
+//     this.loadForFuel();
+//     this.loadForWater();
+//     this.loadForWaterBalance();
+//   }
+
+//   async loadForProduction() {
+//     // await dashboardTileServices.getTileData("production").then((result) => {
+//     // if (result.code === true) {
+//     // this.setState({ production: result.data });
+//     // }
+//     // });
+//   }
+
+//   async loadForOffSpec() {
+//     // await dashboardTileServices.getTileData("offSpec").then((result) => {
+//     // if (result.code === true) {
+//     // this.setState({ offSpec: result.data });
+//     // }
+//     // });
+//   }
+
+//   async loadForQPR() {
+//     // await dashboardTileServices.getTileData("qpr").then((result) => {
+//     // if (result.code === true) {
+//     // this.setState({ qpr: result.data });
+//     // }
+//     // });
+//   }
+
+//   async loadForSafety() {
+//     // await dashboardTileServices.getTileData("safety").then((result) => {
+//     // if (result.code === true) {
+//     // this.setState({ safety: result.data });
+//     // }
+//     // });
+//   }
+
+//   async loadForEnvironment() {
+//     // await dashboardTileServices.getTileData("environment").then((result) => {
+//     // if (result.code === true) {
+//     // this.setState({ environment: result.data });
+//     // }
+//     // });
+//   }
+
+//   async loadForManning() {
+//     // await dashboardTileServices.getTileData("manning").then((result) => {
+//     // if (result.code === true) {
+//     // this.setState({ manning: result.data });
+//     // }
+//     // });
+//   }
+
+//   async loadForElectrical() {
+//     // await dashboardTileServices.getTileData("electrical").then((result) => {
+//     // if (result.code === true) {
+//     // this.setState({ electrical: result.data });
+//     // }
+//     // });
+//   }
+
+//   async loadForFuel() {
+//     // await dashboardTileServices.getTileData("fuel").then((result) => {
+//     // if (result.code === true) {
+//     // this.setState({ fuel: result.data });
+//     // }
+//     // });
+//   }
+
+//   async loadForWater() {
+//     // await dashboardTileServices.getTileData("water").then((result) => {
+//     // if (result.code === true) {
+//     // this.setState({ water: result.data });
+//     // }
+//     // });
+//   }
+
+//   async loadForWaterBalance() {
+//     // await dashboardTileServices.getTileData("waterBalance").then((result) => {
+//     // if (result.code === true) {
+//     // this.setState({ waterBalance: result.data });
+//     // }
+//     // });
+//   }
+
+//   render() {
+//     return (
+//       <>
+//         <DashboardTile
+//           item={this.state.waterBalance}
+//           trendInterval="day"
+//           decimal={0}
+//         />
+//       </>
+//     );
+//   }
+// }
+// export default Graph;
+
+export default class Graph extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: false,
+      chartopen: false,
+      chartLabels: this.getChartLabels(this.props.trendInterval),
+    };
+  }
+
+  getChartLabels = (interval) => {
+    const today = new Date();
+    let labels = [];
+    for (let i = 7; i > 0; i--) {
+      if (interval === "day") {
+        labels.push(
+          new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate() - i
+          ).toLocaleString("en-GB", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
+        );
+      } else if (interval === "month") {
+        labels.push(
+          new Date(today.getFullYear(), today.getMonth() - i).toLocaleString(
+            "en-GB",
+            {
+              year: "numeric",
+              month: "short",
+            }
+          )
+        );
+      }
+    }
+    return labels;
+  };
+
+  onChartIconClick = () => {
+    this.setState({ chartopen: true });
+  };
+  handleChartClose = () => {
+    this.setState({ chartopen: false });
+  };
+
+  render() {
+    const { data } = this.props;
+    return (
+      <Grid container direction="row" justify="center" alignItems="center">
+        {/* {!(this.props.item.value === undefined) ? (
+          <CircularProgress size={100} thickness={2} />
+        ) : ( */}
+        <Grid item xs={12} style={{ border: "1px solid #0F3790" }}>
+          <Card
+            style={{
+              height: 170,
+              color: "#0F3790",
+            }}
+          >
+            <Grid container spacing={1}>
+              <Grid item xs={6}>
+                <div
+                  style={{
+                    width: "100%",
+                    textAlign: "left",
+                    fontSize: "15px",
+                    padding: "3px 0 0 3px",
+                  }}
+                >
+                  Target {data && data.target}
+                </div>
+                <div
+                  style={{
+                    width: "100%",
+                    padding: "3px 0 0 8px",
+                  }}
+                >
+                  <label
+                    style={{
+                      color: "#0F3790",
+                      fontSize: 35,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <NumberFormat
+                      value={data && data.currentVal}
+                      displayType={"text"}
+                      // decimalScale={this.props.decimal}
+                      thousandSeparator
+                      fixedDecimalScale={true}
+                    />
+                  </label>
+                </div>
+              </Grid>
+              <Grid item xs={6}>
+                <div>Last hr</div>
+                <div>{data && data.lastHr}</div>
+                <Sparklines data={data && data.sparklines}>
+                  <SparklinesLine
+                    style={{ strokeWidth: 3, stroke: "#0F3790" }}
+                  />
+                </Sparklines>
+              </Grid>
+              <Grid item xs={12}>
+                <div
+                  style={{
+                    textAlign: "right",
+                    paddingRight: "4px",
+                    width: "100%",
+                    fontWeight: "900",
+                    fontSize: "25px",
+                  }}
+                >
+                  {data && data.title}
+                </div>
+              </Grid>
+            </Grid>
+          </Card>
+        </Grid>
+        {/* )} */}
+        {/* <Dialog
+          open={this.state.chartopen}
+          onClose={this.handleChartClose}
+          keepMounted
+          aria-labelledby=""
+          fullWidth
+          maxWidth="md"
+        >
+          <DialogTitle
+            id="customized-dialog-title"
+            onClose={this.handleChartClose}
+          >
+            Trend of last 7 {this.props.trendInterval}
+          </DialogTitle>
+          <DialogContent>
+            <ChartPanel
+              labels={this.state.chartLabels}
+              data={this.props.item.trends}
+            ></ChartPanel>
+          </DialogContent>
+        </Dialog> */}
+      </Grid>
+    );
+  }
+}
+
+// const DialogTitle = (props) => {
+//   const { children, onClose } = props;
+//   return (
+//     <MuiDialogTitle disableTypography>
+//       <Typography variant="h6">{children}</Typography>
+//       {onClose ? (
+//         <IconButton
+//           aria-label="close"
+//           style={{ position: "absolute", top: 8, right: 8 }}
+//           onClick={onClose}
+//         >
+//           <CloseIcon />
+//         </IconButton>
+//       ) : null}
+//     </MuiDialogTitle>
+//   );
+// };
+
+// const Trend = (props) => {
+//   switch (props.item.trend) {
+//     case "plus":
+//       return (
+//         <span style={{ color: "#0F3790", fontSize: 15, fontWeight: "bold" }}>
+//           {parseFloat(props.item.trendValue).toFixed(2)}
+//           <ArrowUpwardOutlined
+//             style={{ position: "relative", color: "#0F3790", fontSize: 15 }}
+//           />
+//         </span>
+//       );
+//     case "minus":
+//       return (
+//         <span style={{ color: "#0F3790", fontSize: 15, fontWeight: "bold" }}>
+//           {parseFloat(props.item.trendValue).toFixed(2)}
+//           <ArrowDownwardOutlined
+//             style={{ position: "relative", color: "#0F3790", fontSize: 15 }}
+//           />
+//         </span>
+//       );
+//     default:
+//       return (
+//         <span style={{ color: "#0F3790", fontSize: 15, fontWeight: "bold" }}>
+//           {parseFloat(props.item.trendValue).toFixed(2)}
+//         </span>
+//       );
+//   }
+// };

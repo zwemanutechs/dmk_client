@@ -69,6 +69,14 @@
   background-color: #fe6164;
 }
 
+.jss2{
+  background: transparent !important;
+}
+
+#zingchart-react-23-license-text{
+  display: none !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
