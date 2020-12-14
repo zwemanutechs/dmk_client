@@ -27,9 +27,7 @@ class ChartPanel extends Component {
             data: data && data.timeSeries,
           },
         ],
-      },
-      options: {
-        annotation: {
+        options: {
           annotations: [
             {
               type: "line",

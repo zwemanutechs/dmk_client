@@ -20,8 +20,8 @@ import { zonedTimeToUtc } from "date-fns-tz";
 // import {get} from "../../../middleware/axios-middleware";
 import {
   loadGraphDataByGivenDateV2,
-  // loadDataByGivenDateV2,
-  // loadLatestValueV2,
+  // loadDataByGivenDateDummy,
+  // loadLatestValueDummy,
   // loadFromAPIDummy,
   loadLatestValueV2,
   loadDataByGivenDateV2,
@@ -31,6 +31,7 @@ import ArcGauge from "../../../shared/charts/arc-gauge";
 import Graph from "../../../shared/charts/graph";
 import LineChart from "../../../shared/charts/lineChart";
 import "./home.css";
+import { POWERWASH_ASSETID } from "../../../constants/mindsphere-constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,3 +1,6 @@
 .calWidth{
     max-width: calc(250px + 100vw - 1024px)!important;
 }
+div[id$="-license-text"]{
+    display: none !important;
+}

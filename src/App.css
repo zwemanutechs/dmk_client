@@ -52,25 +52,29 @@
   z-index: 9999;
 }
 
-.makeStyles-paper-18{
+.makeStyles-paper-18 {
   min-width: 250px !important;
 }
 
-.MuiFab-root{
+.MuiFab-root {
   border-radius: 50% !important;
 }
 
-.swipeable-list-item__content{
+.swipeable-list-item__content {
   margin-top: 10px;
 }
 
-.swipeable-list-item__content-left{
+.swipeable-list-item__content-left {
   margin-top: 10px;
   background-color: #fe6164;
 }
 
-.jss2{
+.jss2 {
   background: transparent !important;
+}
+
+#zingchart-react-23-license-text {
+  display: none !important;
 }
 
 @keyframes App-logo-spin {

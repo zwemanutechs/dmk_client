@@ -12,10 +12,6 @@ code {
     monospace;
 }
 
-div[id$="license"] {
-  display: none !important;
-}
-
-#zingchart-react-14-license-text {
+#zingchart-react-23-license-text {
   display: none !important;
 }

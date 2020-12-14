@@ -25,9 +25,8 @@ export const loadLatestValue = (assetId, aspectId, parameterName) => {
 
 // ---------------- Minsphere API V2 Gateway
 
-export const loadDataByGivenDateV2 = (aspectId, parameterName) => {
+export const loadDataByGivenDateV2 = (assetId, aspectId, parameterName) => {
   try {
-    const assetId = "bb2d6d60bed647beb3816fff37639de4";
     const limit = "1000";
     const fromDate = new Date(
       zonedTimeToUtc(
@@ -53,13 +52,13 @@ export const loadDataByGivenDateV2 = (aspectId, parameterName) => {
 };
 
 export const loadGraphDataByGivenDateV2 = (
+  assetId,
   aspectId,
   parameterName,
   fromDate,
   toDate
 ) => {
   try {
-    const assetId = "bb2d6d60bed647beb3816fff37639de4";
     const limit = "15";
 
     console.log(fromDate);
@@ -74,9 +73,8 @@ export const loadGraphDataByGivenDateV2 = (
   return [];
 };
 
-export const loadLatestValueV2 = (aspectId, parameterName) => {
+export const loadLatestValueV2 = (assetId, aspectId, parameterName) => {
   try {
-    const assetId = "bb2d6d60bed647beb3816fff37639de4";
     return getFromOtherOrigin(
       `/api/iottimeseries/v3/timeseries/${assetId}/${aspectId}?select=${parameterName}&latestValue=true`
     );

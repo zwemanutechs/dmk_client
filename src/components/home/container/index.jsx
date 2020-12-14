@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styles from "./home.css";
 import axios from "axios";
 
 const Test = () => {
