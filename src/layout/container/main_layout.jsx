@@ -166,27 +166,27 @@ const MENU_ITEMS = [
     items: [
       {
         name: "Degreasing （Tank 1）",
-        link: "/",
+        link: "/Degreasing",
       },
       {
         name: "Water Rinse （Tank 2）",
-        link: "/",
+        link: "/RinseOne",
       },
       {
         name: "Water Rinse （Tank 3）",
-        link: "/",
+        link: "/RinseTwo",
       },
       {
         name: "Di Rinse （Tank 4）",
-        link: "/RinseDI",
+        link: "/RinseThree",
       },
       {
         name: "Di Rinse （Tank 5）",
-        link: "/",
+        link: "/Conversion",
       },
       {
         name: "Passiavation （Tank 6）",
-        link: "/",
+        link: "/Passivation",
       },
     ],
   },
@@ -196,7 +196,7 @@ const MENU_ITEMS = [
     items: [
       {
         name: "Neutralization (Tank 03)",
-        link: "/",
+        link: "/NeuEvaporator",
       },
       {
         name: "Distilled Water (Tank 05/06)",
@@ -226,7 +226,7 @@ const MENU_ITEMS = [
     items: [
       {
         name: "ESTA Booth 1",
-        link: "/",
+        link: "/PaintBooth",
       },
       {
         name: "ESTA Booth 2",
@@ -244,7 +244,7 @@ const MENU_ITEMS = [
     items: [
       {
         name: "Primer Cabinet 1",
-        link: "/",
+        link: "/PaintCabinet",
       },
       {
         name: "Primer Cabinet 2",
@@ -313,6 +313,13 @@ const MENU_ITEMS = [
 ];
 
 class MainLayout extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      menuExpand: false,
+    };
+  }
+
   componentDidMount() {
     this.props.getMenu();
   }
@@ -326,7 +333,12 @@ class MainLayout extends Component {
     this.props.history.push(to);
   };
 
+  setMenuExpand = (menuExpand) => {
+    this.setState({ menuExpand });
+  };
+
   render() {
+    const { menuExpand } = this.state;
     return (
       <div className={this.props.classes.root}>
         <CssBaseline />
@@ -340,7 +352,11 @@ class MainLayout extends Component {
             <IconButton
               color="default"
               aria-label="open drawer"
-              onClick={(e) => this.handelMenuOpen(!this.props.Open)}
+              onClick={(e) => {
+                this.handelMenuOpen(!this.props.Open);
+                this.setState({ menuExpand: false });
+                console.log("lol");
+              }}
               edge="start"
               className={clsx(this.props.classes.menuButton, {
                 [this.props.classes.menuButtonHide]: this.props.Open,
@@ -373,7 +389,13 @@ class MainLayout extends Component {
           }}
         >
           <div className={this.props.classes.toolbar}>
-            <IconButton onClick={(e) => this.handelMenuOpen(false)}>
+            <IconButton
+              onClick={(e) => {
+                this.handelMenuOpen(false);
+                this.setState({ menuExpand: false });
+                console.log("lel");
+              }}
+            >
               {this.props.theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
@@ -399,7 +421,12 @@ class MainLayout extends Component {
             disablePadding
           >
             {MENU_ITEMS.map((item, index) => (
-              <AppMenuItem {...item} key={index} />
+              <AppMenuItem
+                {...item}
+                key={index}
+                menuExpand={menuExpand}
+                setMenuExpand={this.setMenuExpand}
+              />
             ))}
             <img
               alt="manutechs"

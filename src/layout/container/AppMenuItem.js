@@ -17,7 +17,15 @@ import IconExpandMore from "@material-ui/icons/ExpandMore";
 import AppMenuItemComponent from "./AppMenuItemComponent";
 
 const AppMenuItem = (props) => {
-  const { name, link, Icon, iconImg, items = [] } = props;
+  const {
+    name,
+    link,
+    Icon,
+    iconImg,
+    items = [],
+    menuExpand,
+    setMenuExpand,
+  } = props;
   const classes = useStyles();
   const isExpandable = items && items.length > 0;
   const [open, setOpen] = React.useState(false);
@@ -30,6 +38,11 @@ const AppMenuItem = (props) => {
     <AppMenuItemComponent
       className={classes.menuItem}
       link={link}
+      // onClick={() => {
+      //   console.log("lolll");
+      //   console.log(menuExpand);
+      //   setMenuExpand(!menuExpand);
+      // }}
       onClick={handleClick}
     >
       {/* Display an icon if any */}

@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import styled from "styled-components";
+import Skeleton from "@material-ui/lab/Skeleton";
+
 // import { find } from "lodash";
 import update from "immutability-helper";
 import { zonedTimeToUtc } from "date-fns-tz";
@@ -824,7 +826,7 @@ const Home = () => {
   // await dataProcessLastHrValInPercent( await loadFromAPI(""), await loadFromAPI(""), "" )
   // await dataProcessLastHrValInPercent( await loadLatestValueV2( "", "" ), await loadDataByGivenDateV2( "", "" ), "" )
 
-  const fetchAPI = async (data) => {
+  const fetchAPI1 = async (data) => {
     SETOVERVIEW_DATA(
       update(data, {
         grid1: {
@@ -850,6 +852,16 @@ const Home = () => {
                 ),
               },
             },
+          },
+        },
+      })
+    );
+  };
+  const fetchAPI2 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid1: {
+          c1: {
             1: {
               currentVal: {
                 $set: await dataProcessCurrentVal(
@@ -883,6 +895,16 @@ const Home = () => {
                 ),
               },
             },
+          },
+        },
+      })
+    );
+  };
+  const fetchAPI3 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid1: {
+          c1: {
             2: {
               currentVal: {
                 $set: await dataProcessCurrentVal(
@@ -904,6 +926,16 @@ const Home = () => {
                 ),
               },
             },
+          },
+        },
+      })
+    );
+  };
+  const fetchAPI4 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid1: {
+          c1: {
             3: {
               currentVal: {
                 $set: await dataProcessCurrentVal(
@@ -937,6 +969,16 @@ const Home = () => {
                 ),
               },
             },
+          },
+        },
+      })
+    );
+  };
+  const fetchAPI5 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid1: {
+          c1: {
             4: {
               currentVal: {
                 $set: await dataProcessCurrentVal(
@@ -971,6 +1013,15 @@ const Home = () => {
               },
             },
           },
+        },
+      })
+    );
+  };
+  // ==========================================================================================
+  const fetchAPI6 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid1: {
           c2: {
             0: {
               currentVal: {
@@ -983,6 +1034,16 @@ const Home = () => {
                 ),
               },
             },
+          },
+        },
+      })
+    );
+  };
+  const fetchAPI7 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid1: {
+          c2: {
             1: {
               currentVal: {
                 $set: await dataProcessCurrentVal(
@@ -994,6 +1055,16 @@ const Home = () => {
                 ),
               },
             },
+          },
+        },
+      })
+    );
+  };
+  const fetchAPI8 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid1: {
+          c2: {
             2: {
               currentVal: {
                 $set: await dataProcessCurrentVal(
@@ -1005,6 +1076,16 @@ const Home = () => {
                 ),
               },
             },
+          },
+        },
+      })
+    );
+  };
+  const fetchAPI9 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid1: {
+          c2: {
             3: {
               currentVal: {
                 $set: await dataProcessCurrentVal(
@@ -1016,6 +1097,16 @@ const Home = () => {
                 ),
               },
             },
+          },
+        },
+      })
+    );
+  };
+  const fetchAPI10 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid1: {
+          c2: {
             4: {
               currentVal: {
                 $set: await dataProcessCurrentVal(
@@ -1029,6 +1120,13 @@ const Home = () => {
             },
           },
         },
+      })
+    );
+  };
+  // ============================================================================
+  const fetchAPI11 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
         grid2: {
           c1: {
             currentVal: {
@@ -1051,6 +1149,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI12 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid2: {
           c2: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1062,6 +1168,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI13 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid2: {
           c3: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1095,6 +1209,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI14 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid2: {
           c4: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1107,6 +1229,13 @@ const Home = () => {
             },
           },
         },
+      })
+    );
+  };
+  //================================================= grid3
+  const fetchAPI15 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
         grid3: {
           c1: {
             currentVal: {
@@ -1129,6 +1258,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI16 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid3: {
           c2: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1140,6 +1277,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI17 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid3: {
           c3: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1173,6 +1318,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI18 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid3: {
           c4: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1185,6 +1338,13 @@ const Home = () => {
             },
           },
         },
+      })
+    );
+  };
+  //===================================== grid4
+  const fetchAPI19 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
         grid4: {
           c1: {
             currentVal: {
@@ -1207,6 +1367,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI20 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid4: {
           c2: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1218,6 +1386,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI21 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid4: {
           c3: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1251,6 +1427,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI22 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid4: {
           c4: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1263,6 +1447,13 @@ const Home = () => {
             },
           },
         },
+      })
+    );
+  };
+  //==========================================grid5
+  const fetchAPI23 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
         grid5: {
           c1: {
             currentVal: {
@@ -1297,6 +1488,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI24 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid5: {
           c2: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1308,6 +1507,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI25 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid5: {
           c3: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1341,6 +1548,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI26 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid5: {
           c4: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1353,6 +1568,13 @@ const Home = () => {
             },
           },
         },
+      })
+    );
+  };
+  //==============================================grid6
+  const fetchAPI27 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
         grid6: {
           c1: {
             currentVal: {
@@ -1387,6 +1609,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI28 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid6: {
           c2: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1398,6 +1628,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI29 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid6: {
           c3: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1431,6 +1669,14 @@ const Home = () => {
               ),
             },
           },
+        },
+      })
+    );
+  };
+  const fetchAPI30 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
+        grid6: {
           c4: {
             currentVal: {
               $set: await dataProcessCurrentVal(
@@ -1443,6 +1689,13 @@ const Home = () => {
             },
           },
         },
+      })
+    );
+  };
+  //===========================================grid7
+  const fetchAPI31 = async (data) => {
+    SETOVERVIEW_DATA(
+      update(data, {
         grid7: {
           barChart: {
             $set: [
@@ -1496,7 +1749,37 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchAPI(OVERVIEW_DATA);
+    fetchAPI1(OVERVIEW_DATA);
+    fetchAPI2(OVERVIEW_DATA);
+    fetchAPI3(OVERVIEW_DATA);
+    fetchAPI4(OVERVIEW_DATA);
+    fetchAPI5(OVERVIEW_DATA);
+    fetchAPI6(OVERVIEW_DATA);
+    fetchAPI7(OVERVIEW_DATA);
+    fetchAPI8(OVERVIEW_DATA);
+    fetchAPI9(OVERVIEW_DATA);
+    fetchAPI10(OVERVIEW_DATA);
+    fetchAPI11(OVERVIEW_DATA);
+    fetchAPI12(OVERVIEW_DATA);
+    fetchAPI13(OVERVIEW_DATA);
+    fetchAPI14(OVERVIEW_DATA);
+    fetchAPI15(OVERVIEW_DATA);
+    fetchAPI16(OVERVIEW_DATA);
+    fetchAPI17(OVERVIEW_DATA);
+    fetchAPI18(OVERVIEW_DATA);
+    fetchAPI19(OVERVIEW_DATA);
+    fetchAPI20(OVERVIEW_DATA);
+    fetchAPI21(OVERVIEW_DATA);
+    fetchAPI22(OVERVIEW_DATA);
+    fetchAPI23(OVERVIEW_DATA);
+    fetchAPI24(OVERVIEW_DATA);
+    fetchAPI25(OVERVIEW_DATA);
+    fetchAPI26(OVERVIEW_DATA);
+    fetchAPI27(OVERVIEW_DATA);
+    fetchAPI28(OVERVIEW_DATA);
+    fetchAPI29(OVERVIEW_DATA);
+    fetchAPI30(OVERVIEW_DATA);
+    fetchAPI31(OVERVIEW_DATA);
     // const interval = setInterval(() => {
     //   fetchAPI();
     // }, 20000);
@@ -1510,6 +1793,9 @@ const Home = () => {
         {/* Title */}
         <Col span={12}>
           <TitleWrapper size={"large"}>Degreasing Overview</TitleWrapper>
+          {/* {OVERVIEW_DATA.grid1.c1[0].currentVal ? "rendering" : "done1"}
+          {OVERVIEW_DATA.grid1.c1[1].currentVal ? "rendering" : "done2"}
+          <Loader /> */}
         </Col>
         {/* Grids */}
         <Row lg={3}>
@@ -1818,6 +2104,14 @@ const Home = () => {
 };
 
 export default Home;
+
+const Loader = () => (
+  <div>
+    <Skeleton />
+    <Skeleton animation={false} />
+    <Skeleton animation="wave" />
+  </div>
+);
 
 const GridRow = ({ children, marginTop }) => {
   return (
