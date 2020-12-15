@@ -4,12 +4,16 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import styled from "styled-components";
 import update from "immutability-helper";
+import { zonedTimeToUtc } from "date-fns-tz";
 
 import {
+  loadGraphDataByGivenDateV3,
   // loadDataByGivenDate,
   // loadLatestValue,
   loadLatestValueV2,
   loadDataByGivenDateV2,
+  loadFromAPI,
+  loadFromAPIOnlyDateTime,
 } from "../../../appservices/mindsphere-iotapi-services";
 import ArcGauge from "../../../shared/charts/arc-gauge";
 import Graph from "../../../shared/charts/graph";
@@ -35,30 +39,40 @@ export const COLOR = {
 
 const Overview = () => {
   const classes = useStyles();
+  const [graphState, setGraphState] = useState({ timeSeries: [0], labels: [] });
   const [OVERVIEW_DATA, SETOVERVIEW_DATA] = useState({
     grid9: {
       name: "Water Dryer",
       c1: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Temperature",
         sparklines: [],
+        endPoint: "",
+        aspectId: "WaterDryer",
+        parameterName: "Heater_Temperature_degC",
       },
       c2: {
         // title: "Gauge 1",
         title2: "Humidity",
         currentVal: 0,
         unit: "atm",
+        endPoint: "",
+        aspectId: "WaterDryer",
+        parameterName: "Room_Humidity_Pct",
       },
       c3: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Air Flow",
         sparklines: [],
+        endPoint: "",
+        aspectId: "WaterDryer",
+        parameterName: "Airflow_m3ph",
       },
     },
     grid10: {
@@ -66,24 +80,33 @@ const Overview = () => {
       c1: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Temperature",
         sparklines: [],
+        endPoint: "",
+        aspectId: "IntermediateOven",
+        parameterName: "Heater_Temperature_degC",
       },
       c2: {
         // title: "Gauge 1",
         title2: "Humidity",
         currentVal: 0,
         unit: "atm",
+        endPoint: "",
+        aspectId: "IntermediateOven",
+        parameterName: "Room_Humidity_Pct",
       },
       c3: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Air Flow",
         sparklines: [],
+        endPoint: "",
+        aspectId: "IntermediateOven",
+        parameterName: "Airflow_m3ph",
       },
     },
     grid11: {
@@ -91,24 +114,33 @@ const Overview = () => {
       c1: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Temperature",
         sparklines: [],
+        endPoint: "",
+        aspectId: "FinalOven1",
+        parameterName: "Temperature_degC",
       },
       c2: {
         // title: "Gauge 1",
         title2: "Humidity",
         currentVal: 0,
         unit: "atm",
+        endPoint: "",
+        aspectId: "FinalOven1",
+        parameterName: "Humidity_Pct",
       },
       c3: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Air Flow",
         sparklines: [],
+        endPoint: "",
+        aspectId: "FinalOven1",
+        parameterName: "Airflow_m3ph",
       },
     },
     grid12: {
@@ -116,24 +148,33 @@ const Overview = () => {
       c1: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Temperature",
         sparklines: [],
+        endPoint: "",
+        aspectId: "FinalOven1",
+        parameterName: "Temperature_degC",
       },
       c2: {
         // title: "Gauge 1",
         title2: "Humidity",
         currentVal: 0,
         unit: "atm",
+        endPoint: "",
+        aspectId: "FinalOven1",
+        parameterName: "Humidity_Pct",
       },
       c3: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Air Flow",
         sparklines: [],
+        endPoint: "",
+        aspectId: "FinalOven1",
+        parameterName: "Airflow_m3ph",
       },
     },
     grid13: {
@@ -141,28 +182,71 @@ const Overview = () => {
       c1: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Temperature",
         sparklines: [],
+        endPoint: "",
+        aspectId: "ESTA1",
+        parameterName: "Inlet_Temperature_degC",
       },
       c2: {
         // title: "Gauge 1",
         title2: "Humidity",
         currentVal: 0,
         unit: "atm",
+        endPoint: "",
+        aspectId: "ESTA1",
+        parameterName: "Inlet_Humidity_pct",
       },
       c3: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Air Flow",
         sparklines: [],
+        endPoint: "",
+        aspectId: "ESTA1",
+        parameterName: "Intake_Airflow_m3ph",
       },
     },
     grid14: {
       name: "ESTA Booth 2",
+      c1: {
+        target: 90,
+        currentVal: 0,
+        lastHr: 0,
+        unit: "",
+        title: "Temperature",
+        sparklines: [],
+        endPoint: "",
+        aspectId: "ESTA2",
+        parameterName: "Inlet_Temperature_degC",
+      },
+      c2: {
+        // title: "Gauge 1",
+        title2: "Humidity",
+        currentVal: 0,
+        unit: "atm",
+        endPoint: "",
+        aspectId: "ESTA2",
+        parameterName: "Inlet_Humidity_pct",
+      },
+      c3: {
+        target: 90,
+        currentVal: 0,
+        lastHr: 0,
+        unit: "",
+        title: "Air Flow",
+        sparklines: [],
+        endPoint: "",
+        aspectId: "ESTA2",
+        parameterName: "Intake_Airflow_m3ph",
+      },
+    },
+    grid15: {
+      name: "Primer Cabinet 1",
       c1: {
         target: 90,
         currentVal: 0,
@@ -182,151 +266,440 @@ const Overview = () => {
         currentVal: 0,
         lastHr: "45%",
         unit: "",
-        title: "Air Flow",
+        title: "Paint viscosity",
         sparklines: [],
       },
     },
-    // grid15: {
-    //   name: "Primer Cabinet 1",
-    //   c1: {
-    //     target: 90,
-    //     currentVal: 0,
-    //     lastHr: "45%",
-    //     unit: "",
-    //     title: "Temperature",
-    //     sparklines: [],
-    //   },
-    //   c2: {
-    //     // title: "Gauge 1",
-    //     title2: "Humidity",
-    //     currentVal: 0,
-    //     unit: "atm",
-    //   },
-    //   c3: {
-    //     target: 90,
-    //     currentVal: 0,
-    //     lastHr: "45%",
-    //     unit: "",
-    //     title: "Paint viscosity",
-    //     sparklines: [],
-    //   },
-    // },
-    // grid16: {
-    //   name: "Primer Cabinet 2",
-    //   c1: {
-    //     target: 90,
-    //     currentVal: 0,
-    //     lastHr: "45%",
-    //     unit: "",
-    //     title: "Temperature",
-    //     sparklines: [],
-    //   },
-    //   c2: {
-    //     // title: "Gauge 1",
-    //     title2: "Humidity",
-    //     currentVal: 0,
-    //     unit: "atm",
-    //   },
-    //   c3: {
-    //     target: 90,
-    //     currentVal: 0,
-    //     lastHr: "45%",
-    //     unit: "",
-    //     title: "Paint viscosity",
-    //     sparklines: [],
-    //   },
-    // },
-    // grid17: {
-    //   name: "Top Coat 1",
-    //   c1: {
-    //     target: 90,
-    //     currentVal: 0,
-    //     lastHr: "45%",
-    //     unit: "",
-    //     title: "Temperature",
-    //     sparklines: [],
-    //   },
-    //   c2: {
-    //     // title: "Gauge 1",
-    //     title2: "Humidity",
-    //     currentVal: 0,
-    //     unit: "atm",
-    //   },
-    // },
-    // grid18: {
-    //   name: "Top Coat 2",
-    //   c1: {
-    //     target: 90,
-    //     currentVal: 0,
-    //     lastHr: "45%",
-    //     unit: "",
-    //     title: "Temperature",
-    //     sparklines: [],
-    //   },
-    //   c2: {
-    //     // title: "Gauge 1",
-    //     title2: "Humidity",
-    //     currentVal: 0,
-    //     unit: "atm",
-    //   },
-    // },
-    // grid19: {
-    //   name: "Neutralization",
-    //   c1: {
-    //     title: "pH",
-    //     title2: "Tank 3",
-    //     currentVal: 0,
-    //     unit: "atm",
-    //   },
-    // },
-    // grid20: {
-    //   name: "Distilled Water",
-    //   c1: {
-    //     title: "pH",
-    //     title2: "Tank 6",
-    //     currentVal: 0,
-    //     unit: "atm",
-    //   },
-    // },
-    // grid21: {
-    //   name: "Demineralization",
-    //   c1: {
-    //     title: "Conductivity",
-    //     title2: "Tank 7",
-    //     currentVal: 0,
-    //     unit: "atm",
-    //   },
-    // },
-    // grid22: {
-    //   name: "Demineralization",
-    //   c1: {
-    //     title: "pH",
-    //     title2: "Tank 7",
-    //     currentVal: 0,
-    //     unit: "atm",
-    //   },
-    // },
+    grid16: {
+      name: "Primer Cabinet 2",
+      c1: {
+        target: 90,
+        currentVal: 0,
+        lastHr: "45%",
+        unit: "",
+        title: "Temperature",
+        sparklines: [],
+      },
+      c2: {
+        // title: "Gauge 1",
+        title2: "Humidity",
+        currentVal: 0,
+        unit: "atm",
+      },
+      c3: {
+        target: 90,
+        currentVal: 0,
+        lastHr: "45%",
+        unit: "",
+        title: "Paint viscosity",
+        sparklines: [],
+      },
+    },
+    grid17: {
+      name: "Top Coat 1",
+      c1: {
+        target: 90,
+        currentVal: 0,
+        lastHr: "45%",
+        unit: "",
+        title: "Temperature",
+        sparklines: [],
+      },
+      c2: {
+        // title: "Gauge 1",
+        title2: "Humidity",
+        currentVal: 0,
+        unit: "atm",
+      },
+    },
+    grid18: {
+      name: "Top Coat 2",
+      c1: {
+        target: 90,
+        currentVal: 0,
+        lastHr: "45%",
+        unit: "",
+        title: "Temperature",
+        sparklines: [],
+      },
+      c2: {
+        // title: "Gauge 1",
+        title2: "Humidity",
+        currentVal: 0,
+        unit: "atm",
+      },
+    },
+    grid19: {
+      name: "Neutralization",
+      c1: {
+        title: "pH",
+        title2: "Tank 3",
+        currentVal: 0,
+        unit: "atm",
+      },
+    },
+    grid20: {
+      name: "Distilled Water",
+      c1: {
+        title: "pH",
+        title2: "Tank 6",
+        currentVal: 0,
+        unit: "atm",
+      },
+    },
+    grid21: {
+      name: "Demineralization",
+      c1: {
+        title: "Conductivity",
+        title2: "Tank 7",
+        currentVal: 0,
+        unit: "atm",
+      },
+    },
+    grid22: {
+      name: "Demineralization",
+      c1: {
+        title: "pH",
+        title2: "Tank 7",
+        currentVal: 0,
+        unit: "atm",
+      },
+    },
   });
 
-  const dataProcessCurrentVal = async (data, Degreasing_Conductivity) => {
-    return await data[0][Degreasing_Conductivity];
-  };
-  const dataProcessTimeSeries = async (data, Degreasing_Conductivity) => {
-    // take seven days only
-    const timeSeriesData = data
-      .map((res, index) => {
-        if (index < 7) {
-          return res["Degreasing_Conductivity"];
-        }
-        return null;
-      })
-      .filter((res) => res !== null);
+  const dataProcessCurrentVal = async (data, aspectName) => {
+    if (aspectName === "data") {
+      // take first data value only //api
+      if (data.length >= 0) {
+        return data.length > 0 ? Math.round(data[0][aspectName].toFixed(1)) : 0;
+      }
 
-    return await timeSeriesData;
+      return data.data.data.length > 0
+        ? Math.round(data.data.data[0][aspectName].toFixed(1))
+        : 0;
+    }
+    // take first data value only // mindsphere
+    // if (aspectName === "Degreasing_Tank1_Conductivity_us") {
+    //   console.log(data.data.length > 0);
+    //   console.log(data);
+    //   console.log(Math.round(data.data[0][aspectName]));
+    // }
+    return data.data.length > 0
+      ? Math.round(data.data[0][aspectName]).toFixed(1)
+      : 0;
   };
-  const dataProcessLastHrValInPercent = (data) => {
+
+  const dataProcessTimeSeries = async (data, aspectName) => {
+    if (aspectName === "data") {
+      // take seven days only on array // api
+      if (data.length >= 0) {
+        return data.length > 0
+          ? data
+              .map((res, index) => {
+                if (index < 7) {
+                  return res[aspectName];
+                }
+                return null;
+              })
+              .filter((res) => res !== null)
+          : [];
+      }
+
+      return data.data.data.length > 0
+        ? data.data.data
+            .map((res, index) => {
+              if (index < 7) {
+                return res[aspectName];
+              }
+              return null;
+            })
+            .filter((res) => res !== null)
+        : [];
+    }
+
+    return data.data.length > 0
+      ? data.data
+          .map((res, index) => {
+            if (index < 7) {
+              return res[aspectName];
+            }
+            return null;
+          })
+          .filter((res) => res !== null)
+      : [];
+  };
+
+  const dataProcessLastHrValInPercent = (currVal, TimeSeries, aspectName) => {
     // console.log(data);
-    return [];
+    // percent change, (cur - last val) / last val, (10.5-9.5)/9.5= 10%, (10.5-11.5)/11.5= -8%
+
+    if (aspectName === "Passivation_Tank6_OverFlowLevel_cm") {
+      console.log(currVal.data);
+      console.log(TimeSeries.data);
+      console.log(Math.round(currVal.data[0][aspectName]));
+      console.log(Math.round(TimeSeries.data[0][aspectName]));
+      console.log(
+        ((Math.round(currVal.data[0][aspectName]) -
+          Math.round(TimeSeries.data[0][aspectName])) /
+          Math.round(TimeSeries.data[0][aspectName])) *
+          100
+      );
+    }
+    if (aspectName === "data") {
+      return currVal.data.data.length > 0 &&
+        TimeSeries.data.data.length > 0 &&
+        !(Math.round(TimeSeries.data.data[0][aspectName]) === 0)
+        ? Math.round(
+            ((Math.round(currVal.data.data[0][aspectName]) -
+              Math.round(TimeSeries.data.data[0][aspectName])) /
+              Math.round(TimeSeries.data.data[0][aspectName])) *
+              100
+          ).toFixed(2)
+        : 0;
+    }
+
+    return currVal.data.length > 0 &&
+      TimeSeries.data.length > 0 &&
+      !(Math.round(TimeSeries.data[0][aspectName]) === 0)
+      ? Math.round(
+          ((Math.round(currVal.data[0][aspectName]) -
+            Math.round(TimeSeries.data[0][aspectName])) /
+            Math.round(TimeSeries.data[0][aspectName])) *
+            100
+        ).toFixed(2)
+      : 0;
+  };
+
+  const returnZoneTime = (date) => {
+    return new Date(
+      zonedTimeToUtc(date, Intl.DateTimeFormat().resolvedOptions().timeZone)
+    ).toISOString();
+  };
+  const fetchGraphAPI = async (numMonthsAgo, tilesDetails) => {
+    // console.log(numMonthsAgo);
+    // console.log(tilesDetails);
+
+    // date.setMonth(date.getMonth() - numMonthsAgo);
+
+    // fromDate = new Date(
+    //   zonedTimeToUtc(
+    //     monthsAgo,
+    //     Intl.DateTimeFormat().resolvedOptions().timeZone
+    //   )
+    // ).toISOString();
+    // toDate = new Date(
+    //   zonedTimeToUtc(today, Intl.DateTimeFormat().resolvedOptions().timeZone)
+    // ).toISOString();
+
+    console.log(tilesDetails.endPoint);
+    if (tilesDetails.endPoint) {
+      try {
+        const apiData = await loadFromAPI(tilesDetails.endPoint);
+
+        // if (numMonthsAgo === 3) {
+        //   setGraphState(
+        //     update(graphState, {
+        //       timeSeries: { $set: [12, 19, 3, 5, 2, 3] },
+        //       labels: { $set: ["d1", "d2", "d3", "d4", "d5", "d6"] },
+        //     })
+        //   );
+        //   return;
+        // }
+        if (apiData.data.data.length > 0)
+          setGraphState({
+            timeSeries: apiData.data.data
+              .map((res, index) => {
+                if (index < 15) {
+                  return res["data"];
+                }
+                return null;
+              })
+              .filter((res) => res !== null),
+            labels: apiData.data.data
+              .map((res, index) => {
+                if (index < 15) {
+                  return res["time"];
+                }
+                return null;
+              })
+              .filter((res) => res !== null),
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        const date = new Date();
+        const today = new Date(date);
+        date.setMonth(date.getMonth() - numMonthsAgo);
+        const monthsAgo = new Date(date);
+
+        let fromDate = returnZoneTime(monthsAgo);
+        let toDate = returnZoneTime(today);
+
+        if (numMonthsAgo === 3) {
+          const firstFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const firstToMonth = returnZoneTime(new Date(date));
+          const firstTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            firstFromMonth,
+            firstToMonth
+          );
+
+          const secondFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const secondToMonth = returnZoneTime(new Date(date));
+          const secondTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            secondFromMonth,
+            secondToMonth
+          );
+
+          const thirdFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const thirdToMonth = returnZoneTime(new Date(date));
+          const thirdTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            thirdFromMonth,
+            thirdToMonth
+          );
+          return;
+        }
+
+        if (numMonthsAgo === 6) {
+          const firstFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const firstToMonth = returnZoneTime(new Date(date));
+          const firstTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            firstFromMonth,
+            firstToMonth
+          );
+
+          const secondFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const secondToMonth = returnZoneTime(new Date(date));
+          const secondTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            secondFromMonth,
+            secondToMonth
+          );
+
+          const thirdFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const thirdToMonth = returnZoneTime(new Date(date));
+          const thirdTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            thirdFromMonth,
+            thirdToMonth
+          );
+
+          const forthFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const forthToMonth = returnZoneTime(new Date(date));
+          const forthTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            forthFromMonth,
+            forthToMonth
+          );
+
+          const fifthFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const fifthToMonth = returnZoneTime(new Date(date));
+          const fifthTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            fifthFromMonth,
+            fifthToMonth
+          );
+
+          const sixFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const sixToMonth = returnZoneTime(new Date(date));
+          const sixTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            sixFromMonth,
+            sixToMonth
+          );
+
+          // fromDate = returnZoneTime(monthsAgo);
+          // toDate = returnZoneTime(today);
+          return;
+        }
+
+        const timeData = await loadGraphDataByGivenDateV3(
+          tilesDetails.aspectId,
+          tilesDetails.parameterName,
+          fromDate,
+          toDate
+        );
+        // const timeData = await loadGraphDataByGivenDateV3(
+        //   tilesDetails.aspectId,
+        //   tilesDetails.parameterName,
+        //   fromDate,
+        //   toDate
+        // );
+        // console.log(timeData.data);
+        // console.log(timeData.data.length > 0);
+        // console.log(
+        //   timeData.data
+        //     .map((res, index) => {
+        //       if (index < 15) {
+        //         return res[tilesDetails.parameterName];
+        //       }
+        //       return null;
+        //     })
+        //     .filter((res) => res !== null)
+        // );
+        // console.log(
+        //   timeData.data
+        //     .map((res, index) => {
+        //       if (index < 15) {
+        //         return res["_time"];
+        //       }
+        //       return null;
+        //     })
+        //     .filter((res) => res !== null)
+        // );
+        // console.log(timeData);
+        // if (timeData.data.length > 0)
+        //   setGraphState({
+        //     timeSeries: timeData.data
+        //       .map((res, index) => {
+        //         if (index < 15) {
+        //           return res[tilesDetails.parameterName];
+        //         }
+        //         return null;
+        //       })
+        //       .filter((res) => res !== null),
+        //     labels: timeData.data
+        //       .map((res, index) => {
+        //         if (index < 15) {
+        //           return res["_time"];
+        //         }
+        //         return null;
+        //       })
+        //       .filter((res) => res !== null),
+        //   });
+
+        // setGraphState({
+        //   timeSeries: [12, 19, 3, 5, 2, 3],
+        //   labels: ["d1", "d2", "d3", "d4", "d5", "d6"],
+        // });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    // setGraphState([12, 19, 3, 5, 2, 3]);
   };
 
   const fetchAPI = async (data) => {
@@ -343,7 +716,19 @@ const Overview = () => {
                 "Heater_Temperature_degC"
               ),
             },
-            lastHr: { $set: "5%" },
+            lastHr: {
+              $set: await dataProcessLastHrValInPercent(
+                await loadLatestValueV2(
+                  "WaterDryer",
+                  "Heater_Temperature_degC"
+                ),
+                await loadDataByGivenDateV2(
+                  "WaterDryer",
+                  "Heater_Temperature_degC"
+                ),
+                "Heater_Temperature_degC"
+              ),
+            },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2(
@@ -369,7 +754,13 @@ const Overview = () => {
                 "Airflow_m3ph"
               ),
             },
-            lastHr: { $set: "5%" },
+            lastHr: {
+              $set: await dataProcessLastHrValInPercent(
+                await loadLatestValueV2("WaterDryer", "Airflow_m3ph"),
+                await loadDataByGivenDateV2("WaterDryer", "Airflow_m3ph"),
+                "Airflow_m3ph"
+              ),
+            },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2("WaterDryer", "Airflow_m3ph"),
@@ -389,7 +780,19 @@ const Overview = () => {
                 "Heater_Temperature_degC"
               ),
             },
-            lastHr: { $set: "5%" },
+            lastHr: {
+              $set: await dataProcessLastHrValInPercent(
+                await loadLatestValueV2(
+                  "IntermediateOven",
+                  "Heater_Temperature_degC"
+                ),
+                await loadDataByGivenDateV2(
+                  "IntermediateOven",
+                  "Heater_Temperature_degC"
+                ),
+                "Heater_Temperature_degC"
+              ),
+            },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2(
@@ -418,7 +821,13 @@ const Overview = () => {
                 "Airflow_m3ph"
               ),
             },
-            lastHr: { $set: "5%" },
+            lastHr: {
+              $set: await dataProcessLastHrValInPercent(
+                await loadLatestValueV2("IntermediateOven", "Airflow_m3ph"),
+                await loadDataByGivenDateV2("IntermediateOven", "Airflow_m3ph"),
+                "Airflow_m3ph"
+              ),
+            },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2("IntermediateOven", "Airflow_m3ph"),
@@ -435,7 +844,13 @@ const Overview = () => {
                 "Temperature_degC"
               ),
             },
-            lastHr: { $set: "5%" },
+            lastHr: {
+              $set: await dataProcessLastHrValInPercent(
+                await loadLatestValueV2("FinalOven1", "Temperature_degC"),
+                await loadDataByGivenDateV2("FinalOven1", "Temperature_degC"),
+                "Temperature_degC"
+              ),
+            },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2("FinalOven1", "Temperature_degC"),
@@ -458,7 +873,13 @@ const Overview = () => {
                 "Airflow_m3ph"
               ),
             },
-            lastHr: { $set: "5%" },
+            lastHr: {
+              $set: await dataProcessLastHrValInPercent(
+                await loadLatestValueV2("FinalOven1", "Airflow_m3ph"),
+                await loadDataByGivenDateV2("FinalOven1", "Airflow_m3ph"),
+                "Airflow_m3ph"
+              ),
+            },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2("FinalOven1", "Airflow_m3ph"),
@@ -475,7 +896,13 @@ const Overview = () => {
                 "Temperature_degC"
               ),
             },
-            lastHr: { $set: "5%" },
+            lastHr: {
+              $set: await dataProcessLastHrValInPercent(
+                await loadLatestValueV2("FinalOven1", "Temperature_degC"),
+                await loadDataByGivenDateV2("FinalOven1", "Temperature_degC"),
+                "Temperature_degC"
+              ),
+            },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2("FinalOven1", "Temperature_degC"),
@@ -498,7 +925,13 @@ const Overview = () => {
                 "Airflow_m3ph"
               ),
             },
-            lastHr: { $set: "5%" },
+            lastHr: {
+              $set: await dataProcessLastHrValInPercent(
+                await loadLatestValueV2("FinalOven1", "Airflow_m3ph"),
+                await loadDataByGivenDateV2("FinalOven1", "Airflow_m3ph"),
+                "Airflow_m3ph"
+              ),
+            },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2("FinalOven1", "Airflow_m3ph"),
@@ -515,7 +948,13 @@ const Overview = () => {
                 "Inlet_Temperature_degC"
               ),
             },
-            lastHr: { $set: "5%" },
+            lastHr: {
+              $set: await dataProcessLastHrValInPercent(
+                await loadLatestValueV2("ESTA1", "Inlet_Temperature_degC"),
+                await loadDataByGivenDateV2("ESTA1", "Inlet_Temperature_degC"),
+                "Inlet_Temperature_degC"
+              ),
+            },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2("ESTA1", "Inlet_Temperature_degC"),
@@ -538,7 +977,13 @@ const Overview = () => {
                 "Intake_Airflow_m3ph"
               ),
             },
-            lastHr: { $set: "5%" },
+            lastHr: {
+              $set: await dataProcessLastHrValInPercent(
+                await loadLatestValueV2("ESTA1", "Intake_Airflow_m3ph"),
+                await loadDataByGivenDateV2("ESTA1", "Intake_Airflow_m3ph"),
+                "Intake_Airflow_m3ph"
+              ),
+            },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2("ESTA1", "Intake_Airflow_m3ph"),
@@ -555,7 +1000,13 @@ const Overview = () => {
                 "Inlet_Temperature_degC"
               ),
             },
-            lastHr: { $set: "5%" },
+            lastHr: {
+              $set: await dataProcessLastHrValInPercent(
+                await loadLatestValueV2("ESTA2", "Inlet_Temperature_degC"),
+                await loadDataByGivenDateV2("ESTA2", "Inlet_Temperature_degC"),
+                "Inlet_Temperature_degC"
+              ),
+            },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2("ESTA2", "Inlet_Temperature_degC"),
@@ -578,7 +1029,13 @@ const Overview = () => {
                 "Intake_Airflow_m3ph"
               ),
             },
-            lastHr: { $set: "5%" },
+            lastHr: {
+              $set: await dataProcessLastHrValInPercent(
+                await loadLatestValueV2("ESTA2", "Intake_Airflow_m3ph"),
+                await loadDataByGivenDateV2("ESTA2", "Intake_Airflow_m3ph"),
+                "Intake_Airflow_m3ph"
+              ),
+            },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2("ESTA2", "Intake_Airflow_m3ph"),
@@ -587,126 +1044,159 @@ const Overview = () => {
             },
           },
         },
-        // grid15: {
-        //   c1: {
-        //     currentVal: {
-        //       $set: await dataProcessCurrentVal(
-        //         await loadLatestValueV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //     lastHr: { $set: "5%" },
-        //     sparklines: {
-        //       $set: await dataProcessTimeSeries(
-        //         await loadDataByGivenDateV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //   },
-        //   c2: {
-        //     currentVal: {
-        //       $set: await dataProcessCurrentVal(
-        //         await loadLatestValueV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //   },
-        //   c3: {
-        //     currentVal: {
-        //       $set: await dataProcessCurrentVal(
-        //         await loadLatestValueV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //     lastHr: { $set: "5%" },
-        //     sparklines: {
-        //       $set: await dataProcessTimeSeries(
-        //         await loadDataByGivenDateV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //   },
-        // },
-        // grid16: {
-        //   c1: {
-        //     currentVal: {
-        //       $set: await dataProcessCurrentVal(
-        //         await loadLatestValueV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //     lastHr: { $set: "5%" },
-        //     sparklines: {
-        //       $set: await dataProcessTimeSeries(
-        //         await loadDataByGivenDateV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //   },
-        //   c2: {
-        //     currentVal: {
-        //       $set: await dataProcessCurrentVal(
-        //         await loadLatestValueV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //   },
-        //   c3: {
-        //     currentVal: {
-        //       $set: await dataProcessCurrentVal(
-        //         await loadLatestValueV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //     lastHr: { $set: "5%" },
-        //     sparklines: {
-        //       $set: await dataProcessTimeSeries(
-        //         await loadDataByGivenDateV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //   },
-        // },
-        // grid19: {
-        //   c1: {
-        //     currentVal: {
-        //       $set: await dataProcessCurrentVal(
-        //         await loadLatestValueV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //   },
-        // },
-        // grid20: {
-        //   c1: {
-        //     currentVal: {
-        //       $set: await dataProcessCurrentVal(
-        //         await loadLatestValueV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //   },
-        // },
-        // grid21: {
-        //   c1: {
-        //     currentVal: {
-        //       $set: await dataProcessCurrentVal(
-        //         await loadLatestValueV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //   },
-        // },
-        // grid22: {
-        //   c1: {
-        //     currentVal: {
-        //       $set: await dataProcessCurrentVal(
-        //         await loadLatestValueV2("", ""),
-        //         ""
-        //       ),
-        //     },
-        //   },
-        // },
+        grid15: {
+          c1: {
+            currentVal: {
+              $set: await dataProcessCurrentVal(
+                await loadFromAPIOnlyDateTime(
+                  "PaintBooth",
+                  "temperaturePrimerCabinet1"
+                ),
+                "data"
+              ),
+            },
+            lastHr: { $set: "5%" },
+            sparklines: {
+              $set: await dataProcessTimeSeries(
+                await loadFromAPIOnlyDateTime(
+                  "PaintBooth",
+                  "temperaturePrimerCabinet1"
+                ),
+                "data"
+              ),
+            },
+          },
+          c2: {
+            currentVal: {
+              $set: await dataProcessCurrentVal(
+                await loadFromAPIOnlyDateTime(
+                  "PaintBooth",
+                  "humidityPrimerCabinet1"
+                ),
+                "data"
+              ),
+            },
+          },
+          c3: {
+            currentVal: {
+              $set: await dataProcessCurrentVal(
+                await loadFromAPIOnlyDateTime(
+                  "PaintBooth",
+                  "paintViscosityPrimerCabinet1"
+                ),
+                "data"
+              ),
+            },
+            lastHr: { $set: "5%" },
+            sparklines: {
+              $set: await dataProcessTimeSeries(
+                await loadFromAPIOnlyDateTime(
+                  "PaintBooth",
+                  "paintViscosityPrimerCabinet1"
+                ),
+                "data"
+              ),
+            },
+          },
+        },
+        grid16: {
+          c1: {
+            currentVal: {
+              $set: await dataProcessCurrentVal(
+                await loadFromAPIOnlyDateTime(
+                  "PaintBooth",
+                  "temperaturePrimerCabinet2"
+                ),
+                "data"
+              ),
+            },
+            lastHr: { $set: "5%" },
+            sparklines: {
+              $set: await dataProcessTimeSeries(
+                await loadFromAPIOnlyDateTime(
+                  "PaintBooth",
+                  "temperaturePrimerCabinet2"
+                ),
+                "data"
+              ),
+            },
+          },
+          c2: {
+            currentVal: {
+              $set: await dataProcessCurrentVal(
+                await loadFromAPIOnlyDateTime(
+                  "PaintBooth",
+                  "humidityPrimerCabinet2"
+                ),
+                "data"
+              ),
+            },
+          },
+          c3: {
+            currentVal: {
+              $set: await dataProcessCurrentVal(
+                await loadFromAPIOnlyDateTime(
+                  "PaintBooth",
+                  "paintViscosityPrimerCabinet2"
+                ),
+                "data"
+              ),
+            },
+            lastHr: { $set: "5%" },
+            sparklines: {
+              $set: await dataProcessTimeSeries(
+                await loadFromAPIOnlyDateTime(
+                  "PaintBooth",
+                  "paintViscosityPrimerCabinet2"
+                ),
+                "data"
+              ),
+            },
+          },
+        },
+        grid19: {
+          c1: {
+            currentVal: {
+              $set: await dataProcessCurrentVal(
+                await loadFromAPIOnlyDateTime("PaintBooth", "phTank3"),
+                "data"
+              ),
+            },
+          },
+        },
+        grid20: {
+          c1: {
+            currentVal: {
+              $set: await dataProcessCurrentVal(
+                await loadFromAPIOnlyDateTime("PaintBooth", "phTank6"),
+                "data"
+              ),
+            },
+          },
+        },
+        grid21: {
+          c1: {
+            currentVal: {
+              $set: await dataProcessCurrentVal(
+                await loadFromAPIOnlyDateTime(
+                  "PaintBooth",
+                  "waterQualityTank7"
+                ),
+                "data"
+              ),
+            },
+          },
+        },
+        grid22: {
+          c1: {
+            currentVal: {
+              $set: await dataProcessCurrentVal(
+                await loadFromAPIOnlyDateTime("PaintBooth", "waterLevelTank7"),
+                "data"
+              ),
+            },
+          },
+        },
       })
     );
   };
@@ -736,17 +1226,30 @@ const Overview = () => {
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid9.c1} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid9.c1}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <ArcGauge border data={OVERVIEW_DATA.grid9.c2} />
+              <ArcGauge
+                border
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid9.c2}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid9.c3} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid9.c3}
+              />
             </Paper>
           </Col>
           {/* grid9 end */}
@@ -757,17 +1260,30 @@ const Overview = () => {
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid11.c1} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid11.c1}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <ArcGauge border data={OVERVIEW_DATA.grid11.c2} />
+              <ArcGauge
+                border
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid11.c2}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid11.c3} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid11.c3}
+              />
             </Paper>
           </Col>
           {/* grid11 end */}
@@ -778,40 +1294,66 @@ const Overview = () => {
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid13.c1} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid13.c1}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <ArcGauge border data={OVERVIEW_DATA.grid13.c2} />
+              <ArcGauge
+                border
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid13.c2}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid13.c3} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid13.c3}
+              />
             </Paper>
           </Col>
           {/* grid13 end */}
 
           {/* grid15 start */}
-          {/* <Col span={12}>
+          <Col span={12}>
             <TitleWrapper>{OVERVIEW_DATA.grid15.name}</TitleWrapper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid15.c1} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid15.c1}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <ArcGauge border data={OVERVIEW_DATA.grid15.c2} />
+              <ArcGauge
+                border
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid15.c2}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid15.c3} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid15.c3}
+              />
             </Paper>
-          </Col> */}
+          </Col>
           {/* grid15 end */}
         </Row>
         <Row lg={6}>
@@ -821,17 +1363,30 @@ const Overview = () => {
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid10.c1} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid10.c1}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <ArcGauge border data={OVERVIEW_DATA.grid10.c2} />
+              <ArcGauge
+                border
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid10.c2}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid10.c3} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid10.c3}
+              />
             </Paper>
           </Col>
           {/* grid10 end */}
@@ -842,17 +1397,30 @@ const Overview = () => {
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid12.c1} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid12.c1}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <ArcGauge border data={OVERVIEW_DATA.grid12.c2} />
+              <ArcGauge
+                border
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid12.c2}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid12.c3} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid12.c3}
+              />
             </Paper>
           </Col>
           {/* grid12 end */}
@@ -863,43 +1431,69 @@ const Overview = () => {
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid14.c1} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid14.c1}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <ArcGauge border data={OVERVIEW_DATA.grid14.c2} />
+              <ArcGauge
+                border
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid14.c2}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid14.c3} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid14.c3}
+              />
             </Paper>
           </Col>
           {/* grid14 end */}
 
           {/* grid16 start */}
-          {/* <Col span={12}>
+          <Col span={12}>
             <TitleWrapper>{OVERVIEW_DATA.grid16.name}</TitleWrapper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid16.c1} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid16.c1}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <ArcGauge border data={OVERVIEW_DATA.grid16.c2} />
+              <ArcGauge
+                border
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid16.c2}
+              />
             </Paper>
           </Col>
           <Col span={4}>
             <Paper className={classes.paper}>
-              <Graph data={OVERVIEW_DATA.grid16.c3} />
+              <Graph
+                fetchGraphAPI={fetchGraphAPI}
+                graphState={graphState}
+                data={OVERVIEW_DATA.grid16.c3}
+              />
             </Paper>
-          </Col> */}
+          </Col>
           {/* grid16 end */}
         </Row>
-        {/* <Row lg={12}>
+        <Row lg={12}>
           <Col span={3}>
             <GridRow>
               <Col span={12}>
@@ -907,12 +1501,21 @@ const Overview = () => {
               </Col>
               <Col span={6}>
                 <Paper className={classes.paper}>
-                  <Graph data={OVERVIEW_DATA.grid17.c1} />
+                  <Graph
+                    fetchGraphAPI={fetchGraphAPI}
+                    graphState={graphState}
+                    data={OVERVIEW_DATA.grid17.c1}
+                  />
                 </Paper>
               </Col>
               <Col span={6}>
                 <Paper className={classes.paper}>
-                  <ArcGauge border data={OVERVIEW_DATA.grid17.c2} />
+                  <ArcGauge
+                    border
+                    fetchGraphAPI={fetchGraphAPI}
+                    graphState={graphState}
+                    data={OVERVIEW_DATA.grid17.c2}
+                  />
                 </Paper>
               </Col>
             </GridRow>
@@ -924,12 +1527,21 @@ const Overview = () => {
               </Col>
               <Col span={6}>
                 <Paper className={classes.paper}>
-                  <Graph data={OVERVIEW_DATA.grid18.c1} />
+                  <Graph
+                    fetchGraphAPI={fetchGraphAPI}
+                    graphState={graphState}
+                    data={OVERVIEW_DATA.grid18.c1}
+                  />
                 </Paper>
               </Col>
               <Col span={6}>
                 <Paper className={classes.paper}>
-                  <ArcGauge border data={OVERVIEW_DATA.grid18.c2} />
+                  <ArcGauge
+                    border
+                    fetchGraphAPI={fetchGraphAPI}
+                    graphState={graphState}
+                    data={OVERVIEW_DATA.grid18.c2}
+                  />
                 </Paper>
               </Col>
             </GridRow>
@@ -943,7 +1555,12 @@ const Overview = () => {
                   </Col>
                   <Col span={12}>
                     <Paper className={classes.paper}>
-                      <ArcGauge border data={OVERVIEW_DATA.grid19.c1} />
+                      <ArcGauge
+                        border
+                        fetchGraphAPI={fetchGraphAPI}
+                        graphState={graphState}
+                        data={OVERVIEW_DATA.grid19.c1}
+                      />
                     </Paper>
                   </Col>
                 </GridRow>
@@ -955,7 +1572,12 @@ const Overview = () => {
                   </Col>
                   <Col span={12}>
                     <Paper className={classes.paper}>
-                      <ArcGauge border data={OVERVIEW_DATA.grid20.c1} />
+                      <ArcGauge
+                        border
+                        fetchGraphAPI={fetchGraphAPI}
+                        graphState={graphState}
+                        data={OVERVIEW_DATA.grid20.c1}
+                      />
                     </Paper>
                   </Col>
                 </GridRow>
@@ -967,7 +1589,12 @@ const Overview = () => {
                   </Col>
                   <Col span={12}>
                     <Paper className={classes.paper}>
-                      <ArcGauge border data={OVERVIEW_DATA.grid21.c1} />
+                      <ArcGauge
+                        border
+                        fetchGraphAPI={fetchGraphAPI}
+                        graphState={graphState}
+                        data={OVERVIEW_DATA.grid21.c1}
+                      />
                     </Paper>
                   </Col>
                 </GridRow>
@@ -979,14 +1606,19 @@ const Overview = () => {
                   </Col>
                   <Col span={12}>
                     <Paper className={classes.paper}>
-                      <ArcGauge border data={OVERVIEW_DATA.grid22.c1} />
+                      <ArcGauge
+                        border
+                        fetchGraphAPI={fetchGraphAPI}
+                        graphState={graphState}
+                        data={OVERVIEW_DATA.grid22.c1}
+                      />
                     </Paper>
                   </Col>
                 </GridRow>
               </Col>
             </GridRow>
           </Col>
-        </Row> */}
+        </Row>
       </GridRow>
     </div>
   );

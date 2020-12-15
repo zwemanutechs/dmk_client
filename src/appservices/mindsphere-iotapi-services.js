@@ -2,6 +2,12 @@ import { getFromOtherOrigin, get } from "../middleware/axios-middleware";
 import format from "date-fns/format";
 import { zonedTimeToUtc } from "date-fns-tz";
 
+import {
+  POWERWASH_ASSETID,
+  OVEN_ASSETID,
+  PAINTBOOTH_ASSETID,
+} from "../constants/mindsphere-constants";
+
 export const loadDataByGivenDate = (
   from,
   to,
@@ -25,9 +31,9 @@ export const loadLatestValue = (assetId, aspectId, parameterName) => {
 
 // ---------------- Minsphere API V2 Gateway
 
-export const loadDataByGivenDateV2 = (assetId, aspectId, parameterName) => {
+export const loadDataByGivenDateV2 = (aspectId, parameterName) => {
   try {
-    const limit = "1000";
+    const limit = "15";
     const fromDate = new Date(
       zonedTimeToUtc(
         new Date(new Date().setHours(0, 59, 59, 59)),
@@ -41,6 +47,21 @@ export const loadDataByGivenDateV2 = (assetId, aspectId, parameterName) => {
       )
     ).toISOString();
 
+    let assetId = POWERWASH_ASSETID;
+
+    if (aspectId === "ESTA1" || aspectId === "ESTA2") {
+      assetId = PAINTBOOTH_ASSETID;
+    }
+
+    if (
+      aspectId === "FinalOven1" ||
+      aspectId === "FinalOven2" ||
+      aspectId === "IntermediateOven" ||
+      aspectId === "WaterDryer"
+    ) {
+      assetId = OVEN_ASSETID;
+    }
+
     return getFromOtherOrigin(
       `/api/iottimeseries/v3/timeseries/${assetId}/${aspectId}?select=${parameterName}&from=${fromDate}&to=${toDate}&limit=${limit}&sort=desc`
     );
@@ -52,7 +73,6 @@ export const loadDataByGivenDateV2 = (assetId, aspectId, parameterName) => {
 };
 
 export const loadGraphDataByGivenDateV2 = (
-  assetId,
   aspectId,
   parameterName,
   fromDate,
@@ -60,12 +80,26 @@ export const loadGraphDataByGivenDateV2 = (
 ) => {
   try {
     const limit = "15";
+    let assetId = POWERWASH_ASSETID;
 
-    console.log(fromDate);
-    console.log(toDate);
-    // return getFromOtherOrigin(
-    //   `/api/iottimeseries/v3/timeseries/${assetId}/${aspectId}?select=${parameterName}&from=${fromDate}&to=${toDate}&limit=${limit}&sort=desc`
-    // );
+    if (aspectId === "ESTA1" || aspectId === "ESTA2") {
+      assetId = PAINTBOOTH_ASSETID;
+    }
+
+    if (
+      aspectId === "FinalOven1" ||
+      aspectId === "FinalOven2" ||
+      aspectId === "IntermediateOven" ||
+      aspectId === "WaterDryer"
+    ) {
+      assetId = OVEN_ASSETID;
+    }
+
+    // console.log(fromDate);
+    // console.log(toDate);
+    return getFromOtherOrigin(
+      `/api/iottimeseries/v3/timeseries/${assetId}/${aspectId}?select=${parameterName}&from=${fromDate}&to=${toDate}&limit=${limit}&sort=desc`
+    );
   } catch (err) {
     console.log(err);
     console.log("err");
@@ -73,8 +107,60 @@ export const loadGraphDataByGivenDateV2 = (
   return [];
 };
 
-export const loadLatestValueV2 = (assetId, aspectId, parameterName) => {
+export const loadGraphDataByGivenDateV3 = (
+  aspectId,
+  parameterName,
+  fromDate,
+  toDate
+) => {
   try {
+    // const limit = "15";
+    let assetId = POWERWASH_ASSETID;
+
+    if (aspectId === "ESTA1" || aspectId === "ESTA2") {
+      assetId = PAINTBOOTH_ASSETID;
+    }
+
+    if (
+      aspectId === "FinalOven1" ||
+      aspectId === "FinalOven2" ||
+      aspectId === "IntermediateOven" ||
+      aspectId === "WaterDryer"
+    ) {
+      assetId = OVEN_ASSETID;
+    }
+    //dokadev-fleetmanager.eu1.mindsphere.io/api/iottsaggregates/v4/aggregates?assetId=033d759121d645f48cb221387878fc9f&aspectName=Degreasing_Tank1&from=2020-11-13T16:00:00.000Z&to=2020-12-13T16:00:00.000Z&intervalUnit=day&intervalValue=1&select=Degreasing_Tank1_pH
+    // dokadev-fleetmanager.eu1.mindsphere.io/api/iottsaggregates/v4/aggregates?assetId=033d759121d645f48cb221387878fc9f&aspectName=Degreasing_Tank1&from=2020-11-14T06:56:17.738Z&to=2020-12-14T06:56:17.738Z&intervalUnit=day&intervalValue=1&select=Degreasing_Tank1_pH
+    // dokadev-dormakaba-dokadev.eu1.mindsphere.io/api/iottsaggregates/v4/aggregates?assetId=033d759121d645f48cb221387878fc9f&aspectName=Degreasing_Tank1&from=2020-11-14T06:56:17.738Z&to=2020-12-14T06:56:17.738Z&intervalUnit=day&intervalValue=1&select=Degreasing_Tank1_pH
+    // console.log(fromDate);
+    // console.log(toDate);
+    return getFromOtherOrigin(
+      `api/iottsaggregates/v4/aggregates?assetId=${assetId}&aspectName=${aspectId}&from=${fromDate}&to=${toDate}&intervalUnit=day&intervalValue=1&select=${parameterName}`
+    );
+  } catch (err) {
+    console.log(err);
+    console.log("err");
+  }
+  return [];
+};
+
+export const loadLatestValueV2 = (aspectId, parameterName) => {
+  try {
+    let assetId = POWERWASH_ASSETID;
+
+    if (aspectId === "ESTA1" || aspectId === "ESTA2") {
+      assetId = PAINTBOOTH_ASSETID;
+    }
+
+    if (
+      aspectId === "FinalOven1" ||
+      aspectId === "FinalOven2" ||
+      aspectId === "IntermediateOven" ||
+      aspectId === "WaterDryer"
+    ) {
+      assetId = OVEN_ASSETID;
+    }
+
     return getFromOtherOrigin(
       `/api/iottimeseries/v3/timeseries/${assetId}/${aspectId}?select=${parameterName}&latestValue=true`
     );
@@ -1324,16 +1410,39 @@ export const loadLatestValueDummy = (aspectId, parameterName) => {
 // ---------------- API Gateway
 
 export const loadFromAPI = (endPoint) => {
-  const startDate = format(
-    new Date(new Date(new Date().setHours(0, 59, 59, 59))),
-    "yyyy-MM-dd'T'HH:mm:ss"
-  );
-  const endDate = format(
-    new Date(new Date(new Date().setHours(23, 59, 59, 59))),
-    "yyyy-MM-dd'T'HH:mm:ss"
-  );
+  try {
+    const startDate = format(
+      new Date(new Date(new Date().setHours(0, 59, 59, 59))),
+      "yyyy-MM-dd'T'HH:mm:ss"
+    );
+    const endDate = format(
+      new Date(new Date(new Date().setHours(23, 59, 59, 59))),
+      "yyyy-MM-dd'T'HH:mm:ss"
+    );
 
-  return get(`dashboard/${endPoint}/${startDate}/${endDate}/${1000}`);
+    return get(`dashboard/${endPoint}/${startDate}/${endDate}/${1000}`);
+  } catch (err) {
+    console.log(err);
+  }
+  return [];
+};
+
+export const loadFromAPIOnlyDateTime = async (endPoint, aspectName) => {
+  try {
+    const startDate = format(
+      new Date(new Date(new Date().setHours(0, 59, 59, 59))),
+      "yyyy-MM-dd'T'HH:mm:ss"
+    );
+
+    const dashData = await get(`dashboard/${endPoint}/${startDate}`);
+    console.log(dashData);
+    console.log(dashData.data);
+
+    return dashData && dashData.data.data[aspectName].data;
+  } catch (err) {
+    console.log(err);
+  }
+  return [];
 };
 
 export const loadFromAPIDummy = (endPoint) => {

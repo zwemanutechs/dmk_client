@@ -19,7 +19,7 @@ import { zonedTimeToUtc } from "date-fns-tz";
 // import AppLineChart from "../../../shared/charts/line/container/lineChart";
 // import {get} from "../../../middleware/axios-middleware";
 import {
-  loadGraphDataByGivenDateV2,
+  loadGraphDataByGivenDateV3,
   // loadDataByGivenDateDummy,
   // loadLatestValueDummy,
   // loadFromAPIDummy,
@@ -321,7 +321,7 @@ const Home = () => {
         unit: "atm",
         endPoint: "",
         aspectId: "DIWaterRinse_Tank5",
-        parameterName: "DIWaterRinse_Tank5_WaterLevel_cm",
+        parameterName: "DIWaterRinse_Tank5_WaterTankLevel_cm",
       },
       c3: {
         target: 90,
@@ -332,7 +332,7 @@ const Home = () => {
         sparklines: [],
         endPoint: "",
         aspectId: "DIWaterRinse_Tank5",
-        parameterName: "DIWaterRinse_Tank5_OverflowLevel_cm",
+        parameterName: "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm",
       },
       c4: {
         title: "Pump Pressure",
@@ -375,7 +375,7 @@ const Home = () => {
         sparklines: [],
         endPoint: "",
         aspectId: "Passivation_Tank6",
-        parameterName: "Passivation_Tank6_OverflowLevel_cm",
+        parameterName: "Passivation_Tank6_OverFlowLevel_cm",
       },
       c4: {
         title: "Pump Pressure",
@@ -398,11 +398,18 @@ const Home = () => {
       // take first data value only //api
 
       return data.data.data.length > 0
-        ? Math.round(data.data.data[0][aspectName])
+        ? Math.round(data.data.data[0][aspectName].toFixed(1))
         : 0;
     }
     // take first data value only // mindsphere
-    return data.length > 0 ? Math.round(data[0][aspectName]) : 0;
+    // if (aspectName === "Degreasing_Tank1_Conductivity_us") {
+    //   console.log(data.data.length > 0);
+    //   console.log(data);
+    //   console.log(Math.round(data.data[0][aspectName]));
+    // }
+    return data.data.length > 0
+      ? Math.round(data.data[0][aspectName]).toFixed(1)
+      : 0;
   };
 
   const dataProcessTimeSeries = async (data, aspectName) => {
@@ -419,9 +426,9 @@ const Home = () => {
             .filter((res) => res !== null)
         : [];
     }
-    // take seven days only on array// mindshepere
-    return data.length > 0
-      ? data
+
+    return data.data.length > 0
+      ? data.data
           .map((res, index) => {
             if (index < 7) {
               return res[aspectName];
@@ -434,42 +441,72 @@ const Home = () => {
 
   const dataProcessLastHrValInPercent = (currVal, TimeSeries, aspectName) => {
     // console.log(data);
-    return 20;
+    // percent change, (cur - last val) / last val, (10.5-9.5)/9.5= 10%, (10.5-11.5)/11.5= -8%
+
+    if (aspectName === "Passivation_Tank6_OverFlowLevel_cm") {
+      console.log(currVal.data);
+      console.log(TimeSeries.data);
+      console.log(Math.round(currVal.data[0][aspectName]));
+      console.log(Math.round(TimeSeries.data[0][aspectName]));
+      console.log(
+        ((Math.round(currVal.data[0][aspectName]) -
+          Math.round(TimeSeries.data[0][aspectName])) /
+          Math.round(TimeSeries.data[0][aspectName])) *
+          100
+      );
+    }
+    if (aspectName === "data") {
+      return currVal.data.data.length > 0 &&
+        TimeSeries.data.data.length > 0 &&
+        !(Math.round(TimeSeries.data.data[0][aspectName]) === 0)
+        ? Math.round(
+            ((Math.round(currVal.data.data[0][aspectName]) -
+              Math.round(TimeSeries.data.data[0][aspectName])) /
+              Math.round(TimeSeries.data.data[0][aspectName])) *
+              100
+          ).toFixed(2)
+        : 0;
+    }
+
+    return currVal.data.length > 0 &&
+      TimeSeries.data.length > 0 &&
+      !(Math.round(TimeSeries.data[0][aspectName]) === 0)
+      ? Math.round(
+          ((Math.round(currVal.data[0][aspectName]) -
+            Math.round(TimeSeries.data[0][aspectName])) /
+            Math.round(TimeSeries.data[0][aspectName])) *
+            100
+        ).toFixed(2)
+      : 0;
   };
 
+  const returnZoneTime = (date) => {
+    return new Date(
+      zonedTimeToUtc(date, Intl.DateTimeFormat().resolvedOptions().timeZone)
+    ).toISOString();
+  };
   const fetchGraphAPI = async (numMonthsAgo, tilesDetails) => {
     // console.log(numMonthsAgo);
     // console.log(tilesDetails);
-    const date = new Date();
-    const today = new Date(date);
-    date.setMonth(date.getMonth() - numMonthsAgo);
-    const monthsAgo = new Date(date);
 
-    const fromDate = new Date(
-      zonedTimeToUtc(
-        monthsAgo,
-        Intl.DateTimeFormat().resolvedOptions().timeZone
-      )
-    ).toISOString();
-    const toDate = new Date(
-      zonedTimeToUtc(today, Intl.DateTimeFormat().resolvedOptions().timeZone)
-    ).toISOString();
+    // date.setMonth(date.getMonth() - numMonthsAgo);
+
+    // fromDate = new Date(
+    //   zonedTimeToUtc(
+    //     monthsAgo,
+    //     Intl.DateTimeFormat().resolvedOptions().timeZone
+    //   )
+    // ).toISOString();
+    // toDate = new Date(
+    //   zonedTimeToUtc(today, Intl.DateTimeFormat().resolvedOptions().timeZone)
+    // ).toISOString();
 
     console.log(tilesDetails.endPoint);
     if (tilesDetails.endPoint) {
       try {
         const apiData = await loadFromAPI(tilesDetails.endPoint);
 
-        if (numMonthsAgo === 3) {
-          setGraphState(
-            update(graphState, {
-              timeSeries: { $set: [12, 19, 3, 5, 2, 3] },
-              labels: { $set: ["d1", "d2", "d3", "d4", "d5", "d6"] },
-            })
-          );
-          return;
-        }
-        if (apiData.data.data.length > 0)
+        if (apiData.data.data.length > 0) {
           setGraphState({
             timeSeries: apiData.data.data
               .map((res, index) => {
@@ -482,47 +519,301 @@ const Home = () => {
             labels: apiData.data.data
               .map((res, index) => {
                 if (index < 15) {
-                  return res["time"];
+                  return new Date(res["time"]).toLocaleDateString();
                 }
                 return null;
               })
               .filter((res) => res !== null),
           });
+          return;
+        }
+
+        setGraphState({
+          timeSeries: [0],
+          labels: [],
+        });
       } catch (err) {
         console.log(err);
       }
     } else {
       try {
-        const timeData = await loadGraphDataByGivenDateV2(
+        const date = new Date();
+        const today = new Date(date);
+        date.setMonth(date.getMonth() - numMonthsAgo);
+        const monthsAgo = new Date(date);
+
+        let fromDate = returnZoneTime(monthsAgo);
+        let toDate = returnZoneTime(today);
+
+        if (numMonthsAgo === 3) {
+          const firstFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const firstToMonth = returnZoneTime(new Date(date));
+          const firstTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            firstFromMonth,
+            firstToMonth
+          );
+
+          const secondFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const secondToMonth = returnZoneTime(new Date(date));
+          const secondTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            secondFromMonth,
+            secondToMonth
+          );
+
+          const thirdFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const thirdToMonth = returnZoneTime(new Date(date));
+          const thirdTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            thirdFromMonth,
+            thirdToMonth
+          );
+
+          let allData = [];
+
+          if (firstTimeData.data.aggregates.length > 0)
+            allData = [...firstTimeData.data.aggregates, ...allData];
+
+          if (secondTimeData.data.aggregates.length > 0)
+            allData = [...secondTimeData.data.aggregates, ...allData];
+
+          if (thirdTimeData.data.aggregates.length > 0) {
+            console.log(thirdTimeData.data.aggregates);
+            allData = [...thirdTimeData.data.aggregates, ...allData];
+          }
+
+          console.log(firstTimeData);
+          console.log(secondTimeData);
+          console.log(thirdTimeData);
+
+          console.log(allData);
+          if (allData.length > 0) {
+            setGraphState({
+              timeSeries: allData
+                .map((res, index) => {
+                  if (index < 15) {
+                    return res[tilesDetails.parameterName].firstvalue;
+                  }
+                  return null;
+                })
+                .filter((res) => res !== null),
+              labels: allData
+                .map((res, index) => {
+                  if (index < 15) {
+                    return new Date(
+                      res[tilesDetails.parameterName].firsttime
+                    ).toLocaleDateString();
+                  }
+                  return null;
+                })
+                .filter((res) => res !== null),
+            });
+          }
+
+          return;
+        }
+
+        if (numMonthsAgo === 6) {
+          const firstFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const firstToMonth = returnZoneTime(new Date(date));
+          const firstTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            firstFromMonth,
+            firstToMonth
+          );
+
+          const secondFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const secondToMonth = returnZoneTime(new Date(date));
+          const secondTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            secondFromMonth,
+            secondToMonth
+          );
+
+          const thirdFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const thirdToMonth = returnZoneTime(new Date(date));
+          const thirdTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            thirdFromMonth,
+            thirdToMonth
+          );
+
+          const forthFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const forthToMonth = returnZoneTime(new Date(date));
+          const forthTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            forthFromMonth,
+            forthToMonth
+          );
+
+          const fifthFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const fifthToMonth = returnZoneTime(new Date(date));
+          const fifthTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            fifthFromMonth,
+            fifthToMonth
+          );
+
+          const sixFromMonth = returnZoneTime(new Date(date));
+          date.setMonth(date.getMonth() + 1);
+          const sixToMonth = returnZoneTime(new Date(date));
+          const sixTimeData = await loadGraphDataByGivenDateV3(
+            tilesDetails.aspectId,
+            tilesDetails.parameterName,
+            sixFromMonth,
+            sixToMonth
+          );
+
+          // fromDate = returnZoneTime(monthsAgo);
+          // toDate = returnZoneTime(today);
+          let allData = [];
+
+          if (firstTimeData.data.aggregates.length > 0)
+            allData = [...firstTimeData.data.aggregates, ...allData];
+
+          if (secondTimeData.data.aggregates.length > 0)
+            allData = [...secondTimeData.data.aggregates, ...allData];
+
+          if (thirdTimeData.data.aggregates.length > 0)
+            allData = [...thirdTimeData.data.aggregates, ...allData];
+
+          if (forthTimeData.data.aggregates.length > 0)
+            allData = [...forthTimeData.data.aggregates, ...allData];
+
+          if (fifthTimeData.data.aggregates.length > 0)
+            allData = [...fifthTimeData.data.aggregates, ...allData];
+
+          if (sixTimeData.data.aggregates.length > 0)
+            allData = [...sixTimeData.data.aggregates, ...allData];
+
+          console.log(allData);
+          if (allData.length > 0) {
+            setGraphState({
+              timeSeries: allData
+                .map((res, index) => {
+                  if (index < 15) {
+                    return res[tilesDetails.parameterName].firstvalue;
+                  }
+                  return null;
+                })
+                .filter((res) => res !== null),
+              labels: allData
+                .map((res, index) => {
+                  if (index < 15) {
+                    return new Date(
+                      res[tilesDetails.parameterName].firsttime
+                    ).toLocaleDateString();
+                  }
+                  return null;
+                })
+                .filter((res) => res !== null),
+            });
+          }
+
+          return;
+        }
+
+        const timeData = await loadGraphDataByGivenDateV3(
           tilesDetails.aspectId,
           tilesDetails.parameterName,
           fromDate,
           toDate
         );
-        if (timeData.length > 0)
+        console.log(timeData);
+        console.log(timeData.data);
+        // console.log(timeData.);
+        if (timeData.data.aggregates.length > 0) {
           setGraphState({
-            timeSeries: timeData
+            timeSeries: timeData.data.aggregates
               .map((res, index) => {
                 if (index < 15) {
-                  return res[tilesDetails.parameterName];
+                  return res[tilesDetails.parameterName].firstvalue;
                 }
                 return null;
               })
               .filter((res) => res !== null),
-            labels: timeData
+            labels: timeData.data.aggregates
               .map((res, index) => {
                 if (index < 15) {
-                  return res["_time"];
+                  return new Date(
+                    res[tilesDetails.parameterName].firsttime
+                  ).toLocaleDateString();
                 }
                 return null;
               })
               .filter((res) => res !== null),
           });
+        }
+        // const timeData = await loadGraphDataByGivenDateV3(
+        //   tilesDetails.aspectId,
+        //   tilesDetails.parameterName,
+        //   fromDate,
+        //   toDate
+        // );
+        // console.log(timeData.data);
+        // console.log(timeData.data.length > 0);
+        // console.log(
+        //   timeData.data
+        //     .map((res, index) => {
+        //       if (index < 15) {
+        //         return res[tilesDetails.parameterName];
+        //       }
+        //       return null;
+        //     })
+        //     .filter((res) => res !== null)
+        // );
+        // console.log(
+        //   timeData.data
+        //     .map((res, index) => {
+        //       if (index < 15) {
+        //         return res["_time"];
+        //       }
+        //       return null;
+        //     })
+        //     .filter((res) => res !== null)
+        // );
+        // console.log(timeData);
+        // if (timeData.data.length > 0)
+        //   setGraphState({
+        //     timeSeries: timeData.data
+        //       .map((res, index) => {
+        //         if (index < 15) {
+        //           return res[tilesDetails.parameterName];
+        //         }
+        //         return null;
+        //       })
+        //       .filter((res) => res !== null),
+        //     labels: timeData.data
+        //       .map((res, index) => {
+        //         if (index < 15) {
+        //           return res["_time"];
+        //         }
+        //         return null;
+        //       })
+        //       .filter((res) => res !== null),
+        //   });
 
-        setGraphState({
-          timeSeries: [12, 19, 3, 5, 2, 3],
-          labels: ["d1", "d2", "d3", "d4", "d5", "d6"],
-        });
+        // setGraphState({
+        //   timeSeries: [12, 19, 3, 5, 2, 3],
+        //   labels: ["d1", "d2", "d3", "d4", "d5", "d6"],
+        // });
       } catch (err) {
         console.log(err);
       }
@@ -603,7 +894,7 @@ const Home = () => {
                 $set: await dataProcessLastHrValInPercent(
                   await loadFromAPI("degreasing/concentration"),
                   await loadFromAPI("degreasing/concentration"),
-                  ""
+                  "data"
                 ),
               },
               sparklines: {
@@ -638,7 +929,7 @@ const Home = () => {
               },
               sparklines: {
                 $set: await dataProcessTimeSeries(
-                  await loadLatestValueV2(
+                  await loadDataByGivenDateV2(
                     "Degreasing_Tank1",
                     "Degreasing_Tank1_pH"
                   ),
@@ -671,7 +962,7 @@ const Home = () => {
               },
               sparklines: {
                 $set: await dataProcessTimeSeries(
-                  await loadLatestValueV2(
+                  await loadDataByGivenDateV2(
                     "Degreasing_Tank1",
                     "Degreasing_Tank1_WaterLevel_cm"
                   ),
@@ -750,7 +1041,7 @@ const Home = () => {
               $set: await dataProcessLastHrValInPercent(
                 await loadFromAPI("degreasing/rinseone"),
                 await loadFromAPI("degreasing/rinseone"),
-                ""
+                "data"
               ),
             },
             sparklines: {
@@ -828,7 +1119,7 @@ const Home = () => {
               $set: await dataProcessLastHrValInPercent(
                 await loadFromAPI("degreasing/rinsetwo"),
                 await loadFromAPI("degreasing/rinsetwo"),
-                ""
+                "data"
               ),
             },
             sparklines: {
@@ -906,7 +1197,7 @@ const Home = () => {
               $set: await dataProcessLastHrValInPercent(
                 await loadFromAPI("degreasing/rinsetwo"),
                 await loadFromAPI("degreasing/rinsetwo"),
-                ""
+                "data"
               ),
             },
             sparklines: {
@@ -998,7 +1289,7 @@ const Home = () => {
             },
             sparklines: {
               $set: await dataProcessTimeSeries(
-                await loadLatestValueV2(
+                await loadDataByGivenDateV2(
                   "DIWaterRinse_Tank5",
                   "DIWaterRinse_Tank5_pH"
                 ),
@@ -1011,9 +1302,9 @@ const Home = () => {
               $set: await dataProcessCurrentVal(
                 await loadLatestValueV2(
                   "DIWaterRinse_Tank5",
-                  "DIWaterRinse_Tank5_WaterLevel_cm"
+                  "DIWaterRinse_Tank5_WaterTankLevel_cm"
                 ),
-                "DIWaterRinse_Tank5_WaterLevel_cm"
+                "DIWaterRinse_Tank5_WaterTankLevel_cm"
               ),
             },
           },
@@ -1022,31 +1313,31 @@ const Home = () => {
               $set: await dataProcessCurrentVal(
                 await loadLatestValueV2(
                   "DIWaterRinse_Tank5",
-                  "DIWaterRinse_Tank5_OverflowLevel_cm"
+                  "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
                 ),
-                "DIWaterRinse_Tank5_OverflowLevel_cm"
+                "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
               ),
             },
             lastHr: {
               $set: await dataProcessLastHrValInPercent(
                 await loadLatestValueV2(
                   "DIWaterRinse_Tank5",
-                  "DIWaterRinse_Tank5_OverflowLevel_cm"
+                  "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
                 ),
                 await loadDataByGivenDateV2(
                   "DIWaterRinse_Tank5",
-                  "DIWaterRinse_Tank5_OverflowLevel_cm"
+                  "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
                 ),
-                "DIWaterRinse_Tank5_OverflowLevel_cm"
+                "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
               ),
             },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2(
                   "DIWaterRinse_Tank5",
-                  "DIWaterRinse_Tank5_OverflowLevel_cm"
+                  "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
                 ),
-                "DIWaterRinse_Tank5_OverflowLevel_cm"
+                "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
               ),
             },
           },
@@ -1088,7 +1379,7 @@ const Home = () => {
             },
             sparklines: {
               $set: await dataProcessTimeSeries(
-                await loadLatestValueV2(
+                await loadDataByGivenDateV2(
                   "Passivation_Tank6",
                   "Passivation_Tank6_pH"
                 ),
@@ -1112,31 +1403,31 @@ const Home = () => {
               $set: await dataProcessCurrentVal(
                 await loadLatestValueV2(
                   "Passivation_Tank6",
-                  "Passivation_Tank6_OverflowLevel_cm"
+                  "Passivation_Tank6_OverFlowLevel_cm"
                 ),
-                "Passivation_Tank6_OverflowLevel_cm"
+                "Passivation_Tank6_OverFlowLevel_cm"
               ),
             },
             lastHr: {
               $set: await dataProcessLastHrValInPercent(
                 await loadLatestValueV2(
                   "Passivation_Tank6",
-                  "Passivation_Tank6_OverflowLevel_cm"
+                  "Passivation_Tank6_OverFlowLevel_cm"
                 ),
                 await loadDataByGivenDateV2(
                   "Passivation_Tank6",
-                  "Passivation_Tank6_OverflowLevel_cm"
+                  "Passivation_Tank6_OverFlowLevel_cm"
                 ),
-                "Passivation_Tank6"
+                "Passivation_Tank6_OverFlowLevel_cm"
               ),
             },
             sparklines: {
               $set: await dataProcessTimeSeries(
                 await loadDataByGivenDateV2(
                   "Passivation_Tank6",
-                  "Passivation_Tank6_OverflowLevel_cm"
+                  "Passivation_Tank6_OverFlowLevel_cm"
                 ),
-                "Passivation_Tank6_OverflowLevel_cm"
+                "Passivation_Tank6_OverFlowLevel_cm"
               ),
             },
           },
@@ -1210,7 +1501,7 @@ const Home = () => {
     //   fetchAPI();
     // }, 20000);
     // return () => clearInterval(interval);
-  });
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -1230,7 +1521,11 @@ const Home = () => {
               {OVERVIEW_DATA.grid1.c1.map((res, index) => {
                 return (
                   <Col key={index} span={12}>
-                    <Graph data={res} />
+                    <Graph
+                      data={res}
+                      fetchGraphAPI={fetchGraphAPI}
+                      graphState={graphState}
+                    />
                   </Col>
                 );
               })}
@@ -1252,7 +1547,11 @@ const Home = () => {
                     xs={12}
                     style={{ paddingBottom: "7.5px" }}
                   >
-                    <ArcGauge data={res} />
+                    <ArcGauge
+                      data={res}
+                      fetchGraphAPI={fetchGraphAPI}
+                      graphState={graphState}
+                    />
                   </Grid>
                 );
               })}
