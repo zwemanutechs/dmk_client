@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import styled from "styled-components";
+import CircularProgress from "@material-ui/core/CircularProgress";
 // import { find } from "lodash";
 import update from "immutability-helper";
 import { zonedTimeToUtc } from "date-fns-tz";
@@ -31,7 +32,10 @@ import ArcGauge from "../../../shared/charts/arc-gauge";
 import Graph from "../../../shared/charts/graph";
 import LineChart from "../../../shared/charts/lineChart";
 import "./home.css";
-import { POWERWASH_ASSETID } from "../../../constants/mindsphere-constants";
+import { numFormatter } from "../../../helpers";
+import { OPEN_SNACK } from "../../../shared/snackbar/action-constants/snackbar-actionTypes";
+import { UNHANDELERROR, snackError } from "../../../constants/app-constants";
+import { store } from "../../../index";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,6 +58,7 @@ const Home = () => {
   const classes = useStyles();
   const [graphState, setGraphState] = useState({ timeSeries: [0], labels: [] });
   const [OVERVIEW_DATA, SETOVERVIEW_DATA] = useState({
+    loader: true,
     grid1: {
       name: "Tank 1",
       c1: [
@@ -398,7 +403,7 @@ const Home = () => {
       // take first data value only //api
 
       return data.data.data.length > 0
-        ? Math.round(data.data.data[0][aspectName].toFixed(1))
+        ? numFormatter(data.data.data[0][aspectName])
         : 0;
     }
     // take first data value only // mindsphere
@@ -407,9 +412,24 @@ const Home = () => {
     //   console.log(data);
     //   console.log(Math.round(data.data[0][aspectName]));
     // }
-    return data.data.length > 0
-      ? Math.round(data.data[0][aspectName]).toFixed(1)
-      : 0;
+    return data.data.length > 0 ? numFormatter(data.data[0][aspectName]) : 0;
+  };
+
+  const dataProcessBarChartCurrentVal = async (data, aspectName) => {
+    if (aspectName === "data") {
+      // take first data value only //api
+
+      return data.data.data.length > 0
+        ? data.data.data[0][aspectName].toFixed(1)
+        : 0;
+    }
+    // take first data value only // mindsphere
+    // if (aspectName === "Degreasing_Tank1_Conductivity_us") {
+    //   console.log(data.data.length > 0);
+    //   console.log(data);
+    //   console.log(Math.round(data.data[0][aspectName]));
+    // }
+    return data.data.length > 0 ? data.data[0][aspectName].toFixed(1) : 0;
   };
 
   const dataProcessTimeSeries = async (data, aspectName) => {
@@ -443,18 +463,6 @@ const Home = () => {
     // console.log(data);
     // percent change, (cur - last val) / last val, (10.5-9.5)/9.5= 10%, (10.5-11.5)/11.5= -8%
 
-    if (aspectName === "Passivation_Tank6_OverFlowLevel_cm") {
-      console.log(currVal.data);
-      console.log(TimeSeries.data);
-      console.log(Math.round(currVal.data[0][aspectName]));
-      console.log(Math.round(TimeSeries.data[0][aspectName]));
-      console.log(
-        ((Math.round(currVal.data[0][aspectName]) -
-          Math.round(TimeSeries.data[0][aspectName])) /
-          Math.round(TimeSeries.data[0][aspectName])) *
-          100
-      );
-    }
     if (aspectName === "data") {
       return currVal.data.data.length > 0 &&
         TimeSeries.data.data.length > 0 &&
@@ -825,674 +833,697 @@ const Home = () => {
   // await dataProcessLastHrValInPercent( await loadLatestValueV2( "", "" ), await loadDataByGivenDateV2( "", "" ), "" )
 
   const fetchAPI = async (data) => {
-    SETOVERVIEW_DATA(
-      update(data, {
-        grid1: {
-          c1: {
-            0: {
-              currentVal: {
-                $set: await dataProcessCurrentVal(
-                  await loadFromAPI("degreasing/dynetest"),
-                  "data"
-                ),
+    try {
+      SETOVERVIEW_DATA(
+        update(data, {
+          loader: { $set: false },
+          grid1: {
+            c1: {
+              0: {
+                currentVal: {
+                  $set: await dataProcessCurrentVal(
+                    await loadFromAPI("degreasing/dynetest"),
+                    "data"
+                  ),
+                },
+                lastHr: {
+                  $set: await dataProcessLastHrValInPercent(
+                    await loadFromAPI("degreasing/dynetest"),
+                    await loadFromAPI("degreasing/dynetest"),
+                    "data"
+                  ),
+                },
+                sparklines: {
+                  $set: await dataProcessTimeSeries(
+                    await loadFromAPI("degreasing/dynetest"),
+                    "data"
+                  ),
+                },
               },
-              lastHr: {
-                $set: await dataProcessLastHrValInPercent(
-                  await loadFromAPI("degreasing/dynetest"),
-                  await loadFromAPI("degreasing/dynetest"),
-                  "data"
-                ),
-              },
-              sparklines: {
-                $set: await dataProcessTimeSeries(
-                  await loadFromAPI("degreasing/dynetest"),
-                  "data"
-                ),
-              },
-            },
-            1: {
-              currentVal: {
-                $set: await dataProcessCurrentVal(
-                  await loadLatestValueV2(
-                    "Degreasing_Tank1",
+              1: {
+                currentVal: {
+                  $set: await dataProcessCurrentVal(
+                    await loadLatestValueV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_Conductivity_us"
+                    ),
                     "Degreasing_Tank1_Conductivity_us"
                   ),
-                  "Degreasing_Tank1_Conductivity_us"
-                ),
-              },
-              lastHr: {
-                $set: await dataProcessLastHrValInPercent(
-                  await loadLatestValueV2(
-                    "Degreasing_Tank1",
+                },
+                lastHr: {
+                  $set: await dataProcessLastHrValInPercent(
+                    await loadLatestValueV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_Conductivity_us"
+                    ),
+                    await loadDataByGivenDateV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_Conductivity_us"
+                    ),
                     "Degreasing_Tank1_Conductivity_us"
                   ),
-                  await loadDataByGivenDateV2(
-                    "Degreasing_Tank1",
+                },
+                sparklines: {
+                  $set: await dataProcessTimeSeries(
+                    await loadDataByGivenDateV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_Conductivity_us"
+                    ),
                     "Degreasing_Tank1_Conductivity_us"
                   ),
-                  "Degreasing_Tank1_Conductivity_us"
-                ),
+                },
               },
-              sparklines: {
-                $set: await dataProcessTimeSeries(
-                  await loadDataByGivenDateV2(
-                    "Degreasing_Tank1",
-                    "Degreasing_Tank1_Conductivity_us"
+              2: {
+                currentVal: {
+                  $set: await dataProcessCurrentVal(
+                    await loadFromAPI("degreasing/concentration"),
+                    "data"
                   ),
-                  "Degreasing_Tank1_Conductivity_us"
-                ),
+                },
+                lastHr: {
+                  $set: await dataProcessLastHrValInPercent(
+                    await loadFromAPI("degreasing/concentration"),
+                    await loadFromAPI("degreasing/concentration"),
+                    "data"
+                  ),
+                },
+                sparklines: {
+                  $set: await dataProcessTimeSeries(
+                    await loadFromAPI("degreasing/concentration"),
+                    "data"
+                  ),
+                },
               },
-            },
-            2: {
-              currentVal: {
-                $set: await dataProcessCurrentVal(
-                  await loadFromAPI("degreasing/concentration"),
-                  "data"
-                ),
-              },
-              lastHr: {
-                $set: await dataProcessLastHrValInPercent(
-                  await loadFromAPI("degreasing/concentration"),
-                  await loadFromAPI("degreasing/concentration"),
-                  "data"
-                ),
-              },
-              sparklines: {
-                $set: await dataProcessTimeSeries(
-                  await loadFromAPI("degreasing/concentration"),
-                  "data"
-                ),
-              },
-            },
-            3: {
-              currentVal: {
-                $set: await dataProcessCurrentVal(
-                  await loadLatestValueV2(
-                    "Degreasing_Tank1",
+              3: {
+                currentVal: {
+                  $set: await dataProcessCurrentVal(
+                    await loadLatestValueV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_pH"
+                    ),
                     "Degreasing_Tank1_pH"
                   ),
-                  "Degreasing_Tank1_pH"
-                ),
+                },
+                lastHr: {
+                  $set: await dataProcessLastHrValInPercent(
+                    await loadLatestValueV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_pH"
+                    ),
+                    await loadDataByGivenDateV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_pH"
+                    ),
+                    "Degreasing_Tank1_pH"
+                  ),
+                },
+                sparklines: {
+                  $set: await dataProcessTimeSeries(
+                    await loadDataByGivenDateV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_pH"
+                    ),
+                    "Degreasing_Tank1_pH"
+                  ),
+                },
               },
-              lastHr: {
-                $set: await dataProcessLastHrValInPercent(
-                  await loadLatestValueV2(
-                    "Degreasing_Tank1",
-                    "Degreasing_Tank1_pH"
+              4: {
+                currentVal: {
+                  $set: await dataProcessCurrentVal(
+                    await loadLatestValueV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_WaterLevel_cm"
+                    ),
+                    "Degreasing_Tank1_WaterLevel_cm"
                   ),
-                  await loadDataByGivenDateV2(
-                    "Degreasing_Tank1",
-                    "Degreasing_Tank1_pH"
+                },
+                lastHr: {
+                  $set: await dataProcessLastHrValInPercent(
+                    await loadLatestValueV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_WaterLevel_cm"
+                    ),
+                    await loadDataByGivenDateV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_WaterLevel_cm"
+                    ),
+                    "Degreasing_Tank1_WaterLevel_cm"
                   ),
-                  "Degreasing_Tank1_pH"
-                ),
-              },
-              sparklines: {
-                $set: await dataProcessTimeSeries(
-                  await loadDataByGivenDateV2(
-                    "Degreasing_Tank1",
-                    "Degreasing_Tank1_pH"
+                },
+                sparklines: {
+                  $set: await dataProcessTimeSeries(
+                    await loadDataByGivenDateV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_WaterLevel_cm"
+                    ),
+                    "Degreasing_Tank1_WaterLevel_cm"
                   ),
-                  "Degreasing_Tank1_pH"
-                ),
+                },
               },
             },
-            4: {
-              currentVal: {
-                $set: await dataProcessCurrentVal(
-                  await loadLatestValueV2(
-                    "Degreasing_Tank1",
-                    "Degreasing_Tank1_WaterLevel_cm"
-                  ),
-                  "Degreasing_Tank1_WaterLevel_cm"
-                ),
-              },
-              lastHr: {
-                $set: await dataProcessLastHrValInPercent(
-                  await loadLatestValueV2(
-                    "Degreasing_Tank1",
-                    "Degreasing_Tank1_WaterLevel_cm"
-                  ),
-                  await loadDataByGivenDateV2(
-                    "Degreasing_Tank1",
-                    "Degreasing_Tank1_WaterLevel_cm"
-                  ),
-                  "Degreasing_Tank1_WaterLevel_cm"
-                ),
-              },
-              sparklines: {
-                $set: await dataProcessTimeSeries(
-                  await loadDataByGivenDateV2(
-                    "Degreasing_Tank1",
-                    "Degreasing_Tank1_WaterLevel_cm"
-                  ),
-                  "Degreasing_Tank1_WaterLevel_cm"
-                ),
-              },
-            },
-          },
-          c2: {
-            0: {
-              currentVal: {
-                $set: await dataProcessCurrentVal(
-                  await loadLatestValueV2(
-                    "Degreasing_Tank1",
+            c2: {
+              0: {
+                currentVal: {
+                  $set: await dataProcessCurrentVal(
+                    await loadLatestValueV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_1_Pressure_bar"
+                    ),
                     "Degreasing_Tank1_1_Pressure_bar"
                   ),
-                  "Degreasing_Tank1_1_Pressure_bar"
-                ),
+                },
               },
-            },
-            1: {
-              currentVal: {
-                $set: await dataProcessCurrentVal(
-                  await loadLatestValueV2(
-                    "Degreasing_Tank1",
+              1: {
+                currentVal: {
+                  $set: await dataProcessCurrentVal(
+                    await loadLatestValueV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_2_Pressure_bar"
+                    ),
                     "Degreasing_Tank1_2_Pressure_bar"
                   ),
-                  "Degreasing_Tank1_2_Pressure_bar"
-                ),
+                },
               },
-            },
-            2: {
-              currentVal: {
-                $set: await dataProcessCurrentVal(
-                  await loadLatestValueV2(
-                    "Degreasing_Tank1",
+              2: {
+                currentVal: {
+                  $set: await dataProcessCurrentVal(
+                    await loadLatestValueV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_3_Pressure_bar"
+                    ),
                     "Degreasing_Tank1_3_Pressure_bar"
                   ),
-                  "Degreasing_Tank1_3_Pressure_bar"
-                ),
+                },
               },
-            },
-            3: {
-              currentVal: {
-                $set: await dataProcessCurrentVal(
-                  await loadLatestValueV2(
-                    "Degreasing_Tank1",
+              3: {
+                currentVal: {
+                  $set: await dataProcessCurrentVal(
+                    await loadLatestValueV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_4_Pressure_bar"
+                    ),
                     "Degreasing_Tank1_4_Pressure_bar"
                   ),
-                  "Degreasing_Tank1_4_Pressure_bar"
+                },
+              },
+              4: {
+                currentVal: {
+                  $set: await dataProcessCurrentVal(
+                    await loadLatestValueV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_5_Pressure_bar"
+                    ),
+                    "Degreasing_Tank1_5_Pressure_bar"
+                  ),
+                },
+              },
+            },
+          },
+          grid2: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPI("degreasing/rinseone"),
+                  "data"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadFromAPI("degreasing/rinseone"),
+                  await loadFromAPI("degreasing/rinseone"),
+                  "data"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadFromAPI("degreasing/rinseone"),
+                  "data"
                 ),
               },
             },
-            4: {
+            c2: {
               currentVal: {
                 $set: await dataProcessCurrentVal(
                   await loadLatestValueV2(
-                    "Degreasing_Tank1",
-                    "Degreasing_Tank1_5_Pressure_bar"
+                    "WaterRinse_Tank2",
+                    "WaterRinse_Tank2_WaterLevel_cm"
                   ),
-                  "Degreasing_Tank1_5_Pressure_bar"
+                  "WaterRinse_Tank2_WaterLevel_cm"
+                ),
+              },
+            },
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "WaterRinse_Tank2",
+                    "WaterRinse_Tank2_OverflowLevel_cm"
+                  ),
+                  "WaterRinse_Tank2_OverflowLevel_cm"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2(
+                    "WaterRinse_Tank2",
+                    "WaterRinse_Tank2_OverflowLevel_cm"
+                  ),
+                  await loadDataByGivenDateV2(
+                    "WaterRinse_Tank2",
+                    "WaterRinse_Tank2_OverflowLevel_cm"
+                  ),
+                  "WaterRinse_Tank2_OverflowLevel_cm"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2(
+                    "WaterRinse_Tank2",
+                    "WaterRinse_Tank2_OverflowLevel_cm"
+                  ),
+                  "WaterRinse_Tank2_OverflowLevel_cm"
+                ),
+              },
+            },
+            c4: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "WaterRinse_Tank2",
+                    "WaterRinse_Tank2_Pressure_bar"
+                  ),
+                  "WaterRinse_Tank2_Pressure_bar"
                 ),
               },
             },
           },
-        },
-        grid2: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPI("degreasing/rinseone"),
-                "data"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadFromAPI("degreasing/rinseone"),
-                await loadFromAPI("degreasing/rinseone"),
-                "data"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadFromAPI("degreasing/rinseone"),
-                "data"
-              ),
-            },
-          },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "WaterRinse_Tank2",
-                  "WaterRinse_Tank2_WaterLevel_cm"
+          grid3: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPI("degreasing/rinsetwo"),
+                  "data"
                 ),
-                "WaterRinse_Tank2_WaterLevel_cm"
-              ),
-            },
-          },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "WaterRinse_Tank2",
-                  "WaterRinse_Tank2_OverflowLevel_cm"
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadFromAPI("degreasing/rinsetwo"),
+                  await loadFromAPI("degreasing/rinsetwo"),
+                  "data"
                 ),
-                "WaterRinse_Tank2_OverflowLevel_cm"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2(
-                  "WaterRinse_Tank2",
-                  "WaterRinse_Tank2_OverflowLevel_cm"
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadFromAPI("degreasing/rinsetwo"),
+                  "data"
                 ),
-                await loadDataByGivenDateV2(
-                  "WaterRinse_Tank2",
-                  "WaterRinse_Tank2_OverflowLevel_cm"
-                ),
-                "WaterRinse_Tank2_OverflowLevel_cm"
-              ),
+              },
             },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2(
-                  "WaterRinse_Tank2",
-                  "WaterRinse_Tank2_OverflowLevel_cm"
-                ),
-                "WaterRinse_Tank2_OverflowLevel_cm"
-              ),
-            },
-          },
-          c4: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "WaterRinse_Tank2",
-                  "WaterRinse_Tank2_Pressure_bar"
-                ),
-                "WaterRinse_Tank2_Pressure_bar"
-              ),
-            },
-          },
-        },
-        grid3: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPI("degreasing/rinsetwo"),
-                "data"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadFromAPI("degreasing/rinsetwo"),
-                await loadFromAPI("degreasing/rinsetwo"),
-                "data"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadFromAPI("degreasing/rinsetwo"),
-                "data"
-              ),
-            },
-          },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "WaterRinse_Tank3",
+            c2: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "WaterRinse_Tank3",
+                    "WaterRinse_Tank3_WaterLevel_cm"
+                  ),
                   "WaterRinse_Tank3_WaterLevel_cm"
                 ),
-                "WaterRinse_Tank3_WaterLevel_cm"
-              ),
+              },
             },
-          },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "WaterRinse_Tank3",
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "WaterRinse_Tank3",
+                    "WaterRinse_Tank3_OverflowLevel_cm"
+                  ),
                   "WaterRinse_Tank3_OverflowLevel_cm"
                 ),
-                "WaterRinse_Tank3_OverflowLevel_cm"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2(
-                  "WaterRinse_Tank3",
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2(
+                    "WaterRinse_Tank3",
+                    "WaterRinse_Tank3_OverflowLevel_cm"
+                  ),
+                  await loadDataByGivenDateV2(
+                    "WaterRinse_Tank3",
+                    "WaterRinse_Tank3_OverflowLevel_cm"
+                  ),
                   "WaterRinse_Tank3_OverflowLevel_cm"
                 ),
-                await loadDataByGivenDateV2(
-                  "WaterRinse_Tank3",
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2(
+                    "WaterRinse_Tank3",
+                    "WaterRinse_Tank3_OverflowLevel_cm"
+                  ),
                   "WaterRinse_Tank3_OverflowLevel_cm"
                 ),
-                "WaterRinse_Tank3_OverflowLevel_cm"
-              ),
+              },
             },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2(
-                  "WaterRinse_Tank3",
-                  "WaterRinse_Tank3_OverflowLevel_cm"
-                ),
-                "WaterRinse_Tank3_OverflowLevel_cm"
-              ),
-            },
-          },
-          c4: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "WaterRinse_Tank3",
+            c4: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "WaterRinse_Tank3",
+                    "WaterRinse_Tank3_Pressure_bar"
+                  ),
                   "WaterRinse_Tank3_Pressure_bar"
                 ),
-                "WaterRinse_Tank3_Pressure_bar"
-              ),
+              },
             },
           },
-        },
-        grid4: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPI("degreasing/rinsethree"),
-                "data"
-              ),
+          grid4: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPI("degreasing/rinsethree"),
+                  "data"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadFromAPI("degreasing/rinsetwo"),
+                  await loadFromAPI("degreasing/rinsetwo"),
+                  "data"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadFromAPI("degreasing/rinsethree"),
+                  "data"
+                ),
+              },
             },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadFromAPI("degreasing/rinsetwo"),
-                await loadFromAPI("degreasing/rinsetwo"),
-                "data"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadFromAPI("degreasing/rinsethree"),
-                "data"
-              ),
-            },
-          },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "DIWaterRinse_Tank4",
+            c2: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "DIWaterRinse_Tank4",
+                    "DIWaterRinse_Tank4_WaterLevel_cm"
+                  ),
                   "DIWaterRinse_Tank4_WaterLevel_cm"
                 ),
-                "DIWaterRinse_Tank4_WaterLevel_cm"
-              ),
+              },
             },
-          },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "DIWaterRinse_Tank4",
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "DIWaterRinse_Tank4",
+                    "DIWaterRinse_Tank4_OverflowLevel_cm"
+                  ),
                   "DIWaterRinse_Tank4_OverflowLevel_cm"
                 ),
-                "DIWaterRinse_Tank4_OverflowLevel_cm"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2(
-                  "DIWaterRinse_Tank4",
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2(
+                    "DIWaterRinse_Tank4",
+                    "DIWaterRinse_Tank4_OverflowLevel_cm"
+                  ),
+                  await loadDataByGivenDateV2(
+                    "DIWaterRinse_Tank4",
+                    "DIWaterRinse_Tank4_OverflowLevel_cm"
+                  ),
                   "DIWaterRinse_Tank4_OverflowLevel_cm"
                 ),
-                await loadDataByGivenDateV2(
-                  "DIWaterRinse_Tank4",
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2(
+                    "DIWaterRinse_Tank4",
+                    "DIWaterRinse_Tank4_OverflowLevel_cm"
+                  ),
                   "DIWaterRinse_Tank4_OverflowLevel_cm"
                 ),
-                "DIWaterRinse_Tank4_OverflowLevel_cm"
-              ),
+              },
             },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2(
-                  "DIWaterRinse_Tank4",
-                  "DIWaterRinse_Tank4_OverflowLevel_cm"
-                ),
-                "DIWaterRinse_Tank4_OverflowLevel_cm"
-              ),
-            },
-          },
-          c4: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "DIWaterRinse_Tank4",
+            c4: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "DIWaterRinse_Tank4",
+                    "DIWaterRinse_Tank4_Pressure_bar"
+                  ),
                   "DIWaterRinse_Tank4_Pressure_bar"
                 ),
-                "DIWaterRinse_Tank4_Pressure_bar"
-              ),
+              },
             },
           },
-        },
-        grid5: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "DIWaterRinse_Tank5",
+          grid5: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "DIWaterRinse_Tank5",
+                    "DIWaterRinse_Tank5_pH"
+                  ),
                   "DIWaterRinse_Tank5_pH"
                 ),
-                "DIWaterRinse_Tank5_pH"
-              ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2(
+                    "DIWaterRinse_Tank5",
+                    "DIWaterRinse_Tank5_pH"
+                  ),
+                  await loadDataByGivenDateV2(
+                    "DIWaterRinse_Tank5",
+                    "DIWaterRinse_Tank5_pH"
+                  ),
+                  "DIWaterRinse_Tank5_pH"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2(
+                    "DIWaterRinse_Tank5",
+                    "DIWaterRinse_Tank5_pH"
+                  ),
+                  "DIWaterRinse_Tank5_pH"
+                ),
+              },
             },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2(
-                  "DIWaterRinse_Tank5",
-                  "DIWaterRinse_Tank5_pH"
-                ),
-                await loadDataByGivenDateV2(
-                  "DIWaterRinse_Tank5",
-                  "DIWaterRinse_Tank5_pH"
-                ),
-                "DIWaterRinse_Tank5_pH"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2(
-                  "DIWaterRinse_Tank5",
-                  "DIWaterRinse_Tank5_pH"
-                ),
-                "DIWaterRinse_Tank5_pH"
-              ),
-            },
-          },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "DIWaterRinse_Tank5",
+            c2: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "DIWaterRinse_Tank5",
+                    "DIWaterRinse_Tank5_WaterTankLevel_cm"
+                  ),
                   "DIWaterRinse_Tank5_WaterTankLevel_cm"
                 ),
-                "DIWaterRinse_Tank5_WaterTankLevel_cm"
-              ),
+              },
             },
-          },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "DIWaterRinse_Tank5",
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "DIWaterRinse_Tank5",
+                    "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
+                  ),
                   "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
                 ),
-                "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2(
-                  "DIWaterRinse_Tank5",
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2(
+                    "DIWaterRinse_Tank5",
+                    "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
+                  ),
+                  await loadDataByGivenDateV2(
+                    "DIWaterRinse_Tank5",
+                    "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
+                  ),
                   "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
                 ),
-                await loadDataByGivenDateV2(
-                  "DIWaterRinse_Tank5",
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2(
+                    "DIWaterRinse_Tank5",
+                    "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
+                  ),
                   "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
                 ),
-                "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
-              ),
+              },
             },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2(
-                  "DIWaterRinse_Tank5",
-                  "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
-                ),
-                "DIWaterRinse_Tank5_WaterTankOverlowLevel_cm"
-              ),
-            },
-          },
-          c4: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "DIWaterRinse_Tank5",
+            c4: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "DIWaterRinse_Tank5",
+                    "DIWaterRinse_Tank5_Pressure_bar"
+                  ),
                   "DIWaterRinse_Tank5_Pressure_bar"
                 ),
-                "DIWaterRinse_Tank5_Pressure_bar"
-              ),
+              },
             },
           },
-        },
-        grid6: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "Passivation_Tank6",
+          grid6: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "Passivation_Tank6",
+                    "Passivation_Tank6_pH"
+                  ),
                   "Passivation_Tank6_pH"
                 ),
-                "Passivation_Tank6_pH"
-              ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2(
+                    "Passivation_Tank6",
+                    "Passivation_Tank6_pH"
+                  ),
+                  await loadDataByGivenDateV2(
+                    "Passivation_Tank6",
+                    "Passivation_Tank6_pH"
+                  ),
+                  "Passivation_Tank6_pH"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2(
+                    "Passivation_Tank6",
+                    "Passivation_Tank6_pH"
+                  ),
+                  "Passivation_Tank6_pH"
+                ),
+              },
             },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2(
-                  "Passivation_Tank6",
-                  "Passivation_Tank6_pH"
-                ),
-                await loadDataByGivenDateV2(
-                  "Passivation_Tank6",
-                  "Passivation_Tank6_pH"
-                ),
-                "Passivation_Tank6_pH"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2(
-                  "Passivation_Tank6",
-                  "Passivation_Tank6_pH"
-                ),
-                "Passivation_Tank6_pH"
-              ),
-            },
-          },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "Passivation_Tank6",
+            c2: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "Passivation_Tank6",
+                    "Passivation_Tank6_WaterLevel_cm"
+                  ),
                   "Passivation_Tank6_WaterLevel_cm"
                 ),
-                "Passivation_Tank6_WaterLevel_cm"
-              ),
+              },
             },
-          },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "Passivation_Tank6",
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "Passivation_Tank6",
+                    "Passivation_Tank6_OverFlowLevel_cm"
+                  ),
                   "Passivation_Tank6_OverFlowLevel_cm"
                 ),
-                "Passivation_Tank6_OverFlowLevel_cm"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2(
-                  "Passivation_Tank6",
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2(
+                    "Passivation_Tank6",
+                    "Passivation_Tank6_OverFlowLevel_cm"
+                  ),
+                  await loadDataByGivenDateV2(
+                    "Passivation_Tank6",
+                    "Passivation_Tank6_OverFlowLevel_cm"
+                  ),
                   "Passivation_Tank6_OverFlowLevel_cm"
                 ),
-                await loadDataByGivenDateV2(
-                  "Passivation_Tank6",
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2(
+                    "Passivation_Tank6",
+                    "Passivation_Tank6_OverFlowLevel_cm"
+                  ),
                   "Passivation_Tank6_OverFlowLevel_cm"
                 ),
-                "Passivation_Tank6_OverFlowLevel_cm"
-              ),
+              },
             },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2(
-                  "Passivation_Tank6",
-                  "Passivation_Tank6_OverFlowLevel_cm"
-                ),
-                "Passivation_Tank6_OverFlowLevel_cm"
-              ),
-            },
-          },
-          c4: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "Passivation_Tank6",
+            c4: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "Passivation_Tank6",
+                    "Passivation_Tank6_Pressure_bar"
+                  ),
                   "Passivation_Tank6_Pressure_bar"
                 ),
-                "Passivation_Tank6_Pressure_bar"
-              ),
+              },
             },
           },
-        },
-        grid7: {
-          barChart: {
-            $set: [
-              await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "Degreasing_Tank1",
-                  "Degreasing_Tank1_WaterLevel_cm"
+          grid7: {
+            barChart: {
+              $set: [
+                Number(
+                  await dataProcessBarChartCurrentVal(
+                    await loadLatestValueV2(
+                      "Degreasing_Tank1",
+                      "Degreasing_Tank1_WaterLevel_cm"
+                    ),
+                    "Degreasing_Tank1_WaterLevel_cm"
+                  )
                 ),
-                "Degreasing_Tank1_WaterLevel_cm"
-              ),
-              await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "WaterRinse_Tank2",
-                  "WaterRinse_Tank2_WaterLevel_cm"
+                Number(
+                  await dataProcessBarChartCurrentVal(
+                    await loadLatestValueV2(
+                      "WaterRinse_Tank2",
+                      "WaterRinse_Tank2_WaterLevel_cm"
+                    ),
+                    "WaterRinse_Tank2_WaterLevel_cm"
+                  )
                 ),
-                "WaterRinse_Tank2_WaterLevel_cm"
-              ),
-              await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "WaterRinse_Tank3",
-                  "WaterRinse_Tank3_WaterLevel_cm"
+                Number(
+                  await dataProcessBarChartCurrentVal(
+                    await loadLatestValueV2(
+                      "WaterRinse_Tank3",
+                      "WaterRinse_Tank3_WaterLevel_cm"
+                    ),
+                    "WaterRinse_Tank3_WaterLevel_cm"
+                  )
                 ),
-                "WaterRinse_Tank3_WaterLevel_cm"
-              ),
-              await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "DIWaterRinse_Tank4",
-                  "DIWaterRinse_Tank4_WaterLevel_cm"
+                Number(
+                  await dataProcessBarChartCurrentVal(
+                    await loadLatestValueV2(
+                      "DIWaterRinse_Tank4",
+                      "DIWaterRinse_Tank4_WaterLevel_cm"
+                    ),
+                    "DIWaterRinse_Tank4_WaterLevel_cm"
+                  )
                 ),
-                "DIWaterRinse_Tank4_WaterLevel_cm"
-              ),
-              await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "DIWaterRinse_Tank5",
-                  "DIWaterRinse_Tank5_WaterTankLevel_cm"
+                Number(
+                  await dataProcessBarChartCurrentVal(
+                    await loadLatestValueV2(
+                      "DIWaterRinse_Tank5",
+                      "DIWaterRinse_Tank5_WaterTankLevel_cm"
+                    ),
+                    "DIWaterRinse_Tank5_WaterTankLevel_cm"
+                  )
                 ),
-                "DIWaterRinse_Tank5_WaterTankLevel_cm"
-              ),
-              await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "Passivation_Tank6",
-                  "Passivation_Tank6_WaterLevel_cm"
+                Number(
+                  await dataProcessBarChartCurrentVal(
+                    await loadLatestValueV2(
+                      "Passivation_Tank6",
+                      "Passivation_Tank6_WaterLevel_cm"
+                    ),
+                    "Passivation_Tank6_WaterLevel_cm"
+                  )
                 ),
-                "Passivation_Tank6_WaterLevel_cm"
-              ),
-            ],
+              ],
+            },
           },
-        },
-      })
-    );
+        })
+      );
+    } catch (err) {
+      console.log(err);
+      store.dispatch({
+        type: OPEN_SNACK,
+        status: true,
+        message: UNHANDELERROR,
+        snackType: snackError,
+      });
+    }
   };
 
   useEffect(() => {
@@ -1509,7 +1540,15 @@ const Home = () => {
       <GridRow>
         {/* Title */}
         <Col span={12}>
-          <TitleWrapper size={"large"}>Degreasing Overview</TitleWrapper>
+          <TitleWrapper size={"large"}>
+            Degreasing Overview
+            {OVERVIEW_DATA.loader && (
+              <CircularProgress
+                color="secondary"
+                style={{ marginLeft: "25px" }}
+              />
+            )}
+          </TitleWrapper>
         </Col>
         {/* Grids */}
         <Row lg={3}>

@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import styled from "styled-components";
 import update from "immutability-helper";
 import { zonedTimeToUtc } from "date-fns-tz";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import {
   loadGraphDataByGivenDateV3,
@@ -19,6 +20,10 @@ import ArcGauge from "../../../shared/charts/arc-gauge";
 import Graph from "../../../shared/charts/graph";
 import LineChart from "../../../shared/charts/lineChart";
 import "./index.css";
+import { numFormatter } from "../../../helpers";
+import { OPEN_SNACK } from "../../../shared/snackbar/action-constants/snackbar-actionTypes";
+import { UNHANDELERROR, snackError } from "../../../constants/app-constants";
+import { store } from "../../../index";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +46,7 @@ const Overview = () => {
   const classes = useStyles();
   const [graphState, setGraphState] = useState({ timeSeries: [0], labels: [] });
   const [OVERVIEW_DATA, SETOVERVIEW_DATA] = useState({
+    loader: true,
     grid9: {
       name: "Water Dryer",
       c1: {
@@ -55,8 +61,8 @@ const Overview = () => {
         parameterName: "Heater_Temperature_degC",
       },
       c2: {
-        // title: "Gauge 1",
-        title2: "Humidity",
+        title: "Humidity",
+        // title2: "Humidity",
         currentVal: 0,
         unit: "atm",
         endPoint: "",
@@ -89,8 +95,8 @@ const Overview = () => {
         parameterName: "Heater_Temperature_degC",
       },
       c2: {
-        // title: "Gauge 1",
-        title2: "Humidity",
+        title: "Humidity",
+        // title2: "Humidity",
         currentVal: 0,
         unit: "atm",
         endPoint: "",
@@ -123,8 +129,8 @@ const Overview = () => {
         parameterName: "Temperature_degC",
       },
       c2: {
-        // title: "Gauge 1",
-        title2: "Humidity",
+        title: "Humidity",
+        // title2: "Humidity",
         currentVal: 0,
         unit: "atm",
         endPoint: "",
@@ -157,8 +163,8 @@ const Overview = () => {
         parameterName: "Temperature_degC",
       },
       c2: {
-        // title: "Gauge 1",
-        title2: "Humidity",
+        title: "Humidity",
+        // title2: "Humidity",
         currentVal: 0,
         unit: "atm",
         endPoint: "",
@@ -191,8 +197,8 @@ const Overview = () => {
         parameterName: "Inlet_Temperature_degC",
       },
       c2: {
-        // title: "Gauge 1",
-        title2: "Humidity",
+        title: "Humidity",
+        // title2: "Humidity",
         currentVal: 0,
         unit: "atm",
         endPoint: "",
@@ -225,8 +231,8 @@ const Overview = () => {
         parameterName: "Inlet_Temperature_degC",
       },
       c2: {
-        // title: "Gauge 1",
-        title2: "Humidity",
+        title: "Humidity",
+        // title2: "Humidity",
         currentVal: 0,
         unit: "atm",
         endPoint: "",
@@ -250,21 +256,21 @@ const Overview = () => {
       c1: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Temperature",
         sparklines: [],
       },
       c2: {
-        // title: "Gauge 1",
-        title2: "Humidity",
+        title: "Humidity",
+        // title2: "Humidity",
         currentVal: 0,
         unit: "atm",
       },
       c3: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Paint viscosity",
         sparklines: [],
@@ -275,21 +281,21 @@ const Overview = () => {
       c1: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Temperature",
         sparklines: [],
       },
       c2: {
-        // title: "Gauge 1",
-        title2: "Humidity",
+        title: "Humidity",
+        // title2: "Humidity",
         currentVal: 0,
         unit: "atm",
       },
       c3: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Paint viscosity",
         sparklines: [],
@@ -300,14 +306,14 @@ const Overview = () => {
       c1: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Temperature",
         sparklines: [],
       },
       c2: {
-        // title: "Gauge 1",
-        title2: "Humidity",
+        title: "Humidity",
+        // title2: "Humidity",
         currentVal: 0,
         unit: "atm",
       },
@@ -317,14 +323,14 @@ const Overview = () => {
       c1: {
         target: 90,
         currentVal: 0,
-        lastHr: "45%",
+        lastHr: 0,
         unit: "",
         title: "Temperature",
         sparklines: [],
       },
       c2: {
-        // title: "Gauge 1",
-        title2: "Humidity",
+        title: "Humidity",
+        // title2: "Humidity",
         currentVal: 0,
         unit: "atm",
       },
@@ -375,7 +381,7 @@ const Overview = () => {
       }
 
       return data.data.data.length > 0
-        ? Math.round(data.data.data[0][aspectName].toFixed(1))
+        ? numFormatter(data.data.data[0][aspectName])
         : 0;
     }
     // take first data value only // mindsphere
@@ -384,9 +390,7 @@ const Overview = () => {
     //   console.log(data);
     //   console.log(Math.round(data.data[0][aspectName]));
     // }
-    return data.data.length > 0
-      ? Math.round(data.data[0][aspectName]).toFixed(1)
-      : 0;
+    return data.data.length > 0 ? numFormatter(data.data[0][aspectName]) : 0;
   };
 
   const dataProcessTimeSeries = async (data, aspectName) => {
@@ -433,19 +437,20 @@ const Overview = () => {
     // console.log(data);
     // percent change, (cur - last val) / last val, (10.5-9.5)/9.5= 10%, (10.5-11.5)/11.5= -8%
 
-    if (aspectName === "Passivation_Tank6_OverFlowLevel_cm") {
-      console.log(currVal.data);
-      console.log(TimeSeries.data);
-      console.log(Math.round(currVal.data[0][aspectName]));
-      console.log(Math.round(TimeSeries.data[0][aspectName]));
-      console.log(
-        ((Math.round(currVal.data[0][aspectName]) -
-          Math.round(TimeSeries.data[0][aspectName])) /
-          Math.round(TimeSeries.data[0][aspectName])) *
-          100
-      );
-    }
     if (aspectName === "data") {
+      if (currVal.length >= 0) {
+        return currVal.length > 0 &&
+          TimeSeries.length > 0 &&
+          !(Math.round(TimeSeries[0][aspectName]) === 0)
+          ? Math.round(
+              ((Math.round(currVal[0][aspectName]) -
+                Math.round(TimeSeries[0][aspectName])) /
+                Math.round(TimeSeries[0][aspectName])) *
+                100
+            ).toFixed(2)
+          : 0;
+      }
+
       return currVal.data.data.length > 0 &&
         TimeSeries.data.data.length > 0 &&
         !(Math.round(TimeSeries.data.data[0][aspectName]) === 0)
@@ -703,502 +708,561 @@ const Overview = () => {
   };
 
   const fetchAPI = async (data) => {
-    SETOVERVIEW_DATA(
-      update(data, {
-        grid9: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "WaterDryer",
+    try {
+      SETOVERVIEW_DATA(
+        update(data, {
+          loader: { $set: false },
+          grid9: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "WaterDryer",
+                    "Heater_Temperature_degC"
+                  ),
                   "Heater_Temperature_degC"
                 ),
-                "Heater_Temperature_degC"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2(
-                  "WaterDryer",
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2(
+                    "WaterDryer",
+                    "Heater_Temperature_degC"
+                  ),
+                  await loadDataByGivenDateV2(
+                    "WaterDryer",
+                    "Heater_Temperature_degC"
+                  ),
                   "Heater_Temperature_degC"
                 ),
-                await loadDataByGivenDateV2(
-                  "WaterDryer",
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2(
+                    "WaterDryer",
+                    "Heater_Temperature_degC"
+                  ),
                   "Heater_Temperature_degC"
                 ),
-                "Heater_Temperature_degC"
-              ),
+              },
             },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2(
-                  "WaterDryer",
-                  "Heater_Temperature_degC"
-                ),
-                "Heater_Temperature_degC"
-              ),
-            },
-          },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("WaterDryer", "Room_Humidity_Pct"),
-                "Room_Humidity_Pct"
-              ),
-            },
-          },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("WaterDryer", "Airflow_m3ph"),
-                "Airflow_m3ph"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2("WaterDryer", "Airflow_m3ph"),
-                await loadDataByGivenDateV2("WaterDryer", "Airflow_m3ph"),
-                "Airflow_m3ph"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2("WaterDryer", "Airflow_m3ph"),
-                "Airflow_m3ph"
-              ),
-            },
-          },
-        },
-        grid10: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "IntermediateOven",
-                  "Heater_Temperature_degC"
-                ),
-                "Heater_Temperature_degC"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2(
-                  "IntermediateOven",
-                  "Heater_Temperature_degC"
-                ),
-                await loadDataByGivenDateV2(
-                  "IntermediateOven",
-                  "Heater_Temperature_degC"
-                ),
-                "Heater_Temperature_degC"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2(
-                  "IntermediateOven",
-                  "Heater_Temperature_degC"
-                ),
-                "Heater_Temperature_degC"
-              ),
-            },
-          },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2(
-                  "IntermediateOven",
+            c2: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("WaterDryer", "Room_Humidity_Pct"),
                   "Room_Humidity_Pct"
                 ),
-                "Room_Humidity_Pct"
-              ),
+              },
             },
-          },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("IntermediateOven", "Airflow_m3ph"),
-                "Airflow_m3ph"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2("IntermediateOven", "Airflow_m3ph"),
-                await loadDataByGivenDateV2("IntermediateOven", "Airflow_m3ph"),
-                "Airflow_m3ph"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2("IntermediateOven", "Airflow_m3ph"),
-                "Airflow_m3ph"
-              ),
-            },
-          },
-        },
-        grid11: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("FinalOven1", "Temperature_degC"),
-                "Temperature_degC"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2("FinalOven1", "Temperature_degC"),
-                await loadDataByGivenDateV2("FinalOven1", "Temperature_degC"),
-                "Temperature_degC"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2("FinalOven1", "Temperature_degC"),
-                "Temperature_degC"
-              ),
-            },
-          },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("FinalOven1", "Humidity_Pct"),
-                "Humidity_Pct"
-              ),
-            },
-          },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("FinalOven1", "Airflow_m3ph"),
-                "Airflow_m3ph"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2("FinalOven1", "Airflow_m3ph"),
-                await loadDataByGivenDateV2("FinalOven1", "Airflow_m3ph"),
-                "Airflow_m3ph"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2("FinalOven1", "Airflow_m3ph"),
-                "Airflow_m3ph"
-              ),
-            },
-          },
-        },
-        grid12: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("FinalOven1", "Temperature_degC"),
-                "Temperature_degC"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2("FinalOven1", "Temperature_degC"),
-                await loadDataByGivenDateV2("FinalOven1", "Temperature_degC"),
-                "Temperature_degC"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2("FinalOven1", "Temperature_degC"),
-                "Temperature_degC"
-              ),
-            },
-          },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("FinalOven1", "Humidity_Pct"),
-                "Humidity_Pct"
-              ),
-            },
-          },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("FinalOven1", "Airflow_m3ph"),
-                "Airflow_m3ph"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2("FinalOven1", "Airflow_m3ph"),
-                await loadDataByGivenDateV2("FinalOven1", "Airflow_m3ph"),
-                "Airflow_m3ph"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2("FinalOven1", "Airflow_m3ph"),
-                "Airflow_m3ph"
-              ),
-            },
-          },
-        },
-        grid13: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("ESTA1", "Inlet_Temperature_degC"),
-                "Inlet_Temperature_degC"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2("ESTA1", "Inlet_Temperature_degC"),
-                await loadDataByGivenDateV2("ESTA1", "Inlet_Temperature_degC"),
-                "Inlet_Temperature_degC"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2("ESTA1", "Inlet_Temperature_degC"),
-                "Inlet_Temperature_degC"
-              ),
-            },
-          },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("ESTA1", "Inlet_Humidity_pct"),
-                "Inlet_Humidity_pct"
-              ),
-            },
-          },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("ESTA1", "Intake_Airflow_m3ph"),
-                "Intake_Airflow_m3ph"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2("ESTA1", "Intake_Airflow_m3ph"),
-                await loadDataByGivenDateV2("ESTA1", "Intake_Airflow_m3ph"),
-                "Intake_Airflow_m3ph"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2("ESTA1", "Intake_Airflow_m3ph"),
-                "Intake_Airflow_m3ph"
-              ),
-            },
-          },
-        },
-        grid14: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("ESTA2", "Inlet_Temperature_degC"),
-                "Inlet_Temperature_degC"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2("ESTA2", "Inlet_Temperature_degC"),
-                await loadDataByGivenDateV2("ESTA2", "Inlet_Temperature_degC"),
-                "Inlet_Temperature_degC"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2("ESTA2", "Inlet_Temperature_degC"),
-                "Inlet_Temperature_degC"
-              ),
-            },
-          },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("ESTA2", "Inlet_Humidity_pct"),
-                "Inlet_Humidity_pct"
-              ),
-            },
-          },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadLatestValueV2("ESTA2", "Intake_Airflow_m3ph"),
-                "Intake_Airflow_m3ph"
-              ),
-            },
-            lastHr: {
-              $set: await dataProcessLastHrValInPercent(
-                await loadLatestValueV2("ESTA2", "Intake_Airflow_m3ph"),
-                await loadDataByGivenDateV2("ESTA2", "Intake_Airflow_m3ph"),
-                "Intake_Airflow_m3ph"
-              ),
-            },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadDataByGivenDateV2("ESTA2", "Intake_Airflow_m3ph"),
-                "Intake_Airflow_m3ph"
-              ),
-            },
-          },
-        },
-        grid15: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPIOnlyDateTime(
-                  "PaintBooth",
-                  "temperaturePrimerCabinet1"
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("WaterDryer", "Airflow_m3ph"),
+                  "Airflow_m3ph"
                 ),
-                "data"
-              ),
-            },
-            lastHr: { $set: "5%" },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadFromAPIOnlyDateTime(
-                  "PaintBooth",
-                  "temperaturePrimerCabinet1"
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2("WaterDryer", "Airflow_m3ph"),
+                  await loadDataByGivenDateV2("WaterDryer", "Airflow_m3ph"),
+                  "Airflow_m3ph"
                 ),
-                "data"
-              ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2("WaterDryer", "Airflow_m3ph"),
+                  "Airflow_m3ph"
+                ),
+              },
             },
           },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPIOnlyDateTime(
-                  "PaintBooth",
-                  "humidityPrimerCabinet1"
+          grid10: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "IntermediateOven",
+                    "Heater_Temperature_degC"
+                  ),
+                  "Heater_Temperature_degC"
                 ),
-                "data"
-              ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2(
+                    "IntermediateOven",
+                    "Heater_Temperature_degC"
+                  ),
+                  await loadDataByGivenDateV2(
+                    "IntermediateOven",
+                    "Heater_Temperature_degC"
+                  ),
+                  "Heater_Temperature_degC"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2(
+                    "IntermediateOven",
+                    "Heater_Temperature_degC"
+                  ),
+                  "Heater_Temperature_degC"
+                ),
+              },
+            },
+            c2: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2(
+                    "IntermediateOven",
+                    "Room_Humidity_Pct"
+                  ),
+                  "Room_Humidity_Pct"
+                ),
+              },
+            },
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("IntermediateOven", "Airflow_m3ph"),
+                  "Airflow_m3ph"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2("IntermediateOven", "Airflow_m3ph"),
+                  await loadDataByGivenDateV2("IntermediateOven", "Airflow_m3ph"),
+                  "Airflow_m3ph"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2("IntermediateOven", "Airflow_m3ph"),
+                  "Airflow_m3ph"
+                ),
+              },
             },
           },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPIOnlyDateTime(
-                  "PaintBooth",
-                  "paintViscosityPrimerCabinet1"
+          grid11: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("FinalOven1", "Temperature_degC"),
+                  "Temperature_degC"
                 ),
-                "data"
-              ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2("FinalOven1", "Temperature_degC"),
+                  await loadDataByGivenDateV2("FinalOven1", "Temperature_degC"),
+                  "Temperature_degC"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2("FinalOven1", "Temperature_degC"),
+                  "Temperature_degC"
+                ),
+              },
             },
-            lastHr: { $set: "5%" },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadFromAPIOnlyDateTime(
-                  "PaintBooth",
-                  "paintViscosityPrimerCabinet1"
+            c2: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("FinalOven1", "Humidity_Pct"),
+                  "Humidity_Pct"
                 ),
-                "data"
-              ),
+              },
+            },
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("FinalOven1", "Airflow_m3ph"),
+                  "Airflow_m3ph"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2("FinalOven1", "Airflow_m3ph"),
+                  await loadDataByGivenDateV2("FinalOven1", "Airflow_m3ph"),
+                  "Airflow_m3ph"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2("FinalOven1", "Airflow_m3ph"),
+                  "Airflow_m3ph"
+                ),
+              },
             },
           },
-        },
-        grid16: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPIOnlyDateTime(
-                  "PaintBooth",
-                  "temperaturePrimerCabinet2"
+          grid12: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("FinalOven1", "Temperature_degC"),
+                  "Temperature_degC"
                 ),
-                "data"
-              ),
-            },
-            lastHr: { $set: "5%" },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadFromAPIOnlyDateTime(
-                  "PaintBooth",
-                  "temperaturePrimerCabinet2"
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2("FinalOven1", "Temperature_degC"),
+                  await loadDataByGivenDateV2("FinalOven1", "Temperature_degC"),
+                  "Temperature_degC"
                 ),
-                "data"
-              ),
-            },
-          },
-          c2: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPIOnlyDateTime(
-                  "PaintBooth",
-                  "humidityPrimerCabinet2"
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2("FinalOven1", "Temperature_degC"),
+                  "Temperature_degC"
                 ),
-                "data"
-              ),
+              },
             },
-          },
-          c3: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPIOnlyDateTime(
-                  "PaintBooth",
-                  "paintViscosityPrimerCabinet2"
+            c2: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("FinalOven1", "Humidity_Pct"),
+                  "Humidity_Pct"
                 ),
-                "data"
-              ),
+              },
             },
-            lastHr: { $set: "5%" },
-            sparklines: {
-              $set: await dataProcessTimeSeries(
-                await loadFromAPIOnlyDateTime(
-                  "PaintBooth",
-                  "paintViscosityPrimerCabinet2"
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("FinalOven1", "Airflow_m3ph"),
+                  "Airflow_m3ph"
                 ),
-                "data"
-              ),
-            },
-          },
-        },
-        grid19: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPIOnlyDateTime("PaintBooth", "phTank3"),
-                "data"
-              ),
-            },
-          },
-        },
-        grid20: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPIOnlyDateTime("PaintBooth", "phTank6"),
-                "data"
-              ),
-            },
-          },
-        },
-        grid21: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPIOnlyDateTime(
-                  "PaintBooth",
-                  "waterQualityTank7"
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2("FinalOven1", "Airflow_m3ph"),
+                  await loadDataByGivenDateV2("FinalOven1", "Airflow_m3ph"),
+                  "Airflow_m3ph"
                 ),
-                "data"
-              ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2("FinalOven1", "Airflow_m3ph"),
+                  "Airflow_m3ph"
+                ),
+              },
             },
           },
-        },
-        grid22: {
-          c1: {
-            currentVal: {
-              $set: await dataProcessCurrentVal(
-                await loadFromAPIOnlyDateTime("PaintBooth", "waterLevelTank7"),
-                "data"
-              ),
+          grid13: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("ESTA1", "Inlet_Temperature_degC"),
+                  "Inlet_Temperature_degC"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2("ESTA1", "Inlet_Temperature_degC"),
+                  await loadDataByGivenDateV2("ESTA1", "Inlet_Temperature_degC"),
+                  "Inlet_Temperature_degC"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2("ESTA1", "Inlet_Temperature_degC"),
+                  "Inlet_Temperature_degC"
+                ),
+              },
+            },
+            c2: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("ESTA1", "Inlet_Humidity_pct"),
+                  "Inlet_Humidity_pct"
+                ),
+              },
+            },
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("ESTA1", "Intake_Airflow_m3ph"),
+                  "Intake_Airflow_m3ph"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2("ESTA1", "Intake_Airflow_m3ph"),
+                  await loadDataByGivenDateV2("ESTA1", "Intake_Airflow_m3ph"),
+                  "Intake_Airflow_m3ph"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2("ESTA1", "Intake_Airflow_m3ph"),
+                  "Intake_Airflow_m3ph"
+                ),
+              },
             },
           },
-        },
-      })
-    );
+          grid14: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("ESTA2", "Inlet_Temperature_degC"),
+                  "Inlet_Temperature_degC"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2("ESTA2", "Inlet_Temperature_degC"),
+                  await loadDataByGivenDateV2("ESTA2", "Inlet_Temperature_degC"),
+                  "Inlet_Temperature_degC"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2("ESTA2", "Inlet_Temperature_degC"),
+                  "Inlet_Temperature_degC"
+                ),
+              },
+            },
+            c2: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("ESTA2", "Inlet_Humidity_pct"),
+                  "Inlet_Humidity_pct"
+                ),
+              },
+            },
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadLatestValueV2("ESTA2", "Intake_Airflow_m3ph"),
+                  "Intake_Airflow_m3ph"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadLatestValueV2("ESTA2", "Intake_Airflow_m3ph"),
+                  await loadDataByGivenDateV2("ESTA2", "Intake_Airflow_m3ph"),
+                  "Intake_Airflow_m3ph"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadDataByGivenDateV2("ESTA2", "Intake_Airflow_m3ph"),
+                  "Intake_Airflow_m3ph"
+                ),
+              },
+            },
+          },
+          grid15: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "temperaturePrimerCabinet1"
+                  ),
+                  "data"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "temperaturePrimerCabinet1"
+                  ),
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "temperaturePrimerCabinet1"
+                  ),
+                  "data"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "temperaturePrimerCabinet1"
+                  ),
+                  "data"
+                ),
+              },
+            },
+            c2: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "humidityPrimerCabinet1"
+                  ),
+                  "data"
+                ),
+              },
+            },
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "paintViscosityPrimerCabinet1"
+                  ),
+                  "data"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "paintViscosityPrimerCabinet1"
+                  ),
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "paintViscosityPrimerCabinet1"
+                  ),
+                  "data"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "paintViscosityPrimerCabinet1"
+                  ),
+                  "data"
+                ),
+              },
+            },
+          },
+          grid16: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "temperaturePrimerCabinet2"
+                  ),
+                  "data"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "temperaturePrimerCabinet2"
+                  ),
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "temperaturePrimerCabinet2"
+                  ),
+                  "data"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "temperaturePrimerCabinet2"
+                  ),
+                  "data"
+                ),
+              },
+            },
+            c2: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "humidityPrimerCabinet2"
+                  ),
+                  "data"
+                ),
+              },
+            },
+            c3: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "paintViscosityPrimerCabinet2"
+                  ),
+                  "data"
+                ),
+              },
+              lastHr: {
+                $set: await dataProcessLastHrValInPercent(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "paintViscosityPrimerCabinet2"
+                  ),
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "paintViscosityPrimerCabinet2"
+                  ),
+                  "data"
+                ),
+              },
+              sparklines: {
+                $set: await dataProcessTimeSeries(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "paintViscosityPrimerCabinet2"
+                  ),
+                  "data"
+                ),
+              },
+            },
+          },
+          grid19: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPIOnlyDateTime("PaintBooth", "phTank3"),
+                  "data"
+                ),
+              },
+            },
+          },
+          grid20: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPIOnlyDateTime("PaintBooth", "phTank6"),
+                  "data"
+                ),
+              },
+            },
+          },
+          grid21: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPIOnlyDateTime(
+                    "PaintBooth",
+                    "waterQualityTank7"
+                  ),
+                  "data"
+                ),
+              },
+            },
+          },
+          grid22: {
+            c1: {
+              currentVal: {
+                $set: await dataProcessCurrentVal(
+                  await loadFromAPIOnlyDateTime("PaintBooth", "waterLevelTank7"),
+                  "data"
+                ),
+              },
+            },
+          },
+        })
+      );
+    }catch(err){
+      console.log(err);
+       store.dispatch({
+         type: OPEN_SNACK,
+         status: true,
+         message: UNHANDELERROR,
+         snackType: snackError,
+       });
+    }
   };
 
   useEffect(() => {
@@ -1214,8 +1278,14 @@ const Overview = () => {
       {/* ---- Second Page ----- */}
       <GridRow>
         <Col span={12}>
-          <TitleWrapper size={"large"} marginTop={"0"}>
+          <TitleWrapper size={"large"} marginTop={0}>
             Ovens, Paint Booth, & Water Treatment Overview
+            {OVERVIEW_DATA.loader && (
+              <CircularProgress
+                color="secondary"
+                style={{ marginLeft: "25px" }}
+              />
+            )}
           </TitleWrapper>
         </Col>
 

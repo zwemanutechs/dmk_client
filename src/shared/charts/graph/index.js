@@ -100,17 +100,18 @@ export default class Graph extends Component {
                   <label
                     style={{
                       color: COLOR.blue,
-                      fontSize: 35,
+                      fontSize: data && data.currentVal.length > 4 ? 20 : 30,
                       fontWeight: "bold",
                     }}
                   >
-                    <NumberFormat
+                    {data && data.currentVal}
+                    {/* <NumberFormat
                       value={data && data.currentVal}
                       displayType={"text"}
                       thousandSeparator
                       fixedDecimalScale={true}
                       // decimalScale={this.props.decimal}
-                    />
+                    /> */}
                   </label>
                 </div>
                 {/* <div

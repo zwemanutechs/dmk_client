@@ -13,7 +13,6 @@ class LineChart extends Component {
         type: "bar",
         height: "100%",
         plot: {
-          // styles: ["#0F3790", "#EA4E49", "#0F3790", "#0F3790", "#0F3790"],
           valueBox: {
             // text: "%v",
             // textAlign: "left",
@@ -50,12 +49,12 @@ class LineChart extends Component {
   }
 
   static getDerivedStateFromProps(prevProps) {
+    console.log(prevProps.data);
     return {
       config: {
         type: "bar",
         height: "100%",
         plot: {
-          // styles: ["#0F3790", "#EA4E49", "#0F3790", "#0F3790", "#0F3790"],
           valueBox: {
             // text: "%v",
             // textAlign: "left",
