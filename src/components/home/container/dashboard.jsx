@@ -1,0 +1,605 @@
+import React, { useEffect, useState } from "react";
+import { withStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import Graph from "../../../shared/charts/graph";
+import "./home.css";
+import {POWERWASH_ASSETID} from "../../../constants/mindsphere-constants";
+import CircleGauge from "../../../shared/charts/guage/guage";
+import ReactBarChart from "../../../shared/charts/barchart/barChart";
+
+const COLOR = {
+    blue: "#0F3790",
+    red: "#EA4E49",
+    grey: "#D9D9D9",
+};
+
+const useStyles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(0),
+        textAlign: "center",
+        COLOR: theme.palette.text.secondary,
+    },
+});
+
+class Dashboard extends React.PureComponent{
+    render() {
+        return (
+            <div className={this.props.classes.root}>
+                {/* ---- First Page ----- */}
+                <Grid container spacing={1}>
+                    {/* Title */}
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                        <div style={{fontSize: 32, marginTop: 5,color:'#0f3790', fontWeight: 900}}>Degreasing Overview</div>
+                    </Grid>
+                    {/* T1 Row */}
+                    <Grid item xs={12} md={6} lg={3}>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                                <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Tank 1</div>
+                            </Grid>
+                            {/** Col **/}
+                            <Grid item xs={12} sm={6} md={6} lg={6}>
+                                <Grid container spacing={1}>
+                                    {/** Dyna test */}
+                                    <Grid key={'dynetest'} item xs={12} sm={12} md={12} lg={12}>
+                                        <Graph
+                                            pathName='dashboard'
+                                            endPoint='degreasing/dynetest'
+                                            variableName='data'
+                                            dataKey={'time'}
+                                            limit={1000}
+                                            dataPoint='api'
+                                            unit={''}
+                                            title="Dyne Test"
+                                        />
+                                    </Grid>
+                                    {/** End*/}
+                                    {/** Conductivity_us */}
+                                    <Grid key={'conductivity_us'} item xs={12} sm={12} md={12} lg={12}>
+                                        <Graph
+                                            assetId={POWERWASH_ASSETID}
+                                            aspectName="Tank1_Degreasing"
+                                            variableName="Conductivity_uS"
+                                            limit={3}
+                                            dataKey={'_time'}
+                                            dataPoint='mindsphere'
+                                            title="Conductivity"
+                                        />
+                                    </Grid>
+                                    {/** End*/}
+                                    {/** Concentration */}
+                                    <Grid key={'concentration'} item xs={12} sm={12} md={12} lg={12}>
+                                        <Graph
+                                            pathName='dashboard'
+                                            endPoint='degreasing/concentration'
+                                            variableName='data'
+                                            dataKey={'time'}
+                                            limit={1000}
+                                            dataPoint='api'
+                                            unit={'oC'}
+                                            title="Concentration"
+                                        />
+                                    </Grid>
+                                    {/** End*/}
+                                    {/** pH */}
+                                    <Grid key={'pH'} item xs={12} sm={12} md={12} lg={12}>
+                                        <Graph
+                                            assetId={POWERWASH_ASSETID}
+                                            aspectName="Tank1_Degreasing"
+                                            variableName="Water_pH"
+                                            limit={3}
+                                            dataKey={'_time'}
+                                            unit={''}
+                                            dataPoint='mindsphere'
+                                            title="pH"
+                                        />
+                                    </Grid>
+                                    {/** End */}
+                                    {/** waterLevel */}
+                                    <Grid key={'waterLevel'} item xs={12} sm={12} md={12} lg={12}>
+                                        <Graph
+                                            assetId={POWERWASH_ASSETID}
+                                            aspectName="Tank1_Degreasing"
+                                            variableName="Water_Level_cm"
+                                            limit={3}
+                                            dataKey={'_time'}
+                                            unit={'%'}
+                                            dataPoint='mindsphere'
+                                            title="Water Level"
+                                        />
+                                    </Grid>
+                                    {/** End */}
+
+                                </Grid>
+                            </Grid>
+                            {/** End **/}
+                            {/** Col **/}
+                            <Grid item xs={12} sm={6} md={6} lg={6}>
+                                <Grid
+                                    container
+                                    style={{
+                                        border: `1px solid ${COLOR.blue}`,
+                                        backgroundColor: "white",
+                                    }}
+                                >
+                                    {/** Pressure 1 **/}
+                                    <Grid key={'pressure-1'} item xs={12} style={{ paddingBottom: "7.5px" }}>
+                                        <CircleGauge
+                                            title={'Pump Pressure 1'}
+                                            assetId={POWERWASH_ASSETID}
+                                            aspectName={'Tank1_Degreasing'}
+                                            parameterName={'Pressure1_bar'}
+                                            border={false}
+                                            subTitle={''}
+                                        />
+                                    </Grid>
+                                    {/** End **/}
+                                    {/** Pressure 2 **/}
+                                    <Grid key={'pressure-2'} item xs={12} style={{ paddingBottom: "7.5px" }}>
+                                        <CircleGauge
+                                            title={'Pump Pressure 2'}
+                                            assetId={POWERWASH_ASSETID}
+                                            aspectName={'Tank1_Degreasing'}
+                                            parameterName={'Pressure2_bar'}
+                                            border={false}
+                                            subTitle={''}
+                                        />
+                                    </Grid>
+                                    {/** End **/}
+                                    {/** Pressure 3 **/}
+                                    <Grid key={'pressure-3'} item xs={12} style={{ paddingBottom: "7.5px" }}>
+                                        <CircleGauge
+                                            title={'Pump Pressure 3'}
+                                            assetId={POWERWASH_ASSETID}
+                                            aspectName={'Tank1_Degreasing'}
+                                            parameterName={'Pressure3_bar'}
+                                            border={false}
+                                            subTitle={''}
+                                        />
+                                    </Grid>
+                                    {/** End **/}
+                                    {/** Pressure 4 **/}
+                                    <Grid key={'pressure-4'} item xs={12} style={{ paddingBottom: "7.5px" }}>
+                                        <CircleGauge
+                                            title={'Pump Pressure 4'}
+                                            assetId={POWERWASH_ASSETID}
+                                            aspectName={'Tank1_Degreasing'}
+                                            parameterName={'Pressure4_bar'}
+                                            border={false}
+                                            subTitle={''}
+                                        />
+                                    </Grid>
+                                    {/** End **/}
+                                    {/** Pressure 5 **/}
+                                    <Grid key={'pressure-4'} item xs={12} style={{ paddingBottom: "7.5px" }}>
+                                        <CircleGauge
+                                            title={'Pump Pressure 5'}
+                                            assetId={POWERWASH_ASSETID}
+                                            aspectName={'Tank1_Degreasing'}
+                                            parameterName={'Pressure5_bar'}
+                                            border={false}
+                                            subTitle={''}
+                                        />
+                                    </Grid>
+                                    {/** End **/}
+                                </Grid>
+                            </Grid>
+                            {/** End **/}
+                        </Grid>
+                    </Grid>
+                    {/* End */}
+                    {/** T2 Row */}
+                    <Grid item xs={12} md={6} lg={6}>
+                        <Grid container spacing={1}>
+                            {/** T2 Col **/}
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                                <Grid container spacing={1} >
+                                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                                        <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Tank 2</div>
+                                    </Grid>
+                                    {/** Rinse One */}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <Graph
+                                                pathName='dashboard'
+                                                endPoint='degreasing/rinseone'
+                                                variableName='data'
+                                                dataKey={'time'}
+                                                limit={1000}
+                                                dataPoint='api'
+                                                unit={''}
+                                                title="pH"
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                    {/** Water Level */}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <CircleGauge
+                                                title={'Water Level'}
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName={'Tank2_WaterRinse'}
+                                                parameterName={'Water_Level_cm'}
+                                                border={true}
+                                                subTitle={''}
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                    {/** Water Flow*/}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <Graph
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName="Tank2_WaterRinse"
+                                                variableName="OverFlow_Level_cm"
+                                                limit={3}
+                                                dataKey={'_time'}
+                                                unit={'%'}
+                                                dataPoint='mindsphere'
+                                                title="Water Flow"
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                    {/** Pump Pressure */}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <CircleGauge
+                                                title={'Pump Pressure'}
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName={'Tank2_WaterRinse'}
+                                                parameterName={'Pressure_bar'}
+                                                border={true}
+                                                subTitle={''}
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                </Grid>
+                            </Grid>
+                            {/** End **/}
+                            {/** T3 Col **/}
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                                <Grid container spacing={1} style={{ marginTop: 22 }}>
+                                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                                        <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Tank 3</div>
+                                    </Grid>
+                                    {/** T3 pH */}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <Graph
+                                                pathName='dashboard'
+                                                endPoint='degreasing/rinsetwo'
+                                                variableName='data'
+                                                dataKey={'time'}
+                                                limit={1000}
+                                                dataPoint='api'
+                                                unit={''}
+                                                title="pH"
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                    {/** T3 Water Level */}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <CircleGauge
+                                                title={'Water Level'}
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName={'Tank3_WaterRinse'}
+                                                parameterName={'Water_Level_cm'}
+                                                border={true}
+                                                subTitle={''}
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                    {/** T3 Water Flow*/}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <Graph
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName="Tank3_WaterRinse"
+                                                variableName="OverFlow_Level_cm"
+                                                limit={3}
+                                                dataKey={'_time'}
+                                                unit={'%'}
+                                                dataPoint='mindsphere'
+                                                title="Water Flow"
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                    {/** T3 Pump Pressure */}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <CircleGauge
+                                                title={'Pump Pressure'}
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName={'Tank3_WaterRinse'}
+                                                parameterName={'Pressure_bar'}
+                                                border={true}
+                                                subTitle={''}
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                </Grid>
+                            </Grid>
+                            {/** End **/}
+                            {/** T4 Col **/}
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                                <Grid container spacing={1} style={{ marginTop: 22 }}>
+                                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                                        <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Tank 4</div>
+                                    </Grid>
+                                    {/** T4 pH */}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <Graph
+                                                pathName='dashboard'
+                                                endPoint='degreasing/rinsethree'
+                                                variableName='data'
+                                                dataKey={'time'}
+                                                limit={1000}
+                                                dataPoint='api'
+                                                unit={''}
+                                                title="pH"
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                    {/** T4 Water Level */}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <CircleGauge
+                                                title={'Water Level'}
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName={'Tank4_DIWaterRinse'}
+                                                parameterName={'Water_Level_cm'}
+                                                border={true}
+                                                subTitle={''}
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                    {/** T4 Water Flow*/}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <Graph
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName="Tank4_DIWaterRinse"
+                                                variableName="OverFlow_Level_cm"
+                                                limit={3}
+                                                dataKey={'_time'}
+                                                unit={'%'}
+                                                dataPoint='mindsphere'
+                                                title="Water Flow"
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                    {/** T4 Pump Pressure */}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <CircleGauge
+                                                title={'Pump Pressure'}
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName={'Tank4_DIWaterRinse'}
+                                                parameterName={'Pressure_bar'}
+                                                border={true}
+                                                subTitle={''}
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                </Grid>
+                            </Grid>
+                            {/** End **/}
+                            {/** T5 Col **/}
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                                <Grid container spacing={1} style={{ marginTop: 22 }}>
+                                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                                        <div style={{fontSize: 16, color:'#0f3790', fontWeight: 900}}>Tank 5</div>
+                                    </Grid>
+                                    {/** T5 pH */}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <Graph
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName="Tank5_DIWaterRinse"
+                                                variableName="pH"
+                                                limit={3}
+                                                dataKey={'_time'}
+                                                unit={''}
+                                                dataPoint='mindsphere'
+                                                title="pH"
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                    {/** T5 Water Level */}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <CircleGauge
+                                                title={'Water Level'}
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName={'Tank5_DIWaterRinse'}
+                                                parameterName={'Water_Level_cm'}
+                                                border={true}
+                                                subTitle={''}
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                    {/** T5 Water Flow*/}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <Graph
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName="Tank5_DIWaterRinse"
+                                                variableName="OverFlow_Level_cm"
+                                                limit={3}
+                                                dataKey={'_time'}
+                                                unit={'%'}
+                                                dataPoint='mindsphere'
+                                                title="Water Flow"
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                    {/** T5 Pump Pressure */}
+                                    <Grid item xs={12} sm={12} md={3} lg={3}>
+                                        <Paper className={this.props.classes.paper}>
+                                            <CircleGauge
+                                                title={'Pump Pressure'}
+                                                assetId={POWERWASH_ASSETID}
+                                                aspectName={'Tank5_DIWaterRinse'}
+                                                parameterName={'Pressure_bar'}
+                                                border={true}
+                                                subTitle={''}
+                                            />
+                                        </Paper>
+                                    </Grid>
+                                    {/** End */}
+                                </Grid>
+                            </Grid>
+                            {/** End **/}
+                        </Grid>
+                    </Grid>
+                    {/** End*/}
+                    {/** T6 Row **/}
+                    <Grid item xs={12} md={6} lg={3}>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                                <div style={{fontSize: 16, color:'#0f3790', fontWeight: 900}}>Tank 6</div>
+                            </Grid>
+                            {/** T6 pH */}
+                            <Grid item xs={12} sm={12} md={6} lg={6}>
+                                <Paper className={this.props.classes.paper}>
+                                    <Graph
+                                        assetId={POWERWASH_ASSETID}
+                                        aspectName="Tank6_Passivation"
+                                        variableName="pH"
+                                        limit={3}
+                                        dataKey={'_time'}
+                                        unit={''}
+                                        dataPoint='mindsphere'
+                                        title="pH"
+                                    />
+                                </Paper>
+                            </Grid>
+                            {/** End */}
+                            {/** T6 Water Level */}
+                            <Grid item xs={12} sm={12} md={6} lg={6}>
+                                <Paper className={this.props.classes.paper}>
+                                    <CircleGauge
+                                        title={'Water Level'}
+                                        assetId={POWERWASH_ASSETID}
+                                        aspectName={'Tank6_Passivation'}
+                                        parameterName={'Water_Level_cm'}
+                                        border={true}
+                                        subTitle={''}
+                                    />
+                                </Paper>
+                            </Grid>
+                            {/** End */}
+                            {/** T6 Water Flow*/}
+                            <Grid item xs={12} sm={12} md={6} lg={6}>
+                                <Paper className={this.props.classes.paper}>
+                                    <Graph
+                                        assetId={POWERWASH_ASSETID}
+                                        aspectName="Tank6_Passivation"
+                                        variableName="OverFlow_Level_cm"
+                                        limit={3}
+                                        dataKey={'_time'}
+                                        unit={'%'}
+                                        dataPoint='mindsphere'
+                                        title="Water Flow"
+                                    />
+                                </Paper>
+                            </Grid>
+                            {/** End */}
+                            {/** T6 Pump Pressure */}
+                            <Grid item xs={12} sm={12} md={6} lg={6}>
+                                <Paper className={this.props.classes.paper}>
+                                    <CircleGauge
+                                        title={'Pump Pressure'}
+                                        assetId={POWERWASH_ASSETID}
+                                        aspectName={'Tank6_Passivation'}
+                                        parameterName={'Pressure_bar'}
+                                        border={true}
+                                        subTitle={''}
+                                    />
+                                </Paper>
+                            </Grid>
+                            {/** End */}
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                                <div style={{fontSize: 16, marginTop: 5,color:'#0f3790', fontWeight: 900}}>Water Levels</div>
+                            </Grid>
+                            {/** T6 Water Level Chart**/}
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                                <Grid
+                                    item
+                                    xs={12}
+                                    style={{
+                                        border: `1px solid ${COLOR.blue}`,
+                                        backgroundColor: "white",
+                                    }}
+                                >
+                                    <ReactBarChart
+                                        dataPoint='mindsphere'
+                                        chartType='multiple'
+                                        labels={[{
+                                            label: 'TANK 1',
+                                            variable: 'Water_Level_cm',
+                                            assetId: POWERWASH_ASSETID,
+                                            aspectName:'Tank1_Degreasing',
+                                        },{
+                                            label: 'TANK 2',
+                                            variable: 'Water_Level_cm',
+                                            assetId: POWERWASH_ASSETID,
+                                            aspectName:'Tank2_WaterRinse',
+                                        },{
+                                            label: 'TANK 3',
+                                            variable: 'Water_Level_cm',
+                                            assetId: POWERWASH_ASSETID,
+                                            aspectName:'Tank3_WaterRinse',
+                                        },{
+                                            label: 'TANK 4',
+                                            variable: 'Water_Level_cm',
+                                            assetId: POWERWASH_ASSETID,
+                                            aspectName:'Tank4_DIWaterRinse',
+                                        },{
+                                            label: 'TANK 5',
+                                            variable: 'Water_Level_cm',
+                                            assetId: POWERWASH_ASSETID,
+                                            aspectName:'Tank5_DIWaterRinse',
+                                        },{
+                                            label: 'TANK 6',
+                                            variable: 'Water_Level_cm',
+                                            assetId: POWERWASH_ASSETID,
+                                            aspectName:'Tank6_Passivation',
+                                        }]}
+                                        width={460}
+                                        height={480}
+                                    />
+                                </Grid>
+                            </Grid>
+                            {/** End **/}
+                        </Grid>
+                    </Grid>
+                    {/** End **/}
+                </Grid>
+            </div>
+        )
+    }
+}
+
+export default withStyles(useStyles, { withTheme: true })(Dashboard)
