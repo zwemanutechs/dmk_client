@@ -17,6 +17,12 @@ export const store = createStore(
   rootReducer,
   applyMiddleware(thunk, apiMiddleware)
 );
+// eslint-disable-next-line no-undef
+_mdsp.init({
+    title: "HALCYON",
+    appId: "_mdspcontent",
+    appInfoPath: "app-info.json"
+});
 export const history = createBrowserHistory();
 
 ReactDOM.render(

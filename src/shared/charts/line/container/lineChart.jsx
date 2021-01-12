@@ -39,18 +39,18 @@ function AppLineChart(props) {
     return (
         props.loading
             ? <Skeleton variant="rect" width={props.width} height={props.height}/>
-            :<LineChart width={props.width} height={props.height} data={props.data}>
+            :<LineChart width={props.width} height={props.height} data={props.data} margin={{top: 5, bottom: 5, right: 1, left: 1}}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis interval="preserveStartEnd" dataKey={props.xDataKey} fontSize={12} height={20} allowDuplicatedCategory={false} />
-                        <YAxis interval="preserveStartEnd"/>
+                        <YAxis interval="preserveStartEnd" width={90} allowDuplicatedCategory={false} tickCount={10} domain={['auto', 'auto']}/>
                         {
                             Array.isArray(props.referenceLineData) && props.referenceLineData.length > 0
-                                ? props.referenceLineData.map((refLine, ri) => ( <ReferenceLine key={`r${ri}`} y={refLine.value} label={refLine.label} stroke="red" />))
+                                ? props.referenceLineData.map((refLine, ri) => ( <ReferenceLine isFront={true} key={`r${ri}`} y={refLine.value} alwaysShow={true} label={refLine.label} stroke={refLine.color} label={refLine.label}/>))
                                 : null
                         }
                         <Tooltip />
                         {
-                            props.keys.map((dataKey, i) => <Line key={`l${i}`} type="monotone" dataKey={dataKey} stroke={colours[i]} strokeWidth={1} />)
+                            Array.isArray(props.keys) && props.keys.length > 0 && props.keys.map((dataKey, i) => <Line key={`l${i}`} type="monotone" dataKey={dataKey} stroke={colours[i]} strokeWidth={1} />)
                         }
 
             </LineChart>

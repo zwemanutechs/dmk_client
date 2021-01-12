@@ -31,27 +31,19 @@ class App extends Component {
     }
 
     componentDidMount() {
-        // client
-        //     .get("Auth/AuthRequest")
-        //     .then((response) => {
-        //         if (response && response.status === 200 && response.data.code) {
-        //             localStorage.setItem("access-data", response.data.data);
-        //             // Wait for local storage
-        //             setTimeout(
-        //                 function () {
-        //                     this.setState({
-        //                         accessToken: localStorage.getItem("access-data"),
-        //                     });
-        //                 }.bind(this),
-        //                 4000
-        //             );
-        //         } else if (response && response.status === 403) {
-        //             this.props.history.push("/Forbidden");
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         this.props.history.push("/Forbidden");
-        //     });
+        client
+            .get("Auth/AuthRequest")
+            .then((response) => {
+                if (response && response.status === 200 && response.data.code) {
+                    localStorage.setItem("access-data", response.data.data);
+                    this.setState({accessToken: response.data.data});
+                } else if (response && response.status === 403) {
+                    this.props.history.push("/Forbidden");
+                }
+            })
+            .catch((err) => {
+                this.props.history.push("/Forbidden");
+            });
     }
 
     render() {

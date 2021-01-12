@@ -1,6 +1,4 @@
 import axios from "axios";
-
-// import { openSnack } from '../shared/snackbar/actions/snackbar-actions';
 import {
   ADDSUCCESS,
   DELETESUCCESS,
@@ -12,8 +10,6 @@ import {
 import { OPEN_SNACK } from "../shared/snackbar/action-constants/snackbar-actionTypes";
 import { store } from "../index";
 import { BASEURI } from "../constants/api-constants";
-
-//const  baseUrl = "https://localhost:44394/backend/";
 
 export const client = axios.create({
   baseURL: BASEURI,
@@ -28,7 +24,6 @@ client.interceptors.response.use(
       return response;
     },
     (error) => {
-      console.log(error);
       if (
           error &&
           (error.response.status === 401 || error.response.status === 403)
@@ -67,14 +62,12 @@ export const post = async (url, payload) => {
   payload.UpdatedAt = new Date();
   const response = await client.post(url, payload);
   if (response && response.data.code) {
-    if (response && response.data.code) {
-      store.dispatch({
-        type: OPEN_SNACK,
-        status: true,
-        message: ADDSUCCESS,
-        snackType: snackSuccess,
-      });
-    }
+    store.dispatch({
+      type: OPEN_SNACK,
+      status: true,
+      message: ADDSUCCESS,
+      snackType: snackSuccess,
+    });
   }
   return response;
 };
@@ -86,14 +79,12 @@ export const put = async (url, payload) => {
   payload.UpdatedAt = new Date();
   const response = await client.put(url, payload);
   if (response && response.data.code) {
-    if (response && response.data.code) {
-      store.dispatch({
-        type: OPEN_SNACK,
-        status: true,
-        message: UPDATESUCCESS,
-        snackType: snackSuccess,
-      });
-    }
+    store.dispatch({
+      type: OPEN_SNACK,
+      status: true,
+      message: UPDATESUCCESS,
+      snackType: snackSuccess,
+    });
   }
   return response;
 };
@@ -104,14 +95,12 @@ export const put = async (url, payload) => {
 export const deleteSingle = async (url) => {
   const response = await client.delete(url);
   if (response && response.data.code) {
-    if (response && response.data.code) {
-      store.dispatch({
-        type: OPEN_SNACK,
-        status: true,
-        message: DELETESUCCESS,
-        snackType: snackSuccess,
-      });
-    }
+    store.dispatch({
+      type: OPEN_SNACK,
+      status: true,
+      message: DELETESUCCESS,
+      snackType: snackSuccess,
+    });
   }
   return response;
 };
@@ -122,14 +111,12 @@ export const deleteSingle = async (url) => {
 export const deleteRange = async (url, payload) => {
   const response = await client.post(url, payload);
   if (response && response.data.code) {
-    if (response && response.data.code) {
-      store.dispatch({
-        type: OPEN_SNACK,
-        status: true,
-        message: DELETESUCCESS,
-        snackType: snackSuccess,
-      });
-    }
+    store.dispatch({
+      type: OPEN_SNACK,
+      status: true,
+      message: DELETESUCCESS,
+      snackType: snackSuccess,
+    });
   }
   return response;
 };

@@ -90,7 +90,7 @@ class RinseOneAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="phmeter"
-              label="PH Meter"
+              label="PH"
               customInput={TextField}
               value={this.state.ph.value}
               fullWidth={true}
@@ -117,7 +117,7 @@ class RinseOneAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="waterOverflowToWasteWaterTank1"
-              label="Tank-1 Waste Water"
+              label="Tank-1 Waste Water(L/hr)"
               customInput={TextField}
               value={this.state.waterOverflowToWasteWaterTank1.value}
               defaultValue={0.0}
@@ -150,7 +150,7 @@ class RinseOneAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="waterSupplyFromTank3"
-              label="Tank-3 Water Supply"
+              label="Tank-3 Water Supply(L/hr)"
               customInput={TextField}
               value={this.state.waterSupplyFromTank3.value}
               defaultValue={0.0}
@@ -180,7 +180,7 @@ class RinseOneAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="waterSupplyFromTank6"
-              label="Tank-6 Water Supply"
+              label="Tank-6 Water Supply(L/hr)"
               customInput={TextField}
               value={this.state.waterSupplyFromTank6.value}
               defaultValue={0.0}

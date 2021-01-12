@@ -39,7 +39,7 @@ class Dashboard extends React.PureComponent{
                     <Grid item xs={12} md={6} lg={3}>
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={12} md={12} lg={12}>
-                                <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Tank 1</div>
+                                <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Tank 1 (Degreasing)</div>
                             </Grid>
                             {/** Col **/}
                             <Grid item xs={12} sm={6} md={6} lg={6}>
@@ -53,8 +53,11 @@ class Dashboard extends React.PureComponent{
                                             dataKey={'time'}
                                             limit={1000}
                                             dataPoint='api'
-                                            unit={''}
+                                            unit={'mN/m'}
                                             title="Dyne Test"
+                                            target={'34-38'}
+                                            LL={34}
+                                            HH={38}
                                         />
                                     </Grid>
                                     {/** End*/}
@@ -66,8 +69,12 @@ class Dashboard extends React.PureComponent{
                                             variableName="Conductivity_uS"
                                             limit={3}
                                             dataKey={'_time'}
+                                            unit={'uS'}
                                             dataPoint='mindsphere'
                                             title="Conductivity"
+                                            target={'14k-22k'}
+                                            LL={14000}
+                                            HH={22000}
                                         />
                                     </Grid>
                                     {/** End*/}
@@ -80,8 +87,11 @@ class Dashboard extends React.PureComponent{
                                             dataKey={'time'}
                                             limit={1000}
                                             dataPoint='api'
-                                            unit={'oC'}
+                                            unit={'%'}
                                             title="Concentration"
+                                            target={'0.7-3'}
+                                            LL={0.7}
+                                            HH={3.0}
                                         />
                                     </Grid>
                                     {/** End*/}
@@ -96,6 +106,9 @@ class Dashboard extends React.PureComponent{
                                             unit={''}
                                             dataPoint='mindsphere'
                                             title="pH"
+                                            target={'9-11'}
+                                            LL={9}
+                                            HH={11}
                                         />
                                     </Grid>
                                     {/** End */}
@@ -110,6 +123,9 @@ class Dashboard extends React.PureComponent{
                                             unit={'%'}
                                             dataPoint='mindsphere'
                                             title="Water Level"
+                                            target={'60-70'}
+                                            LL={60}
+                                            HH={70}
                                         />
                                     </Grid>
                                     {/** End */}
@@ -129,60 +145,110 @@ class Dashboard extends React.PureComponent{
                                     {/** Pressure 1 **/}
                                     <Grid key={'pressure-1'} item xs={12} style={{ paddingBottom: "7.5px" }}>
                                         <CircleGauge
-                                            title={'Pump Pressure 1'}
+                                            title={'Pump Pressure 1 (bar)'}
                                             assetId={POWERWASH_ASSETID}
                                             aspectName={'Tank1_Degreasing'}
                                             parameterName={'Pressure1_bar'}
+                                            dataPoint='mindsphere'
                                             border={false}
                                             subTitle={''}
+                                            range={[
+                                                {value:1.0,color:"#b2b2b2"},
+                                                {value:2.0,color:"#154a98"},
+                                                {value:3.0,color:"#ff1029"}
+                                            ]}
+                                            min={0}
+                                            max={3.0}
+                                            LL={1}
+                                            HH={1.5}
                                         />
                                     </Grid>
                                     {/** End **/}
                                     {/** Pressure 2 **/}
                                     <Grid key={'pressure-2'} item xs={12} style={{ paddingBottom: "7.5px" }}>
                                         <CircleGauge
-                                            title={'Pump Pressure 2'}
+                                            title={'Pump Pressure 2 (bar)'}
                                             assetId={POWERWASH_ASSETID}
                                             aspectName={'Tank1_Degreasing'}
                                             parameterName={'Pressure2_bar'}
+                                            dataPoint='mindsphere'
                                             border={false}
                                             subTitle={''}
+                                            range={[
+                                                {value:1.0,color:"#b2b2b2"},
+                                                {value:2.0,color:"#154a98"},
+                                                {value:3.0,color:"#ff1029"}
+                                            ]}
+                                            min={0}
+                                            max={3.0}
+                                            LL={1}
+                                            HH={1.5}
                                         />
                                     </Grid>
                                     {/** End **/}
                                     {/** Pressure 3 **/}
                                     <Grid key={'pressure-3'} item xs={12} style={{ paddingBottom: "7.5px" }}>
                                         <CircleGauge
-                                            title={'Pump Pressure 3'}
+                                            title={'Pump Pressure 3 (bar)'}
                                             assetId={POWERWASH_ASSETID}
                                             aspectName={'Tank1_Degreasing'}
                                             parameterName={'Pressure3_bar'}
+                                            dataPoint='mindsphere'
                                             border={false}
                                             subTitle={''}
+                                            range={[
+                                                {value:1.0,color:"#b2b2b2"},
+                                                {value:2.0,color:"#154a98"},
+                                                {value:3.0,color:"#ff1029"}
+                                            ]}
+                                            min={0}
+                                            max={3.0}
+                                            LL={1}
+                                            HH={1.5}
                                         />
                                     </Grid>
                                     {/** End **/}
                                     {/** Pressure 4 **/}
                                     <Grid key={'pressure-4'} item xs={12} style={{ paddingBottom: "7.5px" }}>
                                         <CircleGauge
-                                            title={'Pump Pressure 4'}
+                                            title={'Pump Pressure 4 (bar)'}
                                             assetId={POWERWASH_ASSETID}
                                             aspectName={'Tank1_Degreasing'}
                                             parameterName={'Pressure4_bar'}
+                                            dataPoint='mindsphere'
                                             border={false}
                                             subTitle={''}
+                                            range={[
+                                                {value:1.0,color:"#b2b2b2"},
+                                                {value:2.0,color:"#154a98"},
+                                                {value:3.0,color:"#ff1029"}
+                                            ]}
+                                            min={0}
+                                            max={3.0}
+                                            LL={1}
+                                            HH={1.5}
                                         />
                                     </Grid>
                                     {/** End **/}
                                     {/** Pressure 5 **/}
                                     <Grid key={'pressure-4'} item xs={12} style={{ paddingBottom: "7.5px" }}>
                                         <CircleGauge
-                                            title={'Pump Pressure 5'}
+                                            title={'Pump Pressure 5 (bar)'}
                                             assetId={POWERWASH_ASSETID}
                                             aspectName={'Tank1_Degreasing'}
                                             parameterName={'Pressure5_bar'}
+                                            dataPoint='mindsphere'
                                             border={false}
                                             subTitle={''}
+                                            range={[
+                                                {value:1.0,color:"#b2b2b2"},
+                                                {value:2.0,color:"#154a98"},
+                                                {value:3.0,color:"#ff1029"}
+                                            ]}
+                                            min={0}
+                                            max={3.0}
+                                            LL={1}
+                                            HH={1.5}
                                         />
                                     </Grid>
                                     {/** End **/}
@@ -199,7 +265,7 @@ class Dashboard extends React.PureComponent{
                             <Grid item xs={12} sm={12} md={12} lg={12}>
                                 <Grid container spacing={1} >
                                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                                        <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Tank 2</div>
+                                        <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Tank 2 (Rinse 1)</div>
                                     </Grid>
                                     {/** Rinse One */}
                                     <Grid item xs={12} sm={12} md={3} lg={3}>
@@ -213,6 +279,9 @@ class Dashboard extends React.PureComponent{
                                                 dataPoint='api'
                                                 unit={''}
                                                 title="pH"
+                                                target={'7-9.5'}
+                                                LL={7}
+                                                HH={9.5}
                                             />
                                         </Paper>
                                     </Grid>
@@ -221,12 +290,22 @@ class Dashboard extends React.PureComponent{
                                     <Grid item xs={12} sm={12} md={3} lg={3}>
                                         <Paper className={this.props.classes.paper}>
                                             <CircleGauge
-                                                title={'Water Level'}
+                                                title={'Water Level (%)'}
                                                 assetId={POWERWASH_ASSETID}
                                                 aspectName={'Tank2_WaterRinse'}
                                                 parameterName={'Water_Level_cm'}
+                                                dataPoint='mindsphere'
                                                 border={true}
                                                 subTitle={''}
+                                                range={[
+                                                    {value:73,color:"#b2b2b2"},
+                                                    {value:85,color:"#154a98"},
+                                                    {value:97,color:"#ff1029"}
+                                                ]}
+                                                min={60}
+                                                max={97}
+                                                LL={70}
+                                                HH={81.5}
                                             />
                                         </Paper>
                                     </Grid>
@@ -240,9 +319,11 @@ class Dashboard extends React.PureComponent{
                                                 variableName="OverFlow_Level_cm"
                                                 limit={3}
                                                 dataKey={'_time'}
-                                                unit={'%'}
+                                                unit={'L/Hr'}
                                                 dataPoint='mindsphere'
                                                 title="Water Flow"
+                                                target={'200'}
+                                                HH={200}
                                             />
                                         </Paper>
                                     </Grid>
@@ -251,12 +332,22 @@ class Dashboard extends React.PureComponent{
                                     <Grid item xs={12} sm={12} md={3} lg={3}>
                                         <Paper className={this.props.classes.paper}>
                                             <CircleGauge
-                                                title={'Pump Pressure'}
+                                                title={'Pump Pressure (bar)'}
                                                 assetId={POWERWASH_ASSETID}
                                                 aspectName={'Tank2_WaterRinse'}
                                                 parameterName={'Pressure_bar'}
+                                                dataPoint='mindsphere'
                                                 border={true}
                                                 subTitle={''}
+                                                range={[
+                                                    {value:1.0,color:"#b2b2b2"},
+                                                    {value:2.0,color:"#154a98"},
+                                                    {value:3.0,color:"#ff1029"}
+                                                ]}
+                                                min={0}
+                                                max={3.0}
+                                                LL={0.5}
+                                                HH={1.5}
                                             />
                                         </Paper>
                                     </Grid>
@@ -268,7 +359,7 @@ class Dashboard extends React.PureComponent{
                             <Grid item xs={12} sm={12} md={12} lg={12}>
                                 <Grid container spacing={1} style={{ marginTop: 22 }}>
                                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                                        <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Tank 3</div>
+                                        <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Tank 3 (Rinse 2)</div>
                                     </Grid>
                                     {/** T3 pH */}
                                     <Grid item xs={12} sm={12} md={3} lg={3}>
@@ -282,6 +373,9 @@ class Dashboard extends React.PureComponent{
                                                 dataPoint='api'
                                                 unit={''}
                                                 title="pH"
+                                                target={'7-9'}
+                                                LL={7}
+                                                HH={9}
                                             />
                                         </Paper>
                                     </Grid>
@@ -290,12 +384,22 @@ class Dashboard extends React.PureComponent{
                                     <Grid item xs={12} sm={12} md={3} lg={3}>
                                         <Paper className={this.props.classes.paper}>
                                             <CircleGauge
-                                                title={'Water Level'}
+                                                title={'Water Level (%)'}
                                                 assetId={POWERWASH_ASSETID}
                                                 aspectName={'Tank3_WaterRinse'}
                                                 parameterName={'Water_Level_cm'}
+                                                dataPoint='mindsphere'
                                                 border={true}
                                                 subTitle={''}
+                                                range={[
+                                                    {value:60,color:"#b2b2b2"},
+                                                    {value:75,color:"#154a98"},
+                                                    {value:90,color:"#ff1029"}
+                                                ]}
+                                                min={45}
+                                                max={90}
+                                                LL={55}
+                                                HH={67}
                                             />
                                         </Paper>
                                     </Grid>
@@ -309,9 +413,11 @@ class Dashboard extends React.PureComponent{
                                                 variableName="OverFlow_Level_cm"
                                                 limit={3}
                                                 dataKey={'_time'}
-                                                unit={'%'}
+                                                unit={'L/Hr'}
                                                 dataPoint='mindsphere'
                                                 title="Water Flow"
+                                                target={'100'}
+                                                HH={110}
                                             />
                                         </Paper>
                                     </Grid>
@@ -320,12 +426,22 @@ class Dashboard extends React.PureComponent{
                                     <Grid item xs={12} sm={12} md={3} lg={3}>
                                         <Paper className={this.props.classes.paper}>
                                             <CircleGauge
-                                                title={'Pump Pressure'}
+                                                title={'Pump Pressure (bar)'}
                                                 assetId={POWERWASH_ASSETID}
                                                 aspectName={'Tank3_WaterRinse'}
                                                 parameterName={'Pressure_bar'}
+                                                dataPoint='mindsphere'
                                                 border={true}
                                                 subTitle={''}
+                                                range={[
+                                                    {value:0.3,color:"#b2b2b2"},
+                                                    {value:0.6,color:"#154a98"},
+                                                    {value:0.9,color:"#ff1029"}
+                                                ]}
+                                                min={0}
+                                                max={0.9}
+                                                LL={0.2}
+                                                HH={0.5}
                                             />
                                         </Paper>
                                     </Grid>
@@ -337,7 +453,7 @@ class Dashboard extends React.PureComponent{
                             <Grid item xs={12} sm={12} md={12} lg={12}>
                                 <Grid container spacing={1} style={{ marginTop: 22 }}>
                                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                                        <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Tank 4</div>
+                                        <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Tank 4 (DI Rinse 3)</div>
                                     </Grid>
                                     {/** T4 pH */}
                                     <Grid item xs={12} sm={12} md={3} lg={3}>
@@ -351,6 +467,9 @@ class Dashboard extends React.PureComponent{
                                                 dataPoint='api'
                                                 unit={''}
                                                 title="pH"
+                                                target={'7-8'}
+                                                LL={7.0}
+                                                HH={8.0}
                                             />
                                         </Paper>
                                     </Grid>
@@ -359,12 +478,22 @@ class Dashboard extends React.PureComponent{
                                     <Grid item xs={12} sm={12} md={3} lg={3}>
                                         <Paper className={this.props.classes.paper}>
                                             <CircleGauge
-                                                title={'Water Level'}
+                                                title={'Water Level (%)'}
                                                 assetId={POWERWASH_ASSETID}
                                                 aspectName={'Tank4_DIWaterRinse'}
                                                 parameterName={'Water_Level_cm'}
+                                                dataPoint='mindsphere'
                                                 border={true}
                                                 subTitle={''}
+                                                range={[
+                                                    {value:70,color:"#b2b2b2"},
+                                                    {value:75,color:"#154a98"},
+                                                    {value:80,color:"#ff1029"}
+                                                ]}
+                                                min={65}
+                                                max={80}
+                                                LL={70}
+                                                HH={76}
                                             />
                                         </Paper>
                                     </Grid>
@@ -378,9 +507,11 @@ class Dashboard extends React.PureComponent{
                                                 variableName="OverFlow_Level_cm"
                                                 limit={3}
                                                 dataKey={'_time'}
-                                                unit={'%'}
+                                                unit={'L/Hr'}
                                                 dataPoint='mindsphere'
                                                 title="Water Flow"
+                                                target={'100'}
+                                                HH={100}
                                             />
                                         </Paper>
                                     </Grid>
@@ -389,12 +520,22 @@ class Dashboard extends React.PureComponent{
                                     <Grid item xs={12} sm={12} md={3} lg={3}>
                                         <Paper className={this.props.classes.paper}>
                                             <CircleGauge
-                                                title={'Pump Pressure'}
+                                                title={'Pump Pressure (bar)'}
                                                 assetId={POWERWASH_ASSETID}
                                                 aspectName={'Tank4_DIWaterRinse'}
                                                 parameterName={'Pressure_bar'}
+                                                dataPoint='mindsphere'
                                                 border={true}
                                                 subTitle={''}
+                                                range={[
+                                                    {value:0.7,color:"#b2b2b2"},
+                                                    {value:1.4,color:"#154a98"},
+                                                    {value:2.1,color:"#ff1029"}
+                                                ]}
+                                                min={0}
+                                                max={2.1}
+                                                LL={0.5}
+                                                HH={1.0}
                                             />
                                         </Paper>
                                     </Grid>
@@ -406,7 +547,7 @@ class Dashboard extends React.PureComponent{
                             <Grid item xs={12} sm={12} md={12} lg={12}>
                                 <Grid container spacing={1} style={{ marginTop: 22 }}>
                                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                                        <div style={{fontSize: 16, color:'#0f3790', fontWeight: 900}}>Tank 5</div>
+                                        <div style={{fontSize: 16, color:'#0f3790', fontWeight: 900}}>Tank 5 (Conversion)</div>
                                     </Grid>
                                     {/** T5 pH */}
                                     <Grid item xs={12} sm={12} md={3} lg={3}>
@@ -420,6 +561,9 @@ class Dashboard extends React.PureComponent{
                                                 unit={''}
                                                 dataPoint='mindsphere'
                                                 title="pH"
+                                                target={'7-8'}
+                                                LL={7.0}
+                                                HH={8.0}
                                             />
                                         </Paper>
                                     </Grid>
@@ -428,12 +572,22 @@ class Dashboard extends React.PureComponent{
                                     <Grid item xs={12} sm={12} md={3} lg={3}>
                                         <Paper className={this.props.classes.paper}>
                                             <CircleGauge
-                                                title={'Water Level'}
+                                                title={'Water Level (%)'}
                                                 assetId={POWERWASH_ASSETID}
                                                 aspectName={'Tank5_DIWaterRinse'}
                                                 parameterName={'Water_Level_cm'}
+                                                dataPoint='mindsphere'
                                                 border={true}
                                                 subTitle={''}
+                                                range={[
+                                                    {value:70,color:"#b2b2b2"},
+                                                    {value:75,color:"#154a98"},
+                                                    {value:80,color:"#ff1029"}
+                                                ]}
+                                                min={65}
+                                                max={80}
+                                                LL={70}
+                                                HH={76}
                                             />
                                         </Paper>
                                     </Grid>
@@ -447,9 +601,11 @@ class Dashboard extends React.PureComponent{
                                                 variableName="OverFlow_Level_cm"
                                                 limit={3}
                                                 dataKey={'_time'}
-                                                unit={'%'}
+                                                unit={'L/Hr'}
                                                 dataPoint='mindsphere'
                                                 title="Water Flow"
+                                                target={'100'}
+                                                HH={100}
                                             />
                                         </Paper>
                                     </Grid>
@@ -458,12 +614,22 @@ class Dashboard extends React.PureComponent{
                                     <Grid item xs={12} sm={12} md={3} lg={3}>
                                         <Paper className={this.props.classes.paper}>
                                             <CircleGauge
-                                                title={'Pump Pressure'}
+                                                title={'Pump Pressure (bar)'}
                                                 assetId={POWERWASH_ASSETID}
                                                 aspectName={'Tank5_DIWaterRinse'}
                                                 parameterName={'Pressure_bar'}
+                                                dataPoint='mindsphere'
                                                 border={true}
                                                 subTitle={''}
+                                                range={[
+                                                    {value:1,color:"#b2b2b2"},
+                                                    {value:2,color:"#154a98"},
+                                                    {value:3,color:"#ff1029"}
+                                                ]}
+                                                min={0}
+                                                max={3}
+                                                LL={0.5}
+                                                HH={1}
                                             />
                                         </Paper>
                                     </Grid>
@@ -478,7 +644,7 @@ class Dashboard extends React.PureComponent{
                     <Grid item xs={12} md={6} lg={3}>
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={12} md={12} lg={12}>
-                                <div style={{fontSize: 16, color:'#0f3790', fontWeight: 900}}>Tank 6</div>
+                                <div style={{fontSize: 16, color:'#0f3790', fontWeight: 900}}>Tank 6 (Rinse DI)</div>
                             </Grid>
                             {/** T6 pH */}
                             <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -492,6 +658,9 @@ class Dashboard extends React.PureComponent{
                                         unit={''}
                                         dataPoint='mindsphere'
                                         title="pH"
+                                        target={'7-8'}
+                                        LL={7.0}
+                                        HH={8.0}
                                     />
                                 </Paper>
                             </Grid>
@@ -500,12 +669,22 @@ class Dashboard extends React.PureComponent{
                             <Grid item xs={12} sm={12} md={6} lg={6}>
                                 <Paper className={this.props.classes.paper}>
                                     <CircleGauge
-                                        title={'Water Level'}
+                                        title={'Water Level (%)'}
                                         assetId={POWERWASH_ASSETID}
                                         aspectName={'Tank6_Passivation'}
                                         parameterName={'Water_Level_cm'}
+                                        dataPoint='mindsphere'
                                         border={true}
                                         subTitle={''}
+                                        range={[
+                                            {value:65,color:"#b2b2b2"},
+                                            {value:75,color:"#154a98"},
+                                            {value:85,color:"#ff1029"}
+                                        ]}
+                                        min={55}
+                                        max={85}
+                                        LL={70}
+                                        HH={76}
                                     />
                                 </Paper>
                             </Grid>
@@ -522,6 +701,8 @@ class Dashboard extends React.PureComponent{
                                         unit={'%'}
                                         dataPoint='mindsphere'
                                         title="Water Flow"
+                                        target={'200'}
+                                        HH={200}
                                     />
                                 </Paper>
                             </Grid>
@@ -530,12 +711,22 @@ class Dashboard extends React.PureComponent{
                             <Grid item xs={12} sm={12} md={6} lg={6}>
                                 <Paper className={this.props.classes.paper}>
                                     <CircleGauge
-                                        title={'Pump Pressure'}
+                                        title={'Pump Pressure (bar)'}
                                         assetId={POWERWASH_ASSETID}
                                         aspectName={'Tank6_Passivation'}
                                         parameterName={'Pressure_bar'}
+                                        dataPoint='mindsphere'
                                         border={true}
                                         subTitle={''}
+                                        range={[
+                                            {value:0.7,color:"#b2b2b2"},
+                                            {value:1.4,color:"#154a98"},
+                                            {value:2.1,color:"#ff1029"}
+                                        ]}
+                                        min={0}
+                                        max={2.1}
+                                        LL={0.5}
+                                        HH={1.0}
                                     />
                                 </Paper>
                             </Grid>
@@ -587,8 +778,8 @@ class Dashboard extends React.PureComponent{
                                             assetId: POWERWASH_ASSETID,
                                             aspectName:'Tank6_Passivation',
                                         }]}
-                                        width={460}
-                                        height={480}
+                                        width={430}
+                                        height={470}
                                     />
                                 </Grid>
                             </Grid>

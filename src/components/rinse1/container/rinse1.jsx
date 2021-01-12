@@ -33,13 +33,13 @@ import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
 
 const columns = [
-  { label: "Ph Meter", name: "ph" },
+  { label: "Ph", name: "ph" },
   {
-    label: "Water Overflow To WasteWater Tank1",
+    label: "Water Overflow To WasteWater Tank1(L/hr)",
     name: "waterOverflowToWasteWaterTank1",
   },
-  { label: "Water Supply From Tank 3", name: "waterSupplyFromTank3" },
-  { label: "Water Supply From Tank 6", name: "waterSupplyFromTank6" },
+  { label: "Water Supply From Tank 3(L/hr)", name: "waterSupplyFromTank3" },
+  { label: "Water Supply From Tank 6(L/hr)", name: "waterSupplyFromTank6" },
   {
     label: "Updated At",
     name: "updatedat",
@@ -261,7 +261,7 @@ class Rinse1 extends Component {
                * Desktop View
                * **/
               <MUITable
-                title={"RINSE ONE"}
+                title={"WATER RINSE(Tank 02)"}
                 totalCount={this.state.totalCount}
                 data={this.state.tableData.sort(sortByUpdatedAt)}
                 columns={columns}

@@ -11,11 +11,6 @@ import { loadDataByGivenDate, loadLatestValue } from '../../../appservices/minds
 import {get} from "../../../middleware/axios-middleware";
 import ChangeHistoryIcon from "@material-ui/icons/ChangeHistory";
 import DetailsIcon from "@material-ui/icons/Details";
-// import CardContent from "@material-ui/core/CardContent";
-// import { makeStyles } from "@material-ui/core/styles";
-// import { ArrowUpwardOutlined, ArrowDownwardOutlined } from "@material-ui/icons";
-// import dashboardTileServices from "../../../appservices/dashboardTileServices/dashboardTileServices";
-// import { CircularProgress } from "@material-ui/core";
 import Dialogs from "../dialogs";
 import {zonedTimeToUtc} from "date-fns-tz";
 import format from "date-fns/format";
@@ -33,11 +28,8 @@ export default class Graph extends Component {
         super(props);
         this.state = {
             isLoading: false,
-            // chartopen: false,
-            target: 90,
-            // chartLabels: this.getChartLabels(this.props.trendInterval),
-            lastHour: '45%',
-            showDialogChart: false,
+            lastHour: '0%',
+            dialogOpen: false,
             currentValue: 0,
             data: [],
             chartData: [],
@@ -60,34 +52,39 @@ export default class Graph extends Component {
             const toDate = zonedTimeToUtc(endDate, Intl.DateTimeFormat().resolvedOptions().timeZone);
             const response = await loadDataByGivenDate(fromDate, toDate, this.props.assetId, this.props.aspectName, this.props.variableName, this.props.limit);
             if(response && Array.isArray(response.data) && response.data.length > 0) {
-                const lastValue =  response.data[0][this.props.variableName];
-                const chartData = response.data.map(data => {
-                    return {
-                        [this.props.variableName]: data[this.props.variableName],
-                        [this.props.dataKey]:format(new Date(data[this.props.dataKey]), 'hh')
-                    }
-                });
-                this.setState(state => ({data: chartData, currentValue: lastValue, isFetching: false}));
+                const lastValue = response.data[0][this.props.variableName] > 0 ? parseFloat(response.data[0][this.props.variableName]).toFixed(2) : response.data[0][this.props.variableName];
+                const firstValue = response.data[response.data.length - 1][this.props.variableName];
+                let lhDif = '0';
+                if (lastValue > 0 && firstValue > 0){
+                    const lastHourDif = Math.abs((lastValue - firstValue)/firstValue) * 100;
+                    lhDif = `${parseFloat(lastHourDif).toFixed(2)}%`;
+                }
+
+                const chartData = response.data.map(data => data[this.props.variableName]);
+                this.setState(state => ({data: chartData, currentValue: lastValue , isFetching: false, lastHour: lhDif}));
             }
         }else{
-            const startDate = new Date(new Date(now.setDate(now.getDate() - 1)).setHours(23,59,59));
+            const startDate = new Date(new Date(new Date().setDate(now.getDate() - 1)).setHours(23,59,59));
             const endDate = now;
-            const from = zonedTimeToUtc(startDate, Intl.DateTimeFormat().resolvedOptions().timeZone);
-            const to = zonedTimeToUtc(endDate, Intl.DateTimeFormat().resolvedOptions().timeZone);
-            const response = await get(`${this.props.pathName}/${this.props.endPoint}/${format(new Date(from), 'yyyy-MM-dd\'T\'HH:mm:ss')}/${format(new Date(to), 'yyyy-MM-dd\'T\'HH:mm:ss')}/${this.props.limit}`);
+            const from = format(startDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+            const to = format(now, 'yyyy-MM-dd\'T\'HH:mm:ss');
+            const response = await get(`${this.props.pathName}/${this.props.endPoint}/${from}/${to}/${this.props.limit}`);
             if(response && response.data && response.data.code && Array.isArray(response.data.data) && response.data.data.length > 0) {
-                const lastValue =  response.data.data[0];
-                const chartData = response.data.data.map(resData => {
-                    return {
-                        data: resData.data,
-                        [this.props.dataKey]:format(new Date(resData.time), 'hh')
-                    }
-                });
-                this.setState(state => ({data: chartData,currentValue: lastValue, isFetching: false}));
+                const lastValue =  response.data.data[0][this.props.variableName] > 0 ? parseFloat(response.data.data[0][this.props.variableName]).toFixed(2):response.data.data[0][this.props.variableName];
+                const firstValue = response.data.data[response.data.data.length - 1][this.props.variableName];
+                let lhDif = '0';
+                if (lastValue > 0 && firstValue > 0){
+                    const lastHourDif = Math.abs((lastValue - firstValue)/firstValue) * 100;
+                    lhDif = `${parseFloat(lastHourDif).toFixed(2)}%`;
+                }
+                const chartData = response.data.data.map(resData => resData.data);
+                this.setState(state => ({data: chartData,currentValue: lastValue, isFetching: false, lastHour: lhDif}));
             }
         }
     };
 
+    /**
+     * Daryl Code
     getChartLabels = (interval) => {
         const today = new Date();
         let labels = [];
@@ -118,6 +115,11 @@ export default class Graph extends Component {
         }
         return labels;
     };
+     */
+
+    handleDialog = () => {
+        this.setState({dialogOpen: !this.state.dialogOpen});
+    }
 
     render() {
 
@@ -129,7 +131,7 @@ export default class Graph extends Component {
                             height: 170,
                             color: COLOR.blue,
                         }}
-                        onClick={() => {this.setState({ showDialogChart: !this.state.showDialogChart });}}
+                        onClick={this.handleDialog}
                     >
                         <Grid container spacing={1}>
                             <Grid item xs={6}>
@@ -137,11 +139,11 @@ export default class Graph extends Component {
                                     style={{
                                         width: "100%",
                                         textAlign: "left",
-                                        fontSize: "15px",
+                                        fontSize: "12.5px",
                                         padding: "3px 0 0 3px",
                                     }}
                                 >
-                                    Target {this.state.target}
+                                    Target: <strong>{this.props.target}</strong>
                                 </div>
                                 <div
                                     style={{
@@ -161,8 +163,7 @@ export default class Graph extends Component {
                                             value={this.state.currentValue}
                                             displayType={"text"}
                                             thousandSeparator
-                                            fixedDecimalScale={true}
-                                            // decimalScale={this.props.decimal}
+                                            fixedDecimalScale
                                         />
                                     </label>
                                 </div>
@@ -217,11 +218,21 @@ export default class Graph extends Component {
                         </Grid>
                     </Card>
                 </Grid>
-                <Dialogs
-                    data={this.state.chartData}
-                    showDialogChart={this.state.showDialogChart}
-                    onClose={(showDialogChart) => this.setState({ showDialogChart })}
-                />
+                {this.state.dialogOpen && <Dialogs
+                    title={this.props.title}
+                    showDialogChart={this.state.dialogOpen}
+                    onClose={this.handleDialog}
+                    assetId={this.props.assetId}
+                    aspectName={this.props.aspectName}
+                    parameterName={this.props.variableName}
+                    pathName={this.props.pathName}
+                    endPoint={this.props.endPoint}
+                    dataPoint={this.props.dataPoint}
+                    limit={1000}
+                    LL={this.props.LL}
+                    HH={this.props.HH}
+                />}
+
             </Grid>
         );
     }

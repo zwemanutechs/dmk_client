@@ -2,6 +2,7 @@ import { getFromOtherOrigin, get } from "../middleware/axios-middleware";
 import format from "date-fns/format";
 import { zonedTimeToUtc } from "date-fns-tz";
 
+// get timeseries data from mindsphere api
 export const loadDataByGivenDate = (
     from,
     to,
@@ -17,12 +18,23 @@ export const loadDataByGivenDate = (
   );
 };
 
+// get latest value from mindsphere api
 export const loadLatestValue = (assetId, aspectId, parameterName) => {
   return getFromOtherOrigin(
       `/api/iottimeseries/v3/timeseries/${assetId}/${aspectId}?select=${parameterName}&latestValue=true`
   );
 };
 
+// get aggregate time series data from mindsphere api
+export const loadAggregateData = (from, to, assetId, aspectId, parameterName, limit) => {
+  return getFromOtherOrigin(
+      `/api/iottsaggregates/v4/aggregates?assetId=${assetId}&aspectName=${aspectId}&select=${parameterName}&from=${new Date(
+          from
+      ).toISOString()}&to=${new Date(to).toISOString()}&limit=${limit}&sort=desc`
+  );
+}
+
+/* Daryl Code
 // ---------------- Minsphere API V2 Gateway
 
 export const loadDataByGivenDateV2 = (assetId, aspectId, parameterName) => {
@@ -1352,3 +1364,4 @@ export const loadFromAPIDummy = (endPoint) => {
     },
   ];
 };
+*/

@@ -31,8 +31,8 @@ import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
 
 const columns = [
-  { label: "Ph Meter", name: "ph" },
-  { label: "Water Supply From DI Tank", name: "waterSupplyFromDiWaterTank" },
+  { label: "Ph", name: "ph" },
+  { label: "Water Supply From DI Tank(L/hr)", name: "waterSupplyFromDiWaterTank" },
   {
     label: "Updated At",
     name: "updatedat",
@@ -241,7 +241,7 @@ class Rinse3 extends Component {
                * **/
               <MobileView
                 columns={columns}
-                title={"RINSE THREE"}
+                title={"WATER RINSE (TANK 04)"}
                 data={this.state.tableData}
                 nextData={this.getData}
                 totalCount={this.state.totalCount}

@@ -34,7 +34,7 @@ import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
 
 const columns = [
-  { label: "Water Supply From Di Tank", name: "waterSupplyFromDiTank" },
+  { label: "Water Supply From Di Tank(L/hr)", name: "waterSupplyFromDiTank" },
   {
     label: "Updated At",
     name: "updatedat",
@@ -259,7 +259,7 @@ class Conversion extends Component {
                * Desktop View
                * **/
               <MUITable
-                title={"CONVERSION"}
+                title={"DISTILLED WATER(TANK 05)"}
                 totalCount={this.state.totalCount}
                 data={this.state.tableData.sort(sortByUpdatedAt)}
                 columns={columns}

@@ -31,8 +31,8 @@ import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
 
 const columns = [
-  { label: "Ph Meter", name: "ph" },
-  { label: "Water Supply From DI Tank", name: "waterSupplyFromDiWaterTank" },
+  { label: "Ph", name: "ph" },
+  { label: "Water Supply From DI Tank(L/hr)", name: "waterSupplyFromDiWaterTank" },
   {
     label: "Updated At",
     name: "updatedat",
@@ -254,7 +254,7 @@ class RinseDi extends Component {
                * Desktop View
                * **/
               <MUITable
-                title={"RINSE THREE"}
+                title={"TANK 05"}
                 totalCount={this.state.totalCount}
                 data={this.state.tableData.sort(sortByUpdatedAt)}
                 columns={columns}

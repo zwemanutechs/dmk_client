@@ -14,9 +14,6 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import compose from "recompose/compose";
 import { Link, withRouter } from "react-router-dom";
@@ -24,23 +21,11 @@ import SimpleBreadCrumbs from "../../shared/breadcum/breadcrumbs";
 import CompanyLogo from "../../assets/images/logo/dormakaba_transparent.png";
 import MntLogo from "../../assets/images/logo/manutechs_logo.png";
 import Degreasing from "../../assets/images/svg/degreasing.svg";
-import Rinse1 from "../../assets/images/svg/rinse_1.svg";
-import Rinse2 from "../../assets/images/svg/rinse_2.svg";
-import Rinse3 from "../../assets/images/svg/rinse_3.svg";
 import RinseDIIcon from "../../assets/images/svg/rinse_di.svg";
 import PaintBooth from "../../assets/images/svg/painting_booth.svg";
-import Evaporator from "../../assets/images/svg/evaporator.svg";
-import IconWrapper from "@material-ui/core/Icon";
-import AutorenewOutlinedIcon from "@material-ui/icons/AutorenewOutlined";
-import FilterTiltShiftOutlinedIcon from "@material-ui/icons/FilterTiltShiftOutlined";
 import KitchenOutlinedIcon from "@material-ui/icons/KitchenOutlined";
 import Hidden from "@material-ui/core/Hidden";
-
 import IconDashboard from "@material-ui/icons/Dashboard";
-import IconShoppingCart from "@material-ui/icons/ShoppingCart";
-import IconPeople from "@material-ui/icons/People";
-import IconBarChart from "@material-ui/icons/BarChart";
-import IconLibraryBooks from "@material-ui/icons/LibraryBooks";
 
 import AppMenuItem from "./AppMenuItem";
 
@@ -58,6 +43,7 @@ const useStyles = (theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     background: "lightslategray",
+    top: 40
   },
   appBarShift: {
     [theme.breakpoints.between("md", "xl")]: {
@@ -68,6 +54,7 @@ const useStyles = (theme) => ({
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
+    top: 40
   },
   menuButton: {
     [theme.breakpoints.between("md", "xl")]: {
@@ -97,6 +84,7 @@ const useStyles = (theme) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: "nowrap",
+    top:40
   },
   drawerOpen: {
     [theme.breakpoints.between("md", "xl")]: {
@@ -110,6 +98,7 @@ const useStyles = (theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    top: 40
   },
   drawerClose: {
     [theme.breakpoints.between("md", "xl")]: {
@@ -123,6 +112,7 @@ const useStyles = (theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    top: 40
   },
   toolbar: {
     display: "flex",

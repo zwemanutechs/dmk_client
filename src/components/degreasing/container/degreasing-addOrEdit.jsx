@@ -101,7 +101,7 @@ class DegreasingAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="concentration"
-              label="Concentration"
+              label="Concentration(%)"
               customInput={TextField}
               value={this.state.concentration.value}
               fullWidth={true}
@@ -155,7 +155,7 @@ class DegreasingAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="waterSupplyFromTank2"
-              label="Water Supply From Tank2"
+              label="Water Supply From Tank2(L/hr)"
               customInput={TextField}
               value={this.state.waterSupplyFromTank2.value}
               fullWidth={true}
@@ -198,9 +198,9 @@ class DegreasingAddOrEdit extends Component {
               onFocus={(event) => {
                 event.target.select();
               }}
-              decimalScale={2}
+              decimalScale={0}
               thousandSeparator={false}
-              fixedDecimalScale={true}
+              fixedDecimalScale={false}
               error={!this.state.oilSkimming.valid}
               helperText={
                 !this.state.oilSkimming.valid
@@ -217,7 +217,7 @@ class DegreasingAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="dyneTest"
-              label="Dyne Test"
+              label="Dyne Test(mN/m)"
               customInput={TextField}
               value={this.state.dyneTest.value}
               fullWidth={true}

@@ -19,8 +19,6 @@ import {
 import { MDUP } from "../../../constants/app-constants";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-//import MobileTable from "../../../shared/MobileTable";
-// import MobileTable from "ReactMobileViewTable";
 import { degreasingModel } from "../model/model";
 import {
   get,
@@ -33,9 +31,9 @@ import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
 
 const columns = [
-  { label: "Concentration", name: "concentration" },
+  { label: "Concentration(%)", name: "concentration" },
   {
-    label: "Concentration Below 0.5% Top-up Chemical",
+    label: "Concentration Below 0.5%(Yes/No)",
     name: "concentrationTopUp",
     options: {
       filter: false,
@@ -44,9 +42,9 @@ const columns = [
       ),
     },
   },
-  { label: "Water Supply From Tank 2", name: "waterSupplyFromTank2" },
-  { label: "Oil Skimming", name: "oilSkimming" },
-  { label: "Dyne Test", name: "dyneTest" },
+  { label: "Water Supply From Tank 2(L/hr)", name: "waterSupplyFromTank2" },
+  { label: "Oil Skimming(Yes/No)", name: "oilSkimming" },
+  { label: "Dyne Test(mN/m)", name: "dyneTest" },
   {
     label: "Updated At",
     name: "updatedat",
@@ -271,7 +269,7 @@ class Degreasing extends Component {
                * Desktop View
                * **/
               <MUITable
-                title={"DEGREASING"}
+                title={"DEGREASING(TANK 01) RECORD"}
                 totalCount={this.state.totalCount}
                 data={this.state.tableData.sort(sortByUpdatedAt)}
                 columns={columns}

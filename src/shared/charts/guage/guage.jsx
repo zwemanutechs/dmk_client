@@ -30,6 +30,7 @@ class CircleGauge extends Component{
         super(props);
         this.state = {
             isFetching: true,
+            dialogOpen: false,
             data: 0.00
         }
     }
@@ -39,26 +40,30 @@ class CircleGauge extends Component{
         this.loadData();
     }
 
+    handleDiaglog = () => {
+        this.setState({dialogOpen: !this.state.dialogOpen});
+    }
+
     loadData = async () => {
         const now = new Date();
         this.setState(state => ({isFetching: true}));
         if(this.props.dataPoint === 'api'){
             const startDate = new Date(new Date(now.setDate(now.getDate() - 1)).setHours(23,59,59));
             const endDate = now;
-            const from = zonedTimeToUtc(startDate, Intl.DateTimeFormat().resolvedOptions().timeZone);
-            const to = zonedTimeToUtc(endDate, Intl.DateTimeFormat().resolvedOptions().timeZone);
-            const response = await get(`${this.props.pathName}/${this.props.endPoint}/${format(new Date(from), 'yyyy-MM-dd\'T\'HH:mm:ss')}/${format(new Date(to), 'yyyy-MM-dd\'T\'HH:mm:ss')}/${this.props.limit}`);
+            const from = format(startDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+            const to = format(now, 'yyyy-MM-dd\'T\'HH:mm:ss');
+            const response = await get(`${this.props.pathName}/${this.props.endPoint}/${from}/${to}/${this.props.limit}`);
             if(response && response.data && response.data.code && Array.isArray(response.data.data) && response.data.data.length > 0) {
-                this.setState(state => ({data: response.data.data[0], isFetching: false}));
+                this.setState(state => ({data: response.data.data[0][this.props.variableName], isFetching: false}));
             }else{
-                this.setState(state => ({isFetching: false}));
+                this.setState(state => ({isFetching: false, data: 0}));
             }
         }else{
             const response = await loadLatestValue(this.props.assetId, this.props.aspectName, this.props.parameterName);
             if(response && response.data && Array.isArray(response.data) && response.data.length > 0 ){
                 this.setState(state => ({data: response.data[0][this.props.parameterName], isFetching: false}));
             }else{
-                this.setState(state => ({isFetching: false}));
+                this.setState(state => ({isFetching: false, data: 0}));
             }
         }
     };
@@ -80,7 +85,7 @@ class CircleGauge extends Component{
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   whiteSpace: "nowrap",
-                  // width: "55px",
+                  // width: "55px",ha
               }}
           >
             {this.props.title}
@@ -97,15 +102,11 @@ class CircleGauge extends Component{
             {this.props.subTitle}
           </span>
                 </div>
-                <div style={{display: 'flex', justifyContent:'center', backgroundColor: 'white'}}>
+                <div style={{display: 'flex', justifyContent:'center', backgroundColor: 'white'}} onClick={() => {this.handleDiaglog()}}>
                     <Gauge
-                        start={0}
-                        end={180}
-                        ranges={[
-                            {value:60,color:"#b2b2b2"},
-                            {value:120,color:"#154a98"},
-                            {value:180,color:"#ff1029"}
-                        ]}
+                        start={this.props.min}
+                        end={this.props.max}
+                        ranges={this.props.range}
                         handle={[
                             {
                                 value:this.state.data,
@@ -129,10 +130,25 @@ class CircleGauge extends Component{
                             }
                         }]}
                         position={['42%',100]}
-                        style={{width:200,height:150, display: 'flex', justifiedContext: 'center'}}
+                        style={{width:180,height:150, display: 'flex', justifiedContext: 'center'}}
 
                     />
                 </div>
+                {this.state.dialogOpen && <Dialogs
+                    title={this.props.title}
+                    showDialogChart={this.state.dialogOpen}
+                    onClose={this.handleDiaglog}
+                    assetId={this.props.assetId}
+                    aspectName={this.props.aspectName}
+                    parameterName={this.props.parameterName}
+                    pathName={this.props.pathName}
+                    endPoint={this.props.endPoint}
+                    dataPoint={this.props.dataPoint}
+                    limit={1000}
+                    LL={this.props.LL}
+                    HH={this.props.HH}
+                />}
+
             </div>
         )
     }

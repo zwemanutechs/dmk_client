@@ -12,6 +12,8 @@ code {
     monospace;
 }
 
-#zingchart-react-23-license-text {
-  display: none !important;
+#_mdspbar {
+  position: fixed !important;
+  top: 0;
+  width: 100%;
 }

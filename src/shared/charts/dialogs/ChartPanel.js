@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
-import Button from "@material-ui/core/Button";
 
 const COLOR = {
   blue: "#0F3790",
@@ -10,6 +9,7 @@ const COLOR = {
 
 
 class ChartPanel extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -44,10 +44,6 @@ class ChartPanel extends Component {
     };
   }
 
-  componentDidMount() {
-    this.setState({ isLoading: false });
-  }
-
   loadData = (range) => {
 
   }
@@ -70,25 +66,6 @@ class ChartPanel extends Component {
 
     return (
         <div>
-          {/* <h2>Trend Of Last 5 Days</h2> */}
-          <Button
-              onClick={() => this.loadData('1')}
-              variant="contained"
-          >
-            1 Months
-          </Button>
-          <Button
-              onClick={() => this.loadData('3')}
-              variant="contained"
-          >
-            3 Months
-          </Button>
-          <Button
-              onClick={() => this.loadData('6')}
-              variant="contained"
-          >
-            6 Months
-          </Button>
           <Line
               redraw={true}
               ref="chart"
