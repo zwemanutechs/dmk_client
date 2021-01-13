@@ -241,7 +241,7 @@ class RinseDi extends Component {
                * **/
               <MobileView
                 columns={columns}
-                title={"RINSE THREE"}
+                title={"DI RINSE (TANK 5)"}
                 data={this.state.tableData}
                 nextData={this.getData}
                 totalCount={this.state.totalCount}
@@ -254,7 +254,7 @@ class RinseDi extends Component {
                * Desktop View
                * **/
               <MUITable
-                title={"TANK 05"}
+                title={"DI RINSE (TANK 5)"}
                 totalCount={this.state.totalCount}
                 data={this.state.tableData.sort(sortByUpdatedAt)}
                 columns={columns}

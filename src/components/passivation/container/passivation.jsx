@@ -256,7 +256,7 @@ class Passivation extends Component {
                * **/
               <MobileView
                 columns={columns}
-                title={"PASSIVATION"}
+                title={"PASSIVATION (TANK 6)"}
                 data={this.state.tableData}
                 nextData={this.getData}
                 totalCount={this.state.totalCount}
@@ -269,7 +269,7 @@ class Passivation extends Component {
                * Desktop View
                * **/
               <MUITable
-                title={"PASSIVATION"}
+                title={"PASSIVATION (TANK 6)"}
                 totalCount={this.state.totalCount}
                 data={this.state.tableData.sort(sortByUpdatedAt)}
                 columns={columns}

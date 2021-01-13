@@ -125,7 +125,7 @@ class CircleGauge extends Component{
                                 fontSize:18, //font size of text, type=number, default=10
                                 top:0, //top of text, type=number, default=20
                                 left:0, //left of text, type=number, default=0
-                                color:"#154a98", //color of text, type=string, default='#000'
+                                color: this.props.LL > this.state.data || this.props.data < this.state.currentValue ? "red":"#154a98", //color of text, type=string, default='#000'
                                 rotate:0  //rotate angle of text, type=number between 0 and 360, default=0
                             }
                         }]}

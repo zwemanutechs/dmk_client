@@ -142,12 +142,12 @@ const drawerWidth = 240;
 const MENU_ITEMS = [
   {
     Icon: HomeIcon,
-    name: "Dashboard",
+    name: "Power Wash Dash",
     link: "/Home",
   },
   {
     Icon: IconDashboard,
-    name: "Overview",
+    name: "Overview-Paint Dash",
     link: "/Overview",
   },
   // {
@@ -160,27 +160,27 @@ const MENU_ITEMS = [
     name: "Power Wash",
     items: [
       {
-        name: "Degreasing （Tank 1）",
+        name: "Degreasing (1)",
         link: "/Degreasing",
       },
       {
-        name: "Water Rinse （Tank 2）",
-        link: "/RinseTwo",
-      },
-      {
-        name: "Water Rinse （Tank 3）",
-        link: "/RinseThree",
-      },
-      {
-        name: "Di Rinse （Tank 4）",
-        link: "/RinseDI",
-      },
-      {
-        name: "Di Rinse （Tank 5）",
+        name: "Rinse 1 (2)",
         link: "/RinseOne",
       },
       {
-        name: "Passiavation （Tank 6）",
+        name: "Rinse 2 (3)",
+        link: "/RinseTwo",
+      },
+      {
+        name: "Rinse 3 (4)",
+        link: "/RinseThree",
+      },
+      {
+        name: "Di Rinse (5)",
+        link: "/RinseDI",
+      },
+      {
+        name: "Passivation (6)",
         link: "/Passivation",
       },
     ],
@@ -190,29 +190,29 @@ const MENU_ITEMS = [
     name: "Water Treatment",
     items: [
       {
-        name: "Neutralization (Tank 03)",
+        name: "Neutralization (03-09)",
         link: "/NeuEvaporator",
       },
       {
-        name: "Distilled Water (Tank 05/06)",
+        name: "Distilled Water (05)",
         link: "/Conversion",
       },
-      {
-        name: "Demineralization",
-        link: "/Conversion",
-      },
-      {
-        name: "DI Water (Tank 07)",
-        link: "/Conversion",
-      },
-      {
-        name: "Sulphuric Acid",
-        link: "/Conversion",
-      },
-      {
-        name: "Sodium Hydroxide",
-        link: "/Conversion",
-      },
+      // {
+      //   name: "Demineralization",
+      //   link: "/Conversion",
+      // },
+      // {
+      //   name: "DI Water (Tank 07)",
+      //   link: "/Conversion",
+      // },
+      // {
+      //   name: "Sulphuric Acid",
+      //   link: "/Conversion",
+      // },
+      // {
+      //   name: "Sodium Hydroxide",
+      //   link: "/Conversion",
+      // },
     ],
   },
   {
@@ -220,17 +220,17 @@ const MENU_ITEMS = [
     name: "Paint Booth",
     items: [
       {
-        name: "ESTA Booth 1",
+        name: "Paint Booth",
         link: "/PaintBooth",
       },
-      {
-        name: "ESTA Booth 2",
-        link: "/PaintBooth",
-      },
-      {
-        name: "Touch Up Booth",
-        link: "/PaintBooth",
-      },
+      // {
+      //   name: "ESTA Booth 2",
+      //   link: "/PaintBooth",
+      // },
+      // {
+      //   name: "Touch Up Booth",
+      //   link: "/PaintBooth",
+      // },
     ],
   },
   {
@@ -238,21 +238,21 @@ const MENU_ITEMS = [
     name: "Paint Cabinet",
     items: [
       {
-        name: "Primer Cabinet 1",
+        name: "Primer Cabinet",
         link: "/PaintCabinet",
       },
-      {
-        name: "Primer Cabinet 2",
-        link: "/PaintCabinet",
-      },
-      {
-        name: "Topcoat Cabinet 1",
-        link: "/PaintCabinet",
-      },
-      {
-        name: "Topcoat Cabinet 2",
-        link: "/PaintCabinet",
-      },
+      // {
+      //   name: "Primer Cabinet 2",
+      //   link: "/PaintCabinet",
+      // },
+      // {
+      //   name: "Topcoat Cabinet 1",
+      //   link: "/PaintCabinet",
+      // },
+      // {
+      //   name: "Topcoat Cabinet 2",
+      //   link: "/PaintCabinet",
+      // },
     ],
   },
   // {

@@ -256,7 +256,7 @@ class Degreasing extends Component {
                * **/
               <MobileView
                 columns={columns}
-                title={"DEGREASING"}
+                title={"DEGREASING(TANK 01)"}
                 data={this.state.tableData}
                 nextData={this.getData}
                 totalCount={this.state.totalCount}
@@ -269,7 +269,7 @@ class Degreasing extends Component {
                * Desktop View
                * **/
               <MUITable
-                title={"DEGREASING(TANK 01) RECORD"}
+                title={"DEGREASING(TANK 01)"}
                 totalCount={this.state.totalCount}
                 data={this.state.tableData.sort(sortByUpdatedAt)}
                 columns={columns}

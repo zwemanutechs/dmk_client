@@ -154,7 +154,7 @@ export default class Graph extends Component {
                                 >
                                     <label
                                         style={{
-                                            color: COLOR.blue,
+                                            color: this.props.LL > this.state.currentValue || this.props.HH < this.state.currentValue ? COLOR.red:COLOR.blue,
                                             fontSize: 28,
                                             fontWeight: "bold",
                                         }}

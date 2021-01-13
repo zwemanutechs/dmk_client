@@ -19,7 +19,7 @@ export const store = createStore(
 );
 // eslint-disable-next-line no-undef
 _mdsp.init({
-    title: "HALCYON",
+    title: "dormakaba",
     appId: "_mdspcontent",
     appInfoPath: "app-info.json"
 });
