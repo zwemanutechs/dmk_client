@@ -33,7 +33,7 @@ class Dashboard extends React.PureComponent{
                 <Grid container spacing={1}>
                     {/* Title */}
                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <div style={{fontSize: 32, marginTop: 5,color:'#0f3790', fontWeight: 900}}>Degreasing Overview</div>
+                        <div style={{fontSize: 32, marginTop: 5,color:'#0f3790', fontWeight: 900}}>Power Wash Dashboard</div>
                     </Grid>
                     {/* T1 Row */}
                     <Grid item xs={12} md={6} lg={3}>

@@ -29,7 +29,7 @@ class OverView extends React.PureComponent{
             <div className={this.props.classes.root}>
                 <Grid container spacing={1}>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <div style={{fontSize: 32, marginTop: 5,color:'#0f3790', fontWeight: 900}}> Ovens, Paint Booth, & Water Treatment Overview</div>
+                        <div style={{fontSize: 32, marginTop: 5,color:'#0f3790', fontWeight: 900}}>Overview-Paint Dashboard</div>
                     </Grid>
                     {/**Row**/}
                     <Grid item xs={12} md={6} lg={6}>

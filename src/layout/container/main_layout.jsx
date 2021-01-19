@@ -238,21 +238,21 @@ const MENU_ITEMS = [
     name: "Paint Cabinet",
     items: [
       {
-        name: "Primer Cabinet",
-        link: "/PaintCabinet",
+        name: "Primer Cabinet 1",
+        link: "/PrimerCabinetOne",
       },
-      // {
-      //   name: "Primer Cabinet 2",
-      //   link: "/PaintCabinet",
-      // },
-      // {
-      //   name: "Topcoat Cabinet 1",
-      //   link: "/PaintCabinet",
-      // },
-      // {
-      //   name: "Topcoat Cabinet 2",
-      //   link: "/PaintCabinet",
-      // },
+      {
+        name: "Primer Cabinet 2",
+        link: "/PrimerCabinetTwo",
+      },
+      {
+        name: "Topcoat Cabinet 1",
+        link: "/TopCabinetOne",
+      },
+      {
+        name: "Topcoat Cabinet 2",
+        link: "/TopCabinetTwo",
+      },
     ],
   },
   // {

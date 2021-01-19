@@ -20,6 +20,8 @@ import ForbiddenPage from "./components/errorPages/403";
 import FactoryLoader from "./assets/images/icons/factoryloader.gif";
 import Grid from "@material-ui/core/Grid";
 import Dashboard from "./components/home/container/dashboard";
+import PaintCabinetTopCabinet1 from "./components/paintcabinet-tc1/container/paintcabinet-tc1";
+import PaintCabinetTopCabinet2 from "./components/paintcabinet-tc2/container/paintcabinet-tc2";
 
 class App extends Component {
     constructor(props) {
@@ -74,8 +76,9 @@ class App extends Component {
                             <Route path="/PaintBooth" render={() => <PaintBooth />} />
                             <Route path="/NeuEvaporator" render={() => <NeuEvaporator />} />
                             <Route path="/Passivation" render={() => <Passivation />} />
-                            <Route path="/PaintCabinet" render={() => <PaintCabinet />} />
                             <Route path="/Conversion" render={() => <Conversion />} />
+                            <Route path="/TopCabinetOne" render={() => <PaintCabinetTopCabinet1 />} />
+                            <Route path="/TopCabinetTwo" render={() => <PaintCabinetTopCabinet2 />} />
                         </MainLayout>
                     )}
                 </Switch>
