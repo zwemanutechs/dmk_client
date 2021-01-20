@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {deleteRange, get, post, put} from "../../../middleware/axios-middleware";
-import {formValidation} from "../../paintCabinet/validator/form-validator";
+import {formValidation} from "../validator/form-validator";
 import {MDUP} from "../../../constants/app-constants";
 import {paintCabinetPrimerCabinet2Model} from "../model/model";
 import Grid from "@material-ui/core/Grid";
@@ -22,7 +22,7 @@ import PaintCabinetPrimerCabinet2AddOrEdit from "./paintcabinet-pc2-addOrEdit";
 const columns = [
     {
         label: "Primer Cabinet2 R12 Temperature",
-        name: "primerCabinet2R12Temperature",
+        name: "primerCabinet2R12Temperture",
     },
     {
         label: "Primer Cabinet2 R12 Humidity",

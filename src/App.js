@@ -14,7 +14,7 @@ import PaintBooth from "./components/paintBooth/container/paintBooth";
 import NeuEvaporator from "./components/neuEvaporator/container/neuEvaporator";
 import Passivation from "./components/passivation/container/passivation";
 import Conversion from "./components/conversion/container/conversion";
-import { client } from "./middleware/axios-middleware";
+import axios from "axios";
 import ForbiddenPage from "./components/errorPages/403";
 import FactoryLoader from "./assets/images/icons/factoryloader.gif";
 import Grid from "@material-ui/core/Grid";
@@ -23,20 +23,25 @@ import PaintCabinetTopCabinet1 from "./components/paintcabinet-tc1/container/pai
 import PaintCabinetTopCabinet2 from "./components/paintcabinet-tc2/container/paintcabinet-tc2";
 import PaintCabinetPrimerCabinet1 from "./components/paintcabinet-pc1/container/paintcabinet-pc1";
 import PaintCabinetPrimerCabinet2 from "./components/paintcabinet-pc2/container/paintcabinet-pc2";
+import {BASEURI} from "./constants/api-constants";
 
 class App extends Component {
     constructor(props) {
         super(props);
         localStorage.clear();
         this.state = {
-            accessToken: "1",
+            accessToken: null,
         };
     }
 
     componentDidMount() {
-        client
+        const httpClient = axios.create({
+            baseURL: BASEURI,
+        });
+        httpClient
             .get("Auth/AuthRequest")
             .then((response) => {
+                console.log(response);
                 if (response && response.status === 200 && response.data.code) {
                     localStorage.setItem("access-data", response.data.data);
                     this.setState({accessToken: response.data.data});
@@ -54,7 +59,7 @@ class App extends Component {
             <React.Fragment>
                 <Switch>
                     <Route exact path="/Forbidden" render={() => <ForbiddenPage />} />
-                    {this.state.accessToken === "" ? (
+                    {this.state.accessToken === null ? (
                         <Grid
                             container
                             direction="column"

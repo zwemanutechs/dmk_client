@@ -38,10 +38,10 @@ class PaintCabinetTopCabinet2AddOrEdit extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            topCabinet2HardenerPressureTankTank3: {
+            topCabinet2HardenerPressureTank3: {
                 valid: true,
                 errorMessage: "",
-                value: this.props.dataSet.topCabinet2HardenerPressureTankTank3,
+                value: this.props.dataSet.topCabinet2HardenerPressureTank3,
             },
             topCabinet2HardenerTank3: {
                 valid: true,
@@ -53,10 +53,10 @@ class PaintCabinetTopCabinet2AddOrEdit extends React.PureComponent {
                 errorMessage: "",
                 value: this.props.dataSet.topCabinet2DiWaterCheck,
             },
-            topCabinet2CabinetTemperature: {
+            topCabinet2CabinetTemperture: {
                 valid: true,
                 errorMessage: "",
-                value: this.props.dataSet.topCabinet2CabinetTemperature,
+                value: this.props.dataSet.topCabinet2CabinetTemperture,
             },
             topCabinet2CabinetHumidity: {
                 valid: true,
@@ -114,20 +114,20 @@ class PaintCabinetTopCabinet2AddOrEdit extends React.PureComponent {
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
                         <NumberFormat
-                            id="topCabinet2HardenerPressureTankTank3"
+                            id="topCabinet2HardenerPressureTank3"
                             label="Top Cabinet2 Hardener Pressure Tank 3, bar"
                             customInput={TextField}
-                            value={this.state.topCabinet2HardenerPressureTankTank3.value}
+                            value={this.state.topCabinet2HardenerPressureTank3.value}
                             fullWidth={true}
                             defaultValue={0.0}
                             onValueChange={(value) =>
                                 this.onChange(
-                                    "topCabinet2HardenerPressureTankTank3",
+                                    "topCabinet2HardenerPressureTank3",
                                     value.floatValue
                                 )
                             }
                             onBlur={(e) =>
-                                this.onBlur("topCabinet2HardenerPressureTankTank3")
+                                this.onBlur("topCabinet2HardenerPressureTank3")
                             }
                             onFocus={(event) => {
                                 event.target.select();
@@ -135,10 +135,10 @@ class PaintCabinetTopCabinet2AddOrEdit extends React.PureComponent {
                             decimalScale={2}
                             thousandSeparator={false}
                             fixedDecimalScale={true}
-                            error={!this.state.topCabinet2HardenerPressureTankTank3.valid}
+                            error={!this.state.topCabinet2HardenerPressureTank3.valid}
                             helperText={
-                                !this.state.topCabinet2HardenerPressureTankTank3.valid
-                                    ? this.state.topCabinet2HardenerPressureTankTank3.errorMessage
+                                !this.state.topCabinet2HardenerPressureTank3.valid
+                                    ? this.state.topCabinet2HardenerPressureTank3.errorMessage
                                     : ""
                             }
                             disabled={this.props.onFormSubmit}
@@ -209,23 +209,23 @@ class PaintCabinetTopCabinet2AddOrEdit extends React.PureComponent {
                             id="topCabinet2CabinetTemperature"
                             label="Top Cabinet2 Cabinet Temperature, oC"
                             customInput={TextField}
-                            value={this.state.topCabinet2CabinetTemperature.value}
+                            value={this.state.topCabinet2CabinetTemperture.value}
                             fullWidth={true}
                             defaultValue={0.0}
                             onValueChange={(value) =>
-                                this.onChange("topCabinet2CabinetTemperature", value.floatValue)
+                                this.onChange("topCabinet2CabinetTemperture", value.floatValue)
                             }
-                            onBlur={(e) => this.onBlur("topCabinet2CabinetTemperature")}
+                            onBlur={(e) => this.onBlur("topCabinet2CabinetTemperture")}
                             onFocus={(event) => {
                                 event.target.select();
                             }}
                             decimalScale={2}
                             thousandSeparator={false}
                             fixedDecimalScale={true}
-                            error={!this.state.topCabinet2CabinetTemperature.valid}
+                            error={!this.state.topCabinet2CabinetTemperture.valid}
                             helperText={
-                                !this.state.topCabinet2CabinetTemperature.valid
-                                    ? this.state.topCabinet2CabinetTemperature.errorMessage
+                                !this.state.topCabinet2CabinetTemperture.valid
+                                    ? this.state.topCabinet2CabinetTemperture.errorMessage
                                     : ""
                             }
                             disabled={this.props.onFormSubmit}
@@ -293,7 +293,7 @@ class PaintCabinetTopCabinet2AddOrEdit extends React.PureComponent {
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
                         <NumberFormat
-                            id="topCabinet2PaintTestTemperature"
+                            id="topCabinet2CabinetTestTemperature"
                             label="Top Cabinet2 Paint Test Temperature, oC"
                             customInput={TextField}
                             value={this.state.topCabinet2PaintTestTemperature.value}

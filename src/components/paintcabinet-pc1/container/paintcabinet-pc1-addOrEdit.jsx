@@ -78,10 +78,10 @@ class PaintCabinetPrimerCabinet1AddOrEdit extends React.PureComponent {
                 errorMessage: "",
                 value: this.props.dataSet.primerCabinet1HardenerTank3,
             },
-            primerCabinet1UndonLightInspection: {
+            primerCabinet1UndonLightInscpection: {
                 valid: true,
                 errorMessage: "",
-                value: this.props.dataSet.primerCabinet1UndonLightInspection,
+                value: this.props.dataSet.primerCabinet1UndonLightInscpection,
             },
             primerCabinet1PaintTestTemperature: {
                 valid: true,
@@ -291,15 +291,15 @@ class PaintCabinetPrimerCabinet1AddOrEdit extends React.PureComponent {
                             <Grid item>Not Ok</Grid>
                             <Grid item>
                                 <Switch
-                                    checked={this.state.primerCabinet1UndonLightInspection.value}
+                                    checked={this.state.primerCabinet1UndonLightInscpection.value}
                                     onChange={(event) => {
                                         this.onChange(
-                                            "primerCabinet1UndonLightInspection",
+                                            "primerCabinet1UndonLightInscpection",
                                             event.target.checked
                                         );
-                                        this.onBlur("primerCabinet1UndonLightInspection");
+                                        this.onBlur("primerCabinet1UndonLightInscpection");
                                     }}
-                                    name="primerCabinet1UndonLightInspection"
+                                    name="primerCabinet1UndonLightInscpection"
                                 />
                             </Grid>
                             <Grid item>Ok</Grid>

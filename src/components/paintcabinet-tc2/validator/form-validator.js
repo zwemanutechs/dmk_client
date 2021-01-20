@@ -3,7 +3,7 @@ import {validate} from "revalidator";
 export const formValidation = formFields => {
     return validate(formFields, {
         properties: {
-            topCabinet2HardenerPressureTankTank3: {
+            topCabinet2HardenerPressureTank3: {
                 description: 'Top Cabinet2 Hardener Pressure Tank3',
                 type: 'number',
                 required: true,
@@ -45,7 +45,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet2CabinetTemperature: {
+            topCabinet2CabinetTemperture: {
                 description: 'Top Cabinet2 Cabinet Temperature',
                 type: 'number',
                 required: true,

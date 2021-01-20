@@ -1,6 +1,6 @@
 export const paintCabinetPrimerCabinet2Model = {
     primerCabinet2UndonLightInspection: false,
-    primerCabinet2R12Temperature: 0.00,
+    primerCabinet2R12Temperture: 0.00,
     primerCabinet2HardenerTank3: 0.00,
     primerCabinet2PaintTestTemperature: 0.00,
     primerCabinet2BlackPrimerInletTank2: 0.00,

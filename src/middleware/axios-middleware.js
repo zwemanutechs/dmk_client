@@ -13,10 +13,10 @@ import { BASEURI } from "../constants/api-constants";
 
 export const client = axios.create({
   baseURL: BASEURI,
-  headers: {
-    AccessToken:
-        "eyJJZCI6ImUzYzZmODNmLTI0ZjMtNDUzNy05MTE3LWY1ZmJkMGYxMmRmMCIsIlJvbGUiOiI2ODdkOGJlMi0wNDAzLTQ0NTctOWIxYi0xMGQ4YTljNGYxMjcifQ==",
-  },
+  // headers: {
+  //   AccessToken: localStorage.getItem('access-data'),
+  //       //"eyJJZCI6ImUzYzZmODNmLTI0ZjMtNDUzNy05MTE3LWY1ZmJkMGYxMmRmMCIsIlJvbGUiOiI2ODdkOGJlMi0wNDAzLTQ0NTctOWIxYi0xMGQ4YTljNGYxMjcifQ==",
+  // },
 });
 
 client.interceptors.response.use(
@@ -44,7 +44,11 @@ client.interceptors.response.use(
  * Make Get Request
  * ***/
 export const get = (url) => {
-  return client.get(url);
+  const accessToken = localStorage.getItem('access-data');
+  return client.get(url, {
+    headers:{
+      AccessToken: accessToken
+    }});
 };
 
 /**
@@ -60,7 +64,11 @@ export const getFromOtherOrigin = (url) => {
 export const post = async (url, payload) => {
   payload.CreatedAt = new Date();
   payload.UpdatedAt = new Date();
-  const response = await client.post(url, payload);
+  const accessToken = localStorage.getItem('access-data');
+  const response = await client.post(url, payload, {
+    headers:{
+      AccessToken: accessToken
+    }});
   if (response && response.data.code) {
     store.dispatch({
       type: OPEN_SNACK,
@@ -77,7 +85,11 @@ export const post = async (url, payload) => {
  * ***/
 export const put = async (url, payload) => {
   payload.UpdatedAt = new Date();
-  const response = await client.put(url, payload);
+  const accessToken = localStorage.getItem('access-data');
+  const response = await client.put(url, payload, {
+    headers:{
+      AccessToken: accessToken
+    }});
   if (response && response.data.code) {
     store.dispatch({
       type: OPEN_SNACK,
@@ -93,7 +105,11 @@ export const put = async (url, payload) => {
  * Make Delete Request
  * ***/
 export const deleteSingle = async (url) => {
-  const response = await client.delete(url);
+  const accessToken = localStorage.getItem('access-data');
+  const response = await client.delete(url, {
+    headers:{
+      AccessToken: accessToken
+    }});
   if (response && response.data.code) {
     store.dispatch({
       type: OPEN_SNACK,
@@ -109,7 +125,11 @@ export const deleteSingle = async (url) => {
  * Make Multiple Records Deletion Request
  * ***/
 export const deleteRange = async (url, payload) => {
-  const response = await client.post(url, payload);
+  const accessToken = localStorage.getItem('access-data');
+  const response = await client.post(url, payload, {
+    headers:{
+      AccessToken: accessToken
+    }});
   if (response && response.data.code) {
     store.dispatch({
       type: OPEN_SNACK,

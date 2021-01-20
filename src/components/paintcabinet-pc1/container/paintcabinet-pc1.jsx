@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {deleteRange, get, post, put} from "../../../middleware/axios-middleware";
-import {formValidation} from "../../paintCabinet/validator/form-validator";
+import {formValidation} from "../validator/form-validator";
 import {MDUP} from "../../../constants/app-constants";
 import {paintCabinetPrimerCabinet1Model} from "../model/model";
 import Grid from "@material-ui/core/Grid";
@@ -42,7 +42,7 @@ const columns = [
     },
     {
         label: "Primer Cabinet1 Undon Light Inspection",
-        name: "primerCabinet1UndonLightInspection",
+        name: "primerCabinet1UndonLightInscpection",
         options: {
             filter: false,
             customBodyRender: (value, tableMeta, updateValue) => (

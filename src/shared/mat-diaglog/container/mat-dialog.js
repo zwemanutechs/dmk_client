@@ -51,7 +51,7 @@ function MaxWidthDialog(props) {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     return (
-        <div style={{minWidth: 400}}>
+        <div style={{minWidth: 400, marginTop: 50}}>
             <Dialog
                 fullScreen={fullScreen}
                 disableBackdropClick={true}

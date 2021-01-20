@@ -31,7 +31,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet1PaintTestVisocity: {
+            topCabinet1CabinetTestVisocity: {
                 description: 'Top Cabinet1 Paint Test Visocity',
                 type: 'number',
                 required: true,
@@ -45,7 +45,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet1PaintTestTemperature: {
+            topCabinet1CabinetTestTemperature: {
                 description: 'Top Cabinet1 Paint Test Visocity',
                 type: 'number',
                 required: true,
@@ -59,7 +59,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet1DiWaterCheck: {
+            topCabinet1CabinetDiWaterCheck: {
                 description: 'Top Cabinet1 DI Water Check',
                 type: 'number',
                 required: true,
@@ -73,7 +73,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet1AndonLightInspection: {
+            topCabinet1CabinetAndonLightInspection: {
                 description: 'Top Cabinet1 Andon Light Inspection',
                 type: 'boolean',
                 required: true,
@@ -87,7 +87,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet1P600InletTank1: {
+            topCabinet1CabinetP600InletTank1: {
                 description: 'Top Cabinet1 P600 Inlet Tank1',
                 type: 'number',
                 required: true,
@@ -101,7 +101,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet1P600OutletTank1: {
+            topCabinet1CabinetP600OutletTank1: {
                 description: 'Top Cabinet1 P600 Outlet Tank1',
                 type: 'number',
                 required: true,
@@ -115,7 +115,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet1P190InletTank2: {
+            topCabinet1CabinetP190InletTank2: {
                 description: 'Top Cabinet1 P190 Inlet Tank2',
                 type: 'number',
                 required: true,
@@ -129,7 +129,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet1P190OutletTank2: {
+            topCabinet1CabinetP190OutletTank2: {
                 description: 'Top Cabinet1 P190 Outlet Tank2',
                 type: 'number',
                 required: true,
@@ -143,7 +143,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet1P100InletTank3: {
+            topCabinet1CabinetP100InletTank3: {
                 description: 'Top Cabinet1 P100 Inlet Tank3',
                 type: 'number',
                 required: true,
@@ -157,7 +157,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet1P100OutletTank3: {
+            topCabinet1CabinetP100OutletTank3: {
                 description: 'Top Cabinet1 P100 Outlet Tank3',
                 type: 'number',
                 required: true,
@@ -171,7 +171,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet1P020InletTank4: {
+            topCabinet1CabinetP020InletTank4: {
                 description: 'Top Cabinet1 P020 Inlet Tank4',
                 type: 'number',
                 required: true,
@@ -185,7 +185,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            topCabinet1P020OutletTank2: {
+            topCabinet1CabinetP020OutletTank2: {
                 description: 'Top Cabinet1 P020 Outlet Tank2',
                 type: 'number',
                 required: true,

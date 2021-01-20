@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {deleteRange, get, post, put} from "../../../middleware/axios-middleware";
-import {formValidation} from "../../paintCabinet/validator/form-validator";
+import {formValidation} from "../validator/form-validator";
 import {MDUP} from "../../../constants/app-constants";
 import {paintCabinetTopCabinet2Model} from "../model/model";
 import Grid from "@material-ui/core/Grid";
@@ -22,13 +22,13 @@ import {openSpinner} from "../../../shared/spinner/actions/spinner-actions";
 const columns = [
     {
         label: "Top Cabinet2 Hardener Pressure Tank3",
-        name: "topCabinet2HardenerPressureTankTank3",
+        name: "topCabinet2HardenerPressureTank3",
     },
     { label: "Top Cabinet2 Hardener Tank3", name: "topCabinet2HardenerTank3" },
     { label: "Top Cabinet2 Di Water Check", name: "topCabinet2DiWaterCheck" },
     {
         label: "Top Cabinet2 Cabinet Temperature",
-        name: "topCabinet2CabinetTemperature",
+        name: "topCabinet2CabinetTemperture",
     },
     {
         label: "Top Cabinet2 Cabinet Humidity",

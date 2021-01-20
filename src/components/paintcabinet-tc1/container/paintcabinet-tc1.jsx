@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {deleteRange, get, post, put} from "../../../middleware/axios-middleware";
-import {formValidation} from "../../paintCabinet/validator/form-validator";
+import {formValidation} from "../validator/form-validator";
 import {MDUP} from "../../../constants/app-constants";
 import {paintCabinetTopCabinet1Model} from "../model/model";
 import Grid from "@material-ui/core/Grid";
@@ -30,16 +30,19 @@ const columns = [
     },
     {
         label: "Top Cabinet1 Paint Test Visocity",
-        name: "topCabinet1PaintTestVisocity",
+        name: "topCabinet1CabinetTestVisocity",
     },
     {
-        label: "Top Cabinet1 Paint Test Visocity",
-        name: "topCabinet1PaintTestTemperature",
+        label: "Top Cabinet1 Paint Test Temperature",
+        name: "topCabinet1CabinetTestTemperature",
     },
-    { label: "Top Cabinet1 DI Water Check", name: "topCabinet1DiWaterCheck" },
+    {
+        label: "Top Cabinet1 DI Water Check",
+        name: "topCabinet1CabinetDiWaterCheck"
+    },
     {
         label: "Top Cabinet1 Andon Light Inspection",
-        name: "topCabinet1AndonLightInspection",
+        name: "topCabinet1CabinetAndonLightInspection",
         options: {
             filter: false,
             customBodyRender: (value, tableMeta, updateValue) => (
@@ -47,25 +50,25 @@ const columns = [
             ),
         },
     },
-    { label: "Top Cabinet1 P600 Inlet Tank1", name: "topCabinet1P600InletTank1" },
+    { label: "Top Cabinet1 P600 Inlet Tank1", name: "topCabinet1CabinetP600InletTank1" },
     {
         label: "Top Cabinet1 P600 Outlet Tank1",
-        name: "topCabinet1P600OutletTank1",
+        name: "topCabinet1CabinetP600OutletTank1",
     },
-    { label: "Top Cabinet1 P190 Inlet Tank2", name: "topCabinet1P190InletTank2" },
+    { label: "Top Cabinet1 P190 Inlet Tank2", name: "topCabinet1CabinetP190InletTank2" },
     {
         label: "Top Cabinet1 P190 Outlet Tank2",
-        name: "topCabinet1P190OutletTank2",
+        name: "topCabinet1CabinetP190OutletTank2",
     },
-    { label: "Top Cabinet1 P100 Inlet Tank3", name: "topCabinet1P100InletTank3" },
+    { label: "Top Cabinet1 P100 Inlet Tank3", name: "topCabinet1CabinetP100InletTank3" },
     {
         label: "Top Cabinet1 P100 Outlet Tank3",
-        name: "topCabinet1P100OutletTank3",
+        name: "topCabinet1CabinetP100OutletTank3",
     },
-    { label: "Top Cabinet1 P020 Inlet Tank4", name: "topCabinet1P020InletTank4" },
+    { label: "Top Cabinet1 P020 Inlet Tank4", name: "topCabinet1CabinetP020InletTank4" },
     {
         label: "Top Cabinet1 P020 Outlet Tank2",
-        name: "topCabinet1P020OutletTank2",
+        name: "topCabinet1CabinetP020OutletTank2",
     },
     {
         label: "Updated At",

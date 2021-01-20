@@ -115,7 +115,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            primerCabinet1UndonLightInspection: {
+            primerCabinet1UndonLightInscpection: {
                 description: 'Primer Cabinet1 Undon Light Inspection',
                 type: 'boolean',
                 required: true,

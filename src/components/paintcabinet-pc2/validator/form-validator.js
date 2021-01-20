@@ -17,7 +17,7 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            primerCabinet2R12Temperature: {
+            primerCabinet2R12Temperture: {
                 description: 'Primer Cabinet2 R12 Temperature',
                 type: 'number',
                 required: true,

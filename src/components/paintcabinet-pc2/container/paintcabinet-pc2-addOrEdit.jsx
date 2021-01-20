@@ -43,10 +43,10 @@ class PaintCabinetPrimerCabinet2AddOrEdit extends React.PureComponent {
                 errorMessage: "",
                 value: this.props.dataSet.primerCabinet2UndonLightInspection,
             },
-            primerCabinet2R12Temperature: {
+            primerCabinet2R12Temperture: {
                 valid: true,
                 errorMessage: "",
-                value: this.props.dataSet.primerCabinet2R12Temperature,
+                value: this.props.dataSet.primerCabinet2R12Temperture,
             },
             primerCabinet2HardenerTank3: {
                 valid: true,
@@ -137,23 +137,23 @@ class PaintCabinetPrimerCabinet2AddOrEdit extends React.PureComponent {
                             id="primerCabinet2R12Temperature"
                             label="Primer Cabinet2 R12 Temperature, oC"
                             customInput={TextField}
-                            value={this.state.primerCabinet2R12Temperature.value}
+                            value={this.state.primerCabinet2R12Temperture.value}
                             fullWidth={true}
                             defaultValue={0.0}
                             onValueChange={(value) =>
-                                this.onChange("primerCabinet2R12Temperature", value.floatValue)
+                                this.onChange("primerCabinet2R12Temperture", value.floatValue)
                             }
-                            onBlur={(e) => this.onBlur("primerCabinet2R12Temperature")}
+                            onBlur={(e) => this.onBlur("primerCabinet2R12Temperture")}
                             onFocus={(event) => {
                                 event.target.select();
                             }}
                             decimalScale={2}
                             thousandSeparator={false}
                             fixedDecimalScale={true}
-                            error={!this.state.primerCabinet2R12Temperature.valid}
+                            error={!this.state.primerCabinet2R12Temperture.valid}
                             helperText={
-                                !this.state.primerCabinet2R12Temperature.valid
-                                    ? this.state.primerCabinet2R12Temperature.errorMessage
+                                !this.state.primerCabinet2R12Temperture.valid
+                                    ? this.state.primerCabinet2R12Temperture.errorMessage
                                     : ""
                             }
                             disabled={this.props.onFormSubmit}
