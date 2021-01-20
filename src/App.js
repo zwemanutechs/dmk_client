@@ -13,7 +13,6 @@ import Spinner from "./shared/spinner/container/spinner";
 import PaintBooth from "./components/paintBooth/container/paintBooth";
 import NeuEvaporator from "./components/neuEvaporator/container/neuEvaporator";
 import Passivation from "./components/passivation/container/passivation";
-import PaintCabinet from "./components/paintCabinet/container/paintCabinet";
 import Conversion from "./components/conversion/container/conversion";
 import { client } from "./middleware/axios-middleware";
 import ForbiddenPage from "./components/errorPages/403";
@@ -22,6 +21,8 @@ import Grid from "@material-ui/core/Grid";
 import Dashboard from "./components/home/container/dashboard";
 import PaintCabinetTopCabinet1 from "./components/paintcabinet-tc1/container/paintcabinet-tc1";
 import PaintCabinetTopCabinet2 from "./components/paintcabinet-tc2/container/paintcabinet-tc2";
+import PaintCabinetPrimerCabinet1 from "./components/paintcabinet-pc1/container/paintcabinet-pc1";
+import PaintCabinetPrimerCabinet2 from "./components/paintcabinet-pc2/container/paintcabinet-pc2";
 
 class App extends Component {
     constructor(props) {
@@ -79,6 +80,8 @@ class App extends Component {
                             <Route path="/Conversion" render={() => <Conversion />} />
                             <Route path="/TopCabinetOne" render={() => <PaintCabinetTopCabinet1 />} />
                             <Route path="/TopCabinetTwo" render={() => <PaintCabinetTopCabinet2 />} />
+                            <Route path="/PrimerCabinetOne" render={() => <PaintCabinetPrimerCabinet1 />} />
+                            <Route path="/PrimerCabinetTwo" render={() => <PaintCabinetPrimerCabinet2 />} />
                         </MainLayout>
                     )}
                 </Switch>

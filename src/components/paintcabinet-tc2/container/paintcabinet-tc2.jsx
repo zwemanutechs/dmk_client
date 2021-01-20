@@ -52,6 +52,26 @@ const columns = [
             ),
         },
     },
+    {
+        label: "Updated At",
+        name: "updatedat",
+        options: {
+            filter: false,
+            customBodyRender: (value, tableMeta, updateValue) => (
+                <span>
+          {new Date(value).toLocaleString("en-GB", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+              second: "numeric",
+          })}
+        </span>
+            ),
+        },
+    },
+    { label: "Updated By", name: "updatedby" },
 ]
 class PaintCabinetTopCabinet2 extends React.PureComponent{
 

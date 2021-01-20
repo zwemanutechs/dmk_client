@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {deleteRange, get, post, put} from "../../../middleware/axios-middleware";
 import {formValidation} from "../../paintCabinet/validator/form-validator";
 import {MDUP} from "../../../constants/app-constants";
-import {paintCabinetTopCabinet1Model} from "../model/model";
+import {paintCabinetPrimerCabinet1Model} from "../model/model";
 import Grid from "@material-ui/core/Grid";
 import {isWidthDown, withWidth} from "@material-ui/core";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
@@ -12,34 +12,37 @@ import {tableCustomizeToolBarSingleSelect} from "../../../constants/table-consta
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import MaxWidthDialog from "../../../shared/mat-diaglog/container/mat-dialog";
-import PaintCabinetTopCabinet1AddOrEdit from "./paintcabinet-tc1-addOrEdit";
 import compose from "recompose/compose";
 import {connect} from "react-redux";
 import {closeDialog, openDialog} from "../../../shared/mat-diaglog/actions/maxDialog-action";
 import {closeSnack, openSnack} from "../../../shared/snackbar/actions/snackbar-actions";
 import {openSpinner} from "../../../shared/spinner/actions/spinner-actions";
+import PaintCabinetPrimerCabinet1AddOrEdit from "./paintcabinet-pc1-addOrEdit";
 
 const columns = [
     {
-        label: "Top Cabinet1 Cabinet Temperature",
-        name: "topCabinet1CabinetTemperature",
+        label: "Primer Cabinet1 R11 Temperature",
+        name: "primerCabinet1R11Temperature",
     },
     {
-        label: "Top Cabinet1 Cabinet Humidity",
-        name: "topCabinet1CabinetHumidity",
+        label: "Primer Cabinet1 R11 Humidity",
+        name: "primerCabinet1R11Humidity"
     },
     {
-        label: "Top Cabinet1 Paint Test Visocity",
-        name: "topCabinet1PaintTestVisocity",
+        label: "Primer Cabinet1 Paint Test Viscosity",
+        name: "primerCabinet1PaintTestViscosity",
     },
     {
-        label: "Top Cabinet1 Paint Test Visocity",
-        name: "topCabinet1PaintTestTemperature",
+        label: "Primer Cabinet1 Paint Test Temperature",
+        name: "primerCabinet1PaintTestTemperature",
     },
-    { label: "Top Cabinet1 DI Water Check", name: "topCabinet1DiWaterCheck" },
     {
-        label: "Top Cabinet1 Andon Light Inspection",
-        name: "topCabinet1AndonLightInspection",
+        label: "Primer Cabinet1 Di Water Check",
+        name: "primerCabinet1DiWaterCheck",
+    },
+    {
+        label: "Primer Cabinet1 Undon Light Inspection",
+        name: "primerCabinet1UndonLightInspection",
         options: {
             filter: false,
             customBodyRender: (value, tableMeta, updateValue) => (
@@ -47,25 +50,29 @@ const columns = [
             ),
         },
     },
-    { label: "Top Cabinet1 P600 Inlet Tank1", name: "topCabinet1P600InletTank1" },
     {
-        label: "Top Cabinet1 P600 Outlet Tank1",
-        name: "topCabinet1P600OutletTank1",
+        label: "Primer Cabinet1 White Primer Inlet Tank1",
+        name: "primerCabinet1WhitePrimerInletTank1",
     },
-    { label: "Top Cabinet1 P190 Inlet Tank2", name: "topCabinet1P190InletTank2" },
     {
-        label: "Top Cabinet1 P190 Outlet Tank2",
-        name: "topCabinet1P190OutletTank2",
+        label: "Primer Cabinet1 White Primer Outlet Tank1",
+        name: "primerCabinet1WhitePrimerOutletTank1",
     },
-    { label: "Top Cabinet1 P100 Inlet Tank3", name: "topCabinet1P100InletTank3" },
     {
-        label: "Top Cabinet1 P100 Outlet Tank3",
-        name: "topCabinet1P100OutletTank3",
+        label: "Primer Cabinet1 Black Primer Inlet Tank2",
+        name: "primerCabinet1BlackPrimerInletTank2",
     },
-    { label: "Top Cabinet1 P020 Inlet Tank4", name: "topCabinet1P020InletTank4" },
     {
-        label: "Top Cabinet1 P020 Outlet Tank2",
-        name: "topCabinet1P020OutletTank2",
+        label: "Primer Cabinet1 Black Primer Outlet Tank2",
+        name: "primerCabinet1BlackPrimerOutletTank2",
+    },
+    {
+        label: "Primer Cabinet1 Hardener Tank3",
+        name: "primerCabinet1HardenerTank3",
+    },
+    {
+        label: "Primer Cabinet1 Hardener Pressure Tank3",
+        name: "primerCabinet1HardenerPressureTank3",
     },
     {
         label: "Updated At",
@@ -88,14 +95,14 @@ const columns = [
     },
     { label: "Updated By", name: "updatedby" },
 ]
-class PaintCabinetTopCabinet1 extends React.PureComponent{
+class PaintCabinetPrimerCabinet1 extends React.PureComponent{
 
     constructor(props) {
         super(props);
         this.state = {
             tableData: [],
             totalCount: 0,
-            formData: paintCabinetTopCabinet1Model,
+            formData: paintCabinetPrimerCabinet1Model,
             formError: [],
             loading: true,
             onProgress: false,
@@ -111,7 +118,7 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
      * **/
     getData = async (pageNo) => {
         const response = await get(
-            `paintCabinetTC1?pageNo=${pageNo === undefined ? 0 : pageNo}&pageSize=${10}`
+            `paintCabinetPC1?pageNo=${pageNo === undefined ? 0 : pageNo}&pageSize=${10}`
         );
         if (response) {
             this.setState((state) => ({
@@ -144,7 +151,7 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
             this.setState({ formError: hasError, onProgress: false });
         } else {
             if (this.props.title === "UPDATE") {
-                const response = await put("paintCabinetTC1/update", this.state.formData);
+                const response = await put("paintCabinetPC1/update", this.state.formData);
                 if (response && response.data.code) {
                     const dataIndex = this.state.tableData.findIndex((x) => x.id === response.data.data.id);
                     if (dataIndex >= 0) {
@@ -153,7 +160,7 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
                         this.setState(
                             (state) => ({
                                 tableData: [...tableData, response.data.data],
-                                formData: paintCabinetTopCabinet1Model,
+                                formData: paintCabinetPrimerCabinet1Model,
                                 onProgress: false,
                             }),
                             () => this.props.closeDialog(false, "")
@@ -161,12 +168,12 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
                     }
                 }
             } else {
-                const response = await post("paintCabinetTC1/add", this.state.formData);
+                const response = await post("paintCabinetPC1/add", this.state.formData);
                 if (response && response.data.code) {
                     this.setState(
                         (state) => ({
                             tableData: [response.data.data, ...state.tableData],
-                            formData: paintCabinetTopCabinet1Model,
+                            formData: paintCabinetPrimerCabinet1Model,
                             onProgress: false,
                             totalCount: state.totalCount + 1,
                         }),
@@ -208,7 +215,7 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
                     }
                 });
                 const response = await deleteRange(
-                    "paintCabinetTC1/deleterange",
+                    "paintCabinetPC1/deleterange",
                     deleteList
                 );
                 if (response && response.data.code) {
@@ -259,7 +266,7 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
      * **/
     onFormClose = async () => {
         await this.props.closeDialog(false, "");
-        this.setState((state) => ({ formData: paintCabinetTopCabinet1Model }));
+        this.setState((state) => ({ formData: paintCabinetPrimerCabinet1Model }));
     };
 
     render() {
@@ -278,7 +285,7 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
                              * **/
                             <MobileView
                                 columns={columns}
-                                title={"TOPCOAT CABINET 1"}
+                                title={"PRIMER CABINET 1"}
                                 data={this.state.tableData}
                                 nextData={this.getData}
                                 totalCount={this.state.totalCount}
@@ -291,7 +298,7 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
                              * Desktop View
                              * **/
                             <MUITable
-                                title={"TOPCOAT CABINET 1"}
+                                title={"PRIMER CABINET 1"}
                                 totalCount={this.state.totalCount}
                                 data={this.state.tableData.sort(sortByUpdatedAt)}
                                 columns={columns}
@@ -338,14 +345,14 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
                      * **/}
                     <MaxWidthDialog
                         content={
-                            <PaintCabinetTopCabinet1AddOrEdit
+                            <PaintCabinetPrimerCabinet1AddOrEdit
                                 dataSet={this.state.formData}
                                 handelChange={this.handelChange}
                                 onFormSubmit={this.state.onProgress}
                                 formError={this.state.formError}
                             />
                         }
-                        contentTitle={"TOPCOAT CABINET 1"}
+                        contentTitle={"PRIMER CABINET 1"}
                         formClose={this.onFormClose}
                         formSubmit={this.handelFormSubmit}
                         onFormSubmit={this.state.onProgress}
@@ -370,4 +377,4 @@ export default compose(
         closeSnack,
         openSpinner,
     })
-)(PaintCabinetTopCabinet1)
+)(PaintCabinetPrimerCabinet1)
