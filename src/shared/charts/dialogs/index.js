@@ -64,22 +64,25 @@ class Dialogs extends Component {
       if(this.state.tabIndex === 0){
           from = new Date(new Date(new Date(new Date().setDate(new Date().getDate() - 7))));
           to = lastDayOfMonth(new Date());
-          limit = parseInt(limit * 1);
-          this.fetchTimeSeriesData(from,to, limit);
+          limit = parseInt(limit * 4);
+          this.fetchAgreegateData(from,to, limit);
+          //this.fetchTimeSeriesData(from,to, limit);
       }else if(this.state.tabIndex === 1){
           from = new Date(new Date(new Date(new Date().setDate(new Date().getDate() - 30))));
           to = lastDayOfMonth(new Date());
-          limit = parseInt(limit * 1);
-          this.fetchTimeSeriesData(from,to, limit);
+          limit = parseInt(limit * 4);
+          this.fetchAgreegateData(from,to, limit);
+          //this.fetchTimeSeriesData(from,to, limit);
       }else if(this.state.tabIndex === 2){
           from = new Date(new Date().setMonth(new Date().getMonth()-2));
           to = new Date();
-          limit = parseInt(limit * 2);
-          this.fetchTimeSeriesData(from,to, limit);
+          limit = parseInt(limit * 4);
+          this.fetchAgreegateData(from,to, limit);
+          //this.fetchTimeSeriesData(from,to, limit);
       }else{
           from = new Date(new Date().setMonth(new Date().getMonth()-2));
           to = new Date();
-          limit = parseInt(limit * 3);
+          limit = parseInt(limit * 4);
           this.fetchAgreegateData(from,to, limit);
       }
 
@@ -94,7 +97,7 @@ class Dialogs extends Component {
           const response  = await loadDataByGivenDate(from, to,this.props.assetId, this.props.aspectName,this.props.parameterName, limit);
           if(response && response.data && Array.isArray(response.data) && response.data.length > 0) {
               const yDataKeys = [...this.state.keys, this.props.parameterName];
-              this.setState({data: response.data, xDataKey: '_time', keys: yDataKeys});
+              this.setState({data: response.data.reverse(), xDataKey: '_time', keys: yDataKeys});
           }
       }else{
           const fromDate = format(from, 'yyyy-MM-dd\'T\'HH:mm:ss');
@@ -102,7 +105,7 @@ class Dialogs extends Component {
           const response = await get(`${this.props.pathName}/${this.props.endPoint}/${fromDate}/${toDate}/${limit}`);
           if(response && response.data && response.data.code && Array.isArray(response.data.data) && response.data.data.length > 0) {
               const yDataKeys = [...this.state.keys, 'data'];
-              this.setState({data: response.data.data, xDataKey: 'time', keys: yDataKeys});
+              this.setState({data: response.data.data.reverse(), xDataKey: 'time', keys: yDataKeys});
           }
       }
   }
@@ -117,7 +120,7 @@ class Dialogs extends Component {
               const aggreateData = response.data.aggregates.map((ag) => {
                   return {data: ag[this.props.parameterName]['lastvalue'], time: ag.endtime}
               })
-              this.setState({data: aggreateData, xDataKey: 'time', keys:yDataKeys});
+              this.setState({data: aggreateData.reverse(), xDataKey: 'time', keys:yDataKeys});
           }
       }else{
           const fromDate = format(from, 'yyyy-MM-dd\'T\'HH:mm:ss');
@@ -125,7 +128,7 @@ class Dialogs extends Component {
           const response = await get(`${this.props.pathName}/${this.props.endPoint}/${fromDate}/${toDate}/${limit}`);
           if(response && response.data && response.data.code && Array.isArray(response.data.data) && response.data.data.length > 0) {
               const yDataKeys = [...this.state.keys, 'data'];
-              this.setState({data: response.data.data, xDataKey: 'time', keys:yDataKeys});
+              this.setState({data: response.data.data.reverse(), xDataKey: 'time', keys:yDataKeys});
           }
       }
   }
@@ -175,7 +178,7 @@ class Dialogs extends Component {
                   <Box p={3}>
                       <AppLineChart
                           width={730}
-                          height={450}
+                          height={480}
                           data={this.state.data}
                           keys={this.state.keys}
                           xDataKey={this.state.xDataKey}

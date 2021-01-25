@@ -1,17 +1,15 @@
 import React, {Component, PureComponent, useEffect} from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { lineChartFetchData } from '../actions/lineChart-actions';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine } from 'recharts';
 import {colours} from '../../chart-constants';
-import {connect} from "react-redux";
 
 class CustomizedLabel extends PureComponent {
     render() {
         const {
             x, y, stroke, value,
         } = this.props;
-
         return <text x={x} y={y} dy={-4} fill={stroke} fontSize={12} textAnchor="middle">{value}</text>;
+
     }
 }
 
@@ -20,12 +18,21 @@ class CustomizedAxisTick extends PureComponent {
         const {
             x, y, stroke, payload,
         } = this.props;
+        const timeStamp = Date.parse(payload.value);
+        if(isNaN(timeStamp) === false){
+            return (
+                <g transform={`translate(${x},${y})`}>
+                    <text x={0} y={0} dy={3} textAnchor="end" fill="#666" transform="rotate(-35)">{new Date(payload.value).toLocaleDateString()}</text>
+                </g>
+            );
+        }else{
+            return (
+                <g transform={`translate(${x},${y})`}>
+                    <text x={0} y={0} dy={3} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
+                </g>
+            );
+        }
 
-        return (
-            <g transform={`translate(${x},${y})`}>
-                <text x={0} y={0} dy={3} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
-            </g>
-        );
     }
 }
 
@@ -41,7 +48,7 @@ function AppLineChart(props) {
             ? <Skeleton variant="rect" width={props.width} height={props.height}/>
             :<LineChart width={props.width} height={props.height} data={props.data} margin={{top: 5, bottom: 5, right: 1, left: 1}}>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis interval="preserveStartEnd" dataKey={props.xDataKey} fontSize={12} height={20} allowDuplicatedCategory={false} />
+                        <XAxis interval="preserveEnd" dataKey={props.xDataKey} height={70} allowDuplicatedCategory={false} tick={<CustomizedAxisTick />}/>
                         <YAxis interval="preserveStartEnd" width={90} allowDuplicatedCategory={false} tickCount={10} domain={['auto', 'auto']}/>
                         {
                             Array.isArray(props.referenceLineData) && props.referenceLineData.length > 0

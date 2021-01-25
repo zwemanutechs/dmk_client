@@ -31,7 +31,8 @@ class CircleGauge extends Component{
         this.state = {
             isFetching: true,
             dialogOpen: false,
-            data: 0.00
+            data: 0.00,
+            isEmpty: false,
         }
     }
 
@@ -56,14 +57,14 @@ class CircleGauge extends Component{
             if(response && response.data && response.data.code && Array.isArray(response.data.data) && response.data.data.length > 0) {
                 this.setState(state => ({data: response.data.data[0][this.props.variableName], isFetching: false}));
             }else{
-                this.setState(state => ({isFetching: false, data: 0}));
+                this.setState(state => ({isFetching: false, data: this.props.min, isEmpty: true}));
             }
         }else{
             const response = await loadLatestValue(this.props.assetId, this.props.aspectName, this.props.parameterName);
             if(response && response.data && Array.isArray(response.data) && response.data.length > 0 ){
                 this.setState(state => ({data: response.data[0][this.props.parameterName], isFetching: false}));
             }else{
-                this.setState(state => ({isFetching: false, data: 0}));
+                this.setState(state => ({isFetching: false, data: this.props.min, isEmpty: true}));
             }
         }
     };
@@ -88,7 +89,7 @@ class CircleGauge extends Component{
                   // width: "55px",ha
               }}
           >
-            {this.props.title} ({this.props.LL} - {this.props.HH} {this.props.unit})
+            {this.props.title} {this.props.LL && this.props.HH ? `(${this.props.LL} - ${this.props.HH} ${this.props.unit})`:''}
           </span>
                     <span
                         style={{
@@ -119,7 +120,16 @@ class CircleGauge extends Component{
                                 }
                             }
                         ]}
-                        text={[{
+                        text={this.state.isEmpty ? [{
+                            value: 0, //value of text, type=string or function(here use string)
+                            style:{
+                                fontSize:18, //font size of text, type=number, default=10
+                                top:0, //top of text, type=number, default=20
+                                left:0, //left of text, type=number, default=0
+                                color: this.props.LL > this.state.data || this.props.data < this.state.currentValue ? "red":"#154a98", //color of text, type=string, default='#000'
+                                rotate:0  //rotate angle of text, type=number between 0 and 360, default=0
+                            }
+                        }]:[{
                             value:this.state.data, //value of text, type=string or function(here use string)
                             style:{
                                 fontSize:18, //font size of text, type=number, default=10

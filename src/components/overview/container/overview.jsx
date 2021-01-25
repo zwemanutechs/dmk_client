@@ -766,7 +766,7 @@ class OverView extends React.PureComponent{
                             {/** Demineralization Conductivity */}
                             <Grid key={'DemineralizationConductivity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Conductivity'}
+                                    title={'Conductivity (< 10K uS)'}
                                     assetId={POWERWASH_ASSETID}
                                     aspectName={'Tank07_Demineralization'}
                                     parameterName={'Conductivity_uS'}
