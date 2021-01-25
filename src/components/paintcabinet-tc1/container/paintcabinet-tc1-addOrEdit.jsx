@@ -520,7 +520,7 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                     <FormControl className={this.props.classes.formControl}>
                         <NumberFormat
                             id="topCabinet1P020OutletTank2"
-                            label="Top Cabinet1 P020 Outlet Tank2"
+                            label="Top Cabinet1 P020 Outlet Tank4"
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetP020OutletTank2.value}
                             fullWidth={true}

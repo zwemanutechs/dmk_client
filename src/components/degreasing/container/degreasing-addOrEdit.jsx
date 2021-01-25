@@ -101,7 +101,7 @@ class DegreasingAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="concentration"
-              label="Concentration(%)"
+              label="Titration Test Concentration, %"
               customInput={TextField}
               value={this.state.concentration.value}
               fullWidth={true}
@@ -155,7 +155,7 @@ class DegreasingAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="waterSupplyFromTank2"
-              label="Water Supply From Tank2(L/hr)"
+              label="Water Supply From Tank2, L/hr"
               customInput={TextField}
               value={this.state.waterSupplyFromTank2.value}
               fullWidth={true}
@@ -184,32 +184,51 @@ class DegreasingAddOrEdit extends Component {
         {/** Oil Skimming ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
-            <NumberFormat
-              id="oilSkimming"
-              label="Oil Skimming"
-              customInput={TextField}
-              value={this.state.oilSkimming.value}
-              fullWidth={true}
-              defaultValue={0.0}
-              onValueChange={(value) =>
-                this.onChange("oilSkimming", value.floatValue)
-              }
-              onBlur={(e) => this.onBlur("oilSkimming")}
-              onFocus={(event) => {
-                event.target.select();
-              }}
-              decimalScale={0}
-              thousandSeparator={false}
-              fixedDecimalScale={false}
-              error={!this.state.oilSkimming.valid}
-              helperText={
-                !this.state.oilSkimming.valid
-                  ? this.state.oilSkimming.errorMessage
-                  : ""
-              }
-              disabled={this.props.onFormSubmit}
-            />
+            <FormLabel component="legend">
+              Oil Skimming
+            </FormLabel>
+            <Grid component="label" container alignItems="center" spacing={1}>
+              <Grid item>No</Grid>
+              <Grid item>
+                <Switch
+                    checked={this.state.oilSkimming.value}
+                    onChange={(event) => {
+                      this.onChange("oilSkimming", event.target.checked);
+                      this.onBlur("oilSkimming");
+                    }}
+                    name="oilSkimming"
+                />
+              </Grid>
+              <Grid item>Yes</Grid>
+            </Grid>
           </FormControl>
+          {/*<FormControl className={this.props.classes.formControl}>*/}
+          {/*  <NumberFormat*/}
+          {/*    id="oilSkimming"*/}
+          {/*    label="Oil Skimming"*/}
+          {/*    customInput={TextField}*/}
+          {/*    value={this.state.oilSkimming.value}*/}
+          {/*    fullWidth={true}*/}
+          {/*    defaultValue={0.0}*/}
+          {/*    onValueChange={(value) =>*/}
+          {/*      this.onChange("oilSkimming", value.floatValue)*/}
+          {/*    }*/}
+          {/*    onBlur={(e) => this.onBlur("oilSkimming")}*/}
+          {/*    onFocus={(event) => {*/}
+          {/*      event.target.select();*/}
+          {/*    }}*/}
+          {/*    decimalScale={0}*/}
+          {/*    thousandSeparator={false}*/}
+          {/*    fixedDecimalScale={false}*/}
+          {/*    error={!this.state.oilSkimming.valid}*/}
+          {/*    helperText={*/}
+          {/*      !this.state.oilSkimming.valid*/}
+          {/*        ? this.state.oilSkimming.errorMessage*/}
+          {/*        : ""*/}
+          {/*    }*/}
+          {/*    disabled={this.props.onFormSubmit}*/}
+          {/*  />*/}
+          {/*</FormControl>*/}
         </Grid>
         {/** End Oil Skimming **/}
         {/** Dyne Test ***/}
@@ -217,7 +236,7 @@ class DegreasingAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="dyneTest"
-              label="Dyne Test(mN/m)"
+              label="Dyne Test, mN/m"
               customInput={TextField}
               value={this.state.dyneTest.value}
               fullWidth={true}

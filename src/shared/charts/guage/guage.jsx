@@ -88,7 +88,7 @@ class CircleGauge extends Component{
                   // width: "55px",ha
               }}
           >
-            {this.props.title}
+            {this.props.title} ({this.props.LL} - {this.props.HH} {this.props.unit})
           </span>
                     <span
                         style={{

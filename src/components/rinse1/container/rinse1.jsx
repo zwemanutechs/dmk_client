@@ -35,11 +35,11 @@ import MobileView from "../../../shared/mobileview-table/mobileview-table";
 const columns = [
   { label: "Ph", name: "ph" },
   {
-    label: "Water Overflow To WasteWater Tank1(L/hr)",
+    label: "Water Overflow To WasteWater Tank1 (L/hr)",
     name: "waterOverflowToWasteWaterTank1",
   },
-  { label: "Water Supply From Tank 3(L/hr)", name: "waterSupplyFromTank3" },
-  { label: "Water Supply From Tank 6(L/hr)", name: "waterSupplyFromTank6" },
+  { label: "Water Supply From Tank 3 (L/hr)", name: "waterSupplyFromTank3" },
+  { label: "Water Supply From Tank 6 (L/hr)", name: "waterSupplyFromTank6" },
   {
     label: "Updated At",
     name: "updatedat",
@@ -248,7 +248,7 @@ class Rinse1 extends Component {
                * **/
               <MobileView
                 columns={columns}
-                title={"RINSE 1 (TANK 2)"}
+                title={"WATER RINSE (TANK 2)"}
                 data={this.state.tableData}
                 nextData={this.getData}
                 totalCount={this.state.totalCount}
@@ -261,7 +261,7 @@ class Rinse1 extends Component {
                * Desktop View
                * **/
               <MUITable
-                title={"RINSE 1 (TANK 2)"}
+                title={"WATER RINSE (TANK 2)"}
                 totalCount={this.state.totalCount}
                 data={this.state.tableData.sort(sortByUpdatedAt)}
                 columns={columns}
@@ -315,7 +315,7 @@ class Rinse1 extends Component {
                 formError={this.state.formError}
               />
             }
-            contentTitle={"RINSE ONE"}
+            contentTitle={"WATER RINSE (TANK 2)"}
             formClose={this.onFormClose}
             formSubmit={this.handelFormSubmit}
             onFormSubmit={this.state.onProgress}

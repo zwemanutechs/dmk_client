@@ -257,7 +257,7 @@ class PaintCabinetPrimerCabinet2AddOrEdit extends React.PureComponent {
                     <FormControl className={this.props.classes.formControl}>
                         <NumberFormat
                             id="primerCabinet2DiWaterCheck"
-                            label="Primer Cabinet2 DI Water Check, bar"
+                            label="Primer Cabinet2 DI Water Check, uS/cm"
                             customInput={TextField}
                             value={this.state.primerCabinet2DiWaterCheck.value}
                             fullWidth={true}

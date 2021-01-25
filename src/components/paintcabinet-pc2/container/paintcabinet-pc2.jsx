@@ -21,27 +21,27 @@ import PaintCabinetPrimerCabinet2AddOrEdit from "./paintcabinet-pc2-addOrEdit";
 
 const columns = [
     {
-        label: "Primer Cabinet2 R12 Temperature",
+        label: "R12 Temperature (oC)",
         name: "primerCabinet2R12Temperture",
     },
     {
-        label: "Primer Cabinet2 R12 Humidity",
+        label: "R12 Humidity (%)",
         name: "primerCabinet2R12Humidity"
     },
     {
-        label: "Primer Cabinet2 Paint Test Viscosity",
+        label: "Paint Test Viscosity (sec)",
         name: "primerCabinet2PaintTestViscosity",
     },
     {
-        label: "Primer Cabinet2 Paint Test Temperature",
+        label: "Paint Test Temperature (oC)",
         name: "primerCabinet2PaintTestTemperature",
     },
     {
-        label: "Primer Cabinet2 Di Water Check",
+        label: "Di Water Check (uS/cm)",
         name: "primerCabinet2DiWaterCheck",
     },
     {
-        label: "Primer Cabinet2 Undon Light Inspection",
+        label: "Undon Light Inspection (Ok/Not Ok)",
         name: "primerCabinet2UndonLightInspection",
         options: {
             filter: false,
@@ -51,27 +51,27 @@ const columns = [
         },
     },
     {
-        label: "Primer Cabinet2 White Primer Inlet Tank1",
+        label: "White Primer Inlet Tank1 (bar)",
         name: "primerCabinet2WhitePrimerInletTank1",
     },
     {
-        label: "Primer Cabinet2 White Primer Outlet Tank1",
+        label: "White Primer Outlet Tank1 (bar)",
         name: "primerCabinet2WhitePrimerOutletTank1",
     },
     {
-        label: "Primer Cabinet2 Black Primer Inlet Tank2",
+        label: "Black Primer Inlet Tank2 (bar)",
         name: "primerCabinet2BlackPrimerInletTank2",
     },
     {
-        label: "Primer Cabinet2 Black Primer Outlet Tank2",
+        label: "Black Primer Outlet Tank2 (bar)",
         name: "primerCabinet2BlackPrimerOutletTank2",
     },
     {
-        label: "Primer Cabinet2 Hardener Tank3",
+        label: "Hardener Tank3 (bar)",
         name: "primerCabinet2HardenerTank3",
     },
     {
-        label: "Primer Cabinet2 Hardener Pressure Tank3",
+        label: "Hardener Pressure Tank3 (bar)",
         name: "primerCabinet2HardenerPressureTank3",
     },
     {

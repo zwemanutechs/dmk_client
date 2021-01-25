@@ -47,7 +47,7 @@ export const formValidation = formFields => {
             },
             oilSkimming: {
                 description: 'Oil Skimming',
-                type: 'number',
+                type: 'boolean',
                 required: true,
                 allowEmpty: false,
                 messages: {

@@ -33,14 +33,14 @@ import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
 
 const columns = [
-  { label: "Paint Pressure At Esta2 R11", name: "paintPressureAtEsta2R11" },
-  { label: "Paint Pressure At Esta1 R12", name: "paintPressureAtEsta1R12" },
-  { label: "High Tension Esta2 R11", name: "highTensionEsta2R11" },
-  { label: "Paint Pressure At Esta1 R11", name: "paintPressureAtEsta1R11" },
-  { label: "High Tension Esta1 R12", name: "highTensionEsta1R12" },
-  { label: "High Tension Esta1 R11", name: "highTensionEsta1R11" },
-  { label: "Touch Up Room1 Air Flow", name: "touchUpRoom1AirFlow" },
-  { label: "Touch Up Room2 Air Flow", name: "touchUpRoom2AirFlow" },
+  { label: "Paint Pressure At Esta1 R11 (bar)", name: "paintPressureAtEsta1R11" },
+  { label: "High Tension Esta1 R11, (kV)", name: "highTensionEsta1R11" },
+  { label: "Paint Pressure At Esta1 R12 (bar)", name: "paintPressureAtEsta1R12" },
+  { label: "High Tension Esta1 R12 (kV)", name: "highTensionEsta1R12" },
+  { label: "Paint Pressure At Esta2 R11 (bar)", name: "paintPressureAtEsta2R11" },
+  { label: "High Tension Esta2 R11 (kV)", name: "highTensionEsta2R11" },
+  { label: "Touch Up Room1 Air Flow (m/s)", name: "touchUpRoom1AirFlow" },
+  { label: "Touch Up Room2 Air Flow (m/s)", name: "touchUpRoom2AirFlow" },
   {
     label: "Updated At",
     name: "updatedat",

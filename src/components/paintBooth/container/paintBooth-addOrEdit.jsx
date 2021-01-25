@@ -109,12 +109,136 @@ class PaintBoothAddOrEdit extends Component {
   render() {
     return (
       <form className={this.props.classes.form}>
+        {/** Paint Pressure At Esta1 R11 ***/}
+        <Grid item xs={12}>
+          <FormControl className={this.props.classes.formControl}>
+            <NumberFormat
+                id="paintPressureAtEsta1R11"
+                label="Paint Pressure At Esta1 R11, bar"
+                customInput={TextField}
+                value={this.state.paintPressureAtEsta1R11.value}
+                fullWidth={true}
+                defaultValue={0.0}
+                onValueChange={(value) =>
+                    this.onChange("paintPressureAtEsta1R11", value.floatValue)
+                }
+                onBlur={(e) => this.onBlur("paintPressureAtEsta1R11")}
+                onFocus={(event) => {
+                  event.target.select();
+                }}
+                decimalScale={2}
+                thousandSeparator={false}
+                fixedDecimalScale={true}
+                error={!this.state.paintPressureAtEsta1R11.valid}
+                helperText={
+                  !this.state.paintPressureAtEsta1R11.valid
+                      ? this.state.paintPressureAtEsta1R11.errorMessage
+                      : ""
+                }
+                disabled={this.props.onFormSubmit}
+            />
+          </FormControl>
+        </Grid>
+        {/** End Paint Pressure At Esta1 R11 **/}
+        {/** High Tension Esta1 R11 ***/}
+        <Grid item xs={12}>
+          <FormControl className={this.props.classes.formControl}>
+            <NumberFormat
+                id="highTensionEsta1R11"
+                label="High Tension Esta1 R11, kV"
+                customInput={TextField}
+                value={this.state.highTensionEsta1R11.value}
+                fullWidth={true}
+                defaultValue={0.0}
+                onValueChange={(value) =>
+                    this.onChange("highTensionEsta1R11", value.floatValue)
+                }
+                onBlur={(e) => this.onBlur("highTensionEsta1R11")}
+                onFocus={(event) => {
+                  event.target.select();
+                }}
+                decimalScale={2}
+                thousandSeparator={false}
+                fixedDecimalScale={true}
+                error={!this.state.highTensionEsta1R11.valid}
+                helperText={
+                  !this.state.highTensionEsta1R11.valid
+                      ? this.state.highTensionEsta1R11.errorMessage
+                      : ""
+                }
+                disabled={this.props.onFormSubmit}
+            />
+          </FormControl>
+        </Grid>
+        {/** End High Tension Esta1 R11 **/}
+        {/** Paint Pressure At Esta1 R12 ***/}
+        <Grid item xs={12}>
+          <FormControl className={this.props.classes.formControl}>
+            <NumberFormat
+                id="paintPressureAtEsta1R12"
+                label="Paint Pressure At Esta1 R12, bar"
+                customInput={TextField}
+                value={this.state.paintPressureAtEsta1R12.value}
+                fullWidth={true}
+                defaultValue={0.0}
+                onValueChange={(value) =>
+                    this.onChange("paintPressureAtEsta1R12", value.floatValue)
+                }
+                onBlur={(e) => this.onBlur("paintPressureAtEsta1R12")}
+                onFocus={(event) => {
+                  event.target.select();
+                }}
+                decimalScale={2}
+                thousandSeparator={false}
+                fixedDecimalScale={true}
+                error={!this.state.paintPressureAtEsta1R12.valid}
+                helperText={
+                  !this.state.paintPressureAtEsta1R12.valid
+                      ? this.state.paintPressureAtEsta1R12.errorMessage
+                      : ""
+                }
+                disabled={this.props.onFormSubmit}
+            />
+          </FormControl>
+        </Grid>
+        {/** End Paint Pressure At Esta1 R12 **/}
+        {/** High Tension Esta1 R12 ***/}
+        <Grid item xs={12}>
+          <FormControl className={this.props.classes.formControl}>
+            <NumberFormat
+                id="highTensionEsta1R12"
+                label="High Tension Esta1 R12, kV"
+                customInput={TextField}
+                value={this.state.highTensionEsta1R12.value}
+                fullWidth={true}
+                defaultValue={0.0}
+                onValueChange={(value) =>
+                    this.onChange("highTensionEsta1R12", value.floatValue)
+                }
+                onBlur={(e) => this.onBlur("highTensionEsta1R12")}
+                onFocus={(event) => {
+                  event.target.select();
+                }}
+                decimalScale={2}
+                thousandSeparator={false}
+                fixedDecimalScale={true}
+                error={!this.state.highTensionEsta1R12.valid}
+                helperText={
+                  !this.state.highTensionEsta1R12.valid
+                      ? this.state.highTensionEsta1R12.errorMessage
+                      : ""
+                }
+                disabled={this.props.onFormSubmit}
+            />
+          </FormControl>
+        </Grid>
+        {/** End High Tension Esta1 R12 **/}
         {/** Paint Pressure At Esta2 R11 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="paintPressureAtEsta2R11"
-              label="Paint Pressure At Esta2 R11"
+              label="Paint Pressure At Esta2 R11, bar"
               customInput={TextField}
               value={this.state.paintPressureAtEsta2R11.value}
               fullWidth={true}
@@ -140,74 +264,12 @@ class PaintBoothAddOrEdit extends Component {
           </FormControl>
         </Grid>
         {/** End Paint Pressure At Esta2 R11 **/}
-        {/** Paint Pressure At Esta1 R12 ***/}
-        <Grid item xs={12}>
-          <FormControl className={this.props.classes.formControl}>
-            <NumberFormat
-              id="paintPressureAtEsta1R12"
-              label="Paint Pressure At Esta1 R12"
-              customInput={TextField}
-              value={this.state.paintPressureAtEsta1R12.value}
-              fullWidth={true}
-              defaultValue={0.0}
-              onValueChange={(value) =>
-                this.onChange("paintPressureAtEsta1R12", value.floatValue)
-              }
-              onBlur={(e) => this.onBlur("paintPressureAtEsta1R12")}
-              onFocus={(event) => {
-                event.target.select();
-              }}
-              decimalScale={2}
-              thousandSeparator={false}
-              fixedDecimalScale={true}
-              error={!this.state.paintPressureAtEsta1R12.valid}
-              helperText={
-                !this.state.paintPressureAtEsta1R12.valid
-                  ? this.state.paintPressureAtEsta1R12.errorMessage
-                  : ""
-              }
-              disabled={this.props.onFormSubmit}
-            />
-          </FormControl>
-        </Grid>
-        {/** End Paint Pressure At Esta1 R12 **/}
-        {/** Paint Pressure At Esta1 R11 ***/}
-        <Grid item xs={12}>
-          <FormControl className={this.props.classes.formControl}>
-            <NumberFormat
-              id="paintPressureAtEsta1R11"
-              label="Paint Pressure At Esta1 R11"
-              customInput={TextField}
-              value={this.state.paintPressureAtEsta1R11.value}
-              fullWidth={true}
-              defaultValue={0.0}
-              onValueChange={(value) =>
-                this.onChange("paintPressureAtEsta1R11", value.floatValue)
-              }
-              onBlur={(e) => this.onBlur("paintPressureAtEsta1R11")}
-              onFocus={(event) => {
-                event.target.select();
-              }}
-              decimalScale={2}
-              thousandSeparator={false}
-              fixedDecimalScale={true}
-              error={!this.state.paintPressureAtEsta1R11.valid}
-              helperText={
-                !this.state.paintPressureAtEsta1R11.valid
-                  ? this.state.paintPressureAtEsta1R11.errorMessage
-                  : ""
-              }
-              disabled={this.props.onFormSubmit}
-            />
-          </FormControl>
-        </Grid>
-        {/** End Paint Pressure At Esta1 R11 **/}
         {/** High Tension Esta2 R11 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="highTensionEsta2R11"
-              label="High Tension Esta2 R11"
+              label="High Tension Esta2 R11, kV"
               customInput={TextField}
               value={this.state.highTensionEsta2R11.value}
               fullWidth={true}
@@ -233,74 +295,12 @@ class PaintBoothAddOrEdit extends Component {
           </FormControl>
         </Grid>
         {/** End High Tension Esta2 R11 **/}
-        {/** High Tension Esta1 R12 ***/}
-        <Grid item xs={12}>
-          <FormControl className={this.props.classes.formControl}>
-            <NumberFormat
-              id="highTensionEsta1R12"
-              label="High Tension Esta1 R12"
-              customInput={TextField}
-              value={this.state.highTensionEsta1R12.value}
-              fullWidth={true}
-              defaultValue={0.0}
-              onValueChange={(value) =>
-                this.onChange("highTensionEsta1R12", value.floatValue)
-              }
-              onBlur={(e) => this.onBlur("highTensionEsta1R12")}
-              onFocus={(event) => {
-                event.target.select();
-              }}
-              decimalScale={2}
-              thousandSeparator={false}
-              fixedDecimalScale={true}
-              error={!this.state.highTensionEsta1R12.valid}
-              helperText={
-                !this.state.highTensionEsta1R12.valid
-                  ? this.state.highTensionEsta1R12.errorMessage
-                  : ""
-              }
-              disabled={this.props.onFormSubmit}
-            />
-          </FormControl>
-        </Grid>
-        {/** End High Tension Esta1 R12 **/}
-        {/** High Tension Esta1 R11 ***/}
-        <Grid item xs={12}>
-          <FormControl className={this.props.classes.formControl}>
-            <NumberFormat
-              id="highTensionEsta1R11"
-              label="High Tension Esta1 R11"
-              customInput={TextField}
-              value={this.state.highTensionEsta1R11.value}
-              fullWidth={true}
-              defaultValue={0.0}
-              onValueChange={(value) =>
-                this.onChange("highTensionEsta1R11", value.floatValue)
-              }
-              onBlur={(e) => this.onBlur("highTensionEsta1R11")}
-              onFocus={(event) => {
-                event.target.select();
-              }}
-              decimalScale={2}
-              thousandSeparator={false}
-              fixedDecimalScale={true}
-              error={!this.state.highTensionEsta1R11.valid}
-              helperText={
-                !this.state.highTensionEsta1R11.valid
-                  ? this.state.highTensionEsta1R11.errorMessage
-                  : ""
-              }
-              disabled={this.props.onFormSubmit}
-            />
-          </FormControl>
-        </Grid>
-        {/** End High Tension Esta1 R11 **/}
         {/** Touch Up Room1 Air Flow ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="touchUpRoom1AirFlow"
-              label="Touch Up Room1 Air Flow"
+              label="Touch Up Room1 Air Flow, m/s"
               customInput={TextField}
               value={this.state.touchUpRoom1AirFlow.value}
               fullWidth={true}
@@ -331,7 +331,7 @@ class PaintBoothAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="touchUpRoom2AirFlow"
-              label="Touch Up Room2 Air Flow"
+              label="Touch Up Room2 Air Flow, m/s"
               customInput={TextField}
               value={this.state.touchUpRoom2AirFlow.value}
               fullWidth={true}

@@ -34,7 +34,7 @@ import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
 
 const columns = [
-  { label: "Water Supply From Di Tank(L/hr)", name: "waterSupplyFromDiTank" },
+  { label: "Water Supply From Di Tank (L/hr)", name: "waterSupplyFromDiTank" },
   {
     label: "Updated At",
     name: "updatedat",
@@ -246,7 +246,7 @@ class Conversion extends Component {
                * **/
               <MobileView
                 columns={columns}
-                title={"CONVERSION"}
+                title={"DISTILLED WATER(TANK 05)"}
                 data={this.state.tableData}
                 nextData={this.getData}
                 totalCount={this.state.totalCount}
@@ -313,7 +313,7 @@ class Conversion extends Component {
                 formError={this.state.formError}
               />
             }
-            contentTitle={"CONVERSION"}
+            contentTitle={"DISTILLED WATER(TANK 05)"}
             formClose={this.onFormClose}
             formSubmit={this.handelFormSubmit}
             onFormSubmit={this.state.onProgress}

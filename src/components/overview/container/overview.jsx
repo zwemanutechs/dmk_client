@@ -60,7 +60,7 @@ class OverView extends React.PureComponent{
                             {/** Water Dryer Humidity **/}
                             <Grid key={'Humidity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Humidity (%)'}
+                                    title={'Humidity'}
                                     assetId={OVEN_ASSETID}
                                     aspectName={'WaterDryer'}
                                     parameterName={'Room_Humidity_Pct'}
@@ -72,6 +72,7 @@ class OverView extends React.PureComponent{
                                         {value:24,color:"#154a98"},
                                         {value:31,color:"#ff1029"}
                                     ]}
+                                    unit={'%'}
                                     min={10}
                                     max={31}
                                     LL={17}
@@ -125,7 +126,7 @@ class OverView extends React.PureComponent{
                             {/** Final Oven 1 Humidity **/}
                             <Grid key={'FinalOven1Humidity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Humidity (%)'}
+                                    title={'Humidity'}
                                     assetId={OVEN_ASSETID}
                                     aspectName={'FinalOven1'}
                                     parameterName={'Humidity_Pct'}
@@ -137,6 +138,7 @@ class OverView extends React.PureComponent{
                                         {value:25,color:"#154a98"},
                                         {value:31,color:"#ff1029"}
                                     ]}
+                                    unit={'%'}
                                     min={12}
                                     max={31}
                                     LL={18}
@@ -190,7 +192,7 @@ class OverView extends React.PureComponent{
                             {/** ESTA 1 Humidity **/}
                             <Grid key={'ESTA1Humidity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Humidity (%)'}
+                                    title={'Humidity'}
                                     assetId={PAINTBOOTH_ASSETID}
                                     aspectName={'ESTA1'}
                                     parameterName={'Inlet_Humidity_Pct'}
@@ -202,6 +204,7 @@ class OverView extends React.PureComponent{
                                         {value:64,color:"#154a98"},
                                         {value:71,color:"#ff1029"}
                                     ]}
+                                    unit={'%'}
                                     min={50}
                                     max={71}
                                     LL={55}
@@ -255,7 +258,7 @@ class OverView extends React.PureComponent{
                             {/** Primer Cabinet 1 Humidity **/}
                             <Grid key={'PrimerCabinet1Humidity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Humidity (%)'}
+                                    title={'Humidity'}
                                     pathName='dashboard'
                                     endPoint='paintcabinet/cabinet1Temperature'
                                     variableName='data'
@@ -268,6 +271,7 @@ class OverView extends React.PureComponent{
                                         {value:70,color:"#154a98"},
                                         {value:80,color:"#ff1029"}
                                     ]}
+                                    unit={'%'}
                                     min={50}
                                     max={80}
                                     LL={60}
@@ -321,7 +325,7 @@ class OverView extends React.PureComponent{
                             {/** Primer Cabinet 1 Humidity **/}
                             <Grid key={'TopCoat1Humidity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Humidity (%)'}
+                                    title={'Humidity'}
                                     pathName='dashboard'
                                     endPoint='paintcabinet/topcoat1Humidity'
                                     variableName='data'
@@ -334,6 +338,7 @@ class OverView extends React.PureComponent{
                                         {value:70,color:"#154a98"},
                                         {value:80,color:"#ff1029"}
                                     ]}
+                                    unit={'%'}
                                     min={50}
                                     max={80}
                                     LL={60}
@@ -373,6 +378,7 @@ class OverView extends React.PureComponent{
                                         {value:13.0,color:"#154a98"},
                                         {value:18.0,color:"#ff1029"}
                                     ]}
+                                    unit={''}
                                     min={3.0}
                                     max={18.0}
                                     LL={7.0}
@@ -396,6 +402,7 @@ class OverView extends React.PureComponent{
                                         {value:8.0,color:"#154a98"},
                                         {value:9.0,color:"#ff1029"}
                                     ]}
+                                    unit={''}
                                     min={6.0}
                                     max={9.0}
                                     LL={7.0}
@@ -438,7 +445,7 @@ class OverView extends React.PureComponent{
                             {/** Intermediate Oven Humidity **/}
                             <Grid key={'IntermediateHumidity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Humidity (%)'}
+                                    title={'Humidity'}
                                     assetId={OVEN_ASSETID}
                                     aspectName={'IntermediateOven'}
                                     parameterName={'Room_Humidity_Pct'}
@@ -450,6 +457,7 @@ class OverView extends React.PureComponent{
                                         {value:29,color:"#154a98"},
                                         {value:35,color:"#ff1029"}
                                     ]}
+                                    unit={'%'}
                                     min={15}
                                     max={35}
                                     LL={23}
@@ -503,7 +511,7 @@ class OverView extends React.PureComponent{
                             {/** Final Oven 2 Humidity **/}
                             <Grid key={'FinalOven2Humidity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Humidity (%)'}
+                                    title={'Humidity'}
                                     assetId={OVEN_ASSETID}
                                     aspectName={'FinalOven2'}
                                     parameterName={'Humidity_Pct'}
@@ -515,6 +523,7 @@ class OverView extends React.PureComponent{
                                         {value:24,color:"#154a98"},
                                         {value:31,color:"#ff1029"}
                                     ]}
+                                    unit={'%'}
                                     min={10}
                                     max={31}
                                     LL={18}
@@ -568,7 +577,7 @@ class OverView extends React.PureComponent{
                             {/** ESTA 1 Humidity **/}
                             <Grid key={'ESTA2Humidity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Humidity (%)'}
+                                    title={'Humidity'}
                                     assetId={PAINTBOOTH_ASSETID}
                                     aspectName={'ESTA2'}
                                     parameterName={'Inlet_Humidity_Pct'}
@@ -580,6 +589,7 @@ class OverView extends React.PureComponent{
                                         {value:70,color:"#154a98"},
                                         {value:80,color:"#ff1029"}
                                     ]}
+                                    unit={'%'}
                                     min={50}
                                     max={80}
                                     LL={55}
@@ -633,7 +643,7 @@ class OverView extends React.PureComponent{
                             {/** Primer Cabinet 2 Humidity **/}
                             <Grid key={'PrimerCabinet2Humidity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Humidity (%)'}
+                                    title={'Humidity'}
                                     pathName='dashboard'
                                     endPoint='paintcabinet/cabinet2Humidity'
                                     variableName='data'
@@ -646,6 +656,7 @@ class OverView extends React.PureComponent{
                                         {value:70,color:"#154a98"},
                                         {value:80,color:"#ff1029"}
                                     ]}
+                                    unit={'%'}
                                     min={50}
                                     max={80}
                                     LL={60}
@@ -699,7 +710,7 @@ class OverView extends React.PureComponent{
                             {/** Primer Cabinet 2 Humidity **/}
                             <Grid key={'TopCoat1Humidity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Humidity (%)'}
+                                    title={'Humidity'}
                                     pathName='dashboard'
                                     endPoint='paintcabinet/topcoat2Humidity'
                                     variableName='data'
@@ -712,6 +723,7 @@ class OverView extends React.PureComponent{
                                         {value:70,color:"#154a98"},
                                         {value:80,color:"#ff1029"}
                                     ]}
+                                    unit={'%'}
                                     min={50}
                                     max={80}
                                     LL={60}
@@ -743,6 +755,7 @@ class OverView extends React.PureComponent{
                                         {value:8.0,color:"#154a98"},
                                         {value:9.0,color:"#ff1029"}
                                     ]}
+                                    unit={'%'}
                                     min={6.0}
                                     max={9.0}
                                     LL={7.0}
@@ -753,7 +766,7 @@ class OverView extends React.PureComponent{
                             {/** Demineralization Conductivity */}
                             <Grid key={'DemineralizationConductivity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Conductivity (uS)'}
+                                    title={'Conductivity'}
                                     assetId={POWERWASH_ASSETID}
                                     aspectName={'Tank07_Demineralization'}
                                     parameterName={'Conductivity_uS'}
@@ -765,6 +778,7 @@ class OverView extends React.PureComponent{
                                         {value:12,color:"#154a98"},
                                         {value:18,color:"#ff1029"}
                                     ]}
+                                    unit={'uS'}
                                     min={0}
                                     max={18.0}
                                 />

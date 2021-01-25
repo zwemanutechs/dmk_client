@@ -21,29 +21,24 @@ import {openSpinner} from "../../../shared/spinner/actions/spinner-actions";
 
 const columns = [
     {
-        label: "Top Cabinet2 Hardener Pressure Tank3",
-        name: "topCabinet2HardenerPressureTank3",
-    },
-    { label: "Top Cabinet2 Hardener Tank3", name: "topCabinet2HardenerTank3" },
-    { label: "Top Cabinet2 Di Water Check", name: "topCabinet2DiWaterCheck" },
-    {
-        label: "Top Cabinet2 Cabinet Temperature",
+        label: "Cabinet Temperature (oC)",
         name: "topCabinet2CabinetTemperture",
     },
     {
-        label: "Top Cabinet2 Cabinet Humidity",
+        label: "Top Cabinet2 Cabinet Humidity (%)",
         name: "topCabinet2CabinetHumidity",
     },
     {
-        label: "Top Cabinet2 Paint Test Visocity",
+        label: "Paint Test Visocity (sec)",
         name: "topCabinet2PaintTestVisocity",
     },
     {
-        label: "Top Cabinet2 Paint Test Temperature",
+        label: "Paint Test Temperature (oC)",
         name: "topCabinet2PaintTestTemperature",
     },
+    { label: "Di Water Check (uS/cm)", name: "topCabinet2DiWaterCheck" },
     {
-        label: "Top Cabinet2 Andon Light Inspection",
+        label: "Andon Light Inspection (Ok/Not Ok)",
         name: "topCabinet2AndonLightInspection",
         options: {
             filter: false,
@@ -52,6 +47,11 @@ const columns = [
             ),
         },
     },
+    {
+        label: "Hardener Pressure Tank3 (bar)",
+        name: "topCabinet2HardenerPressureTank3",
+    },
+    { label: "Hardener Tank3 (bar)", name: "topCabinet2HardenerTank3" },
     {
         label: "Updated At",
         name: "updatedat",

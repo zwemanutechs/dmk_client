@@ -31,10 +31,10 @@ import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
 
 const columns = [
-  { label: "Concentration(%)", name: "concentration" },
+  { label: "Concentration (%)", name: "concentration" },
   {
-    label: "Concentration Below 0.5%(Yes/No)",
-    name: "concentrationTopUp",
+    label: "Concentration Below 0.5% (Yes/No)",
+    name: "concentrationTopUp (Yes/No)",
     options: {
       filter: false,
       customBodyRender: (value, tableMeta, updateValue) => (
@@ -42,9 +42,18 @@ const columns = [
       ),
     },
   },
-  { label: "Water Supply From Tank 2(L/hr)", name: "waterSupplyFromTank2" },
-  { label: "Oil Skimming(Yes/No)", name: "oilSkimming" },
-  { label: "Dyne Test(mN/m)", name: "dyneTest" },
+  { label: "Water Supply From Tank 2 (L/hr)", name: "waterSupplyFromTank2" },
+  {
+    label: "Oil Skimming (Yes/No)",
+    name: "oilSkimming",
+    options: {
+      filter: false,
+      customBodyRender: (value, tableMeta, updateValue) => (
+          <span>{value ? "Yes" : "No"}</span>
+      ),
+    },
+  },
+  { label: "Dyne Test (mN/m)", name: "dyneTest" },
   {
     label: "Updated At",
     name: "updatedat",

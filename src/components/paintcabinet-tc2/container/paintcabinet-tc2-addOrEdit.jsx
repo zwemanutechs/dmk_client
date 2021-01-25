@@ -114,98 +114,6 @@ class PaintCabinetTopCabinet2AddOrEdit extends React.PureComponent {
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
                         <NumberFormat
-                            id="topCabinet2HardenerPressureTank3"
-                            label="Top Cabinet2 Hardener Pressure Tank 3, bar"
-                            customInput={TextField}
-                            value={this.state.topCabinet2HardenerPressureTank3.value}
-                            fullWidth={true}
-                            defaultValue={0.0}
-                            onValueChange={(value) =>
-                                this.onChange(
-                                    "topCabinet2HardenerPressureTank3",
-                                    value.floatValue
-                                )
-                            }
-                            onBlur={(e) =>
-                                this.onBlur("topCabinet2HardenerPressureTank3")
-                            }
-                            onFocus={(event) => {
-                                event.target.select();
-                            }}
-                            decimalScale={2}
-                            thousandSeparator={false}
-                            fixedDecimalScale={true}
-                            error={!this.state.topCabinet2HardenerPressureTank3.valid}
-                            helperText={
-                                !this.state.topCabinet2HardenerPressureTank3.valid
-                                    ? this.state.topCabinet2HardenerPressureTank3.errorMessage
-                                    : ""
-                            }
-                            disabled={this.props.onFormSubmit}
-                        />
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControl className={this.props.classes.formControl}>
-                        <NumberFormat
-                            id="topCabinet2HardenerTank3"
-                            label="Top Cabinet2 Hardener Tank3, bar"
-                            customInput={TextField}
-                            value={this.state.topCabinet2HardenerTank3.value}
-                            fullWidth={true}
-                            defaultValue={0.0}
-                            onValueChange={(value) =>
-                                this.onChange("topCabinet2HardenerTank3", value.floatValue)
-                            }
-                            onBlur={(e) => this.onBlur("topCabinet2HardenerTank3")}
-                            onFocus={(event) => {
-                                event.target.select();
-                            }}
-                            decimalScale={2}
-                            thousandSeparator={false}
-                            fixedDecimalScale={true}
-                            error={!this.state.topCabinet2HardenerTank3.valid}
-                            helperText={
-                                !this.state.topCabinet2HardenerTank3.valid
-                                    ? this.state.topCabinet2HardenerTank3.errorMessage
-                                    : ""
-                            }
-                            disabled={this.props.onFormSubmit}
-                        />
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControl className={this.props.classes.formControl}>
-                        <NumberFormat
-                            id="topCabinet2DiWaterCheck"
-                            label="Top Cabinet2 DI Water Check, uS/cm"
-                            customInput={TextField}
-                            value={this.state.topCabinet2DiWaterCheck.value}
-                            fullWidth={true}
-                            defaultValue={0.0}
-                            onValueChange={(value) =>
-                                this.onChange("topCabinet2DiWaterCheck", value.floatValue)
-                            }
-                            onBlur={(e) => this.onBlur("topCabinet2DiWaterCheck")}
-                            onFocus={(event) => {
-                                event.target.select();
-                            }}
-                            decimalScale={2}
-                            thousandSeparator={false}
-                            fixedDecimalScale={true}
-                            error={!this.state.topCabinet2DiWaterCheck.valid}
-                            helperText={
-                                !this.state.topCabinet2DiWaterCheck.valid
-                                    ? this.state.topCabinet2DiWaterCheck.errorMessage
-                                    : ""
-                            }
-                            disabled={this.props.onFormSubmit}
-                        />
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControl className={this.props.classes.formControl}>
-                        <NumberFormat
                             id="topCabinet2CabinetTemperature"
                             label="Top Cabinet2 Cabinet Temperature, oC"
                             customInput={TextField}
@@ -324,6 +232,35 @@ class PaintCabinetTopCabinet2AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <NumberFormat
+                            id="topCabinet2DiWaterCheck"
+                            label="Top Cabinet2 DI Water Check, uS/cm"
+                            customInput={TextField}
+                            value={this.state.topCabinet2DiWaterCheck.value}
+                            fullWidth={true}
+                            defaultValue={0.0}
+                            onValueChange={(value) =>
+                                this.onChange("topCabinet2DiWaterCheck", value.floatValue)
+                            }
+                            onBlur={(e) => this.onBlur("topCabinet2DiWaterCheck")}
+                            onFocus={(event) => {
+                                event.target.select();
+                            }}
+                            decimalScale={2}
+                            thousandSeparator={false}
+                            fixedDecimalScale={true}
+                            error={!this.state.topCabinet2DiWaterCheck.valid}
+                            helperText={
+                                !this.state.topCabinet2DiWaterCheck.valid
+                                    ? this.state.topCabinet2DiWaterCheck.errorMessage
+                                    : ""
+                            }
+                            disabled={this.props.onFormSubmit}
+                        />
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl className={this.props.classes.formControl}>
                         <FormLabel component="legend">
                             Top Cabinet2 Andon Light Inspection
                         </FormLabel>
@@ -344,6 +281,69 @@ class PaintCabinetTopCabinet2AddOrEdit extends React.PureComponent {
                             </Grid>
                             <Grid item>Ok</Grid>
                         </Grid>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl className={this.props.classes.formControl}>
+                        <NumberFormat
+                            id="topCabinet2HardenerPressureTank3"
+                            label="Top Cabinet2 Hardener Pressure Tank 3, bar"
+                            customInput={TextField}
+                            value={this.state.topCabinet2HardenerPressureTank3.value}
+                            fullWidth={true}
+                            defaultValue={0.0}
+                            onValueChange={(value) =>
+                                this.onChange(
+                                    "topCabinet2HardenerPressureTank3",
+                                    value.floatValue
+                                )
+                            }
+                            onBlur={(e) =>
+                                this.onBlur("topCabinet2HardenerPressureTank3")
+                            }
+                            onFocus={(event) => {
+                                event.target.select();
+                            }}
+                            decimalScale={2}
+                            thousandSeparator={false}
+                            fixedDecimalScale={true}
+                            error={!this.state.topCabinet2HardenerPressureTank3.valid}
+                            helperText={
+                                !this.state.topCabinet2HardenerPressureTank3.valid
+                                    ? this.state.topCabinet2HardenerPressureTank3.errorMessage
+                                    : ""
+                            }
+                            disabled={this.props.onFormSubmit}
+                        />
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl className={this.props.classes.formControl}>
+                        <NumberFormat
+                            id="topCabinet2HardenerTank3"
+                            label="Top Cabinet2 Hardener Tank3, bar"
+                            customInput={TextField}
+                            value={this.state.topCabinet2HardenerTank3.value}
+                            fullWidth={true}
+                            defaultValue={0.0}
+                            onValueChange={(value) =>
+                                this.onChange("topCabinet2HardenerTank3", value.floatValue)
+                            }
+                            onBlur={(e) => this.onBlur("topCabinet2HardenerTank3")}
+                            onFocus={(event) => {
+                                event.target.select();
+                            }}
+                            decimalScale={2}
+                            thousandSeparator={false}
+                            fixedDecimalScale={true}
+                            error={!this.state.topCabinet2HardenerTank3.valid}
+                            helperText={
+                                !this.state.topCabinet2HardenerTank3.valid
+                                    ? this.state.topCabinet2HardenerTank3.errorMessage
+                                    : ""
+                            }
+                            disabled={this.props.onFormSubmit}
+                        />
                     </FormControl>
                 </Grid>
             </form>

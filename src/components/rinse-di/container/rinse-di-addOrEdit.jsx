@@ -107,7 +107,7 @@ class RinseThreeAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="waterSupplyFromDiWaterTank"
-              label="DI Tank Water Supply"
+              label="DI Tank Water Supply, L/hr"
               customInput={TextField}
               value={this.state.waterSupplyFromDiWaterTank.value}
               defaultValue={0.0}

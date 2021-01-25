@@ -21,27 +21,27 @@ import {openSpinner} from "../../../shared/spinner/actions/spinner-actions";
 
 const columns = [
     {
-        label: "Top Cabinet1 Cabinet Temperature",
+        label: "Cabinet Temperature (oC)",
         name: "topCabinet1CabinetTemperature",
     },
     {
-        label: "Top Cabinet1 Cabinet Humidity",
+        label: "Cabinet Humidity (%)",
         name: "topCabinet1CabinetHumidity",
     },
     {
-        label: "Top Cabinet1 Paint Test Visocity",
+        label: "Paint Test Visocity (sec)",
         name: "topCabinet1CabinetTestVisocity",
     },
     {
-        label: "Top Cabinet1 Paint Test Temperature",
+        label: "Paint Test Temperature (oC)",
         name: "topCabinet1CabinetTestTemperature",
     },
     {
-        label: "Top Cabinet1 DI Water Check",
+        label: "DI Water Check (uS/cm)",
         name: "topCabinet1CabinetDiWaterCheck"
     },
     {
-        label: "Top Cabinet1 Andon Light Inspection",
+        label: "Andon Light Inspection (Ok/Not Ok)",
         name: "topCabinet1CabinetAndonLightInspection",
         options: {
             filter: false,
@@ -50,24 +50,24 @@ const columns = [
             ),
         },
     },
-    { label: "Top Cabinet1 P600 Inlet Tank1", name: "topCabinet1CabinetP600InletTank1" },
+    { label: "P600 Inlet Tank1 (bar)", name: "topCabinet1CabinetP600InletTank1" },
     {
-        label: "Top Cabinet1 P600 Outlet Tank1",
+        label: "P600 Outlet Tank1 (bar)",
         name: "topCabinet1CabinetP600OutletTank1",
     },
-    { label: "Top Cabinet1 P190 Inlet Tank2", name: "topCabinet1CabinetP190InletTank2" },
+    { label: "P190 Inlet Tank2 (bar)", name: "topCabinet1CabinetP190InletTank2" },
     {
-        label: "Top Cabinet1 P190 Outlet Tank2",
+        label: "P190 Outlet Tank2 (bar)",
         name: "topCabinet1CabinetP190OutletTank2",
     },
-    { label: "Top Cabinet1 P100 Inlet Tank3", name: "topCabinet1CabinetP100InletTank3" },
+    { label: "P100 Inlet Tank3 (bar)", name: "topCabinet1CabinetP100InletTank3" },
     {
-        label: "Top Cabinet1 P100 Outlet Tank3",
+        label: "P100 Outlet Tank3 (bar)",
         name: "topCabinet1CabinetP100OutletTank3",
     },
-    { label: "Top Cabinet1 P020 Inlet Tank4", name: "topCabinet1CabinetP020InletTank4" },
+    { label: "P020 Inlet Tank4 (bar)", name: "topCabinet1CabinetP020InletTank4" },
     {
-        label: "Top Cabinet1 P020 Outlet Tank2",
+        label: "P020 Outlet Tank2 (bar)",
         name: "topCabinet1CabinetP020OutletTank2",
     },
     {

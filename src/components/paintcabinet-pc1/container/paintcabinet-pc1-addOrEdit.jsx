@@ -441,6 +441,35 @@ class PaintCabinetPrimerCabinet1AddOrEdit extends React.PureComponent {
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
                         <NumberFormat
+                            id="primerCabinet1HardenerTank3"
+                            label="Primer Cabinet1 Hardener Tank3, bar"
+                            customInput={TextField}
+                            value={this.state.primerCabinet1HardenerTank3.value}
+                            fullWidth={true}
+                            defaultValue={0.0}
+                            onValueChange={(value) =>
+                                this.onChange("primerCabinet1HardenerTank3", value.floatValue)
+                            }
+                            onBlur={(e) => this.onBlur("primerCabinet1HardenerTank3")}
+                            onFocus={(event) => {
+                                event.target.select();
+                            }}
+                            decimalScale={2}
+                            thousandSeparator={false}
+                            fixedDecimalScale={true}
+                            error={!this.state.primerCabinet1HardenerTank3.valid}
+                            helperText={
+                                !this.state.primerCabinet1HardenerTank3.valid
+                                    ? this.state.primerCabinet1HardenerTank3.errorMessage
+                                    : ""
+                            }
+                            disabled={this.props.onFormSubmit}
+                        />
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl className={this.props.classes.formControl}>
+                        <NumberFormat
                             id="primerCabinet1HardenerPressureTank3"
                             label="Primer Cabinet1 Hardener Pressure Tank3, bar"
                             customInput={TextField}
@@ -464,35 +493,6 @@ class PaintCabinetPrimerCabinet1AddOrEdit extends React.PureComponent {
                             helperText={
                                 !this.state.primerCabinet1HardenerPressureTank3.valid
                                     ? this.state.primerCabinet1HardenerPressureTank3.errorMessage
-                                    : ""
-                            }
-                            disabled={this.props.onFormSubmit}
-                        />
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControl className={this.props.classes.formControl}>
-                        <NumberFormat
-                            id="primerCabinet1HardenerTank3"
-                            label="Primer Cabinet1 Hardener Tank3, bar"
-                            customInput={TextField}
-                            value={this.state.primerCabinet1HardenerTank3.value}
-                            fullWidth={true}
-                            defaultValue={0.0}
-                            onValueChange={(value) =>
-                                this.onChange("primerCabinet1HardenerTank3", value.floatValue)
-                            }
-                            onBlur={(e) => this.onBlur("primerCabinet1HardenerTank3")}
-                            onFocus={(event) => {
-                                event.target.select();
-                            }}
-                            decimalScale={2}
-                            thousandSeparator={false}
-                            fixedDecimalScale={true}
-                            error={!this.state.primerCabinet1HardenerTank3.valid}
-                            helperText={
-                                !this.state.primerCabinet1HardenerTank3.valid
-                                    ? this.state.primerCabinet1HardenerTank3.errorMessage
                                     : ""
                             }
                             disabled={this.props.onFormSubmit}

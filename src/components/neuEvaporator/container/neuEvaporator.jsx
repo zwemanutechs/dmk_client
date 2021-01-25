@@ -33,12 +33,22 @@ import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
 
 const columns = [
-  { label: "pH Tank6", name: "phTank6" },
-  { label: "Feed Rate Evaporator Tank3", name: "feedRateEvaporatorTank3" },
-  { label: "pH Tank3", name: "phTank3" },
-  { label: "pH Hmi Tank3", name: "phHmiTank3" },
+  { label: "Tank 03 Feed Rate Evaporator (L/hr)", name: "feedRateEvaporatorTank3" },
+  { label: "Tank 03 pH", name: "phTank3" },
+  { label: "Tank 03 pH Status (Ok/Not Ok)", name: "phHmiTank3" },
   {
-    label: "Water Sample In Bottle Tank6",
+    label: "Tank 03 Monthly Calibration (Done/Not Done)",
+    name: "monthlyCalibrationOfPhMeterTank3",
+    options: {
+      filter: false,
+      customBodyRender: (value, tableMeta, updateValue) => (
+          <span>{value ? "Done" : "Not Done"}</span>
+      ),
+    },
+  },
+  { label: "Tank 06 pH", name: "phTank6" },
+  {
+    label: "Tank 06 Water Sample (Good/Bad)",
     name: "waterSampleInBottleTank6",
     options: {
       filter: false,
@@ -47,21 +57,11 @@ const columns = [
       ),
     },
   },
+  { label: "Tank 06 Water Level (L)", name: "waterLevelTank6" },
+  { label: "Tank 06 Flow Rate (L/hr)", name: "flowRateTank6" },
+  { label: "Demineralization Conductivity (uS/cm)", name: "conductivity" },
   {
-    label: "Monthly Calibration Of Ph Meter Tank3",
-    name: "monthlyCalibrationOfPhMeterTank3",
-    options: {
-      filter: false,
-      customBodyRender: (value, tableMeta, updateValue) => (
-        <span>{value ? "Done" : "Not Done"}</span>
-      ),
-    },
-  },
-  { label: "Conductivity", name: "conductivity" },
-  { label: "Water Level Tank6", name: "waterLevelTank6" },
-  { label: "Flow Rate Tank6", name: "flowRateTank6" },
-  {
-    label: "Water Quality Tank7",
+    label: "Tank 07 Water Quality (Good/Bad)",
     name: "waterQualityTank7",
     options: {
       filter: false,
@@ -70,10 +70,10 @@ const columns = [
       ),
     },
   },
-  { label: "Water Level Tank7", name: "waterLevelTank7" },
-  { label: "Water Level Litre Tank8", name: "waterLevelLitreTank8" },
+  { label: "Tank 07 Water Level LS 17/18/19 (Ok/Low)", name: "waterLevelTank7" },
+  { label: "Tank 08 Water Level (L)", name: "waterLevelLitreTank8" },
   {
-    label: "Any Abnormal Usage Tank8",
+    label: "Tank 08 Any Abnormal Usage (YES/NO)",
     name: "anyAbnormalUsageTank8",
     options: {
       filter: false,
@@ -82,9 +82,9 @@ const columns = [
       ),
     },
   },
-  { label: "Water Level Tank9", name: "waterLevelTank9" },
+  { label: "Tank 09 Water Level, (L)", name: "waterLevelTank9" },
   {
-    label: "Any Abnormal Usage Tank9",
+    label: "Tank 09 Any Abnormal Usage (YES/NO)",
     name: "anyAbnormalUsageTank9",
     options: {
       filter: false,
@@ -304,7 +304,7 @@ class NeuEvaporator extends Component {
                * **/
               <MobileView
                 columns={columns}
-                title={"NEU EVAPORATOR"}
+                title={"NEUTRALIZATION (TANK 03-09)"}
                 data={this.state.tableData}
                 nextData={this.getData}
                 totalCount={this.state.totalCount}
@@ -317,7 +317,7 @@ class NeuEvaporator extends Component {
                * Desktop View
                * **/
               <MUITable
-                title={"NEU EVAPORATOR"}
+                title={"NEUTRALIZATION (TANK 03-09)"}
                 totalCount={this.state.totalCount}
                 data={this.state.tableData.sort(sortByUpdatedAt)}
                 columns={columns}
@@ -371,7 +371,7 @@ class NeuEvaporator extends Component {
                 formError={this.state.formError}
               />
             }
-            contentTitle={"NEU EVAPORATOR"}
+            contentTitle={"NEUTRALIZATION (TANK 03-09)"}
             formClose={this.onFormClose}
             formSubmit={this.handelFormSubmit}
             onFormSubmit={this.state.onProgress}

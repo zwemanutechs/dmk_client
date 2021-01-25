@@ -146,62 +146,33 @@ class NeuEvaporatorAddOrEdit extends Component {
   render() {
     return (
       <form className={this.props.classes.form}>
-        {/** pH Tank6 ***/}
-        <Grid item xs={12}>
-          <FormControl className={this.props.classes.formControl}>
-            <NumberFormat
-              id="phTank6"
-              label="pH Tank6"
-              customInput={TextField}
-              value={this.state.phTank6.value}
-              fullWidth={true}
-              defaultValue={0.0}
-              onValueChange={(value) =>
-                this.onChange("phTank6", value.floatValue)
-              }
-              onBlur={(e) => this.onBlur("phTank6")}
-              onFocus={(event) => {
-                event.target.select();
-              }}
-              decimalScale={2}
-              thousandSeparator={false}
-              fixedDecimalScale={true}
-              error={!this.state.phTank6.valid}
-              helperText={
-                !this.state.phTank6.valid ? this.state.phTank6.errorMessage : ""
-              }
-              disabled={this.props.onFormSubmit}
-            />
-          </FormControl>
-        </Grid>
-        {/** End pH Tank6 **/}
         {/** Feed Rate Evaporator Tank3 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
-              id="feedRateEvaporatorTank3"
-              label="Feed Rate Evaporator Tank3"
-              customInput={TextField}
-              value={this.state.feedRateEvaporatorTank3.value}
-              fullWidth={true}
-              defaultValue={0.0}
-              onValueChange={(value) =>
-                this.onChange("feedRateEvaporatorTank3", value.floatValue)
-              }
-              onBlur={(e) => this.onBlur("feedRateEvaporatorTank3")}
-              onFocus={(event) => {
-                event.target.select();
-              }}
-              decimalScale={2}
-              thousandSeparator={false}
-              fixedDecimalScale={true}
-              error={!this.state.feedRateEvaporatorTank3.valid}
-              helperText={
-                !this.state.feedRateEvaporatorTank3.valid
-                  ? this.state.feedRateEvaporatorTank3.errorMessage
-                  : ""
-              }
-              disabled={this.props.onFormSubmit}
+                id="feedRateEvaporatorTank3"
+                label="Tank 03 Feed Rate Evaporator, L/hr"
+                customInput={TextField}
+                value={this.state.feedRateEvaporatorTank3.value}
+                fullWidth={true}
+                defaultValue={0.0}
+                onValueChange={(value) =>
+                    this.onChange("feedRateEvaporatorTank3", value.floatValue)
+                }
+                onBlur={(e) => this.onBlur("feedRateEvaporatorTank3")}
+                onFocus={(event) => {
+                  event.target.select();
+                }}
+                decimalScale={2}
+                thousandSeparator={false}
+                fixedDecimalScale={true}
+                error={!this.state.feedRateEvaporatorTank3.valid}
+                helperText={
+                  !this.state.feedRateEvaporatorTank3.valid
+                      ? this.state.feedRateEvaporatorTank3.errorMessage
+                      : ""
+                }
+                disabled={this.props.onFormSubmit}
             />
           </FormControl>
         </Grid>
@@ -210,27 +181,27 @@ class NeuEvaporatorAddOrEdit extends Component {
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
-              id="phTank3"
-              label="pH Tank3"
-              customInput={TextField}
-              value={this.state.phTank3.value}
-              fullWidth={true}
-              defaultValue={0.0}
-              onValueChange={(value) =>
-                this.onChange("phTank3", value.floatValue)
-              }
-              onBlur={(e) => this.onBlur("phTank3")}
-              onFocus={(event) => {
-                event.target.select();
-              }}
-              decimalScale={2}
-              thousandSeparator={false}
-              fixedDecimalScale={true}
-              error={!this.state.phTank3.valid}
-              helperText={
-                !this.state.phTank3.valid ? this.state.phTank3.errorMessage : ""
-              }
-              disabled={this.props.onFormSubmit}
+                id="phTank3"
+                label="Tank 03 pH"
+                customInput={TextField}
+                value={this.state.phTank3.value}
+                fullWidth={true}
+                defaultValue={0.0}
+                onValueChange={(value) =>
+                    this.onChange("phTank3", value.floatValue)
+                }
+                onBlur={(e) => this.onBlur("phTank3")}
+                onFocus={(event) => {
+                  event.target.select();
+                }}
+                decimalScale={2}
+                thousandSeparator={false}
+                fixedDecimalScale={true}
+                error={!this.state.phTank3.valid}
+                helperText={
+                  !this.state.phTank3.valid ? this.state.phTank3.errorMessage : ""
+                }
+                disabled={this.props.onFormSubmit}
             />
           </FormControl>
         </Grid>
@@ -240,7 +211,7 @@ class NeuEvaporatorAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <TextField
               id="phHmiTank3"
-              label="pH HMI Tank3"
+              label="Tank 03 pH Status, Ok/Not Ok"
               value={this.state.phHmiTank3.value}
               fullWidth={true}
               defaultValue={0.0}
@@ -262,11 +233,66 @@ class NeuEvaporatorAddOrEdit extends Component {
           </FormControl>
         </Grid>
         {/** End pH HMI Tank3 **/}
+        {/** Monthly Calibration Of Ph Meter Tank3 ***/}
+        <Grid item xs={12}>
+          <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Tank 03 Monthly Calibration, Done/Not Done
+            </FormLabel>
+            <Grid component="label" container alignItems="center" spacing={1}>
+              <Grid item>Not Done</Grid>
+              <Grid item>
+                <Switch
+                    checked={this.state.monthlyCalibrationOfPhMeterTank3.value}
+                    onChange={(event) => {
+                      this.onChange(
+                          "monthlyCalibrationOfPhMeterTank3",
+                          event.target.checked
+                      );
+                      this.onBlur("monthlyCalibrationOfPhMeterTank3");
+                    }}
+                    name="monthlyCalibrationOfPhMeterTank3"
+                />
+              </Grid>
+              <Grid item>Done</Grid>
+            </Grid>
+          </FormControl>
+        </Grid>
+        {/** End Monthly Calibration Of Ph Meter Tank3 **/}
+        {/** pH Tank6 ***/}
+        <Grid item xs={12}>
+          <FormControl className={this.props.classes.formControl}>
+            <NumberFormat
+                id="phTank6"
+                label="Tank 06 pH"
+                customInput={TextField}
+                value={this.state.phTank6.value}
+                fullWidth={true}
+                defaultValue={0.0}
+                onValueChange={(value) =>
+                    this.onChange("phTank6", value.floatValue)
+                }
+                onBlur={(e) => this.onBlur("phTank6")}
+                onFocus={(event) => {
+                  event.target.select();
+                }}
+                decimalScale={2}
+                thousandSeparator={false}
+                fixedDecimalScale={true}
+                error={!this.state.phTank6.valid}
+                helperText={
+                  !this.state.phTank6.valid ? this.state.phTank6.errorMessage : ""
+                }
+                disabled={this.props.onFormSubmit}
+            />
+          </FormControl>
+        </Grid>
+        {/** End pH Tank6 **/}
         {/** Water Sample In Bottle Tank6 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <FormLabel component="legend">
-              Water Sample In Bottle Tank6
+              Tank 06 Water Sample, Good/Bad
             </FormLabel>
             <Grid component="label" container alignItems="center" spacing={1}>
               <Grid item>Bad</Grid>
@@ -288,38 +314,74 @@ class NeuEvaporatorAddOrEdit extends Component {
           </FormControl>
         </Grid>
         {/** End Water Sample In Bottle Tank6 **/}
-        {/** Monthly Calibration Of Ph Meter Tank3 ***/}
+        {/** Water Level Tank6 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
-            <FormLabel component="legend">
-              Monthly Calibration Of Ph Meter Tank3
-            </FormLabel>
-            <Grid component="label" container alignItems="center" spacing={1}>
-              <Grid item>Not Done</Grid>
-              <Grid item>
-                <Switch
-                  checked={this.state.monthlyCalibrationOfPhMeterTank3.value}
-                  onChange={(event) => {
-                    this.onChange(
-                      "monthlyCalibrationOfPhMeterTank3",
-                      event.target.checked
-                    );
-                    this.onBlur("monthlyCalibrationOfPhMeterTank3");
-                  }}
-                  name="monthlyCalibrationOfPhMeterTank3"
-                />
-              </Grid>
-              <Grid item>Done</Grid>
-            </Grid>
+            <NumberFormat
+                id="waterLevelTank6"
+                label="Tank 06 Water Level, L"
+                customInput={TextField}
+                value={this.state.waterLevelTank6.value}
+                fullWidth={true}
+                defaultValue={0.0}
+                onValueChange={(value) =>
+                    this.onChange("waterLevelTank6", value.floatValue)
+                }
+                onBlur={(e) => this.onBlur("waterLevelTank6")}
+                onFocus={(event) => {
+                  event.target.select();
+                }}
+                decimalScale={2}
+                thousandSeparator={false}
+                fixedDecimalScale={true}
+                error={!this.state.waterLevelTank6.valid}
+                helperText={
+                  !this.state.waterLevelTank6.valid
+                      ? this.state.waterLevelTank6.errorMessage
+                      : ""
+                }
+                disabled={this.props.onFormSubmit}
+            />
           </FormControl>
         </Grid>
-        {/** End Monthly Calibration Of Ph Meter Tank3 **/}
+        {/** End Water Level Tank6 **/}
+        {/** Flow Rate Tank6 ***/}
+        <Grid item xs={12}>
+          <FormControl className={this.props.classes.formControl}>
+            <NumberFormat
+                id="flowRateTank6"
+                label="Tank 06 Flow Rate"
+                customInput={TextField}
+                value={this.state.flowRateTank6.value}
+                fullWidth={true}
+                defaultValue={0.0}
+                onValueChange={(value) =>
+                    this.onChange("flowRateTank6", value.floatValue)
+                }
+                onBlur={(e) => this.onBlur("flowRateTank6")}
+                onFocus={(event) => {
+                  event.target.select();
+                }}
+                decimalScale={2}
+                thousandSeparator={false}
+                fixedDecimalScale={true}
+                error={!this.state.flowRateTank6.valid}
+                helperText={
+                  !this.state.flowRateTank6.valid
+                      ? this.state.flowRateTank6.errorMessage
+                      : ""
+                }
+                disabled={this.props.onFormSubmit}
+            />
+          </FormControl>
+        </Grid>
+        {/** End Flow Rate Tank6 **/}
         {/** Conductivity ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="conductivity"
-              label="Conductivity"
+              label="Demineralization Conductivity, uS/cm"
               customInput={TextField}
               value={this.state.conductivity.value}
               fullWidth={true}
@@ -345,72 +407,10 @@ class NeuEvaporatorAddOrEdit extends Component {
           </FormControl>
         </Grid>
         {/** End Conductivity **/}
-        {/** Water Level Tank6 ***/}
-        <Grid item xs={12}>
-          <FormControl className={this.props.classes.formControl}>
-            <NumberFormat
-              id="waterLevelTank6"
-              label="Water Level Tank6"
-              customInput={TextField}
-              value={this.state.waterLevelTank6.value}
-              fullWidth={true}
-              defaultValue={0.0}
-              onValueChange={(value) =>
-                this.onChange("waterLevelTank6", value.floatValue)
-              }
-              onBlur={(e) => this.onBlur("waterLevelTank6")}
-              onFocus={(event) => {
-                event.target.select();
-              }}
-              decimalScale={2}
-              thousandSeparator={false}
-              fixedDecimalScale={true}
-              error={!this.state.waterLevelTank6.valid}
-              helperText={
-                !this.state.waterLevelTank6.valid
-                  ? this.state.waterLevelTank6.errorMessage
-                  : ""
-              }
-              disabled={this.props.onFormSubmit}
-            />
-          </FormControl>
-        </Grid>
-        {/** End Water Level Tank6 **/}
-        {/** Flow Rate Tank6 ***/}
-        <Grid item xs={12}>
-          <FormControl className={this.props.classes.formControl}>
-            <NumberFormat
-              id="flowRateTank6"
-              label="Flow Rate Tank6"
-              customInput={TextField}
-              value={this.state.flowRateTank6.value}
-              fullWidth={true}
-              defaultValue={0.0}
-              onValueChange={(value) =>
-                this.onChange("flowRateTank6", value.floatValue)
-              }
-              onBlur={(e) => this.onBlur("flowRateTank6")}
-              onFocus={(event) => {
-                event.target.select();
-              }}
-              decimalScale={2}
-              thousandSeparator={false}
-              fixedDecimalScale={true}
-              error={!this.state.flowRateTank6.valid}
-              helperText={
-                !this.state.flowRateTank6.valid
-                  ? this.state.flowRateTank6.errorMessage
-                  : ""
-              }
-              disabled={this.props.onFormSubmit}
-            />
-          </FormControl>
-        </Grid>
-        {/** End Flow Rate Tank6 **/}
         {/** Water Quality Tank7 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
-            <FormLabel component="legend">Water Quality Tank7</FormLabel>
+            <FormLabel component="legend">Tank 07 Water Quality, Good/Bad</FormLabel>
             <Grid component="label" container alignItems="center" spacing={1}>
               <Grid item>Bad</Grid>
               <Grid item>
@@ -433,7 +433,7 @@ class NeuEvaporatorAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <TextField
               id="waterLevelTank7"
-              label="Water Level Tank7"
+              label="Tank 07 Water Level LS 17/18/19, Ok/Low"
               value={this.state.waterLevelTank7.value}
               fullWidth={true}
               defaultValue={0.0}
@@ -460,7 +460,7 @@ class NeuEvaporatorAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="waterLevelLitreTank8"
-              label="Water Level Litre Tank8"
+              label="Tank 08 Water Level, L"
               customInput={TextField}
               value={this.state.waterLevelLitreTank8.value}
               fullWidth={true}
@@ -489,7 +489,7 @@ class NeuEvaporatorAddOrEdit extends Component {
         {/** Any Abnormal Usage Tank8 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
-            <FormLabel component="legend">Any Abnormal Usage Tank8</FormLabel>
+            <FormLabel component="legend">Tank 08 Any Abnormal Usage, Yes/No</FormLabel>
             <Grid component="label" container alignItems="center" spacing={1}>
               <Grid item>No</Grid>
               <Grid item>
@@ -515,7 +515,7 @@ class NeuEvaporatorAddOrEdit extends Component {
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
               id="waterLevelTank9"
-              label="Water Level Tank9"
+              label="Tank 09 Water Level, L"
               customInput={TextField}
               value={this.state.waterLevelTank9.value}
               fullWidth={true}
@@ -544,7 +544,7 @@ class NeuEvaporatorAddOrEdit extends Component {
         {/** Any Abnormal Usage Tank9 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
-            <FormLabel component="legend">Any Abnormal Usage Tank9</FormLabel>
+            <FormLabel component="legend">Tank 09 Any Abnormal Usage, Yes/No</FormLabel>
             <Grid component="label" container alignItems="center" spacing={1}>
               <Grid item>No</Grid>
               <Grid item>
