@@ -24,6 +24,12 @@ const COLOR = {
 
 export default class Graph extends Component {
 
+    /*
+        declare a member variable to hold the interval ID
+        that we can reference later.
+      */
+    intervalID;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -37,7 +43,25 @@ export default class Graph extends Component {
     }
 
     componentDidMount() {
+        /*
+          need to make the initial call to loadData() to populate
+         data right away
+        */
         this.loadData();
+        /*
+         Now we need to make it run at a specified interval,
+         bind the loadData() call to `this`, and keep a reference
+         to the invterval so we can clear it later.
+       */
+        this.intervalID = setInterval(this.loadData.bind(this), 60000);
+    }
+
+    componentWillUnmount() {
+        /*
+          stop loadData() from continuing to run even
+          after unmounting this component
+        */
+        clearInterval(this.intervalID);
     }
 
     loadData = async () => {

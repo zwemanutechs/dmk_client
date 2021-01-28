@@ -177,7 +177,7 @@ class OverView extends React.PureComponent{
                                 <Graph
                                     assetId={PAINTBOOTH_ASSETID}
                                     aspectName="ESTA1"
-                                    variableName="Inlet_Temperature_degC"
+                                    variableName="Room_Temperature_DegC"
                                     limit={3}
                                     dataKey={'_time'}
                                     unit={'oC'}
@@ -562,7 +562,7 @@ class OverView extends React.PureComponent{
                                 <Graph
                                     assetId={PAINTBOOTH_ASSETID}
                                     aspectName="ESTA2"
-                                    variableName="Inlet_Temperature_degC"
+                                    variableName="Room_Temperature_DegC"
                                     limit={3}
                                     dataKey={'_time'}
                                     unit={'oC'}

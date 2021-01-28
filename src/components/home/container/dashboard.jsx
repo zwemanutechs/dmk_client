@@ -26,6 +26,7 @@ const useStyles = theme => ({
 });
 
 class Dashboard extends React.PureComponent{
+
     render() {
         return (
             <div className={this.props.classes.root}>
@@ -423,7 +424,7 @@ class Dashboard extends React.PureComponent{
                                                 limit={1000}
                                                 dataPoint='api'
                                                 unit={''}
-                                                title="WS > T4"
+                                                title="WS < T4"
                                                 target={'100'}
                                                 HH={100}
                                             />
@@ -519,7 +520,7 @@ class Dashboard extends React.PureComponent{
                                                 limit={1000}
                                                 dataPoint='api'
                                                 unit={''}
-                                                title="WS > DI-T"
+                                                title="WS < DI-T"
                                                 target={'100'}
                                                 HH={100}
                                             />
@@ -615,7 +616,7 @@ class Dashboard extends React.PureComponent{
                                                 limit={1000}
                                                 dataPoint='api'
                                                 unit={''}
-                                                title="WS > DI-T"
+                                                title="WS < DI-T"
                                                 target={'100'}
                                                 HH={100}
                                             />

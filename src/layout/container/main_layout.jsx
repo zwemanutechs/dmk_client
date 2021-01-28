@@ -160,27 +160,27 @@ const MENU_ITEMS = [
     name: "Power Wash",
     items: [
       {
-        name: "Degreasing (1)",
+        name: "Degreasing (T1)",
         link: "/Degreasing",
       },
       {
-        name: "Rinse 1 (2)",
+        name: "Rinse 1 (T2)",
         link: "/RinseOne",
       },
       {
-        name: "Rinse 2 (3)",
+        name: "Rinse 2 (T3)",
         link: "/RinseTwo",
       },
       {
-        name: "Rinse 3 (4)",
+        name: "Rinse 3 (T4)",
         link: "/RinseThree",
       },
       {
-        name: "Di Rinse (5)",
+        name: "Di Rinse (T5)",
         link: "/RinseDI",
       },
       {
-        name: "Passivation (6)",
+        name: "Passivation (T6)",
         link: "/Passivation",
       },
     ],
@@ -190,11 +190,11 @@ const MENU_ITEMS = [
     name: "Water Treatment",
     items: [
       {
-        name: "Neutralization (03-09)",
+        name: "Neu & Evap (T03-T09)",
         link: "/NeuEvaporator",
       },
       {
-        name: "Distilled Water (05)",
+        name: "Distilled Water (T05)",
         link: "/Conversion",
       },
       // {

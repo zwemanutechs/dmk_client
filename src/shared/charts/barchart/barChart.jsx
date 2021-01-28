@@ -13,11 +13,18 @@ const useStyles = theme => ({
 function ReactBarChart (props){
     const[data, setData] = useState([]);
     const[isFetching, setIsFetching] = useState(true);
+    const [refreshInterval, setRefreshInterval] = useState( 0);
     const defaultColors = ['#154a98', '#ff1029', '#b2b2b2', '#E9C94B'];
 
     useEffect(() => {
-        loadData();
-    }, []);
+        if (refreshInterval && refreshInterval > 0) {
+            const interval = setInterval(loadData, refreshInterval);
+            return () => clearInterval(interval);
+        }else{
+            loadData();
+            setRefreshInterval(60000);
+        }
+    }, [refreshInterval]);
 
     const loadData = async () => {
         const now = new Date();
