@@ -618,7 +618,7 @@ class Dashboard extends React.PureComponent{
                                                 unit={''}
                                                 title="WS < DI-T"
                                                 target={'100'}
-                                                HH={100}
+                                                HH={200}
                                             />
                                         </Paper>
                                     </Grid>
