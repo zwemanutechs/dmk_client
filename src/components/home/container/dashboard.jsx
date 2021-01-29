@@ -308,7 +308,7 @@ class Dashboard extends React.PureComponent{
                                                     {value:85,color:"#154a98"},
                                                     {value:97,color:"#ff1029"}
                                                 ]}
-                                                unit={'%'}
+                                                unit={'cm'}
                                                 min={60}
                                                 max={97}
                                                 LL={70}
@@ -404,7 +404,7 @@ class Dashboard extends React.PureComponent{
                                                     {value:75,color:"#154a98"},
                                                     {value:90,color:"#ff1029"}
                                                 ]}
-                                                unit={'%'}
+                                                unit={'cm'}
                                                 min={45}
                                                 max={90}
                                                 LL={55}
@@ -500,7 +500,7 @@ class Dashboard extends React.PureComponent{
                                                     {value:75,color:"#154a98"},
                                                     {value:80,color:"#ff1029"}
                                                 ]}
-                                                unit={'%'}
+                                                unit={'cm'}
                                                 min={65}
                                                 max={80}
                                                 LL={70}
@@ -596,7 +596,7 @@ class Dashboard extends React.PureComponent{
                                                     {value:75,color:"#154a98"},
                                                     {value:80,color:"#ff1029"}
                                                 ]}
-                                                unit={'%'}
+                                                unit={'cm'}
                                                 min={65}
                                                 max={80}
                                                 LL={70}
@@ -658,7 +658,7 @@ class Dashboard extends React.PureComponent{
                     <Grid item xs={12} md={6} lg={3}>
                         <Grid container spacing={1}>
                             <Grid item xs={12} sm={12} md={12} lg={12}>
-                                <div style={{fontSize: 16, color:'#0f3790', fontWeight: 900}}>Tank 6 (Rinse DI)</div>
+                                <div style={{fontSize: 16, color:'#0f3790', fontWeight: 900}}>Tank 6 (Passivation)</div>
                             </Grid>
                             {/** T6 pH */}
                             <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -695,7 +695,7 @@ class Dashboard extends React.PureComponent{
                                             {value:75,color:"#154a98"},
                                             {value:85,color:"#ff1029"}
                                         ]}
-                                        unit={'%'}
+                                        unit={'cm'}
                                         min={55}
                                         max={85}
                                         LL={70}
@@ -708,17 +708,29 @@ class Dashboard extends React.PureComponent{
                             <Grid item xs={12} sm={12} md={6} lg={6}>
                                 <Paper className={this.props.classes.paper}>
                                     <Graph
-                                        assetId={POWERWASH_ASSETID}
-                                        aspectName="Tank6_Passivation"
-                                        variableName="OverFlow_Level_cm"
-                                        limit={3}
-                                        dataKey={'_time'}
-                                        unit={'%'}
-                                        dataPoint='mindsphere'
-                                        title="Water Flow"
+                                        pathName='dashboard'
+                                        endPoint='passivation/concentration'
+                                        variableName='data'
+                                        dataKey={'time'}
+                                        limit={1000}
+                                        dataPoint='api'
+                                        unit={''}
+                                        title="Concentration"
                                         target={'200'}
                                         HH={200}
                                     />
+                                    {/*<Graph*/}
+                                    {/*    assetId={POWERWASH_ASSETID}*/}
+                                    {/*    aspectName="Tank6_Passivation"*/}
+                                    {/*    variableName="OverFlow_Level_cm"*/}
+                                    {/*    limit={3}*/}
+                                    {/*    dataKey={'_time'}*/}
+                                    {/*    unit={'%'}*/}
+                                    {/*    dataPoint='mindsphere'*/}
+                                    {/*    title="Concentration"*/}
+                                    {/*    target={'200'}*/}
+                                    {/*    HH={200}*/}
+                                    {/*/>*/}
                                 </Paper>
                             </Grid>
                             {/** End */}

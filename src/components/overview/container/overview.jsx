@@ -289,7 +289,7 @@ class OverView extends React.PureComponent{
                                     limit={10}
                                     dataPoint='api'
                                     unit={'sec'}
-                                    title="Paint viscosity"
+                                    title="Paint Viscosity"
                                     target={'45-55'}
                                     LL={45}
                                     HH={55}
@@ -303,7 +303,7 @@ class OverView extends React.PureComponent{
                              Top Coat Cabinet 1
                              ***/}
                             <Grid item xs={12} sm={12} md={12} lg={12}>
-                                <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Top Coat 1</div>
+                                <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Top Coat Cabinet 1</div>
                             </Grid>
                             {/** Primer Cabinet 1 Temperature */}
                             <Grid key={'TopCoat1Temperature'} item xs={12} sm={12} md={4} lg={4}>
@@ -674,7 +674,7 @@ class OverView extends React.PureComponent{
                                     limit={10}
                                     dataPoint='api'
                                     unit={'sec'}
-                                    title="Paint viscosity"
+                                    title="Paint Viscosity"
                                     target={'45-55'}
                                     LL={45}
                                     HH={55}
@@ -688,7 +688,7 @@ class OverView extends React.PureComponent{
                              Top Coat Cabinet 2
                              ***/}
                             <Grid item xs={12} sm={12} md={12} lg={12}>
-                                <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Top Coat 2</div>
+                                <div style={{fontSize: 16,color:'#0f3790', fontWeight: 900}}>Top Coat Cabinet 2</div>
                             </Grid>
                             {/** Primer Cabinet 2 Temperature */}
                             <Grid key={'TopCoat1Temperature'} item xs={12} sm={12} md={4} lg={4}>
@@ -755,7 +755,7 @@ class OverView extends React.PureComponent{
                                         {value:8.0,color:"#154a98"},
                                         {value:9.0,color:"#ff1029"}
                                     ]}
-                                    unit={'%'}
+                                    unit={''}
                                     min={6.0}
                                     max={9.0}
                                     LL={7.0}
