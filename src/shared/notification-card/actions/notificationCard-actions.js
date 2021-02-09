@@ -1,13 +1,13 @@
 import {NOTIFICATION_FETCH, NOTIFICATION_GET} from '../action-constants/notificationCard-actionTypes'
 import {OPEN_SNACK} from "../../snackbar/action-constants/snackbar-actionTypes";
 import {snackError} from "../../../constants/app-constants";
-import {API} from "../../../constants/api-constants";
+import {BASEURI} from "../../../constants/api-constants";
 
 export const notificationCardFetchData = (formName,datetime) => ({
    payload: '',
     meta: {
-       type: API,
-        url: `dashboard/notification/${formName}/${datetime}`,
+       type: 'API',
+        url: `${BASEURI}/dashboard/notification/${formName}/${datetime}`,
         onSuccess: (data) => ({
             type: NOTIFICATION_GET,
             data: data.data,

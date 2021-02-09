@@ -45,7 +45,7 @@ class OverView extends React.PureComponent{
                                 <Graph
                                     assetId={OVEN_ASSETID}
                                     aspectName="WaterDryer"
-                                    variableName="Heater_Temperature_degC"
+                                    variableName="RoomTemperature_degC"
                                     limit={3}
                                     unit={'oC'}
                                     dataKey={'_time'}
@@ -430,7 +430,7 @@ class OverView extends React.PureComponent{
                                 <Graph
                                     assetId={OVEN_ASSETID}
                                     aspectName="IntermediateOven"
-                                    variableName="Heater_Temperature_degC"
+                                    variableName="RoomTemperature_degC"
                                     limit={3}
                                     dataKey={'_time'}
                                     unit={'oC'}

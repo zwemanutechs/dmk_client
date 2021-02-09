@@ -521,8 +521,8 @@ class Dashboard extends React.PureComponent{
                                                 dataPoint='api'
                                                 unit={''}
                                                 title="WS < DI-T"
-                                                target={'100'}
-                                                HH={100}
+                                                target={'200'}
+                                                HH={200}
                                             />
                                         </Paper>
                                     </Grid>
@@ -716,8 +716,9 @@ class Dashboard extends React.PureComponent{
                                         dataPoint='api'
                                         unit={''}
                                         title="Concentration"
-                                        target={'200'}
-                                        HH={200}
+                                        target={'0.1 - 0.5'}
+                                        LL={0.1}
+                                        HH={0.5}
                                     />
                                     {/*<Graph*/}
                                     {/*    assetId={POWERWASH_ASSETID}*/}

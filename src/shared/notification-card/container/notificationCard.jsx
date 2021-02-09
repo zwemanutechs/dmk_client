@@ -15,11 +15,11 @@ class NotificationCard extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = { }
     }
 
     componentDidMount() {
-        //this.props.notificationCardFetchData(this.props.formName, new Date().toISOString());
+        this.props.notificationCardFetchData(this.props.formName, new Date().toISOString());
     }
 
     render() {
@@ -33,10 +33,10 @@ class NotificationCard extends Component {
                                 {this.props.formName[0]}
                             </Avatar>
                         }
-                        title={this.props.formName}
+                        title={this.props.title}
                     />
                     <List dense={true}>
-                        {this.props.data[this.props.formName] === undefined ? [] : this.props.data[this.props.formName].map((dt, i) => {
+                        {!this.props.data.hasOwnProperty(this.props.formName) && this.props.data[this.props.formName] === undefined ? [] : this.props.data[this.props.formName].map((dt, i) => {
                             return (
                                 <ListItem>
                                     <ListItemIcon>

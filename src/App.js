@@ -24,6 +24,7 @@ import PaintCabinetTopCabinet2 from "./components/paintcabinet-tc2/container/pai
 import PaintCabinetPrimerCabinet1 from "./components/paintcabinet-pc1/container/paintcabinet-pc1";
 import PaintCabinetPrimerCabinet2 from "./components/paintcabinet-pc2/container/paintcabinet-pc2";
 import {BASEURI} from "./constants/api-constants";
+import Notification from "./components/notification/container/notification";
 
 class App extends Component {
     constructor(props) {
@@ -41,7 +42,6 @@ class App extends Component {
         httpClient
             .get("Auth/AuthRequest")
             .then((response) => {
-                console.log(response);
                 if (response && response.status === 200 && response.data.code) {
                     localStorage.setItem("access-data", response.data.data);
                     this.setState({accessToken: response.data.data});
@@ -73,6 +73,7 @@ class App extends Component {
                         <MainLayout>
                             <Route exact path="/" render={() => <Dashboard />} />
                             <Route path="/Home" render={() => <Dashboard />} />
+                            <Route path="/Notification" render={() => <Notification />} />
                             <Route path="/Overview" render={() => <Overview />} />
                             <Route path="/RinseDI" render={() => <RinseDi />} />
                             <Route path="/RinseOne" render={() => <Rinse1 />} />

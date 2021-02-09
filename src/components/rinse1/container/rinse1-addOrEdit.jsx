@@ -145,6 +145,36 @@ class RinseOneAddOrEdit extends Component {
           </FormControl>
         </Grid>
         {/** End Water Overflow Waste Water From Tank 1 **/}
+        {/** Tank-6 Water Supply ***/}
+        <Grid item xs={12}>
+          <FormControl className={this.props.classes.formControl}>
+            <NumberFormat
+                id="waterSupplyFromTank6"
+                label="Tank-6 Water Supply, L/hr"
+                customInput={TextField}
+                value={this.state.waterSupplyFromTank6.value}
+                defaultValue={0.0}
+                onValueChange={(value) =>
+                    this.onChange("waterSupplyFromTank6", value.floatValue)
+                }
+                onBlur={(e) => this.onBlur("waterSupplyFromTank6")}
+                onFocus={(event) => {
+                  event.target.select();
+                }}
+                decimalScale={2}
+                thousandSeparator={false}
+                fixedDecimalScale={true}
+                error={!this.state.waterSupplyFromTank6.valid}
+                helperText={
+                  !this.state.waterSupplyFromTank6.valid
+                      ? this.state.waterSupplyFromTank6.errorMessage
+                      : ""
+                }
+                disabled={this.props.onFormSubmit}
+            />
+          </FormControl>
+        </Grid>
+        {/** End Tank-6 Water Supply **/}
         {/** Tank-3 Water Supply ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
@@ -168,36 +198,6 @@ class RinseOneAddOrEdit extends Component {
               helperText={
                 !this.state.waterSupplyFromTank3.valid
                   ? this.state.waterSupplyFromTank3.errorMessage
-                  : ""
-              }
-              disabled={this.props.onFormSubmit}
-            />
-          </FormControl>
-        </Grid>
-        {/** End Tank-3 Water Supply **/}
-        {/** Tank-3 Water Supply ***/}
-        <Grid item xs={12}>
-          <FormControl className={this.props.classes.formControl}>
-            <NumberFormat
-              id="waterSupplyFromTank6"
-              label="Tank-6 Water Supply, L/hr"
-              customInput={TextField}
-              value={this.state.waterSupplyFromTank6.value}
-              defaultValue={0.0}
-              onValueChange={(value) =>
-                this.onChange("waterSupplyFromTank6", value.floatValue)
-              }
-              onBlur={(e) => this.onBlur("waterSupplyFromTank6")}
-              onFocus={(event) => {
-                event.target.select();
-              }}
-              decimalScale={2}
-              thousandSeparator={false}
-              fixedDecimalScale={true}
-              error={!this.state.waterSupplyFromTank6.valid}
-              helperText={
-                !this.state.waterSupplyFromTank6.valid
-                  ? this.state.waterSupplyFromTank6.errorMessage
                   : ""
               }
               disabled={this.props.onFormSubmit}

@@ -26,7 +26,7 @@ import PaintBooth from "../../assets/images/svg/painting_booth.svg";
 import KitchenOutlinedIcon from "@material-ui/icons/KitchenOutlined";
 import Hidden from "@material-ui/core/Hidden";
 import IconDashboard from "@material-ui/icons/Dashboard";
-
+import NotificationsActiveOutlinedIcon from '@material-ui/icons/NotificationsActiveOutlined';
 import AppMenuItem from "./AppMenuItem";
 
 const useStyles = (theme) => ({
@@ -150,11 +150,11 @@ const MENU_ITEMS = [
     name: "Overview-Paint Dash",
     link: "/Overview",
   },
-  // {
-  //   Icon: IconDashboard,
-  //   name: "Test Dashboard",
-  //   link: "/NewDashboard",
-  // },
+  {
+    Icon: NotificationsActiveOutlinedIcon,
+    name: "Notification",
+    link: "/Notification",
+  },
   {
     iconImg: RinseDIIcon,
     name: "Power Wash",
