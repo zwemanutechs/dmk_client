@@ -29,12 +29,12 @@ class MUITable extends Component {
 
   configureAccessRight = () => {
     let tableOptions = this.props.options;
-    tableOptions = Object.assign({}, tableOptions, {
-      count: this.props.totalCount,
-    });
-    tableOptions = Object.assign({}, tableOptions, {
-      onChangePage: (pageNumber) => this.props.onPageChange(pageNumber),
-    });
+    // tableOptions = Object.assign({}, tableOptions, {
+    //   count: this.props.totalCount,
+    // });
+    // tableOptions = Object.assign({}, tableOptions, {
+    //   onChangePage: (pageNumber) => this.props.onPageChange(pageNumber),
+    // });
     if (this.props.accessRight && this.props.accessRight.Create) {
       tableOptions = Object.assign({}, tableOptions, {
         customToolbar: () => <CustomTableToolbar />,

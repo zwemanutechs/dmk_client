@@ -1,7 +1,7 @@
 export const paintCabinetTopCabinet1Model = {
     topCabinet1CabinetTemperature: 0.00,
     topCabinet1CabinetHumidity: 0.00,
-    topCabinet1CabinetTestVisocity: 0,
+    topCabinet1CabinetTestVisocity: 0.00,
     topCabinet1CabinetTestTemperature: 0.00,
     topCabinet1CabinetDiWaterCheck: 0.00,
     topCabinet1CabinetAndonLightInspection: false,

@@ -14,7 +14,7 @@ export const formValidation = formFields => {
                     required: "Paint Pressure At Esta2 R11 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             paintPressureAtEsta1R12: {
@@ -28,7 +28,7 @@ export const formValidation = formFields => {
                     required: "Paint Pressure At Esta1 R12 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             paintPressureAtEsta1R11: {
@@ -42,7 +42,7 @@ export const formValidation = formFields => {
                     required: "Paint Pressure At Esta1 R11 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             highTensionEsta2R11: {
@@ -56,7 +56,7 @@ export const formValidation = formFields => {
                     required: "High Tension Esta2 R11 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             highTensionEsta1R12: {
@@ -70,7 +70,7 @@ export const formValidation = formFields => {
                     required: "High Tension Esta1 R12 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             highTensionEsta1R11: {
@@ -84,7 +84,7 @@ export const formValidation = formFields => {
                     required: "High Tension Esta1 R11 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             touchUpRoom1AirFlow: {
@@ -98,7 +98,7 @@ export const formValidation = formFields => {
                     required: "Touch Up Room1 Air Flow cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             touchUpRoom2AirFlow: {
@@ -112,7 +112,7 @@ export const formValidation = formFields => {
                     required: "Touch Up Room2 Air Flow cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
         }

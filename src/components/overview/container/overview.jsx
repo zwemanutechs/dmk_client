@@ -260,7 +260,7 @@ class OverView extends React.PureComponent{
                                 <CircleGauge
                                     title={'Humidity'}
                                     pathName='dashboard'
-                                    endPoint='paintcabinet/cabinet1Temperature'
+                                    endPoint='paintcabinet/cabinet1Humidity'
                                     variableName='data'
                                     limit={3}
                                     border={true}

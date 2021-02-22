@@ -34,7 +34,7 @@ const columns = [
   { label: "Concentration (%)", name: "concentration" },
   {
     label: "Concentration Below 0.5% (Yes/No)",
-    name: "concentrationTopUp (Yes/No)",
+    name: "concentrationTopUp",
     options: {
       filter: false,
       customBodyRender: (value, tableMeta, updateValue) => (
@@ -265,7 +265,7 @@ class Degreasing extends Component {
                * **/
               <MobileView
                 columns={columns}
-                title={"DEGREASING(TANK 01)"}
+                title={"DEGREASING (TANK 1)"}
                 data={this.state.tableData}
                 nextData={this.getData}
                 totalCount={this.state.totalCount}
@@ -278,14 +278,14 @@ class Degreasing extends Component {
                * Desktop View
                * **/
               <MUITable
-                title={"DEGREASING(TANK 01)"}
+                title={"DEGREASING (TANK 1)"}
                 totalCount={this.state.totalCount}
                 data={this.state.tableData.sort(sortByUpdatedAt)}
                 columns={columns}
                 accessRight={{ Create: true, Update: true, Delete: true }}
                 options={tableCustomizeToolBarSingleSelect}
                 loading={this.state.loading}
-                onPageChange={this.getData}
+                //onPageChange={this.getData}
                 handleUpdate={this.onUpdate}
                 handelDelete={this.onDelete}
               />

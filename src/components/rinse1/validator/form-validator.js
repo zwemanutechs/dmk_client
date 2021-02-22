@@ -14,11 +14,7 @@ export const formValidation = formFields => {
                     required: "Ph Meter cannot be empty."
                 },
                 conform: v => {
-                    if (v === 0) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    return v > 0;
                 }
             },
             waterOverflowToWasteWaterTank1: {
@@ -32,11 +28,7 @@ export const formValidation = formFields => {
                     required: "Waste Water cannot be empty."
                 },
                 conform: v => {
-                    if (v === 0) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    return v > 0;
                 }
             },
             waterSupplyFromTank3: {
@@ -50,11 +42,7 @@ export const formValidation = formFields => {
                     required: "Tank 3 Water Supply cannot be empty."
                 },
                 conform: v => {
-                    if (v === 0) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    return v > 0;
                 }
             },
             waterSupplyFromTank6: {
@@ -68,11 +56,7 @@ export const formValidation = formFields => {
                     required: "Tank 6 Water Supply cannot be empty."
                 },
                 conform: v => {
-                    if (v === 0) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    return v > 0;
                 }
             },
         }

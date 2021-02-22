@@ -1,4 +1,4 @@
-export const OVEN_ASSETID='d4ac9179bf834cadb4cf0deff0254b4e';
-export const PAINTBOOTH_ASSETID='6d7a5fa8c6c44a7aa6250c9a14fbf0db';
-export const POWERWASH_ASSETID='7ceae661e483414e929e823abaafa3d8';
-export const RAHU_ASSETID='c16b255468e7456d9cf0d968bc2ac0e3';
+export const OVEN_ASSETID='05959574391c451f8ce6c2dc5094b56f';
+export const PAINTBOOTH_ASSETID='a75617be021847a590f9dc403dc22d74';
+export const POWERWASH_ASSETID='4783a9ed4bce4eb08b42b1728ee3bc5c';
+export const RAHU_ASSETID='ebb1204f4c80463ebde74523f9a65d50';

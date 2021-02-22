@@ -14,7 +14,7 @@ export const formValidation = formFields => {
                     required: "Concentration cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             concentrationTopUp: {
@@ -42,7 +42,7 @@ export const formValidation = formFields => {
                     required: "Water Supply From Tank 2 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             oilSkimming: {
@@ -70,7 +70,7 @@ export const formValidation = formFields => {
                     required: "Dyne Test cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
         }

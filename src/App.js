@@ -33,6 +33,7 @@ class App extends Component {
         this.state = {
             accessToken: null,
         };
+        //localStorage.setItem("access-data", 'eyJJZCI6ImUzYzZmODNmLTI0ZjMtNDUzNy05MTE3LWY1ZmJkMGYxMmRmMCIsIlJvbGUiOiI2ODdkOGJlMi0wNDAzLTQ0NTctOWIxYi0xMGQ4YTljNGYxMjcifQ==');
     }
 
     componentDidMount() {

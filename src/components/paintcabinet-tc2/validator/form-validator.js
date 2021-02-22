@@ -14,7 +14,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Hardener Pressure Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2HardenerTank3: {
@@ -28,7 +28,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Hardener Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2DiWaterCheck: {
@@ -42,7 +42,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Di Water Check cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2CabinetTemperture: {
@@ -56,7 +56,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Cabinet Temperature cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2CabinetHumidity: {
@@ -70,7 +70,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Cabinet Humidity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2PaintTestVisocity: {
@@ -84,7 +84,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Paint Test Visocity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2PaintTestTemperature: {
@@ -98,7 +98,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Paint Test Temperature cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2AndonLightInspection: {

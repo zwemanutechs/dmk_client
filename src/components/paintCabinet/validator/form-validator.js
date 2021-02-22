@@ -14,7 +14,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 Cabinet Temperature cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetHumidity: {
@@ -28,7 +28,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 Cabinet Humidity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1PaintTestVisocity: {
@@ -42,7 +42,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 Paint Test Visocity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1PaintTestTemperature: {
@@ -56,7 +56,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 Paint Test Visocity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1DiWaterCheck: {
@@ -70,7 +70,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 DI Water Check cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1AndonLightInspection: {
@@ -98,7 +98,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P600 Inlet Tank1 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1P600OutletTank1: {
@@ -112,7 +112,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P600 Outlet Tank1 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1P190InletTank2: {
@@ -126,7 +126,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P190 Inlet Tank2 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1P190OutletTank2: {
@@ -140,7 +140,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P190 Outlet Tank2 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1P100InletTank3: {
@@ -154,7 +154,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P100 Inlet Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1P100OutletTank3: {
@@ -168,7 +168,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P100 Outlet Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1P020InletTank4: {
@@ -182,7 +182,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P020 Inlet Tank4 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1P020OutletTank2: {
@@ -196,7 +196,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P020 Outlet Tank2 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2HardenerPressureTankTank3: {
@@ -210,7 +210,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Hardener Pressure Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2HardenerTank3: {
@@ -224,7 +224,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Hardener Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2DiWaterCheck: {
@@ -238,7 +238,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Di Water Check cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2CabinetTemperature: {
@@ -252,7 +252,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Cabinet Temperature cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2CabinetHumidity: {
@@ -266,7 +266,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Cabinet Humidity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2PaintTestVisocity: {
@@ -280,7 +280,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Paint Test Visocity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2PaintTestTemperature: {
@@ -294,7 +294,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet2 Paint Test Temperature cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet2AndonLightInspection: {
@@ -322,7 +322,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet1 Di Water Check cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet1BlackPrimerInletTank2: {
@@ -336,7 +336,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet1 Black Primer Inlet Tank2 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet1BlackPrimerOutletTank2: {
@@ -350,7 +350,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet1 Black Primer Outlet Tank2 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet1PaintTestViscosity: {
@@ -364,7 +364,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet1 Paint Test Viscosity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet1R11Temperature: {
@@ -378,7 +378,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet1 R11 Temperature cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet1R11Humidity: {
@@ -392,7 +392,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet1 R11 Humidity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet1HardenerPressureTank3: {
@@ -406,7 +406,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet1 Hardener Pressure Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet1HardenerTank3: {
@@ -420,7 +420,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet1 Hardener Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet1UndonLightInspection: {
@@ -448,7 +448,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet1 Paint Test Temperature cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet1WhitePrimerInletTank1: {
@@ -462,7 +462,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet1 White Primer Inlet Tank1 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet1WhitePrimerOutletTank1: {
@@ -476,7 +476,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet1 White Primer Outlet Tank1 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet2UndonLightInspection: {
@@ -504,7 +504,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet2 R12 Temperature cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet2HardenerTank3: {
@@ -518,7 +518,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet2 Hardener Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet2PaintTestTemperature: {
@@ -532,7 +532,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet2 Paint Test Temperature cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet2BlackPrimerInletTank2: {
@@ -546,7 +546,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet2 Black Primer Inlet Tank2 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet2BlackPrimerOutletTank2: {
@@ -560,7 +560,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet2 Black Primer Outlet Tank2 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet2PaintTestViscosity: {
@@ -574,7 +574,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet2 Paint Test Viscosity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet2WhitePrimerInletTank1: {
@@ -588,7 +588,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet2 White Primer Inlet Tank1 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet2WhitePrimerOutletTank1: {
@@ -602,7 +602,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet2 White Primer Outlet Tank1 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet2DiWaterCheck: {
@@ -616,7 +616,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet2 Di Water Check cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet2HardenerPressureTank3: {
@@ -630,7 +630,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet2 Hardener Pressure Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             primerCabinet2R12Humidity: {
@@ -644,7 +644,7 @@ export const formValidation = formFields => {
                     required: "Primer Cabinet2 R12 Humidity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             }
 

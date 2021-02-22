@@ -14,12 +14,12 @@ export const formValidation = formFields => {
                     required: "pH Tank6 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             feedRateEvaporatorTank3: {
                 description: 'Feed Rate Evaporator Tank3',
-                type: 'number',
+                type: 'boolean',
                 required: true,
                 allowEmpty: false,
                 messages: {
@@ -42,21 +42,21 @@ export const formValidation = formFields => {
                     required: "pH Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             phHmiTank3: {
-                description: 'pH HMI Tank3',
-                type: 'string',
+                description: 'pH Meter Tank 03',
+                type: 'number',
                 required: true,
                 allowEmpty: false,
                 messages: {
-                    allowEmpty: "pH HMI Tank3 cannot be empty.",
-                    conform: "pH HMI Tank3 must be greater than 0.",
-                    required: "pH HMI Tank3 cannot be empty."
+                    allowEmpty: "pH Meter Tank 03 cannot be empty.",
+                    conform: "pH Meter Tank 03 must be greater than 0.",
+                    required: "pH Meter Tank 03 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             waterSampleInBottleTank6: {
@@ -98,23 +98,23 @@ export const formValidation = formFields => {
                     required: "Conductivity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
-            waterLevelTank6: {
-                description: 'Water Level Tank6',
-                type: 'number',
-                required: true,
-                allowEmpty: false,
-                messages: {
-                    allowEmpty: "Water Level Tank6 cannot be empty.",
-                    conform: "Water Level Tank6 cannot be empty.",
-                    required: "Water Level Tank6 cannot be empty."
-                },
-                conform: v => {
-                    return v !== 0;
-                }
-            },
+            // waterLevelTank6: {
+            //     description: 'Water Level Tank6',
+            //     type: 'number',
+            //     required: true,
+            //     allowEmpty: false,
+            //     messages: {
+            //         allowEmpty: "Water Level Tank6 cannot be empty.",
+            //         conform: "Water Level Tank6 cannot be empty.",
+            //         required: "Water Level Tank6 cannot be empty."
+            //     },
+            //     conform: v => {
+            //         return v > 0;
+            //     }
+            // },
             flowRateTank6: {
                 description: 'Flow Rate Tank6',
                 type: 'number',
@@ -126,7 +126,7 @@ export const formValidation = formFields => {
                     required: "Flow Rate Tank6 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             waterQualityTank7: {
@@ -143,29 +143,29 @@ export const formValidation = formFields => {
                     return v !== 0;
                 }
             },
-            waterLevelTank7: {
-                description: 'Water Level Tank7',
-                type: 'string',
-                required: true,
-                allowEmpty: false,
-                messages: {
-                    allowEmpty: "Water Level Tank7 cannot be empty.",
-                    conform: "Water Level Tank7 cannot be empty.",
-                    required: "Water Level Tank7 cannot be empty."
-                },
-                conform: v => {
-                    return v !== 0;
-                }
-            },
+            // waterLevelTank7: {
+            //     description: 'Water Level Tank7',
+            //     type: 'number',
+            //     required: false,
+            //     allowEmpty: true,
+            //     // messages: {
+            //     //     allowEmpty: "Any Abnormal Usage Tank9 cannot be empty.",
+            //     //     conform: "Any Abnormal Usage Tank9 cannot be empty.",
+            //     //     required: "Any Abnormal Usage Tank9 cannot be empty."
+            //     // },
+            //     conform: v => {
+            //         return v > 0;
+            //     }
+            // },
             waterLevelLitreTank8: {
                 description: 'Water Level Litre Tank8',
-                type: 'number',
+                type: 'boolean',
                 required: true,
                 allowEmpty: false,
                 messages: {
-                    allowEmpty: "Water Level Litre Tank8 cannot be empty.",
-                    conform: "Water Level Litre Tank8 cannot be empty.",
-                    required: "Water Level Litre Tank8 cannot be empty."
+                    allowEmpty: "Any Abnormal Usage Tank9 cannot be empty.",
+                    conform: "Any Abnormal Usage Tank9 cannot be empty.",
+                    required: "Any Abnormal Usage Tank9 cannot be empty."
                 },
                 conform: v => {
                     return v !== 0;
@@ -187,7 +187,7 @@ export const formValidation = formFields => {
             },
             waterLevelTank9: {
                 description: 'Water Level Tank9',
-                type: 'number',
+                type: 'boolean',
                 required: true,
                 allowEmpty: false,
                 messages: {

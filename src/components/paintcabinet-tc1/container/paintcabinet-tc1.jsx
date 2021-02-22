@@ -67,7 +67,7 @@ const columns = [
     },
     { label: "P020 Inlet Tank4 (bar)", name: "topCabinet1CabinetP020InletTank4" },
     {
-        label: "P020 Outlet Tank2 (bar)",
+        label: "P020 Outlet Tank4 (bar)",
         name: "topCabinet1CabinetP020OutletTank2",
     },
     {
@@ -301,7 +301,7 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
                                 accessRight={{ Create: true, Update: true, Delete: true }}
                                 options={tableCustomizeToolBarSingleSelect}
                                 loading={this.state.loading}
-                                onPageChange={this.getData}
+                                //onPageChange={this.getData}
                                 handleUpdate={this.onUpdate}
                                 handelDelete={this.onDelete}
                             />

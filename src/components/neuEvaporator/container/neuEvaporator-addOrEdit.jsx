@@ -149,7 +149,27 @@ class NeuEvaporatorAddOrEdit extends Component {
         {/** Feed Rate Evaporator Tank3 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
-            <NumberFormat
+            <FormLabel component="legend">
+                Tank 03 Feed Rate Evaporator, OK/Not OK
+            </FormLabel>
+            <Grid component="label" container alignItems="center" spacing={1}>
+              <Grid item>Not OK</Grid>
+              <Grid item>
+                <Switch
+                    checked={this.state.feedRateEvaporatorTank3.value}
+                    onChange={(event) => {
+                      this.onChange(
+                          "feedRateEvaporatorTank3",
+                          event.target.checked
+                      );
+                      this.onBlur("feedRateEvaporatorTank3");
+                    }}
+                    name="feedRateEvaporatorTank3"
+                />
+              </Grid>
+              <Grid item>OK</Grid>
+            </Grid>
+            {/* <NumberFormat
                 id="feedRateEvaporatorTank3"
                 label="Tank 03 Feed Rate Evaporator, L/hr"
                 customInput={TextField}
@@ -173,16 +193,19 @@ class NeuEvaporatorAddOrEdit extends Component {
                       : ""
                 }
                 disabled={this.props.onFormSubmit}
-            />
+            /> */}
           </FormControl>
         </Grid>
         {/** End Feed Rate Evaporator Tank3 **/}
         {/** pH Tank3 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Tank 03 pH Controller
+            </FormLabel>
             <NumberFormat
                 id="phTank3"
-                label="Tank 03 pH"
+                label=""
                 customInput={TextField}
                 value={this.state.phTank3.value}
                 fullWidth={true}
@@ -209,9 +232,35 @@ class NeuEvaporatorAddOrEdit extends Component {
         {/** pH HMI Tank3 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
-            <TextField
+            <FormLabel component="legend">
+              Tank 03 pH Meter
+            </FormLabel>
+            <NumberFormat
+                id="phHmiTank3"
+                label=""
+                customInput={TextField}
+                value={this.state.phHmiTank3.value}
+                fullWidth={true}
+                defaultValue={0.0}
+                onValueChange={(value) =>
+                    this.onChange("phHmiTank3", value.floatValue)
+                }
+                onBlur={(e) => this.onBlur("phHmiTank3")}
+                onFocus={(event) => {
+                  event.target.select();
+                }}
+                decimalScale={2}
+                thousandSeparator={false}
+                fixedDecimalScale={true}
+                error={!this.state.phHmiTank3.valid}
+                helperText={
+                  !this.state.phHmiTank3.valid ? this.state.phHmiTank3.errorMessage : ""
+                }
+                disabled={this.props.onFormSubmit}
+            />
+            {/* <TextField
               id="phHmiTank3"
-              label="Tank 03 pH Status, Ok/Not Ok"
+              label=""
               value={this.state.phHmiTank3.value}
               fullWidth={true}
               defaultValue={0.0}
@@ -229,7 +278,7 @@ class NeuEvaporatorAddOrEdit extends Component {
                   : ""
               }
               disabled={this.props.onFormSubmit}
-            />
+            /> */}
           </FormControl>
         </Grid>
         {/** End pH HMI Tank3 **/}
@@ -262,9 +311,12 @@ class NeuEvaporatorAddOrEdit extends Component {
         {/** pH Tank6 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Distilled Water Tank 05/06, pH
+            </FormLabel>
             <NumberFormat
                 id="phTank6"
-                label="Tank 06 pH"
+                label=""
                 customInput={TextField}
                 value={this.state.phTank6.value}
                 fullWidth={true}
@@ -315,7 +367,7 @@ class NeuEvaporatorAddOrEdit extends Component {
         </Grid>
         {/** End Water Sample In Bottle Tank6 **/}
         {/** Water Level Tank6 ***/}
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <NumberFormat
                 id="waterLevelTank6"
@@ -343,14 +395,17 @@ class NeuEvaporatorAddOrEdit extends Component {
                 disabled={this.props.onFormSubmit}
             />
           </FormControl>
-        </Grid>
+        </Grid> */}
         {/** End Water Level Tank6 **/}
         {/** Flow Rate Tank6 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Distil Tank 6 Water Supply, L/h
+            </FormLabel>
             <NumberFormat
                 id="flowRateTank6"
-                label="Tank 06 Flow Rate"
+                label=""
                 customInput={TextField}
                 value={this.state.flowRateTank6.value}
                 fullWidth={true}
@@ -379,9 +434,12 @@ class NeuEvaporatorAddOrEdit extends Component {
         {/** Conductivity ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Tank 06 Conductivity, uS/cm
+            </FormLabel>
             <NumberFormat
               id="conductivity"
-              label="Demineralization Conductivity, uS/cm"
+              label=""
               customInput={TextField}
               value={this.state.conductivity.value}
               fullWidth={true}
@@ -429,7 +487,7 @@ class NeuEvaporatorAddOrEdit extends Component {
         </Grid>
         {/** End Water Quality Tank7 **/}
         {/** Water Level Tank7 ***/}
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <TextField
               id="waterLevelTank7"
@@ -453,12 +511,27 @@ class NeuEvaporatorAddOrEdit extends Component {
               disabled={this.props.onFormSubmit}
             />
           </FormControl>
-        </Grid>
+        </Grid> */}
         {/** End Water Level Tank7 **/}
         {/** Water Level Litre Tank8 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
-            <NumberFormat
+          <FormLabel component="legend">Tank 08 Filled Level, OK/Not OK</FormLabel>
+            <Grid component="label" container alignItems="center" spacing={1}>
+              <Grid item>Not OK</Grid>
+              <Grid item>
+                <Switch
+                  checked={this.state.waterLevelLitreTank8.value}
+                  onChange={(event) => {
+                    this.onChange("waterLevelLitreTank8", event.target.checked);
+                    this.onBlur("waterLevelLitreTank8");
+                  }}
+                  name="waterLevelLitreTank8"
+                />
+              </Grid>
+              <Grid item>OK</Grid>
+            </Grid>
+            {/* <NumberFormat
               id="waterLevelLitreTank8"
               label="Tank 08 Water Level, L"
               customInput={TextField}
@@ -482,7 +555,7 @@ class NeuEvaporatorAddOrEdit extends Component {
                   : ""
               }
               disabled={this.props.onFormSubmit}
-            />
+            /> */}
           </FormControl>
         </Grid>
         {/** End Water Level Litre Tank8 **/}
@@ -513,7 +586,22 @@ class NeuEvaporatorAddOrEdit extends Component {
         {/** Water Level Tank9 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
-            <NumberFormat
+          <FormLabel component="legend">Tank 09 Filled Level, OK/Not OK</FormLabel>
+            <Grid component="label" container alignItems="center" spacing={1}>
+              <Grid item>Not OK</Grid>
+              <Grid item>
+                <Switch
+                  checked={this.state.waterLevelTank9.value}
+                  onChange={(event) => {
+                    this.onChange("waterLevelTank9", event.target.checked);
+                    this.onBlur("waterLevelTank9");
+                  }}
+                  name="waterLevelTank9"
+                />
+              </Grid>
+              <Grid item>OK</Grid>
+            </Grid>
+            {/* <NumberFormat
               id="waterLevelTank9"
               label="Tank 09 Water Level, L"
               customInput={TextField}
@@ -537,7 +625,7 @@ class NeuEvaporatorAddOrEdit extends Component {
                   : ""
               }
               disabled={this.props.onFormSubmit}
-            />
+            /> */}
           </FormControl>
         </Grid>
         {/** End Water Level Tank9 **/}

@@ -14,7 +14,7 @@ export const formValidation = formFields => {
                     required: "Ph Meter cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             waterSupplyFromTank4: {
@@ -28,7 +28,7 @@ export const formValidation = formFields => {
                     required: "Tank 4 Water Supply cannot be empty..",
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             }
         }

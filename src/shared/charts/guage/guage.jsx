@@ -74,7 +74,7 @@ class CircleGauge extends Component{
         const now = new Date();
         this.setState(state => ({isFetching: true}));
         if(this.props.dataPoint === 'api'){
-            const startDate = new Date(new Date(now.setDate(now.getDate() - 1)).setHours(23,59,59));
+            const startDate = new Date(new Date(new Date().setDate(now.getDate() - 1)).setHours(23,59,59));
             const endDate = now;
             const from = format(startDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
             const to = format(now, 'yyyy-MM-dd\'T\'HH:mm:ss');

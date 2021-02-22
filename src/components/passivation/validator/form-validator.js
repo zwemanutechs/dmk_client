@@ -14,7 +14,7 @@ export const formValidation = formFields => {
                     required: "Concentration cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             concentrationBelowTopUp: {

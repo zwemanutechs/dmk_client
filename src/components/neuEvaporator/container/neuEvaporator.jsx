@@ -33,9 +33,16 @@ import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
 
 const columns = [
-  { label: "Tank 03 Feed Rate Evaporator (L/hr)", name: "feedRateEvaporatorTank3" },
-  { label: "Tank 03 pH", name: "phTank3" },
-  { label: "Tank 03 pH Status (Ok/Not Ok)", name: "phHmiTank3" },
+  { label: "Tank 03 Feed Rate Evaporator, (OK/Not OK)", name: "feedRateEvaporatorTank3", 
+    options: {
+      filter: false,
+      customBodyRender: (value, tableMeta, updateValue) => (
+        <span>{value ? "OK" : "Not OK"}</span>
+      ),
+    },
+  },
+  { label: "Tank 03 pH Controller", name: "phTank3" },
+  { label: "Tank 03 pH Meter", name: "phHmiTank3" },
   {
     label: "Tank 03 Monthly Calibration (Done/Not Done)",
     name: "monthlyCalibrationOfPhMeterTank3",
@@ -46,7 +53,7 @@ const columns = [
       ),
     },
   },
-  { label: "Tank 06 pH", name: "phTank6" },
+  { label: "Distilled Water Tank 05/06, (pH)", name: "phTank6" },
   {
     label: "Tank 06 Water Sample (Good/Bad)",
     name: "waterSampleInBottleTank6",
@@ -57,9 +64,9 @@ const columns = [
       ),
     },
   },
-  { label: "Tank 06 Water Level (L)", name: "waterLevelTank6" },
-  { label: "Tank 06 Flow Rate (L/hr)", name: "flowRateTank6" },
-  { label: "Demineralization Conductivity (uS/cm)", name: "conductivity" },
+  // { label: "Tank 06 Water Level (L)", name: "waterLevelTank6" },
+  { label: "Distil Tank 6 Water Supply, (L/h)", name: "flowRateTank6" },
+  { label: "Tank 06 Conductivity, (uS/cm)", name: "conductivity" },
   {
     label: "Tank 07 Water Quality (Good/Bad)",
     name: "waterQualityTank7",
@@ -70,8 +77,15 @@ const columns = [
       ),
     },
   },
-  { label: "Tank 07 Water Level LS 17/18/19 (Ok/Low)", name: "waterLevelTank7" },
-  { label: "Tank 08 Water Level (L)", name: "waterLevelLitreTank8" },
+  // { label: "Tank 07 Water Level LS 17/18/19 (Ok/Low)", name: "waterLevelTank7" },
+  { label: "Tank 08 Filled Level, (OK/Not OK)", name: "waterLevelLitreTank8", 
+    options: {
+      filter: false,
+      customBodyRender: (value, tableMeta, updateValue) => (
+        <span>{value ? "OK" : "Not OK"}</span>
+      ),
+    },
+  },
   {
     label: "Tank 08 Any Abnormal Usage (YES/NO)",
     name: "anyAbnormalUsageTank8",
@@ -82,7 +96,14 @@ const columns = [
       ),
     },
   },
-  { label: "Tank 09 Water Level, (L)", name: "waterLevelTank9" },
+  { label: "Tank 09 Filled Level, (OK/Not OK)", name: "waterLevelTank9",
+    options: {
+      filter: false,
+      customBodyRender: (value, tableMeta, updateValue) => (
+        <span>{value ? "OK" : "Not OK"}</span>
+      ),
+    }, 
+  },
   {
     label: "Tank 09 Any Abnormal Usage (YES/NO)",
     name: "anyAbnormalUsageTank9",
@@ -324,7 +345,7 @@ class NeuEvaporator extends Component {
                 accessRight={{ Create: true, Update: true, Delete: true }}
                 options={tableCustomizeToolBarSingleSelect}
                 loading={this.state.loading}
-                onPageChange={this.getData}
+                //onPageChange={this.getData}
                 handleUpdate={this.onUpdate}
                 handelDelete={this.onDelete}
               />

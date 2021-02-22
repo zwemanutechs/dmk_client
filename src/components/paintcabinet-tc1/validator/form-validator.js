@@ -14,7 +14,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 Cabinet Temperature cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetHumidity: {
@@ -28,7 +28,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 Cabinet Humidity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetTestVisocity: {
@@ -42,21 +42,21 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 Paint Test Visocity cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetTestTemperature: {
-                description: 'Top Cabinet1 Paint Test Visocity',
+                description: 'Top Cabinet1 Paint Test Temperature',
                 type: 'number',
                 required: true,
                 allowEmpty: false,
                 messages: {
-                    allowEmpty: "Top Cabinet1 Paint Test Visocity cannot be empty.",
-                    conform: "Top Cabinet1 Paint Test Visocity must be greater than 0.",
-                    required: "Top Cabinet1 Paint Test Visocity cannot be empty."
+                    allowEmpty: "Top Cabinet1 Paint Test Temperature cannot be empty.",
+                    conform: "Top Cabinet1 Paint Test Temperature must be greater than 0.",
+                    required: "Top Cabinet1 Paint Test Temperature cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetDiWaterCheck: {
@@ -70,7 +70,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 DI Water Check cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetAndonLightInspection: {
@@ -98,7 +98,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P600 Inlet Tank1 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetP600OutletTank1: {
@@ -112,7 +112,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P600 Outlet Tank1 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetP190InletTank2: {
@@ -126,7 +126,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P190 Inlet Tank2 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetP190OutletTank2: {
@@ -140,7 +140,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P190 Outlet Tank2 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetP100InletTank3: {
@@ -154,7 +154,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P100 Inlet Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetP100OutletTank3: {
@@ -168,7 +168,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P100 Outlet Tank3 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetP020InletTank4: {
@@ -182,7 +182,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P020 Inlet Tank4 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
             topCabinet1CabinetP020OutletTank2: {
@@ -196,7 +196,7 @@ export const formValidation = formFields => {
                     required: "Top Cabinet1 P020 Outlet Tank2 cannot be empty."
                 },
                 conform: v => {
-                    return v !== 0;
+                    return v > 0;
                 }
             },
         }

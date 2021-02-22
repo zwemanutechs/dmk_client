@@ -305,7 +305,7 @@ class PaintCabinetPrimerCabinet2 extends React.PureComponent{
                                 accessRight={{ Create: true, Update: true, Delete: true }}
                                 options={tableCustomizeToolBarSingleSelect}
                                 loading={this.state.loading}
-                                onPageChange={this.getData}
+                                //onPageChange={this.getData}
                                 handleUpdate={this.onUpdate}
                                 handelDelete={this.onDelete}
                             />
