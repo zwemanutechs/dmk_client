@@ -18,6 +18,8 @@ import {closeDialog, openDialog} from "../../../shared/mat-diaglog/actions/maxDi
 import {closeSnack, openSnack} from "../../../shared/snackbar/actions/snackbar-actions";
 import {openSpinner} from "../../../shared/spinner/actions/spinner-actions";
 import PaintCabinetPrimerCabinet1AddOrEdit from "./paintcabinet-pc1-addOrEdit";
+import { createOrUpdateTimeSeriesRecord, getDeletedItems } from "../../../appservices/mindsphere-iotapi-services";
+import { PAINTBOOTH_ASSETID } from "../../../constants/mindsphere-constants";
 
 const columns = [
     {
@@ -140,6 +142,39 @@ class PaintCabinetPrimerCabinet1 extends React.PureComponent{
         this.setState({ formData: newDataSet });
     };
 
+    /**
+     * Save new or modified data to mindsphere api
+     * */
+    saveDataToTimeSeries = async (data) => {
+      const payload = [];
+      data.forEach((d) => payload.push({
+        _time: d.createdat,
+        AndonLight_Inspection_OkNotOk: d.primerCabinet2UndonLightInspection,
+        BlackPrimerInletTank2_Pressure_bar: d.primerCabinet1BlackPrimerInletTank2,
+        BlackPrimerOutletTank2_Pressure_bar: d.primerCabinet1BlackPrimerOutletTank2,
+        DIWaterCheck_Conductivity_uSpercm: d.primerCabinet1DiWaterCheck,
+        PaintTest_Temperature_degC: d.primerCabinet1PaintTestTemperature,
+        PaintTest_Viscosity_sec: d.primerCabinet1PaintTestViscosity,
+        Room_Humidity_Pct: d.primerCabinet1R11Humidity,
+        Room_Temperature_degC: d.primerCabinet1R11Temperature,
+        Tank3Hardener_Pressure_bar: d.primerCabinet1HardenerTank3,
+        HardenerTank3_Pressure_bar: d.primerCabinet1HardenerPressureTank3,
+        WhitePrimerInletTank1_Pressure_bar: d.primerCabinet1WhitePrimerInletTank1,
+        WhitePrimerOutletTank1_Pressure_bar: d.primerCabinet1WhitePrimerOutletTank1
+      }))
+      const response = await createOrUpdateTimeSeriesRecord(PAINTBOOTH_ASSETID, 'Primer_Cabinet_1', payload)  
+    }
+  
+    /**
+     * Update data to mindsphere for deletion
+     * */
+    updateDataToTimeSeries = (data, deleteList) => {
+        getDeletedItems(data, deleteList)
+        .then((deleteItems) => {
+          this.saveDataToTimeSeries(deleteItems)
+        })
+    }
+
     /***
      * Form Submit
      * * * We will send the user new or modified data to backend server
@@ -166,6 +201,9 @@ class PaintCabinetPrimerCabinet1 extends React.PureComponent{
                             () => this.props.closeDialog(false, "")
                         );
                     }
+          
+                    // Save data to time series
+                    this.saveDataToTimeSeries([{...response.data.data}])
                 }
             } else {
                 const response = await post("paintCabinetPC1/add", this.state.formData);
@@ -179,6 +217,9 @@ class PaintCabinetPrimerCabinet1 extends React.PureComponent{
                         }),
                         () => this.props.closeDialog(false, "")
                     );
+          
+                    // Save data to time series
+                    this.saveDataToTimeSeries([{...response.data.data}])
                 }
             }
         }
@@ -220,6 +261,7 @@ class PaintCabinetPrimerCabinet1 extends React.PureComponent{
                 );
                 if (response && response.data.code) {
                     let newDataList = [...this.state.tableData];
+                    this.updateDataToTimeSeries(newDataList, deleteList);
                     deleteList.forEach((deletedItems) => {
                         const deletedItemIndex = newDataList.findIndex(
                             (x) => x.id === deletedItems.id

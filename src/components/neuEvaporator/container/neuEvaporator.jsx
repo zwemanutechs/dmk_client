@@ -31,6 +31,8 @@ import {
 import { formValidation } from "../validator/form-validator";
 import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
+import { createOrUpdateTimeSeriesRecord, getDeletedItems } from "../../../appservices/mindsphere-iotapi-services";
+import { POWERWASH_ASSETID } from "../../../constants/mindsphere-constants";
 
 const columns = [
   { label: "Tank 03 Feed Rate Evaporator, (OK/Not OK)", name: "feedRateEvaporatorTank3", 
@@ -178,6 +180,39 @@ class NeuEvaporator extends Component {
     this.setState({ formData: newDataSet });
   };
 
+  /**
+   * Save new or modified data to mindsphere api
+   * */
+  saveDataToTimeSeries = async (data) => {
+    const payload = [];
+    data.forEach((d) => payload.push({
+      _time: d.createdat,
+      Tank03_Evaporator_FeedRate_OkNotOk: d.feedRateEvaporatorTank3,
+      Tank03_MonthlyCalibration_DoneNotDone: d.monthlyCalibrationOfPhMeterTank3,
+      Tank03_pHController_pH: d.phTank3,
+      Tank03_pHMeter_pH: d.phHmiTank3,
+      Tank0506_DistilledWater_pH: d.phTank6,
+      Tank06_Conductivity_uSpercm: d.conductivity,
+      Tank06_DistilledWaterSupply_LpHr: d.flowRateTank6,
+      Tank06_WaterSample_GoodBad: d.waterSampleInBottleTank6,
+      Tank07_WaterQuality_GoodBad: d.waterQualityTank7,
+      Tank08_FilledLevel_OkNotOk: d.waterLevelLitreTank8,
+      Tank09_AnyAbnormalUsage_YesNo: d.anyAbnormalUsageTank9,
+      Tank09_FilledLevel_OkNotOk: d.waterLevelTank9
+    }))
+    const response = await createOrUpdateTimeSeriesRecord(POWERWASH_ASSETID, 'Neutralization_Evaporation', payload)
+  }
+  
+  /**
+   * Update data to mindsphere for deletion
+   * */
+  updateDataToTimeSeries = (data, deleteList) => {
+    getDeletedItems(data, deleteList)
+    .then((deleteItems) => {
+      this.saveDataToTimeSeries(deleteItems)
+    })
+  }
+
   /***
    * Form Submit
    * * * We will send the user new or modified data to backend server
@@ -206,6 +241,9 @@ class NeuEvaporator extends Component {
               () => this.props.closeDialog(false, "")
             );
           }
+          
+          // Save data to time series
+          this.saveDataToTimeSeries([{...response.data.data}])
         }
       } else {
         const response = await post("neuEvaporator/add", this.state.formData);
@@ -219,6 +257,9 @@ class NeuEvaporator extends Component {
             }),
             () => this.props.closeDialog(false, "")
           );
+          
+          // Save data to time series
+          this.saveDataToTimeSeries([{...response.data.data}])
         }
       }
     }
@@ -260,6 +301,7 @@ class NeuEvaporator extends Component {
         );
         if (response && response.data.code) {
           let newDataList = [...this.state.tableData];
+          this.updateDataToTimeSeries(newDataList, deleteList);
           deleteList.forEach((deletedItems) => {
             const deletedItemIndex = newDataList.findIndex(
               (x) => x.id === deletedItems.id

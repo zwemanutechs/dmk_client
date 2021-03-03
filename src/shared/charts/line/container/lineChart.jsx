@@ -22,7 +22,7 @@ class CustomizedAxisTick extends PureComponent {
         if(isNaN(timeStamp) === false){
             return (
                 <g transform={`translate(${x},${y})`}>
-                    <text x={0} y={0} dy={3} textAnchor="end" fill="#666" transform="rotate(-35)">{new Date(payload.value).toLocaleDateString()}</text>
+                    <text x={0} y={0} dy={3} textAnchor="end" fill="#666" transform="rotate(-35)">{new Date(payload.value).toLocaleDateString("en-GB")}</text>
                 </g>
             );
         }else{

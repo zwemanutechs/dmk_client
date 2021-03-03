@@ -29,6 +29,8 @@ import {
 import { formValidation } from "../validator/form-validator";
 import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
+import { createOrUpdateTimeSeriesRecord, getDeletedItems } from "../../../appservices/mindsphere-iotapi-services";
+import { POWERWASH_ASSETID } from "../../../constants/mindsphere-constants";
 
 const columns = [
   { label: "Ph", name: "ph" },
@@ -97,6 +99,28 @@ class RinseDi extends Component {
     this.setState({ formData: newDataSet });
   };
 
+  /**
+   * Save new or modified data to mindsphere api
+   * */
+  saveDataToTimeSeries = async (data) => {
+    const payload = [];
+    data.forEach((d) => payload.push({
+      _time: d.createdat,
+      WaterSupplyFromDITank_LpHr: d.waterSupplyFromDiWaterTank
+    }))
+    const response = await createOrUpdateTimeSeriesRecord(POWERWASH_ASSETID, 'Tank5_DIWaterRinse', payload)
+  }
+  
+  /**
+   * Update data to mindsphere for deletion
+   * */
+  updateDataToTimeSeries = (data, deleteList) => {
+    getDeletedItems(data, deleteList)
+    .then((deleteItems) => {
+      this.saveDataToTimeSeries(deleteItems)
+    })
+  }
+
   /***
    * Form Submit
    * * * We will send the user new or modified data to backend server
@@ -125,6 +149,9 @@ class RinseDi extends Component {
               () => this.props.closeDialog(false, "")
             );
           }
+          
+          // Save data to time series
+          this.saveDataToTimeSeries([{...response.data.data}])
         }
       } else {
         const response = await post("rinsedi/add", this.state.formData);
@@ -138,6 +165,9 @@ class RinseDi extends Component {
             }),
             () => this.props.closeDialog(false, "")
           );
+          
+          // Save data to time series
+          this.saveDataToTimeSeries([{...response.data.data}])
         }
       }
     }
@@ -176,6 +206,7 @@ class RinseDi extends Component {
         const response = await deleteRange("rinsedi/deleterange", deleteList);
         if (response && response.data.code) {
           let newDataList = [...this.state.tableData];
+          this.updateDataToTimeSeries(newDataList, deleteList);
           deleteList.forEach((deletedItems) => {
             const deletedItemIndex = newDataList.findIndex(
               (x) => x.id === deletedItems.id

@@ -1,4 +1,4 @@
-import { getFromOtherOrigin, get } from "../middleware/axios-middleware";
+import { getFromOtherOrigin, get, putToOtherOrigin } from "../middleware/axios-middleware";
 import format from "date-fns/format";
 import { zonedTimeToUtc } from "date-fns-tz";
 
@@ -21,7 +21,7 @@ export const loadDataByGivenDate = (
 // get latest value from mindsphere api
 export const loadLatestValue = (assetId, aspectId, parameterName) => {
   return getFromOtherOrigin(
-      `/api/iottimeseries/v3/timeseries/${assetId}/${aspectId}?select=${parameterName}&latestValue=true`
+      `/api/iottimeseries/v3/timeseries/${assetId}/${aspectId}?select=${parameterName}`
   );
 };
 
@@ -33,6 +33,95 @@ export const loadAggregateData = (from, to, assetId, aspectId, parameterName, li
       ).toISOString()}&to=${new Date(to).toISOString()}&limit=${limit}&sort=desc`
   );
 }
+
+// get aggregate time series data from mindsphere api v2
+export const loadAggregateDataV2 = (from, to, assetId, aspectId, parameterName, intervalUnit, intervalValue) => {
+  return getFromOtherOrigin(
+      `/api/iottsaggregates/v4/aggregates?assetId=${assetId}&aspectName=${aspectId}&select=${parameterName}&from=${new Date(
+          from
+      ).toISOString()}&to=${new Date(to).toISOString()}&intervalUnit=${intervalUnit}&intervalValue=${intervalValue}`
+  );
+}
+
+// create or update time series record
+export const createOrUpdateTimeSeriesRecord = async (assetId, aspectId, payload) => {
+  return await putToOtherOrigin(
+      `/api/iottimeseries/v3/timeseries/${assetId}/${aspectId}`, payload
+  );
+}
+
+// timeseries delete (due to mindsphere limitation, delete will be replace by update to nearest value)
+export const getDeletedItems = (data, deleteList) => new Promise((resolve, reject) => {
+  let newDataList = [...data.sort((a,b) => new Date(a.updatedat) - new Date(b.updatedat))];
+  let newDeleteList = [...deleteList.sort((a,b) => new Date(a.updatedat) - new Date(b.updatedat))];
+  var newDeletedItems = [];
+  newDeleteList.forEach((deletedItems) => {
+    const deletedItemIndex = newDataList.findIndex(
+      (x) => x.id === deletedItems.id
+    );
+    if (deletedItemIndex >= 0 && newDeletedItems.filter(d => d.id === deletedItems.id).length === 0) {
+      var currentValue = { ...newDataList[deletedItemIndex] };
+      var previousValue = { ...newDataList[deletedItemIndex - 1] };
+      var nextValue = { ...newDataList[deletedItemIndex + 1] };
+
+      if (Object.keys(previousValue).length === 0 && (Object.keys(nextValue).length === 0)) {
+        Object.keys(currentValue).forEach(function(key, value) {
+          if (typeof(currentValue[key]) === 'number') return currentValue[key] = 0.00;
+          else if (typeof(currentValue[key]) === 'boolean') return currentValue[key] = false;                  
+        })
+        newDeletedItems.push({ ...currentValue })
+      } else if ((Object.keys(previousValue).length === 0) && (Object.keys(nextValue).length > 0)) { 
+        const { createdat, id, ...filteredValue } = nextValue;               
+        const data = { ...currentValue, ...filteredValue };
+        newDeletedItems.push(data)
+      } else if ((Object.keys(previousValue).length > 0) && (Object.keys(nextValue).length === 0)) { 
+        const { createdat, id, ...filteredValue } = previousValue;               
+        const data = { ...currentValue, ...filteredValue };
+        newDeletedItems.push(data)
+      } else if ((Object.keys(previousValue).length > 0) && (Object.keys(nextValue).length > 0)) {   
+
+        // Check if next element is to be deleted        
+        var counter = 1;
+        var newNextValue = {...nextValue};      
+        while (true) {          
+          if (newDeleteList.filter(d => d.id === newNextValue.id).length > 0) {
+            counter++;
+            if (newDataList.length > deletedItemIndex + counter) {
+              newNextValue = { ...newDataList[deletedItemIndex + counter] };
+            } else if (newDataList.length < deletedItemIndex + counter) {
+              break;
+            } else {
+              // Next deletable element is also last element, then set value to previous value
+              for (var i = 0; i < counter; i++) {
+                currentValue = { ...newDataList[deletedItemIndex + i] };
+                const { createdat, id, ...filteredValue } = previousValue;               
+                const data = { ...currentValue, ...filteredValue };
+                newDeletedItems.push(data)
+              }
+              break;
+            }
+          } else break;
+        }  
+
+        // Next available element that is not deletable, then set value to average between previous and next
+        if (newDeletedItems.filter(d => d.id === currentValue.id).length === 0) { 
+          for (var i = 0; i < counter; i++) {
+            currentValue = { ...newDataList[deletedItemIndex + i] };
+            Object.keys(currentValue).forEach(function(key, value) {
+              if (typeof(currentValue[key]) === 'number') {
+                var newValue = previousValue[key] + (((newNextValue[key] - previousValue[key]) / (counter + 1)) * (i + 1));  
+                return currentValue[key] = Math.round( newValue * 1e2 ) / 1e2;
+              } 
+              else if (typeof(currentValue[key]) === 'boolean') return currentValue[key] = previousValue[key];                  
+            })            
+            newDeletedItems.push({ ...currentValue })
+          }
+        }
+      }
+    }
+  });
+  resolve(newDeletedItems);
+});
 
 /* Daryl Code
 // ---------------- Minsphere API V2 Gateway

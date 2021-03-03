@@ -31,6 +31,8 @@ import {
 import { formValidation } from "../validator/form-validator";
 import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
+import { createOrUpdateTimeSeriesRecord, getDeletedItems } from "../../../appservices/mindsphere-iotapi-services";
+import { PAINTBOOTH_ASSETID } from "../../../constants/mindsphere-constants";
 
 const columns = [
   { label: "Paint Pressure At Esta1 R11 (bar)", name: "paintPressureAtEsta1R11" },
@@ -105,6 +107,53 @@ class PaintBooth extends Component {
     this.setState({ formData: newDataSet });
   };
 
+  /**
+   * Save new or modified data to mindsphere api
+   * */
+  saveDataToTimeSeries = async (data) => {
+    const payloadEsta1 = [];
+    data.forEach((d) => payloadEsta1.push({
+      _time: d.createdat,
+      R11_High_Tension_kV: d.highTensionEsta1R11,
+      R11_Paint_Pressure_bar: d.paintPressureAtEsta1R11,
+      R12_High_Tension_kV: d.highTensionEsta1R12,
+      R12_Paint_Pressure_bar: d.paintPressureAtEsta1R12
+    }))
+    const responseEsta1 = createOrUpdateTimeSeriesRecord(PAINTBOOTH_ASSETID, 'ESTA1', payloadEsta1)
+
+    const payloadEsta1TouchUpBooth = [];
+    data.forEach((d) => payloadEsta1TouchUpBooth.push({
+      _time: d.createdat,
+      Room_Airflow_mps: d.touchUpRoom1AirFlow
+    }))
+    const responseEsta1TouchUpBooth = createOrUpdateTimeSeriesRecord(PAINTBOOTH_ASSETID, 'ESTA1_TouchUpBooth', payloadEsta1TouchUpBooth)
+    
+    const payloadEsta2 = [];
+    data.forEach((d) => payloadEsta2.push({
+      _time: d.createdat,
+      R11_High_Tension_kV: d.highTensionEsta2R11,
+      R11_Paint_Pressure_bar: d.paintPressureAtEsta2R11
+    }))
+    const responseEsta2 = createOrUpdateTimeSeriesRecord(PAINTBOOTH_ASSETID, 'ESTA2', payloadEsta2)
+
+    const payloadEsta2TouchUpBooth = [];
+    data.forEach((d) => payloadEsta2TouchUpBooth.push({
+      _time: d.createdat,
+      Room_Airflow_mps: d.touchUpRoom2AirFlow
+    }))
+    const responseEsta2TouchUpBooth = createOrUpdateTimeSeriesRecord(PAINTBOOTH_ASSETID, 'ESTA2_TouchUpBooth', payloadEsta2TouchUpBooth)
+  }
+  
+  /**
+   * Update data to mindsphere for deletion
+   * */
+  updateDataToTimeSeries = (data, deleteList) => {
+    getDeletedItems(data, deleteList)
+    .then((deleteItems) => {
+      this.saveDataToTimeSeries(deleteItems)
+    })
+  }
+
   /***
    * Form Submit
    * * * We will send the user new or modified data to backend server
@@ -133,6 +182,9 @@ class PaintBooth extends Component {
               () => this.props.closeDialog(false, "")
             );
           }
+          
+          // Save data to time series
+          this.saveDataToTimeSeries([{...response.data.data}])
         }
       } else {
         const response = await post("paintBooth/add", this.state.formData);
@@ -146,6 +198,9 @@ class PaintBooth extends Component {
             }),
             () => this.props.closeDialog(false, "")
           );
+          
+          // Save data to time series
+          this.saveDataToTimeSeries([{...response.data.data}])
         }
       }
     }
@@ -187,6 +242,7 @@ class PaintBooth extends Component {
         );
         if (response && response.data.code) {
           let newDataList = [...this.state.tableData];
+          this.updateDataToTimeSeries(newDataList, deleteList);
           deleteList.forEach((deletedItems) => {
             const deletedItemIndex = newDataList.findIndex(
               (x) => x.id === deletedItems.id

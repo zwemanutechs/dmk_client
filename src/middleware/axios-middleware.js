@@ -102,6 +102,18 @@ export const put = async (url, payload) => {
 };
 
 /**
+ * Make Update Request from other origin
+ * ***/
+export const putToOtherOrigin = (url, payload) => {  
+  const response = axios.put(url, payload, {
+    headers: {
+      // Overwrite Axios's automatically set Content-Type
+      'Content-Type': 'application/json'
+    }});
+  return response;
+};
+
+/**
  * Make Delete Request
  * ***/
 export const deleteSingle = async (url) => {

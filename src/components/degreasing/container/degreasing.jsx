@@ -29,6 +29,8 @@ import {
 import { formValidation } from "../validator/form-validator";
 import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
+import { createOrUpdateTimeSeriesRecord, getDeletedItems } from "../../../appservices/mindsphere-iotapi-services";
+import { POWERWASH_ASSETID } from "../../../constants/mindsphere-constants";
 
 const columns = [
   { label: "Concentration (%)", name: "concentration" },
@@ -117,6 +119,32 @@ class Degreasing extends Component {
     newDataSet[propertyName] = propertyValue;
     this.setState({ formData: newDataSet });
   };
+  
+  /**
+   * Save new or modified data to mindsphere api
+   * */
+  saveDataToTimeSeries = async (data) => {
+    const payload = [];
+    data.forEach((d) => payload.push({
+      _time: d.createdat,
+      Concentration_Pct: d.concentration,
+      DyneTest_mNperm: d.dyneTest,
+      WaterSupplyFromTank2_Lphr: d.waterSupplyFromTank2,
+      ConcentrationBelow05_YesNo	: d.concentrationTopUp,
+      OilSkimming_YesNo: d.oilSkimming
+    }))
+    const response = await createOrUpdateTimeSeriesRecord(POWERWASH_ASSETID, 'Tank1_Degreasing', payload)
+  }
+  
+  /**
+   * Update data to mindsphere for deletion
+   * */
+  updateDataToTimeSeries = (data, deleteList) => {
+    getDeletedItems(data, deleteList)
+    .then((deleteItems) => {
+      this.saveDataToTimeSeries(deleteItems)
+    })
+  }
 
   /***
    * Form Submit
@@ -146,6 +174,9 @@ class Degreasing extends Component {
               () => this.props.closeDialog(false, "")
             );
           }
+          
+          // Save data to time series
+          this.saveDataToTimeSeries([{...response.data.data}])
         }
       } else {
         const response = await post("degreasing/add", this.state.formData);
@@ -159,6 +190,9 @@ class Degreasing extends Component {
             }),
             () => this.props.closeDialog(false, "")
           );
+          
+          // Save data to time series
+          this.saveDataToTimeSeries([{...response.data.data}])
         }
       }
     }
@@ -200,6 +234,7 @@ class Degreasing extends Component {
         );
         if (response && response.data.code) {
           let newDataList = [...this.state.tableData];
+          this.updateDataToTimeSeries(newDataList, deleteList);
           deleteList.forEach((deletedItems) => {
             const deletedItemIndex = newDataList.findIndex(
               (x) => x.id === deletedItems.id

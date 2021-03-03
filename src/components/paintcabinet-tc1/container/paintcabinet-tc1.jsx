@@ -18,6 +18,8 @@ import {connect} from "react-redux";
 import {closeDialog, openDialog} from "../../../shared/mat-diaglog/actions/maxDialog-action";
 import {closeSnack, openSnack} from "../../../shared/snackbar/actions/snackbar-actions";
 import {openSpinner} from "../../../shared/spinner/actions/spinner-actions";
+import { createOrUpdateTimeSeriesRecord, getDeletedItems } from "../../../appservices/mindsphere-iotapi-services";
+import { PAINTBOOTH_ASSETID } from "../../../constants/mindsphere-constants";
 
 const columns = [
     {
@@ -136,6 +138,41 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
         this.setState({ formData: newDataSet });
     };
 
+    /**
+     * Save new or modified data to mindsphere api
+     * */
+    saveDataToTimeSeries = async (data) => {
+      const payload = [];
+      data.forEach((d) => payload.push({
+        _time: d.createdat,
+        AndonLight_Inspection_OkNotOk: d.topCabinet1CabinetAndonLightInspection,
+        Cabinet_Humidity_Pct: d.topCabinet1CabinetHumidity,
+        Cabinet_Temperature_degC: d.topCabinet1CabinetTemperature,
+        DIWaterCheck_Conductivity_uSpercm: d.topCabinet1CabinetDiWaterCheck,
+        P020InletTank1_Pressure_bar: d.topCabinet1CabinetP020InletTank4,
+        P020OutletTank1_Pressure_bar: d.topCabinet1CabinetP020OutletTank2,
+        P100InletTank1_Pressure_bar: d.topCabinet1CabinetP100InletTank3,
+        P100OutletTank1_Pressure_bar: d.topCabinet1CabinetP100OutletTank3,
+        P190InletTank1_Pressure_bar: d.topCabinet1CabinetP190InletTank2,
+        P190OutletTank1_Pressure_bar: d.topCabinet1CabinetP190OutletTank2,
+        P600InletTank1_Pressure_bar: d.topCabinet1CabinetP600InletTank1,
+        P600OutletTank1_Pressure_bar: d.topCabinet1CabinetP600OutletTank1,
+        PaintTest_Temperature_degC: d.topCabinet1CabinetTestTemperature,
+        PaintTest_Viscosity_sec: d.topCabinet1CabinetTestVisocity
+      }))
+      const response = await createOrUpdateTimeSeriesRecord(PAINTBOOTH_ASSETID, 'Topcoat_Cabinet_1', payload)  
+    }
+  
+    /**
+     * Update data to mindsphere for deletion
+     * */
+    updateDataToTimeSeries = (data, deleteList) => {
+        getDeletedItems(data, deleteList)
+        .then((deleteItems) => {
+          this.saveDataToTimeSeries(deleteItems)
+        })
+    }
+
     /***
      * Form Submit
      * * * We will send the user new or modified data to backend server
@@ -162,6 +199,9 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
                             () => this.props.closeDialog(false, "")
                         );
                     }
+          
+                    // Save data to time series
+                    this.saveDataToTimeSeries([{...response.data.data}])
                 }
             } else {
                 const response = await post("paintCabinetTC1/add", this.state.formData);
@@ -175,6 +215,9 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
                         }),
                         () => this.props.closeDialog(false, "")
                     );
+          
+                    // Save data to time series
+                    this.saveDataToTimeSeries([{...response.data.data}])
                 }
             }
         }
@@ -216,6 +259,7 @@ class PaintCabinetTopCabinet1 extends React.PureComponent{
                 );
                 if (response && response.data.code) {
                     let newDataList = [...this.state.tableData];
+                    this.updateDataToTimeSeries(newDataList, deleteList);
                     deleteList.forEach((deletedItems) => {
                         const deletedItemIndex = newDataList.findIndex(
                             (x) => x.id === deletedItems.id

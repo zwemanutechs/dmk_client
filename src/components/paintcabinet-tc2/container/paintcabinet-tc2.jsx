@@ -18,6 +18,8 @@ import {connect} from "react-redux";
 import {closeDialog, openDialog} from "../../../shared/mat-diaglog/actions/maxDialog-action";
 import {closeSnack, openSnack} from "../../../shared/snackbar/actions/snackbar-actions";
 import {openSpinner} from "../../../shared/spinner/actions/spinner-actions";
+import { createOrUpdateTimeSeriesRecord, getDeletedItems } from "../../../appservices/mindsphere-iotapi-services";
+import { PAINTBOOTH_ASSETID } from "../../../constants/mindsphere-constants";
 
 const columns = [
     {
@@ -118,6 +120,35 @@ class PaintCabinetTopCabinet2 extends React.PureComponent{
         this.setState({ formData: newDataSet });
     };
 
+    /**
+     * Save new or modified data to mindsphere api
+     * */
+    saveDataToTimeSeries = async (data) => {
+      const payload = [];
+      data.forEach((d) => payload.push({
+        _time: d.createdat,
+        AndonLight_Inspection_OkNotOk: d.topCabinet2AndonLightInspection,
+        Cabinet_Humidity_Pct: d.topCabinet2CabinetHumidity,
+        Cabinet_Temperature_degC: d.topCabinet2CabinetTemperture,
+        DIWaterCheck_Conductivity_uSpercm: d.topCabinet2DiWaterCheck,
+        HardenerTank3_Pressure_bar: d.topCabinet2HardenerTank3,
+        Tank3Hardener_Pressure_bar: d.topCabinet2HardenerPressureTank3,
+        PaintTest_Temperature_degC: d.topCabinet2PaintTestTemperature,
+        PaintTest_Viscosity_sec: d.topCabinet2PaintTestVisocity
+      }))
+      const response = await createOrUpdateTimeSeriesRecord(PAINTBOOTH_ASSETID, 'Topcoat_Cabinet_2', payload)  
+    }
+  
+    /**
+     * Update data to mindsphere for deletion
+     * */
+    updateDataToTimeSeries = (data, deleteList) => {
+        getDeletedItems(data, deleteList)
+        .then((deleteItems) => {
+          this.saveDataToTimeSeries(deleteItems)
+        })
+    }
+
     /***
      * Form Submit
      * * * We will send the user new or modified data to backend server
@@ -144,6 +175,9 @@ class PaintCabinetTopCabinet2 extends React.PureComponent{
                             () => this.props.closeDialog(false, "")
                         );
                     }
+          
+                    // Save data to time series
+                    this.saveDataToTimeSeries([{...response.data.data}])
                 }
             } else {
                 const response = await post("paintCabinetTC2/add", this.state.formData);
@@ -157,6 +191,9 @@ class PaintCabinetTopCabinet2 extends React.PureComponent{
                         }),
                         () => this.props.closeDialog(false, "")
                     );
+          
+                    // Save data to time series
+                    this.saveDataToTimeSeries([{...response.data.data}])
                 }
             }
         }
@@ -198,6 +235,7 @@ class PaintCabinetTopCabinet2 extends React.PureComponent{
                 );
                 if (response && response.data.code) {
                     let newDataList = [...this.state.tableData];
+                    this.updateDataToTimeSeries(newDataList, deleteList);
                     deleteList.forEach((deletedItems) => {
                         const deletedItemIndex = newDataList.findIndex(
                             (x) => x.id === deletedItems.id

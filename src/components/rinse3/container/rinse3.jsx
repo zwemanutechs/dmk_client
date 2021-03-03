@@ -29,6 +29,8 @@ import {
 import { formValidation } from "../validator/form-validator";
 import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
+import { createOrUpdateTimeSeriesRecord, getDeletedItems } from "../../../appservices/mindsphere-iotapi-services";
+import { POWERWASH_ASSETID } from "../../../constants/mindsphere-constants";
 
 const columns = [
   { label: "Ph", name: "ph" },
@@ -97,6 +99,29 @@ class Rinse3 extends Component {
     this.setState({ formData: newDataSet });
   };
 
+  /**
+   * Save new or modified data to mindsphere api
+   * */
+  saveDataToTimeSeries = async (data) => {
+    const payload = [];
+    data.forEach((d) => payload.push({
+      _time: d.createdat,
+      ph: d.ph,
+      WaterSupplyFromDITank_LpHr: d.waterSupplyFromDiWaterTank
+    }))
+    const response = await createOrUpdateTimeSeriesRecord(POWERWASH_ASSETID, 'Tank4_DIWaterRinse', payload)
+  }
+  
+  /**
+   * Update data to mindsphere for deletion
+   * */
+  updateDataToTimeSeries = (data, deleteList) => {
+    getDeletedItems(data, deleteList)
+    .then((deleteItems) => {
+      this.saveDataToTimeSeries(deleteItems)
+    })
+  }
+
   /***
    * Form Submit
    * * * We will send the user new or modified data to backend server
@@ -124,7 +149,10 @@ class Rinse3 extends Component {
               }),
               () => this.props.closeDialog(false, "")
             );
-          }
+          }     
+          
+          // Save data to time series
+          this.saveDataToTimeSeries([{...response.data.data}])
         }
       } else {
         const response = await post("rinse3/add", this.state.formData);
@@ -137,7 +165,10 @@ class Rinse3 extends Component {
               totalCount: state.totalCount + 1,
             }),
             () => this.props.closeDialog(false, "")
-          );
+          );     
+          
+          // Save data to time series
+          this.saveDataToTimeSeries([{...response.data.data}])
         }
       }
     }
@@ -176,6 +207,7 @@ class Rinse3 extends Component {
         const response = await deleteRange("rinse3/deleterange", deleteList);
         if (response && response.data.code) {
           let newDataList = [...this.state.tableData];
+          this.updateDataToTimeSeries(newDataList, deleteList);
           deleteList.forEach((deletedItems) => {
             const deletedItemIndex = newDataList.findIndex(
               (x) => x.id === deletedItems.id

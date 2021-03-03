@@ -32,6 +32,8 @@ import {
 import { formValidation } from "../validator/form-validator";
 import { sortByUpdatedAt } from "../../../appservices/app-services";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
+import { createOrUpdateTimeSeriesRecord, getDeletedItems } from "../../../appservices/mindsphere-iotapi-services";
+import { POWERWASH_ASSETID } from "../../../constants/mindsphere-constants";
 
 const columns = [
   { label: "Concentration", name: "concentration" },
@@ -109,6 +111,29 @@ class Passivation extends Component {
     this.setState({ formData: newDataSet });
   };
 
+  /**
+   * Save new or modified data to mindsphere api
+   * */
+  saveDataToTimeSeries = async (data) => {
+    const payload = [];
+    data.forEach((d) => payload.push({
+      _time: d.createdat,
+      Concentration_Pct: d.concentration,
+      ConcentrationBelow05_YesNo: d.concentrationBelowTopUp
+    }))
+    const response = await createOrUpdateTimeSeriesRecord(POWERWASH_ASSETID, 'Tank6_Passivation', payload)
+  }
+  
+  /**
+   * Update data to mindsphere for deletion
+   * */
+  updateDataToTimeSeries = (data, deleteList) => {
+    getDeletedItems(data, deleteList)
+    .then((deleteItems) => {
+      this.saveDataToTimeSeries(deleteItems)
+    })
+  }
+
   /***
    * Form Submit
    * * * We will send the user new or modified data to backend server
@@ -137,6 +162,9 @@ class Passivation extends Component {
               () => this.props.closeDialog(false, "")
             );
           }
+          
+          // Save data to time series
+          this.saveDataToTimeSeries([{...response.data.data}])
         }
       } else {
         const response = await post("passivation/add", this.state.formData);
@@ -150,6 +178,9 @@ class Passivation extends Component {
             }),
             () => this.props.closeDialog(false, "")
           );
+          
+          // Save data to time series
+          this.saveDataToTimeSeries([{...response.data.data}])
         }
       }
     }
@@ -191,6 +222,7 @@ class Passivation extends Component {
         );
         if (response && response.data.code) {
           let newDataList = [...this.state.tableData];
+          this.updateDataToTimeSeries(newDataList, deleteList);
           deleteList.forEach((deletedItems) => {
             const deletedItemIndex = newDataList.findIndex(
               (x) => x.id === deletedItems.id

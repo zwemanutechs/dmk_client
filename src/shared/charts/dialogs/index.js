@@ -14,7 +14,7 @@ import {withStyles} from "@material-ui/styles";
 import AppLineChart from "../line/container/lineChart";
 import {get} from "../../../middleware/axios-middleware";
 import {lastDayOfMonth} from 'date-fns'
-import {loadAggregateData, loadDataByGivenDate} from "../../../appservices/mindsphere-iotapi-services";
+import {loadAggregateData, loadAggregateDataV2, loadDataByGivenDate} from "../../../appservices/mindsphere-iotapi-services";
 import format from "date-fns/format";
 import {zonedTimeToUtc} from "date-fns-tz";
 
@@ -61,29 +61,34 @@ class Dialogs extends Component {
       let from = new Date();
       let to = new Date();
       let limit = this.props.limit;
+      let intervalUnit = 'day';
+      let intervalValue = 1;
+      let fromDate = new Date();
+      let toDate = new Date();
       if(this.state.tabIndex === 0){
-          from = new Date(new Date(new Date(new Date().setDate(new Date().getDate() - 7))));
-          to = lastDayOfMonth(new Date());
+          from = fromDate.setDate(fromDate.getDate() - 7);
+          to = toDate.setHours(toDate.getHours() - 1);
           limit = parseInt(limit * 4);
-          this.fetchAgreegateData(from,to, limit);
+          intervalUnit = 'hour';
+          this.fetchAgreegateData(from,to, limit, intervalUnit, intervalValue);
           //this.fetchTimeSeriesData(from,to, limit);
       }else if(this.state.tabIndex === 1){
-          from = new Date(new Date(new Date(new Date().setDate(new Date().getDate() - 30))));
-          to = lastDayOfMonth(new Date());
+          from = fromDate.setDate(fromDate.getDate() - 30);
+          to = toDate.setDate(toDate.getDate() - 1);
           limit = parseInt(limit * 4);
-          this.fetchAgreegateData(from,to, limit);
+          this.fetchAgreegateData(from,to, limit, intervalUnit, intervalValue);
           //this.fetchTimeSeriesData(from,to, limit);
       }else if(this.state.tabIndex === 2){
-          from = new Date(new Date().setMonth(new Date().getMonth()-2));
-          to = new Date();
+          from = fromDate.setMonth(fromDate.getMonth() - 3);
+          to = toDate.setDate(toDate.getDate() - 1);
           limit = parseInt(limit * 4);
-          this.fetchAgreegateData(from,to, limit);
+          this.fetchAgreegateData(from,to, limit, intervalUnit, intervalValue);
           //this.fetchTimeSeriesData(from,to, limit);
       }else{
           from = new Date(new Date().setMonth(new Date().getMonth()-2));
-          to = new Date();
+          to = toDate.setHours(toDate.getHours() - 1);
           limit = parseInt(limit * 4);
-          this.fetchAgreegateData(from,to, limit);
+          this.fetchAgreegateData(from,to, limit, intervalUnit, intervalValue);
       }
 
   }
@@ -110,11 +115,11 @@ class Dialogs extends Component {
       }
   }
 
-  fetchAgreegateData = async(from, to, limit) => {
+  fetchAgreegateData = async(from, to, limit, intervalUnit, intervalValue) => {
       if(this.props.dataPoint === 'mindsphere'){
           const fromDate = zonedTimeToUtc(from, Intl.DateTimeFormat().resolvedOptions().timeZone);
           const toDate = zonedTimeToUtc(to, Intl.DateTimeFormat().resolvedOptions().timeZone);
-          const response  = await loadAggregateData(from, to,this.props.assetId, this.props.aspectName,this.props.parameterName, limit);
+          const response  = await loadAggregateDataV2(from, to,this.props.assetId, this.props.aspectName,this.props.parameterName, intervalUnit, intervalValue);
           if(response && response.data && Array.isArray(response.data.aggregates) && response.data.aggregates.length > 0) {
               const yDataKeys = [...this.state.keys, 'data'];
               const aggreateData = response.data.aggregates.map((ag) => {
@@ -135,7 +140,7 @@ class Dialogs extends Component {
 
 
   onTabChange = (event, newValue) => {
-      this.setState({tabIndex: newValue}, () => this.loadData());
+      this.setState({tabIndex: newValue, keys: []}, () => this.loadData());
   }
 
   render() {
@@ -169,17 +174,18 @@ class Dialogs extends Component {
                   <Tab label='Seven Day' id='seven' aria-controls='v-seven' />
                   <Tab label='One Month' id='one' aria-controls='v-one' />
                   <Tab label='Three Month' id='three' aria-controls='v-three' />
-                  <Tab label='Six Month' id='six' aria-controls='v-six' />
+                  {/* <Tab label='Six Month' id='six' aria-controls='v-six' /> */}
               </Tabs>
               <div
                   role='tabpanel'
                   id='tab-0'>
-                  <Typography variant='h6' style={{paddingLeft: 10}}>{this.state.tabIndex === 0 ? 'Seven Day': this.state.tabIndex === 1 ?'One Month' : this.state.tabIndex === 2 ? 'Three Month' : 'Six Month'}</Typography>
+                  <Typography variant='h6' style={{paddingLeft: 10}}>{this.state.tabIndex === 0 ? 'Seven Day': this.state.tabIndex === 1 ?'One Month' : 'Three Month'}</Typography>
+                  {/* <Typography variant='h6' style={{paddingLeft: 10}}>{this.state.tabIndex === 0 ? 'Seven Day': this.state.tabIndex === 1 ?'One Month' : this.state.tabIndex === 2 ? 'Three Month' : 'Six Month'}</Typography> */}
                   <Box p={3}>
                       <AppLineChart
                           width={730}
                           height={480}
-                          data={this.state.data}
+                          data={this.state.data.reverse()}
                           keys={this.state.keys}
                           xDataKey={this.state.xDataKey}
                           referenceLineData={this.state.referenceLineData}
