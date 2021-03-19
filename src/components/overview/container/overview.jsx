@@ -51,9 +51,9 @@ class OverView extends React.PureComponent{
                                     dataKey={'_time'}
                                     dataPoint='mindsphere'
                                     title="Temperature"
-                                    target={'55-65'}
-                                    LL={55}
-                                    HH={65}
+                                    target={'65-72'}
+                                    LL={65}
+                                    HH={72}
                                 />
                             </Grid>
                             {/** End*/}
@@ -68,14 +68,14 @@ class OverView extends React.PureComponent{
                                     border={true}
                                     subTitle={''}
                                     range={[
-                                        {value:17,color:"#b2b2b2"},
-                                        {value:24,color:"#154a98"},
-                                        {value:31,color:"#ff1029"}
+                                        {value:10,color:"#b2b2b2"},
+                                        {value:22,color:"#154a98"},
+                                        {value:34,color:"#ff1029"}
                                     ]}
                                     unit={'%'}
-                                    min={10}
-                                    max={31}
-                                    LL={17}
+                                    min={-2}
+                                    max={34}
+                                    LL={10}
                                     HH={22}
                                 />
                             </Grid>
@@ -91,9 +91,9 @@ class OverView extends React.PureComponent{
                                     dataKey={'_time'}
                                     dataPoint='mindsphere'
                                     title="Air Flow"
-                                    target={'0.75-0.95'}
+                                    target={'0.75-2.2'}
                                     LL={0.75}
-                                    HH={0.95}
+                                    HH={2.2}
                                 />
                             </Grid>
                             {/** End **/}
@@ -135,12 +135,12 @@ class OverView extends React.PureComponent{
                                     subTitle={''}
                                     range={[
                                         {value:18,color:"#b2b2b2"},
-                                        {value:25,color:"#154a98"},
-                                        {value:31,color:"#ff1029"}
+                                        {value:28,color:"#154a98"},
+                                        {value:38,color:"#ff1029"}
                                     ]}
                                     unit={'%'}
-                                    min={12}
-                                    max={31}
+                                    min={8}
+                                    max={38}
                                     LL={18}
                                     HH={28}
                                 />
@@ -176,7 +176,7 @@ class OverView extends React.PureComponent{
                             <Grid key={'ESTA1Temperature'} item xs={12} sm={12} md={4} lg={4}>
                                 <Graph
                                     assetId={PAINTBOOTH_ASSETID}
-                                    aspectName="ESTA1"
+                                    aspectName="ESTA2"
                                     variableName="Room_Temperature_DegC"
                                     limit={3}
                                     dataKey={'_time'}
@@ -200,13 +200,13 @@ class OverView extends React.PureComponent{
                                     border={true}
                                     subTitle={''}
                                     range={[
-                                        {value:57,color:"#b2b2b2"},
-                                        {value:64,color:"#154a98"},
-                                        {value:71,color:"#ff1029"}
+                                        {value:55,color:"#b2b2b2"},
+                                        {value:65,color:"#154a98"},
+                                        {value:75,color:"#ff1029"}
                                     ]}
                                     unit={'%'}
-                                    min={50}
-                                    max={71}
+                                    min={45}
+                                    max={75}
                                     LL={55}
                                     HH={65}
                                 />
@@ -290,8 +290,8 @@ class OverView extends React.PureComponent{
                                     dataPoint='api'
                                     unit={'sec'}
                                     title="Paint Viscosity"
-                                    target={'45-55'}
-                                    LL={45}
+                                    target={'42-55'}
+                                    LL={42}
                                     HH={55}
                                 />
                             </Grid>
@@ -311,14 +311,14 @@ class OverView extends React.PureComponent{
                                     pathName='dashboard'
                                     endPoint='paintcabinet/topcoat1Temperature'
                                     variableName='data'
-                                    dataKey={'time'}
+                                    dataKey={'_time'}
                                     limit={1000}
                                     dataPoint='api'
                                     unit={'oC'}
                                     title="Temperature"
-                                    target={'22-24'}
+                                    target={'22-26'}
                                     LL={22}
-                                    HH={24}
+                                    HH={26}
                                 />
                             </Grid>
                             {/** End*/}
@@ -374,13 +374,13 @@ class OverView extends React.PureComponent{
                                     subTitle={''}
                                     dataPoint={'api'}
                                     range={[
-                                        {value:8.0,color:"#b2b2b2"},
-                                        {value:13.0,color:"#154a98"},
-                                        {value:18.0,color:"#ff1029"}
+                                        {value:7.0,color:"#b2b2b2"},
+                                        {value:10.0,color:"#154a98"},
+                                        {value:13.0,color:"#ff1029"}
                                     ]}
                                     unit={''}
-                                    min={3.0}
-                                    max={18.0}
+                                    min={4.0}
+                                    max={13.0}
                                     LL={7.0}
                                     HH={10.0}
                                 />
@@ -436,9 +436,9 @@ class OverView extends React.PureComponent{
                                     unit={'oC'}
                                     dataPoint='mindsphere'
                                     title="Temperature"
-                                    target={'50-60'}
-                                    LL={50}
-                                    HH={60}
+                                    target={'42-50'}
+                                    LL={42}
+                                    HH={50}
                                 />
                             </Grid>
                             {/** End*/}
@@ -454,14 +454,14 @@ class OverView extends React.PureComponent{
                                     subTitle={''}
                                     range={[
                                         {value:23,color:"#b2b2b2"},
-                                        {value:29,color:"#154a98"},
-                                        {value:35,color:"#ff1029"}
+                                        {value:38,color:"#154a98"},
+                                        {value:53,color:"#ff1029"}
                                     ]}
                                     unit={'%'}
-                                    min={15}
-                                    max={35}
+                                    min={8}
+                                    max={53}
                                     LL={23}
-                                    HH={28}
+                                    HH={38}
                                 />
                             </Grid>
                             {/** End **/}
@@ -476,8 +476,8 @@ class OverView extends React.PureComponent{
                                     unit={'m/sec'}
                                     dataPoint='mindsphere'
                                     title="Air Flow"
-                                    target={'1.4-1.8'}
-                                    LL={1.4}
+                                    target={'1.0-1.8'}
+                                    LL={1.0}
                                     HH={1.8}
                                 />
                             </Grid>
@@ -519,13 +519,13 @@ class OverView extends React.PureComponent{
                                     border={true}
                                     subTitle={''}
                                     range={[
-                                        {value:17,color:"#b2b2b2"},
-                                        {value:24,color:"#154a98"},
-                                        {value:31,color:"#ff1029"}
+                                        {value:18,color:"#b2b2b2"},
+                                        {value:23,color:"#154a98"},
+                                        {value:28,color:"#ff1029"}
                                     ]}
                                     unit={'%'}
-                                    min={10}
-                                    max={31}
+                                    min={13}
+                                    max={28}
                                     LL={18}
                                     HH={23}
                                 />
@@ -561,7 +561,7 @@ class OverView extends React.PureComponent{
                             <Grid key={'ESTA2Temperature'} item xs={12} sm={12} md={4} lg={4}>
                                 <Graph
                                     assetId={PAINTBOOTH_ASSETID}
-                                    aspectName="ESTA2"
+                                    aspectName="ESTA1"
                                     variableName="Room_Temperature_DegC"
                                     limit={3}
                                     dataKey={'_time'}
@@ -569,8 +569,8 @@ class OverView extends React.PureComponent{
                                     dataPoint='mindsphere'
                                     title="Temperature"
                                     target={'23-25'}
-                                    LL={25}
-                                    HH={23}
+                                    LL={23}
+                                    HH={25}
                                 />
                             </Grid>
                             {/** End*/}
@@ -585,13 +585,13 @@ class OverView extends React.PureComponent{
                                     border={true}
                                     subTitle={''}
                                     range={[
-                                        {value:60,color:"#b2b2b2"},
-                                        {value:70,color:"#154a98"},
-                                        {value:80,color:"#ff1029"}
+                                        {value:55,color:"#b2b2b2"},
+                                        {value:65,color:"#154a98"},
+                                        {value:75,color:"#ff1029"}
                                     ]}
                                     unit={'%'}
-                                    min={50}
-                                    max={80}
+                                    min={45}
+                                    max={75}
                                     LL={55}
                                     HH={65}
                                 />
@@ -675,8 +675,8 @@ class OverView extends React.PureComponent{
                                     dataPoint='api'
                                     unit={'sec'}
                                     title="Paint Viscosity"
-                                    target={'45-55'}
-                                    LL={45}
+                                    target={'42-55'}
+                                    LL={42}
                                     HH={55}
                                 />
                             </Grid>
@@ -701,9 +701,9 @@ class OverView extends React.PureComponent{
                                     dataPoint='api'
                                     unit={'oC'}
                                     title="Temperature"
-                                    target={'22-24'}
+                                    target={'22-26'}
                                     LL={22}
-                                    HH={24}
+                                    HH={26}
                                 />
                             </Grid>
                             {/** End*/}
@@ -766,7 +766,7 @@ class OverView extends React.PureComponent{
                             {/** Demineralization Conductivity */}
                             <Grid key={'DemineralizationConductivity'} item xs={12} sm={12} md={4} lg={4}>
                                 <CircleGauge
-                                    title={'Conductivity (< 10K uS)'}
+                                    title={'Conductivity (< 20 uS)'}
                                     assetId={POWERWASH_ASSETID}
                                     aspectName={'Tank07_Demineralization'}
                                     parameterName={'Conductivity_uS'}
@@ -774,13 +774,15 @@ class OverView extends React.PureComponent{
                                     border={true}
                                     subTitle={''}
                                     range={[
-                                        {value:6,color:"#b2b2b2"},
-                                        {value:12,color:"#154a98"},
-                                        {value:18,color:"#ff1029"}
+                                        {value:20,color:"#154a98"},
+                                        {value:30,color:"#ff1029"}
                                     ]}
+                                    customRange={true}
                                     unit={'uS'}
                                     min={0}
-                                    max={18.0}
+                                    max={30}
+                                    LL={0}
+                                    HH={20}
                                 />
                             </Grid>
                             {/** End*/}

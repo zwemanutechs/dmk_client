@@ -19,6 +19,19 @@ export const client = axios.create({
   // },
 });
 
+export const mindsphere = axios.create({  
+  withCredentials: true,
+  crossDomain: true,
+  headers:{
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, PATCH, OPTIONS',
+    'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, X-Request-With',
+    'Access-Control-Allow-Credentials': 'true',
+    "Content-Type": "application/x-www-form-urlencoded",
+    'Content-Security-Policy': "default-src 'self'; script-src 'self' https://dokaiot-fleetmanager.eu1.mindsphere.io 'self'"
+  }
+});
+
 client.interceptors.response.use(
     (response) => {
       return response;
@@ -78,6 +91,19 @@ export const post = async (url, payload) => {
     });
   }
   return response;
+};
+
+/**
+ * Make Post Request with payload
+ * ***/
+ export const postWithPayload = async (url, payload) => {
+  const accessToken = localStorage.getItem('access-data');
+  return await axios.post(url, payload, {
+    baseURL: BASEURI,
+    headers:{
+      AccessToken: accessToken,
+      'Content-Type': 'application/json'
+    }});
 };
 
 /**

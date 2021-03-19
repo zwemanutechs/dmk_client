@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import NumberFormat from "react-number-format";
+import FormLabel from "@material-ui/core/FormLabel";
 import { withStyles } from "@material-ui/core/styles";
 
 const useStyles = (theme) => ({
@@ -88,9 +89,12 @@ class RinseOneAddOrEdit extends Component {
         {/** PH Meter ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Ph
+            </FormLabel>
             <NumberFormat
               id="phmeter"
-              label="PH"
+              label=""
               customInput={TextField}
               value={this.state.ph.value}
               fullWidth={true}
@@ -115,9 +119,12 @@ class RinseOneAddOrEdit extends Component {
         {/** Water Overflow Waste Water From Tank 1 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Tank-1 Waste Water, L/hr
+            </FormLabel>
             <NumberFormat
               id="waterOverflowToWasteWaterTank1"
-              label="Tank-1 Waste Water, L/hr"
+              label=""
               customInput={TextField}
               value={this.state.waterOverflowToWasteWaterTank1.value}
               defaultValue={0.0}
@@ -148,9 +155,12 @@ class RinseOneAddOrEdit extends Component {
         {/** Tank-6 Water Supply ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Tank-6 Water Supply, L/hr
+            </FormLabel>
             <NumberFormat
                 id="waterSupplyFromTank6"
-                label="Tank-6 Water Supply, L/hr"
+                label=""
                 customInput={TextField}
                 value={this.state.waterSupplyFromTank6.value}
                 defaultValue={0.0}
@@ -178,9 +188,12 @@ class RinseOneAddOrEdit extends Component {
         {/** Tank-3 Water Supply ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Tank-3 Water Supply, L/hr
+            </FormLabel>
             <NumberFormat
               id="waterSupplyFromTank3"
-              label="Tank-3 Water Supply, L/hr"
+              label=""
               customInput={TextField}
               value={this.state.waterSupplyFromTank3.value}
               defaultValue={0.0}

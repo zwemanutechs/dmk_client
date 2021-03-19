@@ -99,9 +99,12 @@ class DegreasingAddOrEdit extends Component {
         {/** Concentration ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Titration Test Concentration, %
+            </FormLabel>
             <NumberFormat
               id="concentration"
-              label="Titration Test Concentration, %"
+              label=""
               customInput={TextField}
               value={this.state.concentration.value}
               fullWidth={true}
@@ -127,11 +130,11 @@ class DegreasingAddOrEdit extends Component {
           </FormControl>
         </Grid>
         {/** End Concentration **/}
-        {/** If Concentration Below Top Up 0.5% Top-up Chemical ***/}
+        {/** If Concentration Below Top Up 2% Top-up Chemical ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <FormLabel component="legend">
-              If concentration below 0.5% top-up chemical
+              If concentration below 2% top-up chemical (Yes/No)
             </FormLabel>
             <Grid component="label" container alignItems="center" spacing={1}>
               <Grid item>No</Grid>
@@ -153,9 +156,12 @@ class DegreasingAddOrEdit extends Component {
         {/** Water Supply From Tank2 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Water Supply From Tank2, L/hr
+            </FormLabel>
             <NumberFormat
               id="waterSupplyFromTank2"
-              label="Water Supply From Tank2, L/hr"
+              label=""
               customInput={TextField}
               value={this.state.waterSupplyFromTank2.value}
               fullWidth={true}
@@ -185,7 +191,7 @@ class DegreasingAddOrEdit extends Component {
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <FormLabel component="legend">
-              Oil Skimming
+              Oil Skimming Running (Yes/No)
             </FormLabel>
             <Grid component="label" container alignItems="center" spacing={1}>
               <Grid item>No</Grid>
@@ -234,9 +240,12 @@ class DegreasingAddOrEdit extends Component {
         {/** Dyne Test ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Dyne Test, mN/m
+            </FormLabel>
             <NumberFormat
               id="dyneTest"
-              label="Dyne Test, mN/m"
+              label=""
               customInput={TextField}
               value={this.state.dyneTest.value}
               fullWidth={true}

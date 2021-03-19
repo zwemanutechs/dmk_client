@@ -35,7 +35,7 @@ import { POWERWASH_ASSETID } from "../../../constants/mindsphere-constants";
 const columns = [
   { label: "Concentration (%)", name: "concentration" },
   {
-    label: "Concentration Below 0.5% (Yes/No)",
+    label: "Concentration Below 2% (Yes/No)",
     name: "concentrationTopUp",
     options: {
       filter: false,
@@ -46,7 +46,7 @@ const columns = [
   },
   { label: "Water Supply From Tank 2 (L/hr)", name: "waterSupplyFromTank2" },
   {
-    label: "Oil Skimming (Yes/No)",
+    label: "Oil Skimming Running (Yes/No)",
     name: "oilSkimming",
     options: {
       filter: false,

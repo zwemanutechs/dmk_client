@@ -57,7 +57,7 @@ const columns = [
   },
   { label: "Distilled Water Tank 05/06, (pH)", name: "phTank6" },
   {
-    label: "Tank 06 Water Sample (Good/Bad)",
+    label: "Distilled Water Tank 05/06 Water Sample (Good/Bad)",
     name: "waterSampleInBottleTank6",
     options: {
       filter: false,
@@ -67,7 +67,7 @@ const columns = [
     },
   },
   // { label: "Tank 06 Water Level (L)", name: "waterLevelTank6" },
-  { label: "Distil Tank 6 Water Supply, (L/h)", name: "flowRateTank6" },
+  { label: "Demineralization Water Supply from Tank6, (L/h)", name: "flowRateTank6" },
   { label: "Tank 06 Conductivity, (uS/cm)", name: "conductivity" },
   {
     label: "Tank 07 Water Quality (Good/Bad)",

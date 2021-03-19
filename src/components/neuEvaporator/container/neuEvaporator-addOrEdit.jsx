@@ -344,7 +344,7 @@ class NeuEvaporatorAddOrEdit extends Component {
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <FormLabel component="legend">
-              Tank 06 Water Sample, Good/Bad
+              Distilled Water Tank 05/06 Water Sample, Good/Bad
             </FormLabel>
             <Grid component="label" container alignItems="center" spacing={1}>
               <Grid item>Bad</Grid>
@@ -401,7 +401,7 @@ class NeuEvaporatorAddOrEdit extends Component {
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
             <FormLabel component="legend">
-              Distil Tank 6 Water Supply, L/h
+              Demineralization Water Supply from Tank6, L/h
             </FormLabel>
             <NumberFormat
                 id="flowRateTank6"

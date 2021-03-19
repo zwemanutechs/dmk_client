@@ -38,6 +38,7 @@ class CircleGauge extends Component{
             dialogOpen: false,
             data: 0.00,
             isEmpty: false,
+            range: []
         }
     }
 
@@ -72,7 +73,7 @@ class CircleGauge extends Component{
 
     loadData = async () => {
         const now = new Date();
-        this.setState(state => ({isFetching: true}));
+        this.setState(state => ({isFetching: true, range: this.props.range}));
         if(this.props.dataPoint === 'api'){
             const startDate = new Date(new Date(new Date().setDate(now.getDate() - 1)).setHours(23,59,59));
             const endDate = now;
@@ -92,6 +93,11 @@ class CircleGauge extends Component{
                 this.setState(state => ({isFetching: false, data: this.props.min, isEmpty: true}));
             }
         }
+        if (this.state.range[this.state.range.length - 1].value < this.state.data) {
+            const newRange = this.state.range.slice();
+            newRange[newRange.length - 1].value = this.state.data;
+            this.setState(state => ({range: newRange}));
+        } 
     };
 
     render() {
@@ -130,9 +136,9 @@ class CircleGauge extends Component{
                 </div>
                 <div style={{display: 'flex', justifyContent:'center', backgroundColor: 'white'}} onClick={() => {this.handleDiaglog()}}>
                     <Gauge
-                        start={this.props.min}
-                        end={this.props.max}
-                        ranges={this.props.range}
+                        start={this.state.data < this.props.min ? this.state.data : this.props.min}
+                        end={this.state.data > this.props.max ? this.state.data : this.props.max}
+                        ranges={this.state.range}
                         handle={[
                             {
                                 value:this.state.data,
@@ -151,7 +157,7 @@ class CircleGauge extends Component{
                                 fontSize:18, //font size of text, type=number, default=10
                                 top:0, //top of text, type=number, default=20
                                 left:0, //left of text, type=number, default=0
-                                color: this.props.LL > this.state.data || this.props.data < this.state.currentValue ? "red":"#154a98", //color of text, type=string, default='#000'
+                                color: this.props.LL > this.state.data || this.props.HH < this.state.data || this.props.data < this.state.currentValue ? "red":"#154a98", //color of text, type=string, default='#000'
                                 rotate:0  //rotate angle of text, type=number between 0 and 360, default=0
                             }
                         }]:[{
@@ -160,7 +166,7 @@ class CircleGauge extends Component{
                                 fontSize:18, //font size of text, type=number, default=10
                                 top:0, //top of text, type=number, default=20
                                 left:0, //left of text, type=number, default=0
-                                color: this.props.LL > this.state.data || this.props.data < this.state.currentValue ? "red":"#154a98", //color of text, type=string, default='#000'
+                                color: this.props.LL > this.state.data || this.props.HH < this.state.data || this.props.data < this.state.currentValue ? "red":"#154a98", //color of text, type=string, default='#000'
                                 rotate:0  //rotate angle of text, type=number between 0 and 360, default=0
                             }
                         }]}

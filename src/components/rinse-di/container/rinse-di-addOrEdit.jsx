@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import NumberFormat from "react-number-format";
+import FormLabel from "@material-ui/core/FormLabel";
 import { withStyles } from "@material-ui/core/styles";
 
 const useStyles = (theme) => ({
@@ -78,9 +79,12 @@ class RinseThreeAddOrEdit extends Component {
         {/** PH Meter ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Ph Meter
+            </FormLabel>
             <NumberFormat
               id="phmeter"
-              label="PH Meter"
+              label=""
               customInput={TextField}
               value={this.state.ph.value}
               fullWidth={true}
@@ -105,9 +109,12 @@ class RinseThreeAddOrEdit extends Component {
         {/** Tank-3 Water Supply ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              DI Tank Water Supply, L/hr
+            </FormLabel>
             <NumberFormat
               id="waterSupplyFromDiWaterTank"
-              label="DI Tank Water Supply, L/hr"
+              label=""
               customInput={TextField}
               value={this.state.waterSupplyFromDiWaterTank.value}
               defaultValue={0.0}

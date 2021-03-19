@@ -43,6 +43,14 @@ export const loadAggregateDataV2 = (from, to, assetId, aspectId, parameterName, 
   );
 }
 
+// get events time series data from mindsphere api
+export const loadEventData = (from, to, pageSize) => {
+  return getFromOtherOrigin(
+    `https://dokaiot-fleetmanager.eu1.mindsphere.io/api/eventmanagement/v3/events?size=${pageSize}&page=0&filter=%7B%22timestamp%22:%7B%22between%22:%22%5B${new Date(from).toISOString()},${new Date(to).toISOString()}%5B%22%7D,%22typeId%22:%22com.siemens.mindsphere.eventmgmt.event.type.MindSphereStandardEvent%22%7D`
+      // `https://dokaiot-fleetmanager.eu1.mindsphere.io/api/eventmanagement/v3/events?size=${pageSize}&page=0&filter={"timestamp":{"between":"(${new Date(from).toISOString()},${new Date(to).toISOString()})"},"typeId":"com.siemens.mindsphere.eventmgmt.event.type.MindSphereStandardEvent"}`
+  );
+}
+
 // create or update time series record
 export const createOrUpdateTimeSeriesRecord = async (assetId, aspectId, payload) => {
   return await putToOtherOrigin(

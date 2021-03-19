@@ -73,9 +73,9 @@ class Dashboard extends React.PureComponent{
                                             unit={'uS'}
                                             dataPoint='mindsphere'
                                             title="Conductivity"
-                                            target={'14k-22k'}
+                                            target={'14k-30k'}
                                             LL={14000}
-                                            HH={22000}
+                                            HH={30000}
                                         />
                                     </Grid>
                                     {/** End*/}
@@ -155,12 +155,12 @@ class Dashboard extends React.PureComponent{
                                             subTitle={''}
                                             range={[
                                                 {value:1.0,color:"#b2b2b2"},
-                                                {value:2.0,color:"#154a98"},
-                                                {value:3.0,color:"#ff1029"}
+                                                {value:1.5,color:"#154a98"},
+                                                {value:2.0,color:"#ff1029"}
                                             ]}
                                             unit={'bar'}
-                                            min={0}
-                                            max={3.0}
+                                            min={0.5}
+                                            max={2.0}
                                             LL={1}
                                             HH={1.5}
                                         />
@@ -178,12 +178,12 @@ class Dashboard extends React.PureComponent{
                                             subTitle={''}
                                             range={[
                                                 {value:1.0,color:"#b2b2b2"},
-                                                {value:2.0,color:"#154a98"},
-                                                {value:3.0,color:"#ff1029"}
+                                                {value:1.5,color:"#154a98"},
+                                                {value:2.0,color:"#ff1029"}
                                             ]}
                                             unit={'bar'}
-                                            min={0}
-                                            max={3.0}
+                                            min={0.5}
+                                            max={2.0}
                                             LL={1}
                                             HH={1.5}
                                         />
@@ -201,12 +201,12 @@ class Dashboard extends React.PureComponent{
                                             subTitle={''}
                                             range={[
                                                 {value:1.0,color:"#b2b2b2"},
-                                                {value:2.0,color:"#154a98"},
-                                                {value:3.0,color:"#ff1029"}
+                                                {value:1.5,color:"#154a98"},
+                                                {value:2.0,color:"#ff1029"}
                                             ]}
                                             unit={'bar'}
-                                            min={0}
-                                            max={3.0}
+                                            min={0.5}
+                                            max={2.0}
                                             LL={1}
                                             HH={1.5}
                                         />
@@ -224,12 +224,12 @@ class Dashboard extends React.PureComponent{
                                             subTitle={''}
                                             range={[
                                                 {value:1.0,color:"#b2b2b2"},
-                                                {value:2.0,color:"#154a98"},
-                                                {value:3.0,color:"#ff1029"}
+                                                {value:1.5,color:"#154a98"},
+                                                {value:2.0,color:"#ff1029"}
                                             ]}
                                             unit={'bar'}
-                                            min={0}
-                                            max={3.0}
+                                            min={0.5}
+                                            max={2.0}
                                             LL={1}
                                             HH={1.5}
                                         />
@@ -247,12 +247,12 @@ class Dashboard extends React.PureComponent{
                                             subTitle={''}
                                             range={[
                                                 {value:1.0,color:"#b2b2b2"},
-                                                {value:2.0,color:"#154a98"},
-                                                {value:3.0,color:"#ff1029"}
+                                                {value:1.5,color:"#154a98"},
+                                                {value:2.0,color:"#ff1029"}
                                             ]}
                                             unit={'bar'}
-                                            min={0}
-                                            max={3.0}
+                                            min={0.5}
+                                            max={2.0}
                                             LL={1}
                                             HH={1.5}
                                         />
@@ -304,13 +304,13 @@ class Dashboard extends React.PureComponent{
                                                 border={true}
                                                 subTitle={''}
                                                 range={[
-                                                    {value:73,color:"#b2b2b2"},
-                                                    {value:85,color:"#154a98"},
-                                                    {value:97,color:"#ff1029"}
+                                                    {value:70,color:"#b2b2b2"},
+                                                    {value:81.5,color:"#154a98"},
+                                                    {value:93,color:"#ff1029"}
                                                 ]}
                                                 unit={'cm'}
-                                                min={60}
-                                                max={97}
+                                                min={58.5}
+                                                max={93}
                                                 LL={70}
                                                 HH={81.5}
                                             />
@@ -347,14 +347,14 @@ class Dashboard extends React.PureComponent{
                                                 border={true}
                                                 subTitle={''}
                                                 range={[
-                                                    {value:1.0,color:"#b2b2b2"},
-                                                    {value:2.0,color:"#154a98"},
-                                                    {value:3.0,color:"#ff1029"}
+                                                    {value:0.35,color:"#b2b2b2"},
+                                                    {value:1.5,color:"#154a98"},
+                                                    {value:2.65,color:"#ff1029"}
                                                 ]}
                                                 unit={'bar'}
-                                                min={0}
-                                                max={3.0}
-                                                LL={0.5}
+                                                min={-0.8}
+                                                max={2.65}
+                                                LL={0.35}
                                                 HH={1.5}
                                             />
                                         </Paper>
@@ -400,13 +400,13 @@ class Dashboard extends React.PureComponent{
                                                 border={true}
                                                 subTitle={''}
                                                 range={[
-                                                    {value:60,color:"#b2b2b2"},
-                                                    {value:75,color:"#154a98"},
-                                                    {value:90,color:"#ff1029"}
+                                                    {value:55,color:"#b2b2b2"},
+                                                    {value:67,color:"#154a98"},
+                                                    {value:79,color:"#ff1029"}
                                                 ]}
                                                 unit={'cm'}
-                                                min={45}
-                                                max={90}
+                                                min={43}
+                                                max={79}
                                                 LL={55}
                                                 HH={67}
                                             />
@@ -443,13 +443,13 @@ class Dashboard extends React.PureComponent{
                                                 border={true}
                                                 subTitle={''}
                                                 range={[
-                                                    {value:0.3,color:"#b2b2b2"},
-                                                    {value:0.6,color:"#154a98"},
-                                                    {value:0.9,color:"#ff1029"}
+                                                    {value:0.2,color:"#b2b2b2"},
+                                                    {value:0.5,color:"#154a98"},
+                                                    {value:0.8,color:"#ff1029"}
                                                 ]}
                                                 unit={'bar'}
-                                                min={0}
-                                                max={0.9}
+                                                min={-0.1}
+                                                max={0.8}
                                                 LL={0.2}
                                                 HH={0.5}
                                             />
@@ -497,12 +497,12 @@ class Dashboard extends React.PureComponent{
                                                 subTitle={''}
                                                 range={[
                                                     {value:70,color:"#b2b2b2"},
-                                                    {value:75,color:"#154a98"},
-                                                    {value:80,color:"#ff1029"}
+                                                    {value:76,color:"#154a98"},
+                                                    {value:82,color:"#ff1029"}
                                                 ]}
                                                 unit={'cm'}
-                                                min={65}
-                                                max={80}
+                                                min={64}
+                                                max={82}
                                                 LL={70}
                                                 HH={76}
                                             />
@@ -539,13 +539,13 @@ class Dashboard extends React.PureComponent{
                                                 border={true}
                                                 subTitle={''}
                                                 range={[
-                                                    {value:0.7,color:"#b2b2b2"},
-                                                    {value:1.4,color:"#154a98"},
-                                                    {value:2.1,color:"#ff1029"}
+                                                    {value:0.5,color:"#b2b2b2"},
+                                                    {value:1.0,color:"#154a98"},
+                                                    {value:1.5,color:"#ff1029"}
                                                 ]}
                                                 unit={'bar'}
                                                 min={0}
-                                                max={2.1}
+                                                max={1.5}
                                                 LL={0.5}
                                                 HH={1.0}
                                             />
@@ -593,12 +593,12 @@ class Dashboard extends React.PureComponent{
                                                 subTitle={''}
                                                 range={[
                                                     {value:70,color:"#b2b2b2"},
-                                                    {value:75,color:"#154a98"},
-                                                    {value:80,color:"#ff1029"}
+                                                    {value:76,color:"#154a98"},
+                                                    {value:82,color:"#ff1029"}
                                                 ]}
                                                 unit={'cm'}
-                                                min={65}
-                                                max={80}
+                                                min={64}
+                                                max={82}
                                                 LL={70}
                                                 HH={76}
                                             />
@@ -635,15 +635,15 @@ class Dashboard extends React.PureComponent{
                                                 border={true}
                                                 subTitle={''}
                                                 range={[
-                                                    {value:1,color:"#b2b2b2"},
-                                                    {value:2,color:"#154a98"},
-                                                    {value:3,color:"#ff1029"}
+                                                    {value:0.5,color:"#b2b2b2"},
+                                                    {value:1.2,color:"#154a98"},
+                                                    {value:1.9,color:"#ff1029"}
                                                 ]}
                                                 unit={'bar'}
-                                                min={0}
-                                                max={3}
+                                                min={-0.2}
+                                                max={1.9}
                                                 LL={0.5}
-                                                HH={1}
+                                                HH={1.2}
                                             />
                                         </Paper>
                                     </Grid>
@@ -672,9 +672,9 @@ class Dashboard extends React.PureComponent{
                                         unit={''}
                                         dataPoint='mindsphere'
                                         title="pH"
-                                        target={'7-8'}
-                                        LL={7.0}
-                                        HH={8.0}
+                                        target={'8 - 10'}
+                                        LL={8.0}
+                                        HH={10.0}
                                     />
                                 </Paper>
                             </Grid>
@@ -691,14 +691,14 @@ class Dashboard extends React.PureComponent{
                                         border={true}
                                         subTitle={''}
                                         range={[
-                                            {value:65,color:"#b2b2b2"},
-                                            {value:75,color:"#154a98"},
-                                            {value:85,color:"#ff1029"}
+                                            {value:60,color:"#b2b2b2"},
+                                            {value:76,color:"#154a98"},
+                                            {value:92,color:"#ff1029"}
                                         ]}
                                         unit={'cm'}
-                                        min={55}
-                                        max={85}
-                                        LL={70}
+                                        min={44}
+                                        max={92}
+                                        LL={60}
                                         HH={76}
                                     />
                                 </Paper>
@@ -747,13 +747,13 @@ class Dashboard extends React.PureComponent{
                                         border={true}
                                         subTitle={''}
                                         range={[
-                                            {value:0.7,color:"#b2b2b2"},
-                                            {value:1.4,color:"#154a98"},
-                                            {value:2.1,color:"#ff1029"}
+                                            {value:0.5,color:"#b2b2b2"},
+                                            {value:1.0,color:"#154a98"},
+                                            {value:1.5,color:"#ff1029"}
                                         ]}
                                         unit={'bar'}
                                         min={0}
-                                        max={2.1}
+                                        max={1.5}
                                         LL={0.5}
                                         HH={1.0}
                                     />

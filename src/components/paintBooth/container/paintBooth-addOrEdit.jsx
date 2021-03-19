@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import NumberFormat from "react-number-format";
+import FormLabel from "@material-ui/core/FormLabel";
 import { withStyles } from "@material-ui/core/styles";
 
 const useStyles = (theme) => ({
@@ -112,9 +113,12 @@ class PaintBoothAddOrEdit extends Component {
         {/** Paint Pressure At Esta1 R11 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Paint Pressure At Esta1 R11, bar
+            </FormLabel>
             <NumberFormat
                 id="paintPressureAtEsta1R11"
-                label="Paint Pressure At Esta1 R11, bar"
+                label=""
                 customInput={TextField}
                 value={this.state.paintPressureAtEsta1R11.value}
                 fullWidth={true}
@@ -143,9 +147,12 @@ class PaintBoothAddOrEdit extends Component {
         {/** High Tension Esta1 R11 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              High Tension Esta1 R11, kV
+            </FormLabel>
             <NumberFormat
                 id="highTensionEsta1R11"
-                label="High Tension Esta1 R11, kV"
+                label=""
                 customInput={TextField}
                 value={this.state.highTensionEsta1R11.value}
                 fullWidth={true}
@@ -174,9 +181,12 @@ class PaintBoothAddOrEdit extends Component {
         {/** Paint Pressure At Esta1 R12 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Paint Pressure At Esta1 R12, bar
+            </FormLabel>
             <NumberFormat
                 id="paintPressureAtEsta1R12"
-                label="Paint Pressure At Esta1 R12, bar"
+                label=""
                 customInput={TextField}
                 value={this.state.paintPressureAtEsta1R12.value}
                 fullWidth={true}
@@ -205,9 +215,12 @@ class PaintBoothAddOrEdit extends Component {
         {/** High Tension Esta1 R12 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              High Tension Esta1 R12, kV
+            </FormLabel>
             <NumberFormat
                 id="highTensionEsta1R12"
-                label="High Tension Esta1 R12, kV"
+                label=""
                 customInput={TextField}
                 value={this.state.highTensionEsta1R12.value}
                 fullWidth={true}
@@ -236,9 +249,12 @@ class PaintBoothAddOrEdit extends Component {
         {/** Paint Pressure At Esta2 R11 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Paint Pressure At Esta2 R11, bar
+            </FormLabel>
             <NumberFormat
               id="paintPressureAtEsta2R11"
-              label="Paint Pressure At Esta2 R11, bar"
+              label=""
               customInput={TextField}
               value={this.state.paintPressureAtEsta2R11.value}
               fullWidth={true}
@@ -267,9 +283,12 @@ class PaintBoothAddOrEdit extends Component {
         {/** High Tension Esta2 R11 ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              High Tension Esta2 R11, kV
+            </FormLabel>
             <NumberFormat
               id="highTensionEsta2R11"
-              label="High Tension Esta2 R11, kV"
+              label=""
               customInput={TextField}
               value={this.state.highTensionEsta2R11.value}
               fullWidth={true}
@@ -298,9 +317,12 @@ class PaintBoothAddOrEdit extends Component {
         {/** Touch Up Room1 Air Flow ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Touch Up Room1 Air Flow, m/s
+            </FormLabel>
             <NumberFormat
               id="touchUpRoom1AirFlow"
-              label="Touch Up Room1 Air Flow, m/s"
+              label=""
               customInput={TextField}
               value={this.state.touchUpRoom1AirFlow.value}
               fullWidth={true}
@@ -329,9 +351,12 @@ class PaintBoothAddOrEdit extends Component {
         {/** Touch Up Room2 Air Flow ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Touch Up Room2 Air Flow, m/s
+            </FormLabel>
             <NumberFormat
               id="touchUpRoom2AirFlow"
-              label="Touch Up Room2 Air Flow, m/s"
+              label=""
               customInput={TextField}
               value={this.state.touchUpRoom2AirFlow.value}
               fullWidth={true}

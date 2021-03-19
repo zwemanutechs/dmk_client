@@ -25,6 +25,7 @@ import PaintCabinetPrimerCabinet1 from "./components/paintcabinet-pc1/container/
 import PaintCabinetPrimerCabinet2 from "./components/paintcabinet-pc2/container/paintcabinet-pc2";
 import {BASEURI} from "./constants/api-constants";
 import Notification from "./components/notification/container/notification";
+import {executeScheduler} from './appservices/app-services'
 
 class App extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class App extends Component {
         this.state = {
             accessToken: null,
         };
-        //localStorage.setItem("access-data", 'eyJJZCI6ImUzYzZmODNmLTI0ZjMtNDUzNy05MTE3LWY1ZmJkMGYxMmRmMCIsIlJvbGUiOiI2ODdkOGJlMi0wNDAzLTQ0NTctOWIxYi0xMGQ4YTljNGYxMjcifQ==');
+        // localStorage.setItem("access-data", 'eyJJZCI6ImUzYzZmODNmLTI0ZjMtNDUzNy05MTE3LWY1ZmJkMGYxMmRmMCIsIlJvbGUiOiI2ODdkOGJlMi0wNDAzLTQ0NTctOWIxYi0xMGQ4YTljNGYxMjcifQ==');
     }
 
     componentDidMount() {
@@ -46,14 +47,24 @@ class App extends Component {
                 if (response && response.status === 200 && response.data.code) {
                     localStorage.setItem("access-data", response.data.data);
                     this.setState({accessToken: response.data.data});
+                    // this.loadData();
+                    // this.intervalID = setInterval(this.loadData.bind(this), 300000)
                 } else if (response && response.status === 403) {
                     this.props.history.push("/Forbidden");
                 }
             })
             .catch((err) => {
                 this.props.history.push("/Forbidden");
-            });
+            });;
     }
+
+    // componentWillUnmount() {
+    //     clearInterval(this.intervalID);
+    // }
+
+    // loadData = async () => {
+    //     await executeScheduler();
+    // }
 
     render() {
         return (

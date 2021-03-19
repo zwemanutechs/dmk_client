@@ -143,9 +143,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
             <form className={this.props.classes.form}>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 Cabinet Temperature, oC
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1CabinetTemperature"
-                            label="Top Cabinet1 Cabinet Temperature, oC"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetTemperature.value}
                             fullWidth={true}
@@ -172,9 +175,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 Cabinet Humidity, %
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1CabinetHumidity"
-                            label="Top Cabinet1 Cabinet Humidity, %"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetHumidity.value}
                             fullWidth={true}
@@ -201,9 +207,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 Paint Test Visocity, sec
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1CabinetTestVisocity"
-                            label="Top Cabinet1 Paint Test Visocity, sec"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetTestVisocity.value}
                             fullWidth={true}
@@ -230,9 +239,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 Paint Test Temperature, oC
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1CabinetTestTemperature"
-                            label="Top Cabinet1 Paint Test Temperature, oC"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetTestTemperature.value}
                             fullWidth={true}
@@ -262,9 +274,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 DI Water Check, uS/cm
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1CabinetDiWaterCheck"
-                            label="Top Cabinet1 DI Water Check, uS/cm"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetDiWaterCheck.value}
                             fullWidth={true}
@@ -315,9 +330,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 P600 Inlet Tank1, bar
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1P600InletTank1"
-                            label="Top Cabinet1 P600 Inlet Tank1, bar"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetP600InletTank1.value}
                             fullWidth={true}
@@ -344,9 +362,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 P600 Outlet Tank1, bar
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1P600OutletTank1"
-                            label="Top Cabinet1 P600 Outlet Tank1, bar"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetP600OutletTank1.value}
                             fullWidth={true}
@@ -373,9 +394,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 P190 Inlet Tank2, bar
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1P190InletTank2"
-                            label="Top Cabinet1 P190 Inlet Tank2, bar"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetP190InletTank2.value}
                             fullWidth={true}
@@ -402,9 +426,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 P190 Outlet Tank2, bar
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1P190OutletTank2"
-                            label="Top Cabinet1 P190 Outlet Tank2, bar"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetP190OutletTank2.value}
                             fullWidth={true}
@@ -431,9 +458,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 P100 Inlet Tank3, bar
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1P100InletTank3"
-                            label="Top Cabinet1 P100 Inlet Tank3, bar"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetP100InletTank3.value}
                             fullWidth={true}
@@ -460,9 +490,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 P100 Outlet Tank3
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1P100OutletTank3"
-                            label="Top Cabinet1 P100 Outlet Tank3"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetP100OutletTank3.value}
                             fullWidth={true}
@@ -489,9 +522,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 P020 Inlet Tank4
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1P020InletTank4"
-                            label="Top Cabinet1 P020 Inlet Tank4"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetP020InletTank4.value}
                             fullWidth={true}
@@ -518,9 +554,12 @@ class PaintCabinetTopCabinet1AddOrEdit extends React.PureComponent {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={this.props.classes.formControl}>
+                        <FormLabel component="legend">
+                            Top Cabinet1 P020 Outlet Tank4
+                        </FormLabel>
                         <NumberFormat
                             id="topCabinet1P020OutletTank2"
-                            label="Top Cabinet1 P020 Outlet Tank4"
+                            label=""
                             customInput={TextField}
                             value={this.state.topCabinet1CabinetP020OutletTank2.value}
                             fullWidth={true}

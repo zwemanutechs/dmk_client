@@ -84,9 +84,12 @@ class PassivationAddOrEdit extends Component {
         {/** PH Meter ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Concentration
+            </FormLabel>
             <NumberFormat
               id="concentration"
-              label="Concentration"
+              label=""
               customInput={TextField}
               value={this.state.concentration.value}
               fullWidth={true}

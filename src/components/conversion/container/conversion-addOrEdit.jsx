@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import NumberFormat from "react-number-format";
+import FormLabel from "@material-ui/core/FormLabel";
 import { withStyles } from "@material-ui/core/styles";
 
 const useStyles = (theme) => ({
@@ -77,9 +78,12 @@ class ConversionAddOrEdit extends Component {
         {/** Water Supply From Di Tank ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>
+            <FormLabel component="legend">
+              Water Supply From Di Tank
+            </FormLabel>
             <NumberFormat
               id="waterSupplyFromDiTank"
-              label="Water Supply From Di Tank"
+              label=""
               customInput={TextField}
               value={this.state.waterSupplyFromDiTank.value}
               fullWidth={true}
