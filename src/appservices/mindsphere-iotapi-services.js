@@ -1,6 +1,16 @@
-import { getFromOtherOrigin, get, putToOtherOrigin } from "../middleware/axios-middleware";
+import { getFromOtherOrigin, get, putToOtherOrigin, postEventsToOtherOrigin } from "../middleware/axios-middleware";
 import format from "date-fns/format";
 import { zonedTimeToUtc } from "date-fns-tz";
+import { OPEN_SNACK } from "../shared/snackbar/action-constants/snackbar-actionTypes";
+import { store } from "../index";
+import {
+  ADDSUCCESS,
+  DELETESUCCESS,
+  snackError,
+  snackSuccess,
+  UNHANDELERROR,
+  UPDATESUCCESS,
+} from "../constants/app-constants";
 
 // get timeseries data from mindsphere api
 export const loadDataByGivenDate = (
@@ -25,6 +35,13 @@ export const loadLatestValue = (assetId, aspectId, parameterName) => {
   );
 };
 
+// get latest value from mindsphere api with no parameter
+export const loadLatestValueNoParameter = (assetId, aspectId) => {
+  return getFromOtherOrigin(
+      `/api/iottimeseries/v3/timeseries/${assetId}/${aspectId}`
+  );
+};
+
 // get aggregate time series data from mindsphere api
 export const loadAggregateData = (from, to, assetId, aspectId, parameterName, limit) => {
   return getFromOtherOrigin(
@@ -43,11 +60,36 @@ export const loadAggregateDataV2 = (from, to, assetId, aspectId, parameterName, 
   );
 }
 
-// get events time series data from mindsphere api
-export const loadEventData = (from, to, pageSize) => {
+// get aggregate time series data from mindsphere api without parameter name
+export const loadAggregateDataWithoutParameterName = (from, to, assetId, aspectId)  => {
   return getFromOtherOrigin(
-    `https://dokaiot-fleetmanager.eu1.mindsphere.io/api/eventmanagement/v3/events?size=${pageSize}&page=0&filter=%7B%22timestamp%22:%7B%22between%22:%22%5B${new Date(from).toISOString()},${new Date(to).toISOString()}%5B%22%7D,%22typeId%22:%22com.siemens.mindsphere.eventmgmt.event.type.MindSphereStandardEvent%22%7D`
-      // `https://dokaiot-fleetmanager.eu1.mindsphere.io/api/eventmanagement/v3/events?size=${pageSize}&page=0&filter={"timestamp":{"between":"(${new Date(from).toISOString()},${new Date(to).toISOString()})"},"typeId":"com.siemens.mindsphere.eventmgmt.event.type.MindSphereStandardEvent"}`
+      `/api/iottsaggregates/v4/aggregates?intervalUnit=hour&intervalValue=24&assetId=${assetId}&aspectName=${aspectId}&from=${new Date(
+          from
+      ).toISOString()}&to=${new Date(to).toISOString()}`
+  );
+}
+
+// get aggregate time series data from mindsphere api without parameter name
+export const loadAggregateDataWithoutParameterNameV2 = (from, to, assetId, aspectId) => new Promise((resolve, reject) => {
+  let resposne = getFromOtherOrigin(
+      `/api/iottsaggregates/v4/aggregates?intervalUnit=hour&intervalValue=24&assetId=${assetId}&aspectName=${aspectId}&from=${new Date(
+          from
+      ).toISOString()}&to=${new Date(to).toISOString()}`
+  );
+  resolve(resposne);
+})
+
+// get events time series data from mindsphere api
+export const loadEventData = (from, to, assetId, pageSize) => {
+  return getFromOtherOrigin(
+    `/api/eventmanagement/v3/events?size=${pageSize}&page=0&filter={"timestamp":{"between":"${new Date(from).toISOString()},${new Date(to).toISOString()}"},"entityId":"${assetId}"}`
+  );
+}
+
+// get events time series data by id from mindsphere api
+export const loadEventDataById = (id) => {
+  return getFromOtherOrigin(
+    `/api/eventmanagement/v3/events/${id}`
   );
 }
 
@@ -55,6 +97,13 @@ export const loadEventData = (from, to, pageSize) => {
 export const createOrUpdateTimeSeriesRecord = async (assetId, aspectId, payload) => {
   return await putToOtherOrigin(
       `/api/iottimeseries/v3/timeseries/${assetId}/${aspectId}`, payload
+  );
+}
+
+// create or update events record
+export const createOrUpdateEventsRecord = async (payload) => {
+  return await postEventsToOtherOrigin(
+      `/api/eventmanagement/v3/events`, payload
   );
 }
 
@@ -130,6 +179,15 @@ export const getDeletedItems = (data, deleteList) => new Promise((resolve, rejec
   });
   resolve(newDeletedItems);
 });
+
+export const handleMindsphereError = (message) => {
+  store.dispatch({
+    type: OPEN_SNACK,
+    status: true,
+    message: message || UNHANDELERROR,
+    snackType: snackError,
+  });
+}
 
 /* Daryl Code
 // ---------------- Minsphere API V2 Gateway

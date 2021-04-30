@@ -135,14 +135,14 @@ class OverView extends React.PureComponent{
                                     subTitle={''}
                                     range={[
                                         {value:18,color:"#b2b2b2"},
-                                        {value:28,color:"#154a98"},
-                                        {value:38,color:"#ff1029"}
+                                        {value:23,color:"#154a98"},
+                                        {value:28,color:"#ff1029"}
                                     ]}
                                     unit={'%'}
-                                    min={8}
-                                    max={38}
+                                    min={13}
+                                    max={28}
                                     LL={18}
-                                    HH={28}
+                                    HH={23}
                                 />
                             </Grid>
                             {/** End **/}
@@ -605,7 +605,7 @@ class OverView extends React.PureComponent{
                                     variableName="Airflow_mpsec"
                                     limit={3}
                                     dataKey={'_time'}
-                                    unit={'m3/hr'}
+                                    unit={'m/sec'}
                                     dataPoint='mindsphere'
                                     title="Air Flow"
                                     target={'0.4-0.6'}

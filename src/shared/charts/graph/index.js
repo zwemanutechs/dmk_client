@@ -76,7 +76,8 @@ export default class Graph extends Component {
             const toDate = zonedTimeToUtc(endDate, Intl.DateTimeFormat().resolvedOptions().timeZone);
             const response = await loadDataByGivenDate(fromDate, toDate, this.props.assetId, this.props.aspectName, this.props.variableName, this.props.limit);
             if(response && Array.isArray(response.data) && response.data.length > 0) {
-                const lastValue = response.data[0][this.props.variableName] > 0 ? parseFloat(response.data[0][this.props.variableName]).toFixed(2) : response.data[0][this.props.variableName];
+                // const lastValue = response.data[0][this.props.variableName] > 0 ? parseFloat(response.data[0][this.props.variableName]).toFixed(2) : response.data[0][this.props.variableName];
+                const lastValue = parseFloat(response.data[0][this.props.variableName]).toFixed(2);
                 const firstValue = response.data[response.data.length - 1][this.props.variableName];
                 let lhDif = '0';
                 if (lastValue > 0 && firstValue > 0){

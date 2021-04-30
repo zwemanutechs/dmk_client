@@ -13,8 +13,8 @@ import { connect } from "react-redux";
 import MUITable from "../../../shared/mui-datatable/container/mui-table";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
 import { MDUP } from "../../../constants/app-constants";
-import { sortByUpdatedAt } from "../../../appservices/app-services";
-import { loadEventData } from "../../../appservices/mindsphere-iotapi-services";
+import { sortByUpdatedAtAndMessage } from "../../../appservices/app-services";
+import { loadEventData, loadEventDataById, createOrUpdateEventsRecord } from "../../../appservices/mindsphere-iotapi-services";
 import { tableCustomizeToolBarSingleSelect } from "../../../constants/table-constants";
 import MaxWidthDialog from "../../../shared/mat-diaglog/container/mat-dialog";
 import NotificationAddOrEdit from "./notification-addOrEdit";
@@ -31,7 +31,7 @@ import {
 } from "../../../middleware/axios-middleware";
 import { notificationModel } from "../model/model";
 import { TextField, FormLabel, FormGroup, RadioGroup, Radio, FormControlLabel, Checkbox } from "@material-ui/core";
-import axios from "axios";
+import { OVEN_ASSETID, PAINTBOOTH_ASSETID, POWERWASH_ASSETID } from "../../../constants/mindsphere-constants";
 
 const useStyles = theme => ({
 });
@@ -86,7 +86,7 @@ const columns = [
             const powerWash = filters[2];
             let ovenList = ['Dryer', 'Oven']
             let paintBoothList = ['Cabinet', 'Primer', 'Coat', 'Paint', 'Esta']
-            let powerWashList = ['Rinse', 'DI', 'Passivation', 'Degreasing', 'Neutralization', 'Conversion', 'Distilled', 'Sodium', 'Sulphuric']
+            let powerWashList = ['Rinse', 'DI', 'Passivation', 'Conductivity', 'Degreasing', 'Neutralization', 'Conversion', 'Distilled', 'Sodium', 'Sulphuric']
 
             if (oven && paintBooth && powerWash) {
               return !value;
@@ -157,80 +157,80 @@ const columns = [
         }
       }
     },
-    { 
-      label: "Actual Value", 
-      name: "actualValue",      
-      options: {
-        filter: true,
-        filterType: "custom",
-        filterList: [],
-        customFilterListOptions: {
-          render: value => {
-            if (value[0] && value[1]) {
-              return `Min Value: ${value[0]}, Max Value: ${value[1]}`;
-            } else if (value[0]) {
-              return `Min Value: ${value[0]}`;
-            } else if (value[1]) {
-              return `Max Value: ${value[1]}`;
-            }
-            return [];
-          },
-          update: (filterList, filterPos, index) => {
-            if (filterPos === 0) {
-              filterList[index].splice(filterPos, 1, "");
-            } else if (filterPos === 1) {
-              filterList[index].splice(filterPos, 1);
-            } else if (filterPos === -1) {
-              filterList[index] = [];
-            }
+    // { 
+    //   label: "Actual Value", 
+    //   name: "actualValue",      
+    //   options: {
+    //     filter: true,
+    //     filterType: "custom",
+    //     filterList: [],
+    //     customFilterListOptions: {
+    //       render: value => {
+    //         if (value[0] && value[1]) {
+    //           return `Min Value: ${value[0]}, Max Value: ${value[1]}`;
+    //         } else if (value[0]) {
+    //           return `Min Value: ${value[0]}`;
+    //         } else if (value[1]) {
+    //           return `Max Value: ${value[1]}`;
+    //         }
+    //         return [];
+    //       },
+    //       update: (filterList, filterPos, index) => {
+    //         if (filterPos === 0) {
+    //           filterList[index].splice(filterPos, 1, "");
+    //         } else if (filterPos === 1) {
+    //           filterList[index].splice(filterPos, 1);
+    //         } else if (filterPos === -1) {
+    //           filterList[index] = [];
+    //         }
 
-            return filterList;
-          }
-        },
-        filterOptions: {
-          names: [],
-          logic(value, filters) {
-            const lower = filters[0];
-            const upper = filters[1];
-            if (lower && upper) {
-              return value < lower || value > upper;
-            } else if (lower) {
-              return value < lower;
-            } else if (upper) {
-              return value > upper;
-            }
-            return false;
-          },
-          display: (filterList, onChange, index, column) => (
-            <div>
-              <FormLabel>Actual Value</FormLabel>
-              <FormGroup row>
-                <TextField
-                  label="min"
-                  value={filterList[index][0] || ""}
-                  onChange={event => {
-                    filterList[index][0] = event.target.value;
-                    onChange(filterList[index], index, column);
-                  }}
-                  style={{ width: "45%", marginRight: "5%" }}
-                />
-                <TextField
-                  label="max"
-                  value={filterList[index][1] || ""}
-                  onChange={event => {
-                    filterList[index][1] = event.target.value;
-                    onChange(filterList[index], index, column);
-                  }}
-                  style={{ width: "45%" }}
-                />
-              </FormGroup>
-            </div>
-          )
-        }
-      } 
-    },
+    //         return filterList;
+    //       }
+    //     },
+    //     filterOptions: {
+    //       names: [],
+    //       logic(value, filters) {
+    //         const lower = filters[0];
+    //         const upper = filters[1];
+    //         if (lower && upper) {
+    //           return value < lower || value > upper;
+    //         } else if (lower) {
+    //           return value < lower;
+    //         } else if (upper) {
+    //           return value > upper;
+    //         }
+    //         return false;
+    //       },
+    //       display: (filterList, onChange, index, column) => (
+    //         <div>
+    //           <FormLabel>Actual Value</FormLabel>
+    //           <FormGroup row>
+    //             <TextField
+    //               label="min"
+    //               value={filterList[index][0] || ""}
+    //               onChange={event => {
+    //                 filterList[index][0] = event.target.value;
+    //                 onChange(filterList[index], index, column);
+    //               }}
+    //               style={{ width: "45%", marginRight: "5%" }}
+    //             />
+    //             <TextField
+    //               label="max"
+    //               value={filterList[index][1] || ""}
+    //               onChange={event => {
+    //                 filterList[index][1] = event.target.value;
+    //                 onChange(filterList[index], index, column);
+    //               }}
+    //               style={{ width: "45%" }}
+    //             />
+    //           </FormGroup>
+    //         </div>
+    //       )
+    //     }
+    //   } 
+    // },
     {
-      label: "Acknowledge",
+      label: "Acknowledged",
       name: "acknowledge",
       options: {
         filter: true,
@@ -271,9 +271,9 @@ const columns = [
             if (yes && no) {
               return value;
             } else if (yes) {
-              return value == false;
+              return value === false;
             }else if (no) {
-              return value == true;
+              return value === true;
             }
             return false;
           },
@@ -326,7 +326,7 @@ const columns = [
     //   },
     // },
     {
-      label: "Created At",
+      label: "Timestamp",
       name: "updatedat",
       options: {
         filter: false,
@@ -369,23 +369,45 @@ class Notification extends PureComponent {
   getData = async (pageNo) => {
     let from = new Date();
     let to = new Date();
-    axios.get(`https://randomuser.me/api/`).then(res => { 
-        console.log(res);
-    }).catch(error => {
-        console.log('error', error);
-    })
-    // const res  = await loadEventData(from.setHours(from.getHours() - 1), to, 100);
-    // console.log('res', res);
+    let tempData = [];
+    const assets = [
+      {name:'Oven', id:OVEN_ASSETID},
+      {name:'PaintBooth', id:PAINTBOOTH_ASSETID},
+      {name:'Powerwash', id:POWERWASH_ASSETID},
+    ];
+
+    await Promise.all(assets.map(async (asset) => {
+      await loadEventData(from.setHours(from.getHours() - 23), to, asset.id, 500)
+      .then((response) => {
+        if(response && response.data._embedded && response.data._embedded.events && Array.isArray(response.data._embedded.events) && response.data._embedded.events.length > 0) {
+            let eventData = response.data._embedded.events.map((ag) => {
+              return { 
+                id: ag.id,
+                message: ag.description,
+                acknowledge: ag.acknowledged,
+                updatedat: ag.timestamp,
+                correlationId: ag.correlationId
+              }
+          })
+          tempData.push(eventData);
+        } 
+      })
+      .catch((err) => {
+        console.log('error', err)
+      })
+    }))
     const response = await get(
       `NotificationMessage?pageNo=${pageNo === undefined ? 0 : pageNo}&pageSize=${10}`
     );
     if (response) {
-      this.setState((state) => ({
-        tableData: response.data.data.data,
-        totalCount: response.data.data.count,
-        loading: false,
-      }));
+      tempData.push(response.data.data.data);
     }
+    const totalData = [].concat(...tempData);
+    this.setState((state) => ({
+      tableData: totalData,
+      totalCount: totalData.length,
+      loading: false,
+    }));
   };
 
   /**
@@ -397,6 +419,27 @@ class Notification extends PureComponent {
     this.setState({ formData: newDataSet });
   };
   
+  /**
+   * Handle table ferfresh after update
+   * */
+   updateDataTable = (data) => {
+    const dataIndex = this.state.tableData.findIndex(
+      (x) => x.id === data.id
+    );
+    if (dataIndex >= 0) {
+      const tableData = this.state.tableData;
+      tableData.splice(dataIndex, 1);
+      this.setState(
+        (state) => ({
+          tableData: [...tableData, data],
+          formData: notificationModel,
+          onProgress: false,
+        }),
+        () => this.props.closeDialog(false, "")
+      );
+    } 
+  };
+  
   /***
    * Form Submit
    * * * We will send the user new or modified data to backend server
@@ -405,23 +448,44 @@ class Notification extends PureComponent {
     this.setState({ onProgress: true });
     if (this.props.title === "UPDATE") {
       console.log('this.state.formData', this.state.formData)
-      const response = await put("NotificationMessage/update", this.state.formData);
-      if (response && response.data.code) {
-        const dataIndex = this.state.tableData.findIndex(
-          (x) => x.id === response.data.data.id
-        );
-        if (dataIndex >= 0) {
-          const tableData = this.state.tableData;
-          tableData.splice(dataIndex, 1);
-          this.setState(
-            (state) => ({
-              tableData: [...tableData, response.data.data],
-              formData: notificationModel,
-              onProgress: false,
-            }),
-            () => this.props.closeDialog(false, "")
-          );
-        } 
+
+      // mindsphere api
+      if (this.state.formData.correlationId) {
+        await loadEventDataById(this.state.formData.id)
+        .then(async (response) => {
+          if(response && response.data) {
+              const payload = {
+                acknowledged: this.state.formData.acknowledge,
+                correlationId: response.data.correlationId,
+                description: response.data.description,
+                entityId: response.data.entityId,
+                property: response.data.property,
+                ruleId: response.data.ruleId,
+                severity: response.data.severity,
+                source: response.data.source,
+                timestamp: response.data.timestamp,
+                typeId: response.data.typeId
+              }
+
+              await createOrUpdateEventsRecord(payload)
+              .then((response) => {
+                this.updateDataTable(this.state.formData)
+              })
+              .catch((err) => {
+                console.log('error', err)
+              })
+          } 
+        })
+        .catch((err) => {
+          console.log('error', err)
+        })
+      }
+      // backend api
+      else {
+        const response = await put("NotificationMessage/update", this.state.formData);
+        if (response && response.data.code) {
+          this.updateDataTable(response.data.data)
+        }
       }
     } else {
       const response = await post("NotificationMessage/add", this.state.formData);
@@ -494,7 +558,7 @@ class Notification extends PureComponent {
               <MUITable
                 title={"Notification"}
                 totalCount={this.state.totalCount}
-                data={this.state.tableData.sort(sortByUpdatedAt)}
+                data={this.state.tableData.sort(sortByUpdatedAtAndMessage)}
                 columns={columns}
                 accessRight={{ Create: false, Update: true, Delete: false }}
                 options={tableCustomizeToolBarSingleSelect}

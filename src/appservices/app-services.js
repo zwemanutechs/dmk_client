@@ -13,6 +13,23 @@ export const sortByUpdatedAt = (dateAPair, dateBPair) =>{
     }
 };
 
+export const sortByName = (nameA, nameB) =>{
+    if (nameA.name < nameB.name) {
+        return -1;
+    } else if (nameA.name > nameB.name) {
+        return 1;
+    } else {
+        return 0;
+    }
+};
+
+export const sortByUpdatedAtAndMessage = (a, b) =>{
+    let DateA = new Date(a.updatedat);
+    let DateB = new Date(b.updatedat);
+
+    return DateB - DateA || b.message - a.message;
+};
+
 // validate all mindsphere date from last validated time
 export const executeScheduler = async () => {
     const responseTime = await get(`Validation/GetLastValidateTime`);

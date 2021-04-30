@@ -48,7 +48,7 @@ class Dialogs extends Component {
 
   loadReferenceLineData = () => {
       let refData = this.state.referenceLineData;
-      if(this.props.LL){
+      if(this.props.LL && !this.props.title.includes('Conductivity')){
           refData.push({label: `LL (${this.props.LL})`, color:'red', value:this.props.LL});
       }
       if(this.props.HH){
@@ -110,7 +110,7 @@ class Dialogs extends Component {
           const response = await get(`${this.props.pathName}/${this.props.endPoint}/${fromDate}/${toDate}/${limit}`);
           if(response && response.data && response.data.code && Array.isArray(response.data.data) && response.data.data.length > 0) {
               const yDataKeys = [...this.state.keys, 'data'];
-              this.setState({data: response.data.data.reverse(), xDataKey: 'time', keys: yDataKeys});
+              this.setState({data: response.data.data, xDataKey: 'time', keys: yDataKeys});
           }
       }
   }
@@ -133,7 +133,7 @@ class Dialogs extends Component {
           const response = await get(`${this.props.pathName}/${this.props.endPoint}/${fromDate}/${toDate}/${limit}`);
           if(response && response.data && response.data.code && Array.isArray(response.data.data) && response.data.data.length > 0) {
               const yDataKeys = [...this.state.keys, 'data'];
-              this.setState({data: response.data.data.reverse(), xDataKey: 'time', keys:yDataKeys});
+              this.setState({data: response.data.data, xDataKey: 'time', keys:yDataKeys});
           }
       }
   }

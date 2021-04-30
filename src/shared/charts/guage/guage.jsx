@@ -161,7 +161,7 @@ class CircleGauge extends Component{
                                 rotate:0  //rotate angle of text, type=number between 0 and 360, default=0
                             }
                         }]:[{
-                            value:this.state.data, //value of text, type=string or function(here use string)
+                            value:this.state.data.toFixed(2), //value of text, type=string or function(here use string)
                             style:{
                                 fontSize:18, //font size of text, type=number, default=10
                                 top:0, //top of text, type=number, default=20

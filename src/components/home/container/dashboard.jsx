@@ -73,7 +73,7 @@ class Dashboard extends React.PureComponent{
                                             unit={'uS'}
                                             dataPoint='mindsphere'
                                             title="Conductivity"
-                                            target={'14k-30k'}
+                                            target={'< 30k'}
                                             LL={14000}
                                             HH={30000}
                                         />

@@ -21,6 +21,7 @@ import SimpleBreadCrumbs from "../../shared/breadcum/breadcrumbs";
 import CompanyLogo from "../../assets/images/logo/dormakaba_transparent.png";
 import MntLogo from "../../assets/images/logo/manutechs_logo.png";
 import Degreasing from "../../assets/images/svg/degreasing.svg";
+import Conveyor from "../../assets/images/svg/conveyor.svg";
 import RinseDIIcon from "../../assets/images/svg/rinse_di.svg";
 import PaintBooth from "../../assets/images/svg/painting_booth.svg";
 import KitchenOutlinedIcon from "@material-ui/icons/KitchenOutlined";
@@ -137,7 +138,7 @@ const useStyles = (theme) => ({
   },
 });
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 const MENU_ITEMS = [
   {
@@ -149,6 +150,40 @@ const MENU_ITEMS = [
     Icon: IconDashboard,
     name: "Overview-Paint Dash",
     link: "/Overview",
+  },
+  {
+    iconImg: Conveyor,
+    name: "Conveyor Visualization",
+    items: [
+      {
+        name: "Visualization",
+        link: "/ConveyorVisualization",
+      },
+      {
+        name: "Order Loading",
+        link: "/OrderLoading",
+      },
+      {
+        name: "ESTA Booth 1 & 2",
+        link: "/OrderESTA1And2",
+      },
+      // {
+      //   name: "ESTA Booth 2",
+      //   link: "/OrderESTA2",
+      // },
+      {
+        name: "Unloading 1",
+        link: "/OrderUnloading1",
+      },
+      {
+        name: "Unloading 2",
+        link: "/OrderUnloading2",
+      },
+      {
+        name: "Master Data",
+        link: "/MasterData",
+      }
+    ],
   },
   {
     Icon: NotificationsActiveOutlinedIcon,

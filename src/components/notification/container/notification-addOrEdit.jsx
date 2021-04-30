@@ -44,6 +44,11 @@ class NotificationAddOrEdit extends Component {
         errorMessage: "",
         value: this.props.dataSet.actualValue,
       },
+      updatedat: {
+        valid: true,
+        errorMessage: "",
+        value: this.props.dataSet.updatedat
+      },
       acknowledge: {
         valid: true,
         errorMessage: "",
@@ -97,7 +102,7 @@ class NotificationAddOrEdit extends Component {
         </Grid>
         {/** End PH Meter **/}
         {/** Actual Value ***/}
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>        
             <FormLabel component="legend">Actual Value</FormLabel>
             <NumberFormat
@@ -108,12 +113,32 @@ class NotificationAddOrEdit extends Component {
               disabled={true}
             />
           </FormControl>
+        </Grid> */}
+        {/** End Actual Value **/}
+        {/** Actual Value ***/}
+        <Grid item xs={12}>
+          <FormControl className={this.props.classes.formControl}>        
+            <FormLabel component="legend">Timestamp</FormLabel>
+            <TextField
+              id="updatedat"
+              label=""
+              value={new Date(this.state.updatedat.value).toLocaleString("en-GB", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric",
+              })}
+              disabled={true}
+            />
+          </FormControl>
         </Grid>
         {/** End Actual Value **/}
         {/** Acknowledge ***/}
         <Grid item xs={12}>
           <FormControl className={this.props.classes.formControl}>            
-            <FormLabel component="legend">Acknowledge</FormLabel>
+            <FormLabel component="legend">Acknowledged</FormLabel>
               <Grid component="label" container alignItems="center" spacing={1}>
                 <Grid item>No</Grid>
                 <Grid item>

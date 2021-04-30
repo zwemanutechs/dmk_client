@@ -13,3 +13,4 @@ export const APIDELETERANGE = 'APIDELETERANGE';
 export const MDUP = 'MD';
 export const SMDOWN = 'SM';
 export const ROWPERPAGE = 10;
+export const TOOMANYREQUESTS = 'Server is handling multiple requests. Please try again in a few minutes.'

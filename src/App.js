@@ -23,6 +23,14 @@ import PaintCabinetTopCabinet1 from "./components/paintcabinet-tc1/container/pai
 import PaintCabinetTopCabinet2 from "./components/paintcabinet-tc2/container/paintcabinet-tc2";
 import PaintCabinetPrimerCabinet1 from "./components/paintcabinet-pc1/container/paintcabinet-pc1";
 import PaintCabinetPrimerCabinet2 from "./components/paintcabinet-pc2/container/paintcabinet-pc2";
+import ConveyorVisualization from "./components/conveyorVisualization/container/conveyorVisualization";
+import OrderLoading from "./components/orderLoading/container/orderLoading";
+import OrderESTA1 from "./components/orderESTA1/container/orderESTA1";
+import OrderESTA2 from "./components/orderESTA2/container/orderESTA2";
+import OrderESTA1And2 from "./components/orderESTA1&2/container/orderESTA1&2";
+import OrderUnloading1 from "./components/orderUnloading1/container/orderUnloading1";
+import OrderUnloading2 from "./components/orderUnloading2/container/orderUnloading2";
+import MasterData from "./components/masterData/container/masterData";
 import {BASEURI} from "./constants/api-constants";
 import Notification from "./components/notification/container/notification";
 import {executeScheduler} from './appservices/app-services'
@@ -100,6 +108,13 @@ class App extends Component {
                             <Route path="/TopCabinetTwo" render={() => <PaintCabinetTopCabinet2 />} />
                             <Route path="/PrimerCabinetOne" render={() => <PaintCabinetPrimerCabinet1 />} />
                             <Route path="/PrimerCabinetTwo" render={() => <PaintCabinetPrimerCabinet2 />} />
+                            <Route path="/ConveyorVisualization" render={() => <ConveyorVisualization />} />
+                            <Route path="/OrderLoading" render={() => <OrderLoading />} />
+                            <Route path="/OrderESTA1And2" render={() => <OrderESTA1And2 />} />
+                            {/* <Route path="/OrderESTA2" render={() => <OrderESTA2 />} /> */}
+                            <Route path="/OrderUnloading1" render={() => <OrderUnloading1 />} />
+                            <Route path="/OrderUnloading2" render={() => <OrderUnloading2 />} />
+                            <Route path="/MasterData" render={() => <MasterData />} />
                         </MainLayout>
                     )}
                 </Switch>

@@ -46,7 +46,7 @@ client.interceptors.response.use(
         store.dispatch({
           type: OPEN_SNACK,
           status: true,
-          message: UNHANDELERROR,
+          message: error.response.data.message || UNHANDELERROR,
           snackType: snackError,
         });
       }
@@ -136,6 +136,25 @@ export const putToOtherOrigin = (url, payload) => {
       // Overwrite Axios's automatically set Content-Type
       'Content-Type': 'application/json'
     }});
+  return response;
+};
+
+/**
+ * Make Events Update Request from other origin
+ * ***/
+export const postEventsToOtherOrigin = async (url, payload) => {  
+  const response = await axios.post(url, payload, {
+    headers: {
+      'Content-Type': 'application/json',
+    }});    
+  if (response && response.data) {
+    store.dispatch({
+      type: OPEN_SNACK,
+      status: true,
+      message: UPDATESUCCESS,
+      snackType: snackSuccess,
+    });
+  }
   return response;
 };
 
