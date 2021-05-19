@@ -195,7 +195,7 @@ class OverView extends React.PureComponent{
                                     title={'Humidity'}
                                     assetId={PAINTBOOTH_ASSETID}
                                     aspectName={'ESTA1'}
-                                    parameterName={'Inlet_Humidity_Pct'}
+                                    parameterName={'Room_Humidity_Pct'}
                                     dataPoint='mindsphere'
                                     border={true}
                                     subTitle={''}
