@@ -173,7 +173,8 @@ class MasterDataAddOrEdit extends Component {
             >
               <MenuItem value={'Color Code'}>Color Code</MenuItem>
               <MenuItem value={'Program'}>Program</MenuItem>
-              <MenuItem value={'Sales Articel'}>Sales Articel</MenuItem>
+              <MenuItem value={'Sales Articel'}>Sales Article</MenuItem>
+              <MenuItem value={'Material No'}>Material No</MenuItem>
             </Select> 
             {
                 !this.state.type.valid

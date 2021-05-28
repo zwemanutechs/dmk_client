@@ -9,10 +9,10 @@ import {
 } from "../constants/app-constants";
 import { OPEN_SNACK } from "../shared/snackbar/action-constants/snackbar-actionTypes";
 import { store } from "../index";
-import { BASEURI } from "../constants/api-constants";
+import { BASEURI, API } from "../constants/api-constants";
 
 export const client = axios.create({
-  baseURL: BASEURI,
+  baseURL: window.location.hostname === 'localhost' ? API + BASEURI : BASEURI,
   // headers: {
   //   AccessToken: localStorage.getItem('access-data'),
   //       //"eyJJZCI6ImUzYzZmODNmLTI0ZjMtNDUzNy05MTE3LWY1ZmJkMGYxMmRmMCIsIlJvbGUiOiI2ODdkOGJlMi0wNDAzLTQ0NTctOWIxYi0xMGQ4YTljNGYxMjcifQ==",
@@ -99,7 +99,7 @@ export const post = async (url, payload) => {
  export const postWithPayload = async (url, payload) => {
   const accessToken = localStorage.getItem('access-data');
   return await axios.post(url, payload, {
-    baseURL: BASEURI,
+    baseURL: window.location.hostname === 'localhost' ? API + BASEURI : BASEURI,
     headers:{
       AccessToken: accessToken,
       'Content-Type': 'application/json'

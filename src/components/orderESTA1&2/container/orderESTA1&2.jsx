@@ -12,28 +12,45 @@ import { TOOMANYREQUESTS } from "../../../constants/app-constants";
 import { sortByName } from "../../../appservices/app-services";
 
 const columnsESTA1 = [
-  { name: "name", label: "Trolley Number" }, 
-  { name: "BarcodeData_MaterialNumber", label: "Part No" },     
-  { name: "BarcodeData_Program_Desc", label: "Description" },   
   { name: "BarcodeData_Unloading", label: "Unloading" },
-  { name: "BarcodeData_TotalAmountOfParts", label: "Part Qtys" },
+  { name: "BarcodeData_Sales_Articel", label: "Sales Article" },  
+  { name: "TrolleyNoInOrder", label: "Trolley Number" }, 
+  { name: "BarcodeData_MaterialNumber", label: "Material No" },   
+  { name: "BarcodeData_TotalAmountOfParts", label: "Total Parts" },
   { name: "BarcodeData_TotalAmountOfTrolley", label: "Total Trolley" },
   { name: "BarcodeData_ColorCode", label: "Color Code" }, 
-  { name: "BarcodeData_Program", label: "QR Program" },    
+  { name: "BarcodeData_Program", label: "QR Program" },       
+  { name: "BarcodeData_Pre_Treatment", label: "Pre-Treatment", 
+    options: {
+      filter: false,
+      customBodyRender: (value, tableMeta, updateValue) => (
+        <span>{value === 1 ? "Yes" : value === 2 ? "No" : 'N/A'}</span>
+      ),
+    }, 
+  },  
 ];
 
 const columnsESTA2 = [
-    { name: "name", label: "Trolley Number" }, 
-    { name: "BarcodeData_MaterialNumber", label: "Part No" },     
-    { name: "BarcodeData_Program_Desc", label: "Description" },   
     { name: "BarcodeData_Unloading", label: "Unloading" },
-    { name: "BarcodeData_TotalAmountOfParts", label: "Part Qtys" },
+    { name: "BarcodeData_Sales_Articel", label: "Sales Article" }, 
+    { name: "TrolleyNoInOrder", label: "Trolley Number" },  
+    { name: "BarcodeData_MaterialNumber", label: "Material No" },    
+    { name: "BarcodeData_TotalAmountOfParts", label: "Total Parts" },
     { name: "BarcodeData_TotalAmountOfTrolley", label: "Total Trolley" },
     { name: "BarcodeData_ColorCode", label: "Color Code" }, 
-    { name: "BarcodeData_Program", label: "QR Program" },    
+    { name: "BarcodeData_Program", label: "QR Program" },     
+    { name: "BarcodeData_Pre_Treatment", label: "Pre-Treatment", 
+      options: {
+        filter: false,
+        customBodyRender: (value, tableMeta, updateValue) => (
+          <span>{value === 1 ? "Yes" : value === 2 ? "No" : 'N/A'}</span>
+        ),
+      }, 
+    },    
   ];
 
 class orderESTA1And2 extends Component {
+  intervalID;
   constructor(props) {
     super(props);
     this.state = {
@@ -43,26 +60,37 @@ class orderESTA1And2 extends Component {
       totalCountESTA2: 0,
       loading: true,
       onProgress: false,
+      trolleyNumberESTA1: '',
+      counterTrolleyESTA1: '',
+      trolleyNumberESTA2: '',
+      counterTrolleyESTA2: '',
     };
   }
 
   async componentDidMount() {
-    let from = new Date();
-    let fromTo = new Date(from.setDate(from.getDate() - 1));
-    let to = new Date();
-    await this.getData(fromTo, to);
+    await this.getData();
+    this.intervalID = setInterval(await this.getData, 60000);
     this.setState((state) => ({
       loading: false,
     })); 
   }
 
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
   /***
    * Fetch the Data
    * **/
-  getData = async (from, to) => {         
+  getData = async () => {         
     const masterData = await get(
       `masterdata?pageNo=${0}&pageSize=${10}`
-    );
+    );    
+ 
+    this.setState((state) => ({
+      tableDataESTA1: [],
+      tableDataESTA2: []
+    }));  
 
     for (var i = 0; i < 4; i++) {
       let trolleyName = 'Trolley_0' + i;
@@ -76,6 +104,15 @@ class orderESTA1And2 extends Component {
             aggreateData = { ...name, ...aggreateData };            
 
             if (masterData && masterData.data.data.data && masterData.data.data.data.length > 0) {
+              
+              if (aggreateData.BarcodeData_MaterialNumber) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_MaterialNumber && x.type === 'Material No');
+  
+                if (index > -1) {
+                  aggreateData.BarcodeData_MaterialNumber = masterData.data.data.data[index].description || '';
+                }
+              }
+
               if (aggreateData.BarcodeData_Sales_Articel) {
                 let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_Sales_Articel && x.type === 'Sales Articel');
   
@@ -88,7 +125,7 @@ class orderESTA1And2 extends Component {
                 let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_Program && x.type === 'Program');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_Program = masterData.data.data.data[index].description;
+                  aggreateData.BarcodeData_Program_Desc = masterData.data.data.data[index].description;
                 }
               }
 
@@ -147,6 +184,15 @@ class orderESTA1And2 extends Component {
             aggreateData = { ...name, ...aggreateData };            
 
             if (masterData && masterData.data.data.data && masterData.data.data.data.length > 0) {
+              
+              if (aggreateData.BarcodeData_MaterialNumber) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_MaterialNumber && x.type === 'Material No');
+  
+                if (index > -1) {
+                  aggreateData.BarcodeData_MaterialNumber = masterData.data.data.data[index].description || '';
+                }
+              }
+
               if (aggreateData.BarcodeData_Sales_Articel) {
                 let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_Sales_Articel && x.type === 'Sales Articel');
   
@@ -159,7 +205,7 @@ class orderESTA1And2 extends Component {
                 let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_Program && x.type === 'Program');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_Program = masterData.data.data.data[index].description;
+                  aggreateData.BarcodeData_Program_Desc = masterData.data.data.data[index].description;
                 }
               }
 
@@ -214,77 +260,83 @@ class orderESTA1And2 extends Component {
 
   render() {
     return (
-      <Grid container direction="row" justify="center" spacing={2}>
-        <Grid item xs={12}>
-          {
-            /***
-             * ** Render according to device break point
-             *  'SM' and down for Mobile View
-             *  'MD' and up for Desktop view
-             * ***/
-            isWidthDown("xs", this.props.width) ? (
+      <div>
+        <h2 style={{float: 'left', paddingLeft: '10px'}}>Current Trolley No: {this.state.trolleyNumberESTA1}</h2>
+        <Grid container direction="row" justify="center" spacing={2}>
+          <Grid item xs={12}>
+            {
               /***
-               * Mobile View
-               * **/
-              <MobileView
-                columns={columnsESTA1}
-                title={"ESTA Booth 1"}
-                data={this.state.tableDataESTA1.sort(sortByName)}
-                nextData={this.getData}
-                totalCountESTA1={this.state.totalCountESTA1}
-              />
-            ) : (
-              /***
-               * Desktop View
-               * **/
-              <MUITable
-                title={"ESTA Booth 1"}
-                totalCountESTA1={this.state.totalCountESTA1}
-                data={this.state.tableDataESTA1.sort(sortByName)}
-                columns={columnsESTA1}
-                accessRight={{ Create: false, Update: false, Delete: false }}
-                options={tableCustomizeToolBarSingleSelect}
-                loading={this.state.loading}
-              />
-            )
-          }
-        </Grid>
+               * ** Render according to device break point
+               *  'SM' and down for Mobile View
+               *  'MD' and up for Desktop view
+               * ***/
+              isWidthDown("xs", this.props.width) ? (
+                /***
+                 * Mobile View
+                 * **/
+                <MobileView
+                  columns={columnsESTA1}
+                  title={"ESTA Booth 1"}
+                  data={this.state.tableDataESTA1.sort(sortByName)}
+                  nextData={this.getData}
+                  totalCountESTA1={this.state.totalCountESTA1}
+                />
+              ) : (
+                /***
+                 * Desktop View
+                 * **/
+                <MUITable
+                  title={"ESTA Booth 1"}
+                  totalCountESTA1={this.state.totalCountESTA1}
+                  data={this.state.tableDataESTA1.sort(sortByName)}
+                  columns={columnsESTA1}
+                  accessRight={{ Create: false, Update: false, Delete: false }}
+                  options={tableCustomizeToolBarSingleSelect}
+                  loading={this.state.loading}
+                />
+              )
+            }
+          </Grid>
 
-        <Grid item xs={12}>
-          {
-            /***
-             * ** Render according to device break point
-             *  'SM' and down for Mobile View
-             *  'MD' and up for Desktop view
-             * ***/
-            isWidthDown("xs", this.props.width) ? (
+          <div style={{width: '100%'}}>
+            <h2 style={{float: 'left', paddingLeft: '10px'}}>Current Trolley No: {this.state.trolleyNumberESTA2}</h2>
+          </div>
+          <Grid item xs={12}>
+            {
               /***
-               * Mobile View
-               * **/
-              <MobileView
-                columns={columnsESTA2}
-                title={"ESTA Booth 2"}
-                data={this.state.tableDataESTA2.sort(sortByName)}
-                nextData={this.getData}
-                totalCountESTA1={this.state.totalCountESTA2}
-              />
-            ) : (
-              /***
-               * Desktop View
-               * **/
-              <MUITable
-                title={"ESTA Booth 2"}
-                totalCountESTA1={this.state.totalCountESTA2}
-                data={this.state.tableDataESTA2.sort(sortByName)}
-                columns={columnsESTA2}
-                accessRight={{ Create: false, Update: false, Delete: false }}
-                options={tableCustomizeToolBarSingleSelect}
-                loading={this.state.loading}
-              />
-            )
-          }
+               * ** Render according to device break point
+               *  'SM' and down for Mobile View
+               *  'MD' and up for Desktop view
+               * ***/
+              isWidthDown("xs", this.props.width) ? (
+                /***
+                 * Mobile View
+                 * **/
+                <MobileView
+                  columns={columnsESTA2}
+                  title={"ESTA Booth 2"}
+                  data={this.state.tableDataESTA2.sort(sortByName)}
+                  nextData={this.getData}
+                  totalCountESTA1={this.state.totalCountESTA2}
+                />
+              ) : (
+                /***
+                 * Desktop View
+                 * **/
+                <MUITable
+                  title={"ESTA Booth 2"}
+                  totalCountESTA1={this.state.totalCountESTA2}
+                  data={this.state.tableDataESTA2.sort(sortByName)}
+                  columns={columnsESTA2}
+                  accessRight={{ Create: false, Update: false, Delete: false }}
+                  options={tableCustomizeToolBarSingleSelect}
+                  loading={this.state.loading}
+                />
+              )
+            }
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     );
   }
 }

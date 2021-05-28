@@ -12,14 +12,13 @@ import { TOOMANYREQUESTS } from "../../../constants/app-constants";
 import { sortByName } from "../../../appservices/app-services";
 
 const columns = [
-  { name: "name", label: "Trolley Number" },
-  { name: "Data_Sales_Articel", label: "Sales Article No" },
-  { name: "Data_Sales_Articel_Desc", label: "Sales Article Description" },
-  { name: "Data_ColorCode_Desc", label: "Color Description" },  
-  // { name: "Data_Pre_Treatment", label: "Pre Treatment" },
-  { name: "Data_TotalAmountOfParts", label: "Qtys" },
-  { name: "Data_TotalAmountOfTrolley", label: "Total Trolley" },
+  { name: "FirstTrolleyNo", label: "Order Index" },
+  { name: "Data_Sales_Articel", label: "Sales Article" },
+  { name: "Data_MaterialNumber", label: "Material No" },
   { name: "Data_ColorCode", label: "Color Code" },  
+  // { name: "Data_Pre_Treatment", label: "Pre Treatment" },
+  { name: "Data_TotalAmountOfParts", label: "Total Parts" },
+  { name: "Data_TotalAmountOfTrolley", label: "Total Trolley" },
   { name: "Data_ETA", label: "ETA" },  
   // { name: "Data_Unloading", label: "Data Unloading" },
   // { name: "FirstTrolleyNo", label: "FTA" },
@@ -29,6 +28,7 @@ const columns = [
 ];
 
 class OrderUnloading2 extends Component {
+  intervalID;
   constructor(props) {
     super(props);
     this.state = {
@@ -36,26 +36,35 @@ class OrderUnloading2 extends Component {
       totalCount: 0,
       loading: true,
       onProgress: false,
+      trolleyNumber: '',
+      counterTrolley: '',
     };
   }
 
   async componentDidMount() {
-    let from = new Date();
-    let fromTo = new Date(from.setDate(from.getDate() - 1));
-    let to = new Date();
-    await this.getData(fromTo, to);
+    await this.getData();
+    this.intervalID = setInterval(await this.getData, 60000);
     this.setState((state) => ({
       loading: false,
+      filteredData: [ state.tableData ]
     })); 
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
   }
 
   /***
    * Fetch the Data
    * **/
-  getData = async (from, to) => {          
+  getData = async () => {          
     const masterData = await get(
       `masterdata?pageNo=${0}&pageSize=${10}`
     );
+ 
+    this.setState((state) => ({
+      tableData: []
+    }));  
 
     for (var i = 0; i < 10; i++) {
       let trolleyName = 'Unloading_0' + i;
@@ -69,6 +78,15 @@ class OrderUnloading2 extends Component {
             aggreateData = { ...name, ...aggreateData };
 
             if (masterData && masterData.data.data.data && masterData.data.data.data.length > 0) {
+              
+              if (aggreateData.Data_MaterialNumber) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.Data_MaterialNumber && x.type === 'Material No');
+  
+                if (index > -1) {
+                  aggreateData.Data_MaterialNumber = masterData.data.data.data[index].description || '';
+                }
+              }
+
               if (aggreateData.Data_Sales_Articel) {
                 let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.Data_Sales_Articel && x.type === 'Sales Articel');
   
@@ -100,6 +118,7 @@ class OrderUnloading2 extends Component {
           } else {
             let defaultData = {
               name: positionName,
+              FirstTrolleyNo: 0,
               Data_Pre_Treatment: 0,
               Data_TotalAmountOfParts: 0,
               Data_TotalAmountOfTrolley: 0,
@@ -126,42 +145,45 @@ class OrderUnloading2 extends Component {
 
   render() {
     return (
-      <Grid container direction="row" justify="center">
-        <Grid item xs={12}>
-          {
-            /***
-             * ** Render according to device break point
-             *  'SM' and down for Mobile View
-             *  'MD' and up for Desktop view
-             * ***/
-            isWidthDown("xs", this.props.width) ? (
+      <div>
+        <h2 style={{float: 'left', paddingLeft: '10px'}}>Current Trolley No: {this.state.trolleyNumber}</h2>
+        <Grid container direction="row" justify="center">
+          <Grid item xs={12}>
+            {
               /***
-               * Mobile View
-               * **/
-              <MobileView
-                columns={columns}
-                title={"Order Unloading 2"}
-                data={this.state.tableData.sort(sortByName)}
-                nextData={this.getData}
-                totalCount={this.state.totalCount}
-              />
-            ) : (
-              /***
-               * Desktop View
-               * **/
-              <MUITable
-                title={"Order Unloading 2"}
-                totalCount={this.state.totalCount}
-                data={this.state.tableData.sort(sortByName)}
-                columns={columns}
-                accessRight={{ Create: false, Update: false, Delete: false }}
-                options={tableCustomizeToolBarSingleSelect}
-                loading={this.state.loading}
-              />
-            )
-          }
+               * ** Render according to device break point
+               *  'SM' and down for Mobile View
+               *  'MD' and up for Desktop view
+               * ***/
+              isWidthDown("xs", this.props.width) ? (
+                /***
+                 * Mobile View
+                 * **/
+                <MobileView
+                  columns={columns}
+                  title={"Order Unloading 2"}
+                  data={this.state.tableData.sort(sortByName)}
+                  nextData={this.getData}
+                  totalCount={this.state.totalCount}
+                />
+              ) : (
+                /***
+                 * Desktop View
+                 * **/
+                <MUITable
+                  title={"Order Unloading 2"}
+                  totalCount={this.state.totalCount}
+                  data={this.state.tableData.sort(sortByName)}
+                  columns={columns}
+                  accessRight={{ Create: false, Update: false, Delete: false }}
+                  options={tableCustomizeToolBarSingleSelect}
+                  loading={this.state.loading}
+                />
+              )
+            }
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     );
   }
 }

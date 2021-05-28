@@ -12,17 +12,28 @@ import { TOOMANYREQUESTS } from "../../../constants/app-constants";
 import { sortByName } from "../../../appservices/app-services";
 
 const columns = [
-  { name: "name", label: "Name" },
-  { name: "BarcodeData_ColorCode", label: "Color Code" },  
-  { name: "BarcodeData_MaterialNumber", label: "Material Number" },  
-  { name: "BarcodeData_Pre_Treatment", label: "Pre Treatment" },    
-  { name: "BarcodeData_Program", label: "Program" },    
-  { name: "BarcodeData_Sales_Articel", label: "Sales Articel" },    
-  // { name: "BarcodeData_SAP_TransactionKey", label: "SAP Transaction Key" },  
-  { name: "BarcodeData_TotalAmountOfParts", label: "Total Amount Of Parts" },
-  { name: "BarcodeData_TotalAmountOfTrolley", label: "Total Amount Of Trolley" },
+  // { name: "name", label: "Trolley Number" },
+  // { name: "TrolleyNoInOrder", label: "Trolley Number" },  
   { name: "BarcodeData_Unloading", label: "Unloading" },
-  { name: "EstimatedArrivalTime", label: "Estimated Arrival Time" },
+  { name: "BarcodeData_Sales_Articel", label: "Sales Article" },    
+  { name: "BarcodeData_MaterialNumber", label: "Material No" },  
+  // { name: "BarcodeData_Program_Desc", label: "Description" }, 
+  { name: "BarcodeData_TotalAmountOfParts", label: "Total Parts" },
+  { name: "BarcodeData_TotalAmountOfTrolley", label: "Total Trolley" },
+  { name: "BarcodeData_ColorCode", label: "Color Code" },  
+  { name: "BarcodeData_Program", label: "QR Program" },      
+  { name: "BarcodeData_Pre_Treatment", label: "Pre-Treatment", 
+    options: {
+      filter: false,
+      customBodyRender: (value, tableMeta, updateValue) => (
+        <span>{value === 1 ? "Yes" : value === 2 ? "No" : 'N/A'}</span>
+      ),
+    }, 
+  },  
+
+  // { name: "BarcodeData_Sales_Articel", label: "Sales Articel" },    
+  // { name: "BarcodeData_SAP_TransactionKey", label: "SAP Transaction Key" },  
+  // { name: "EstimatedArrivalTime", label: "Estimated Arrival Time" },
   // { name: "LastReadingStation", label: "Last Reading Station" },
   // { name: "OrderIndexInQueue", label: "Order Index In Queue" },
   // { name: "RoundsLifetime", label: "Rounds Lifetime" },
@@ -45,12 +56,13 @@ const columns = [
   //     ),
   //   }, 
   // },  
-  { name: "TimestampAtLastReadingStation", label: "Timestamp At Last Reading Station" },
-  { name: "TimestampLoading", label: "Timestamp Loading" },
-  { name: "TrolleyNoInOrder", label: "Trolley No In Order" }
+  // { name: "TimestampAtLastReadingStation", label: "Timestamp At Last Reading Station" },
+  // { name: "TimestampLoading", label: "Timestamp Loading" },
+  // { name: "TrolleyNoInOrder", label: "Trolley No In Order" }
 ];
 
 class OrderLoading extends Component {
+  intervalID;
   constructor(props) {
     super(props);
     this.state = {
@@ -60,26 +72,32 @@ class OrderLoading extends Component {
       page: 0,
       loading: true,
       onProgress: false,
+      trolleyNumber: '',
+      counterTrolley: '',
     };
   }
 
-  async componentDidMount() {
-    await this.getData(0);
+  async componentDidMount() {    
+    await this.getData();
+    this.intervalID = setInterval(await this.getData, 60000);
     this.setState((state) => ({
       loading: false,
       filteredData: [ state.tableData ]
     })); 
   }
 
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
   /***
    * Fetch the Data
    * **/
-  getData = async (page) => {       
+  getData = async () => {       
     const masterData = await get(
       `masterdata?pageNo=${0}&pageSize=${10}`
     );
-
-    let pageSize = page * 5;    
+ 
     this.setState((state) => ({
       tableData: []
     }));  
@@ -96,6 +114,15 @@ class OrderLoading extends Component {
             aggreateData = { ...name, ...aggreateData };
 
             if (masterData && masterData.data.data.data && masterData.data.data.data.length > 0) {
+              
+              if (aggreateData.BarcodeData_MaterialNumber) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_MaterialNumber && x.type === 'Material No');
+  
+                if (index > -1) {
+                  aggreateData.BarcodeData_MaterialNumber = masterData.data.data.data[index].description || '';
+                }
+              }
+
               if (aggreateData.BarcodeData_Sales_Articel) {
                 let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_Sales_Articel && x.type === 'Sales Articel');
   
@@ -129,6 +156,7 @@ class OrderLoading extends Component {
               name: positionName,
               BarcodeData_ColorCode: 'N/A',
               BarcodeData_MaterialNumber: 'N/A',
+              BarcodeData_Program_Desc: '',
               BarcodeData_Pre_Treatment: 0,
               BarcodeData_Program: 'N/A',
               BarcodeData_Sales_Articel: 'N/A',
@@ -226,42 +254,46 @@ class OrderLoading extends Component {
     };
 
     return (
-      <Grid container direction="row" justify="center">
-        <Grid item xs={12}>
-          {
-            /***
-             * ** Render according to device break point
-             *  'SM' and down for Mobile View
-             *  'MD' and up for Desktop view
-             * ***/
-            isWidthDown("xs", this.props.width) ? (
+      <div>
+        <h2 style={{float: 'left', paddingLeft: '10px'}}>Current Trolley No: {this.state.trolleyNumber}</h2>
+        <h2 style={{float: 'right', paddingRight: '100px'}}>Current Rest Trolleys: {this.state.counterTrolley}</h2>
+        <Grid container direction="row" justify="center">
+          <Grid item xs={12}>
+            {
               /***
-               * Mobile View
-               * **/
-              <MobileView
-                columns={columns}
-                title={"Order Loading"}
-                data={this.state.tableData.sort(sortByName)}
-                nextData={this.getData}
-                // totalCount={this.state.totalCount}
-              />
-            ) : (
-              /***
-               * Desktop View
-               * **/
-              <MUITable
-                title={"Order Loading"}
-                // totalCount={this.state.totalCount}
-                data={this.state.tableData.sort(sortByName)}
-                columns={columns}
-                accessRight={{ Create: false, Update: false, Delete: false }}
-                options={tableCustomizeToolBarSingleSelect}
-                loading={this.state.loading}
-              />
-            )
-          }
+               * ** Render according to device break point
+               *  'SM' and down for Mobile View
+               *  'MD' and up for Desktop view
+               * ***/
+              isWidthDown("xs", this.props.width) ? (
+                /***
+                 * Mobile View
+                 * **/
+                <MobileView
+                  columns={columns}
+                  title={"Order Loading"}
+                  data={this.state.tableData.sort(sortByName)}
+                  nextData={this.getData}
+                  // totalCount={this.state.totalCount}
+                />
+              ) : (
+                /***
+                 * Desktop View
+                 * **/
+                <MUITable
+                  title={"Order Loading"}
+                  // totalCount={this.state.totalCount}
+                  data={this.state.tableData.sort(sortByName)}
+                  columns={columns}
+                  accessRight={{ Create: false, Update: false, Delete: false }}
+                  options={tableCustomizeToolBarSingleSelect}
+                  loading={this.state.loading}
+                />
+              )
+            }
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     );
   }
 }

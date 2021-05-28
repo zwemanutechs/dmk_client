@@ -40,39 +40,35 @@ class App extends Component {
         super(props);
         localStorage.clear();
         this.state = {
-            accessToken: null,
+            accessToken: window.location.hostname === 'localhost' ? '' : null,
         };
-        // localStorage.setItem("access-data", 'eyJJZCI6ImUzYzZmODNmLTI0ZjMtNDUzNy05MTE3LWY1ZmJkMGYxMmRmMCIsIlJvbGUiOiI2ODdkOGJlMi0wNDAzLTQ0NTctOWIxYi0xMGQ4YTljNGYxMjcifQ==');
     }
 
     componentDidMount() {
-        const httpClient = axios.create({
-            baseURL: BASEURI,
-        });
-        httpClient
-            .get("Auth/AuthRequest")
-            .then((response) => {
-                if (response && response.status === 200 && response.data.code) {
-                    localStorage.setItem("access-data", response.data.data);
-                    this.setState({accessToken: response.data.data});
-                    // this.loadData();
-                    // this.intervalID = setInterval(this.loadData.bind(this), 300000)
-                } else if (response && response.status === 403) {
+        // Check if local development or production.
+        if (window.location.hostname !== 'localhost') {            
+            const httpClient = axios.create({
+                baseURL: BASEURI,
+            });
+            httpClient
+                .get("Auth/AuthRequest")
+                .then((response) => {
+                    if (response && response.status === 200 && response.data.code) {
+                        localStorage.setItem("access-data", response.data.data);
+                        this.setState({accessToken: response.data.data});
+                    } else if (response && response.status === 403) {
+                        this.props.history.push("/Forbidden");
+                    }
+                })
+                .catch((err) => {
                     this.props.history.push("/Forbidden");
                 }
-            })
-            .catch((err) => {
-                this.props.history.push("/Forbidden");
-            });;
+            );
+        } else {
+            // Set default user to Srini
+            localStorage.setItem("access-data", 'eyJJZCI6ImUzYzZmODNmLTI0ZjMtNDUzNy05MTE3LWY1ZmJkMGYxMmRmMCIsIlJvbGUiOiI2ODdkOGJlMi0wNDAzLTQ0NTctOWIxYi0xMGQ4YTljNGYxMjcifQ==');
+        }
     }
-
-    // componentWillUnmount() {
-    //     clearInterval(this.intervalID);
-    // }
-
-    // loadData = async () => {
-    //     await executeScheduler();
-    // }
 
     render() {
         return (
