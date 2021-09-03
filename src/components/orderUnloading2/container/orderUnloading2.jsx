@@ -7,24 +7,20 @@ import Grid from "@material-ui/core/Grid";
 import { loadLatestValueNoParameter, handleMindsphereError } from "../../../appservices/mindsphere-iotapi-services";
 import { get } from "../../../middleware/axios-middleware";
 import MobileView from "../../../shared/mobileview-table/mobileview-table";
-import { ORDER_UNLOADING2_ASSETID } from "../../../constants/mindsphere-constants";
+import { ORDER_UNLOADING2_ASSETID, TIMEZONE } from "../../../constants/mindsphere-constants";
 import { TOOMANYREQUESTS } from "../../../constants/app-constants";
 import { sortByName } from "../../../appservices/app-services";
 
 const columns = [
-  { name: "FirstTrolleyNo", label: "Order Index" },
-  { name: "Data_Sales_Articel", label: "Sales Article" },
-  { name: "Data_MaterialNumber", label: "Material No" },
-  { name: "Data_ColorCode", label: "Color Code" },  
-  // { name: "Data_Pre_Treatment", label: "Pre Treatment" },
-  { name: "Data_TotalAmountOfParts", label: "Total Parts" },
-  { name: "Data_TotalAmountOfTrolley", label: "Total Trolley" },
-  { name: "Data_ETA", label: "ETA" },  
-  // { name: "Data_Unloading", label: "Data Unloading" },
-  // { name: "FirstTrolleyNo", label: "FTA" },
-  // { name: "Data_MaterialNumber", label: "Material Number" },
-  // { name: "Data_Program", label: "Data Program" },
-  // { name: "Data_SAP_TransactionKey", label: "SAP Transaction Key" },
+  { name: "OrderIndex", label: "Order Index" },
+  { name: "SalesArticle", label: "Sales Article" },
+  { name: "MaterialNumber", label: "Material No" },
+  { name: "ColorCode", label: "Color Code" },  
+  { name: "PartTotal", label: "Total Parts" },
+  { name: "PartRemaining", label: "Remaining Parts" },
+  { name: "TrolleyTotal", label: "Total Trolleys" },
+  { name: "TroleyRemaining", label: "Remaining Trolleys" },
+  { name: "ETA", label: "ETA" },  
 ];
 
 class OrderUnloading2 extends Component {
@@ -37,7 +33,7 @@ class OrderUnloading2 extends Component {
       loading: true,
       onProgress: false,
       trolleyNumber: '',
-      counterTrolley: '',
+      currentTime: ''
     };
   }
 
@@ -63,11 +59,23 @@ class OrderUnloading2 extends Component {
     );
  
     this.setState((state) => ({
-      tableData: []
+      tableData: [],
+      currentTime: new Date().toLocaleString("en-GB", { year: "numeric", month: "short", day: "numeric" }) + ', '
+       + new Date().toLocaleString("en-US", { hour12: true, hour: "numeric", minute: "numeric", second: "numeric" }) 
     }));  
 
-    for (var i = 0; i < 10; i++) {
-      let trolleyName = 'Unloading_0' + i;
+    loadLatestValueNoParameter(ORDER_UNLOADING2_ASSETID, 'TrolleyData')
+      .then((response) => {
+        if (response && response.data  && response.data.length > 0) {
+          let aggreateData = response.data[0];   
+          this.setState((state) => ({
+            trolleyNumber: aggreateData.CurrentTrolley,
+          })); 
+        }
+      })
+
+    for (var i = 0; i < 8; i++) {
+      let trolleyName = 'Trolley_0' + i;
       let positionName = i < 9 ? 'Position 0' + (i + 1) : 'Position 10';
       loadLatestValueNoParameter(ORDER_UNLOADING2_ASSETID, trolleyName)
         .then((response) => {
@@ -77,37 +85,31 @@ class OrderUnloading2 extends Component {
             let name = { name: positionName };
             aggreateData = { ...name, ...aggreateData };
 
+            aggreateData.ETA = aggreateData.ETA && aggreateData.ETA !== '' ? new Date(aggreateData.ETA.toString()).toLocaleString("en-US", { timeZone: TIMEZONE, hour12: true, hour: "numeric", minute: "numeric", second: "numeric"}) : '';
+
             if (masterData && masterData.data.data.data && masterData.data.data.data.length > 0) {
               
-              if (aggreateData.Data_MaterialNumber) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.Data_MaterialNumber && x.type === 'Material No');
+              if (aggreateData.MaterialNumber) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.MaterialNumber && x.type === 'Material No');
   
                 if (index > -1) {
-                  aggreateData.Data_MaterialNumber = masterData.data.data.data[index].description || '';
+                  aggreateData.MaterialNumber = masterData.data.data.data[index].description || '';
                 }
               }
 
-              if (aggreateData.Data_Sales_Articel) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.Data_Sales_Articel && x.type === 'Sales Articel');
+              if (aggreateData.SalesArticle) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.SalesArticle && x.type === 'Sales Articel');
   
                 if (index > -1) {
-                  aggreateData.Data_Sales_Articel_Desc = masterData.data.data.data[index].description || '';
+                  aggreateData.SalesArticle_Desc = masterData.data.data.data[index].description || '';
                 }
               }
 
-              if (aggreateData.Data_Program) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.Data_Program && x.type === 'Program');
+              if (aggreateData.ColorCode) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.ColorCode && x.type === 'Color Code');
   
                 if (index > -1) {
-                  aggreateData.Data_Program = masterData.data.data.data[index].description;
-                }
-              }
-
-              if (aggreateData.Data_ColorCode) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.Data_ColorCode && x.type === 'Color Code');
-  
-                if (index > -1) {
-                  aggreateData.Data_ColorCode_Desc = masterData.data.data.data[index].description || '';
+                  aggreateData.ColorCode = masterData.data.data.data[index].description || '';
                 }
               }
             }
@@ -117,20 +119,15 @@ class OrderUnloading2 extends Component {
             }));  
           } else {
             let defaultData = {
-              name: positionName,
-              FirstTrolleyNo: 0,
-              Data_Pre_Treatment: 0,
-              Data_TotalAmountOfParts: 0,
-              Data_TotalAmountOfTrolley: 0,
-              Data_Unloading: 0,
-              FirstTrolleyNo: 0,
-              Data_Sales_Articel_Desc: '',
-              Data_ColorCode_Desc: '',
-              Data_ColorCode: 'N/A',
-              Data_MaterialNumber: 'N/A',
-              Data_Program: 'N/A',
-              Data_Sales_Articel: 'N/A',
-              Data_SAP_TransactionKey: 'N/A',
+              OrderIndex: 0,
+              TrolleyTotal: 0,
+              TroleyRemaining: 0,
+              PartTotal: 0,
+              PartRemaining: 0,
+              SalesArticle: 0,
+              MaterialNumber: 0,
+              ColorCode: 0,
+              ETA: ''
             }          
             this.setState((state) => ({
               tableData: [ ...state.tableData, defaultData ]
@@ -146,6 +143,9 @@ class OrderUnloading2 extends Component {
   render() {
     return (
       <div>
+        <div style={{display: 'grid', padding: '0'}}>
+          <h3 style={{textAlign: 'right', paddingRight: '10px'}}>{this.state.currentTime}</h3>
+        </div>
         <h2 style={{float: 'left', paddingLeft: '10px'}}>Current Trolley No: {this.state.trolleyNumber}</h2>
         <Grid container direction="row" justify="center">
           <Grid item xs={12}>

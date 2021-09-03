@@ -12,38 +12,38 @@ import { TOOMANYREQUESTS } from "../../../constants/app-constants";
 import { sortByName } from "../../../appservices/app-services";
 
 const columnsESTA1 = [
-  { name: "BarcodeData_Unloading", label: "Unloading" },
-  { name: "BarcodeData_Sales_Articel", label: "Sales Article" },  
-  { name: "TrolleyNoInOrder", label: "Trolley Number" }, 
-  { name: "BarcodeData_MaterialNumber", label: "Material No" },   
-  { name: "BarcodeData_TotalAmountOfParts", label: "Total Parts" },
-  { name: "BarcodeData_TotalAmountOfTrolley", label: "Total Trolley" },
-  { name: "BarcodeData_ColorCode", label: "Color Code" }, 
-  { name: "BarcodeData_Program", label: "QR Program" },       
-  { name: "BarcodeData_Pre_Treatment", label: "Pre-Treatment", 
+  { name: "UnLoading", label: "Unloading" },
+  { name: "SalesArticle", label: "Sales Article" },  
+  { name: "TransactionKey", label: "Trolley No" },  
+  { name: "MaterialNumber", label: "Material No" },   
+  { name: "TotalParts", label: "Total Parts" },
+  { name: "TotalTrolleys", label: "Total Trolley" },
+  { name: "Colorcode", label: "Color Code" }, 
+  { name: "Program", label: "QR Program" },       
+  { name: "PreTreatment", label: "Pre-Treatment", 
     options: {
       filter: false,
       customBodyRender: (value, tableMeta, updateValue) => (
-        <span>{value === 1 ? "Yes" : value === 2 ? "No" : 'N/A'}</span>
+        <span>{value === 1 ? "Yes" : value < 1 || value > 32000 ? "No" : 'N/A'}</span>
       ),
     }, 
   },  
 ];
 
 const columnsESTA2 = [
-    { name: "BarcodeData_Unloading", label: "Unloading" },
-    { name: "BarcodeData_Sales_Articel", label: "Sales Article" }, 
-    { name: "TrolleyNoInOrder", label: "Trolley Number" },  
-    { name: "BarcodeData_MaterialNumber", label: "Material No" },    
-    { name: "BarcodeData_TotalAmountOfParts", label: "Total Parts" },
-    { name: "BarcodeData_TotalAmountOfTrolley", label: "Total Trolley" },
-    { name: "BarcodeData_ColorCode", label: "Color Code" }, 
-    { name: "BarcodeData_Program", label: "QR Program" },     
-    { name: "BarcodeData_Pre_Treatment", label: "Pre-Treatment", 
+    { name: "UnLoading", label: "Unloading" },
+    { name: "SalesArticle", label: "Sales Article" }, 
+    { name: "TransactionKey", label: "Trolley No" },   
+    { name: "MaterialNumber", label: "Material No" },    
+    { name: "TotalParts", label: "Total Parts" },
+    { name: "TotalTrolleys", label: "Total Trolley" },
+    { name: "Colorcode", label: "Color Code" }, 
+    { name: "Program", label: "QR Program" },     
+    { name: "PreTreatment", label: "Pre-Treatment", 
       options: {
         filter: false,
         customBodyRender: (value, tableMeta, updateValue) => (
-          <span>{value === 1 ? "Yes" : value === 2 ? "No" : 'N/A'}</span>
+          <span>{value === 1 ? "Yes" : value < 1 || value > 32000 ? "No" : 'N/A'}</span>
         ),
       }, 
     },    
@@ -60,10 +60,9 @@ class orderESTA1And2 extends Component {
       totalCountESTA2: 0,
       loading: true,
       onProgress: false,
-      trolleyNumberESTA1: '',
-      counterTrolleyESTA1: '',
-      trolleyNumberESTA2: '',
-      counterTrolleyESTA2: '',
+      trolleyNumberESTA1: 0,
+      trolleyNumberESTA2: 0,     
+      currentTime: ''
     };
   }
 
@@ -89,8 +88,24 @@ class orderESTA1And2 extends Component {
  
     this.setState((state) => ({
       tableDataESTA1: [],
-      tableDataESTA2: []
+      tableDataESTA2: [],
+      currentTime: new Date().toLocaleString("en-GB", { year: "numeric", month: "short", day: "numeric" }) + ', '
+       + new Date().toLocaleString("en-US", { hour12: true, hour: "numeric", minute: "numeric", second: "numeric" }) 
     }));  
+
+    for (var i = 0; i < 2; i++) {        
+      let assetId = i === 0 ? ORDER_ESTA1_ASSETID : ORDER_ESTA2_ASSETID;
+      loadLatestValueNoParameter(assetId, 'TrolleyData')
+      .then((response) => {
+        if (response && response.data  && response.data.length > 0) {
+          let aggreateData = response.data[0];   
+          this.setState((state) => ({
+            trolleyNumberESTA1: i === 0 ? aggreateData.CurrentTrolley : state.trolleyNumberESTA1,
+            trolleyNumberESTA2: i === 1 ? aggreateData.CurrentTrolley : state.trolleyNumberESTA2,
+          })); 
+        }
+      })
+    }
 
     for (var i = 0; i < 4; i++) {
       let trolleyName = 'Trolley_0' + i;
@@ -105,35 +120,36 @@ class orderESTA1And2 extends Component {
 
             if (masterData && masterData.data.data.data && masterData.data.data.data.length > 0) {
               
-              if (aggreateData.BarcodeData_MaterialNumber) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_MaterialNumber && x.type === 'Material No');
+              if (aggreateData.MaterialNumber) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.MaterialNumber && x.type === 'Material No');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_MaterialNumber = masterData.data.data.data[index].description || '';
+                  aggreateData.MaterialNumber = masterData.data.data.data[index].description || '';
                 }
               }
 
-              if (aggreateData.BarcodeData_Sales_Articel) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_Sales_Articel && x.type === 'Sales Articel');
+              if (aggreateData.SalesArticle) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.SalesArticle && x.type === 'Sales Articel');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_Sales_Articel = masterData.data.data.data[index].description;
+                  aggreateData.SalesArticle = masterData.data.data.data[index].description;
                 }
               }
 
-              if (aggreateData.BarcodeData_Program) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_Program && x.type === 'Program');
+              if (aggreateData.Program) {
+                aggreateData.Program = aggreateData.Program.substring(0,2) === '00' ? '00' : aggreateData.Program;
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.Program && x.type === 'Program');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_Program_Desc = masterData.data.data.data[index].description;
+                  aggreateData.Program = masterData.data.data.data[index].description;
                 }
               }
 
-              if (aggreateData.BarcodeData_ColorCode) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_ColorCode && x.type === 'Color Code');
+              if (aggreateData.Colorcode) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.Colorcode && x.type === 'Color Code');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_ColorCode = masterData.data.data.data[index].description;
+                  aggreateData.Colorcode = masterData.data.data.data[index].description;
                 }
               }
             }
@@ -143,29 +159,15 @@ class orderESTA1And2 extends Component {
             }));  
           } else {
             let defaultData = {
-              name: positionName,
-              BarcodeData_ColorCode: 'N/A',
-              BarcodeData_MaterialNumber: 'N/A',
-              BarcodeData_Program_Desc: '',
-              BarcodeData_Pre_Treatment: 0,
-              BarcodeData_Program: 'N/A',
-              BarcodeData_Sales_Articel: 'N/A',
-              BarcodeData_SAP_TransactionKey: 'N/A',
-              BarcodeData_TotalAmountOfParts: 0,
-              BarcodeData_TotalAmountOfTrolley: 0,
-              BarcodeData_Unloading: 0,
-              EstimatedArrivalTime: 'N/A',
-              LastReadingStation: 0,
-              OrderIndexInQueue: 0,
-              RoundsLifetime: 0,
-              RoundsTillLastMaintenance: 0,
-              State_gap_request_after_trolley: 0,
-              State_gap_request_before_trolley: 0,
-              State_goto_maintanceare: 0,
-              State_RequestColorChange: 0,
-              TimestampAtLastReadingStation: 'N/A',
-              TimestampLoading: 'N/A',
-              TrolleyNoInOrder: 0
+              UnLoading: 0,
+              Colorcode: 'N/A',
+              MaterialNumber: 'N/A',
+              PreTreatment: 'N/A',
+              Program: 'N/A',
+              SalesArticle: 'N/A',
+              TransactionKey: '',
+              TotalParts: 0,
+              TotalTrolleys: 0,
             }          
             this.setState((state) => ({
               tableDataESTA1: [ ...state.tableDataESTA1, defaultData ]
@@ -185,35 +187,36 @@ class orderESTA1And2 extends Component {
 
             if (masterData && masterData.data.data.data && masterData.data.data.data.length > 0) {
               
-              if (aggreateData.BarcodeData_MaterialNumber) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_MaterialNumber && x.type === 'Material No');
+              if (aggreateData.MaterialNumber) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.MaterialNumber && x.type === 'Material No');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_MaterialNumber = masterData.data.data.data[index].description || '';
+                  aggreateData.MaterialNumber = masterData.data.data.data[index].description || '';
                 }
               }
 
-              if (aggreateData.BarcodeData_Sales_Articel) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_Sales_Articel && x.type === 'Sales Articel');
+              if (aggreateData.SalesArticle) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.SalesArticle && x.type === 'Sales Articel');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_Sales_Articel = masterData.data.data.data[index].description;
+                  aggreateData.SalesArticle = masterData.data.data.data[index].description;
                 }
               }
 
-              if (aggreateData.BarcodeData_Program) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_Program && x.type === 'Program');
+              if (aggreateData.Program) {
+                aggreateData.Program = aggreateData.Program.substring(0,2) === '00' ? '00' : aggreateData.Program;
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.Program && x.type === 'Program');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_Program_Desc = masterData.data.data.data[index].description;
+                  aggreateData.Program = masterData.data.data.data[index].description;
                 }
               }
 
-              if (aggreateData.BarcodeData_ColorCode) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_ColorCode && x.type === 'Color Code');
+              if (aggreateData.Colorcode) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.Colorcode && x.type === 'Color Code');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_ColorCode = masterData.data.data.data[index].description;
+                  aggreateData.Colorcode = masterData.data.data.data[index].description;
                 }
               }
             }
@@ -223,29 +226,15 @@ class orderESTA1And2 extends Component {
             }));  
           } else {
             let defaultData = {
-              name: positionName,
-              BarcodeData_ColorCode: 'N/A',
-              BarcodeData_MaterialNumber: 'N/A',
-              BarcodeData_Pre_Treatment: 0,
-              BarcodeData_Program: 'N/A',
-              BarcodeData_Sales_Articel: 'N/A',
-              BarcodeData_SAP_TransactionKey: 'N/A',
-              BarcodeData_Program_Desc: '',
-              BarcodeData_TotalAmountOfParts: 0,
-              BarcodeData_TotalAmountOfTrolley: 0,
-              BarcodeData_Unloading: 0,
-              EstimatedArrivalTime: 'N/A',
-              LastReadingStation: 0,
-              OrderIndexInQueue: 0,
-              RoundsLifetime: 0,
-              RoundsTillLastMaintenance: 0,
-              State_gap_request_after_trolley: 0,
-              State_gap_request_before_trolley: 0,
-              State_goto_maintanceare: 0,
-              State_RequestColorChange: 0,
-              TimestampAtLastReadingStation: 'N/A',
-              TimestampLoading: 'N/A',
-              TrolleyNoInOrder: 0
+              UnLoading: 0,
+              Colorcode: 'N/A',
+              MaterialNumber: 'N/A',
+              PreTreatment: 'N/A',
+              Program: 'N/A',
+              SalesArticle: 'N/A',
+              TransactionKey: '',
+              TotalParts: 0,
+              TotalTrolleys: 0,
             }          
             this.setState((state) => ({
               tableDataESTA2: [ ...state.tableDataESTA2, defaultData ]
@@ -261,6 +250,9 @@ class orderESTA1And2 extends Component {
   render() {
     return (
       <div>
+        <div style={{display: 'grid', padding: '0'}}>
+          <h3 style={{textAlign: 'right', paddingRight: '10px'}}>{this.state.currentTime}</h3>
+        </div>
         <h2 style={{float: 'left', paddingLeft: '10px'}}>Current Trolley No: {this.state.trolleyNumberESTA1}</h2>
         <Grid container direction="row" justify="center" spacing={2}>
           <Grid item xs={12}>

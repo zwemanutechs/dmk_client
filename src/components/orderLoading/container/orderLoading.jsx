@@ -13,52 +13,22 @@ import { sortByName } from "../../../appservices/app-services";
 
 const columns = [
   // { name: "name", label: "Trolley Number" },
-  // { name: "TrolleyNoInOrder", label: "Trolley Number" },  
-  { name: "BarcodeData_Unloading", label: "Unloading" },
-  { name: "BarcodeData_Sales_Articel", label: "Sales Article" },    
-  { name: "BarcodeData_MaterialNumber", label: "Material No" },  
-  // { name: "BarcodeData_Program_Desc", label: "Description" }, 
-  { name: "BarcodeData_TotalAmountOfParts", label: "Total Parts" },
-  { name: "BarcodeData_TotalAmountOfTrolley", label: "Total Trolley" },
-  { name: "BarcodeData_ColorCode", label: "Color Code" },  
-  { name: "BarcodeData_Program", label: "QR Program" },      
-  { name: "BarcodeData_Pre_Treatment", label: "Pre-Treatment", 
+  { name: "UnLoading", label: "Unloading" },
+  { name: "SalesArticle", label: "Sales Article" },    
+  { name: "TransactionKey", label: "Transaction Key" },   
+  { name: "MaterialNumber", label: "Material No" },  
+  { name: "TotalParts", label: "Total Parts" },
+  { name: "TotalTrolleys", label: "Total Trolleys" },
+  { name: "Colorcode", label: "Color Code" },  
+  { name: "Program", label: "QR Program" },      
+  { name: "PreTreatment", label: "Pre-Treatment", 
     options: {
       filter: false,
       customBodyRender: (value, tableMeta, updateValue) => (
-        <span>{value === 1 ? "Yes" : value === 2 ? "No" : 'N/A'}</span>
+        <span>{value === 1 ? "Yes" : value < 1 || value > 32000 ? "No" : 'N/A'}</span>
       ),
     }, 
-  },  
-
-  // { name: "BarcodeData_Sales_Articel", label: "Sales Articel" },    
-  // { name: "BarcodeData_SAP_TransactionKey", label: "SAP Transaction Key" },  
-  // { name: "EstimatedArrivalTime", label: "Estimated Arrival Time" },
-  // { name: "LastReadingStation", label: "Last Reading Station" },
-  // { name: "OrderIndexInQueue", label: "Order Index In Queue" },
-  // { name: "RoundsLifetime", label: "Rounds Lifetime" },
-  // { name: "RoundsTillLastMaintenance", label: "Rounds Till Last Maintenance" },
-  // { name: "State_gap_request_after_trolley", label: "Request After Trolley" },
-  // { name: "State_gap_request_before_trolley", label: "Request Before Trolley" },
-  // { name: "State_goto_maintanceare", label: "Maintanceare",
-  //   options: {
-  //     filter: false,
-  //     customBodyRender: (value, tableMeta, updateValue) => (
-  //       <span>{value ? "Yes" : "No"}</span>
-  //     ),
-  //   }, 
-  // },
-  // { name: "State_RequestColorChange", label: "Request Color Change",
-  //   options: {
-  //     filter: false,
-  //     customBodyRender: (value, tableMeta, updateValue) => (
-  //       <span>{value ? "Yes" : "No"}</span>
-  //     ),
-  //   }, 
-  // },  
-  // { name: "TimestampAtLastReadingStation", label: "Timestamp At Last Reading Station" },
-  // { name: "TimestampLoading", label: "Timestamp Loading" },
-  // { name: "TrolleyNoInOrder", label: "Trolley No In Order" }
+  }, 
 ];
 
 class OrderLoading extends Component {
@@ -74,6 +44,7 @@ class OrderLoading extends Component {
       onProgress: false,
       trolleyNumber: '',
       counterTrolley: '',
+      currentTime: ''
     };
   }
 
@@ -99,10 +70,23 @@ class OrderLoading extends Component {
     );
  
     this.setState((state) => ({
-      tableData: []
+      tableData: [],
+      currentTime: new Date().toLocaleString("en-GB", { year: "numeric", month: "short", day: "numeric" }) + ', '
+       + new Date().toLocaleString("en-US", { hour12: true, hour: "numeric", minute: "numeric", second: "numeric" }) 
     }));  
+    
+    loadLatestValueNoParameter(ORDER_LOADING_ASSETID, 'TrolleyData')
+      .then((response) => {
+        if (response && response.data  && response.data.length > 0) {
+          let aggreateData = response.data[0];   
+          this.setState((state) => ({
+            trolleyNumber: aggreateData.CurrentTrolley,
+            counterTrolley: aggreateData.RestTrolley
+          })); 
+        }
+      })
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 8; i++) {
       let trolleyName = 'Trolley_0' + i;
       let positionName = i < 9 ? 'Position 0' + (i + 1) : 'Position 10';
       loadLatestValueNoParameter(ORDER_LOADING_ASSETID, trolleyName)
@@ -115,35 +99,36 @@ class OrderLoading extends Component {
 
             if (masterData && masterData.data.data.data && masterData.data.data.data.length > 0) {
               
-              if (aggreateData.BarcodeData_MaterialNumber) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_MaterialNumber && x.type === 'Material No');
+              if (aggreateData.MaterialNumber) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.MaterialNumber && x.type === 'Material No');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_MaterialNumber = masterData.data.data.data[index].description || '';
+                  aggreateData.MaterialNumber = masterData.data.data.data[index].description || '';
                 }
               }
 
-              if (aggreateData.BarcodeData_Sales_Articel) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_Sales_Articel && x.type === 'Sales Articel');
+              if (aggreateData.SalesArticle) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.SalesArticle && x.type === 'Sales Articel');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_Sales_Articel = masterData.data.data.data[index].description;
+                  aggreateData.SalesArticle = masterData.data.data.data[index].description;
                 }
               }
 
-              if (aggreateData.BarcodeData_Program) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_Program && x.type === 'Program');
+              if (aggreateData.Program) {
+                aggreateData.Program = aggreateData.Program.substring(0,2) === '00' ? '00' : aggreateData.Program;
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.Program && x.type === 'Program');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_Program = masterData.data.data.data[index].description;
+                  aggreateData.Program = masterData.data.data.data[index].description;
                 }
               }
 
-              if (aggreateData.BarcodeData_ColorCode) {
-                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.BarcodeData_ColorCode && x.type === 'Color Code');
+              if (aggreateData.Colorcode) {
+                let index = masterData.data.data.data.findIndex((x) => x.number === aggreateData.Colorcode && x.type === 'Color Code');
   
                 if (index > -1) {
-                  aggreateData.BarcodeData_ColorCode = masterData.data.data.data[index].description;
+                  aggreateData.Colorcode = masterData.data.data.data[index].description;
                 }
               }
             }
@@ -154,28 +139,15 @@ class OrderLoading extends Component {
           } else {
             let defaultData = {
               name: positionName,
-              BarcodeData_ColorCode: 'N/A',
-              BarcodeData_MaterialNumber: 'N/A',
-              BarcodeData_Program_Desc: '',
-              BarcodeData_Pre_Treatment: 0,
-              BarcodeData_Program: 'N/A',
-              BarcodeData_Sales_Articel: 'N/A',
-              BarcodeData_SAP_TransactionKey: 'N/A',
-              BarcodeData_TotalAmountOfParts: 0,
-              BarcodeData_TotalAmountOfTrolley: 0,
-              BarcodeData_Unloading: 0,
-              EstimatedArrivalTime: 'N/A',
-              LastReadingStation: 0,
-              OrderIndexInQueue: 0,
-              RoundsLifetime: 0,
-              RoundsTillLastMaintenance: 0,
-              State_gap_request_after_trolley: 0,
-              State_gap_request_before_trolley: 0,
-              State_goto_maintanceare: 0,
-              State_RequestColorChange: 0,
-              TimestampAtLastReadingStation: 'N/A',
-              TimestampLoading: 'N/A',
-              TrolleyNoInOrder: 0
+              TransactionKey: '',
+              Colorcode: '',
+              MaterialNumber: '',
+              PreTreatment: '',
+              Program: '',
+              SalesArticle: '',
+              TotalParts: '',
+              TotalTrolleys: '',
+              UnLoading: ''
             }         
             this.setState((state) => ({
               tableData: [ ...state.tableData, defaultData ]
@@ -255,8 +227,13 @@ class OrderLoading extends Component {
 
     return (
       <div>
-        <h2 style={{float: 'left', paddingLeft: '10px'}}>Current Trolley No: {this.state.trolleyNumber}</h2>
-        <h2 style={{float: 'right', paddingRight: '100px'}}>Current Rest Trolleys: {this.state.counterTrolley}</h2>
+        <div style={{display: 'grid', padding: '0'}}>
+          <h3 style={{textAlign: 'right', paddingRight: '10px'}}>{this.state.currentTime}</h3>
+        </div>
+        <div>
+          <h2 style={{float: 'left', paddingLeft: '10px'}}>Current Trolley No: {this.state.trolleyNumber}</h2>
+          <h2 style={{float: 'right', paddingRight: '100px'}}>Counter Rest Trolleys: {this.state.counterTrolley}</h2>
+        </div>
         <Grid container direction="row" justify="center">
           <Grid item xs={12}>
             {
