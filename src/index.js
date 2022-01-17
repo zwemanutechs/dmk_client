@@ -1,37 +1,34 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { createStore, applyMiddleware } from "redux";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware } from 'redux';
 // import { createStore, applyMiddleware, compose  } from "redux";
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
 // import { composeWithDevTools } from "redux-devtools-extension";
-import "./index.css";
-import App from "./App";
-import { createBrowserHistory } from "history";
-import * as serviceWorker from "./serviceWorker";
-import thunk from "redux-thunk";
-import rootReducer from "./reducers";
-import apiMiddleware from "./middleware/custom-apiMiddleware";
+import './index.css';
+import App from './App';
+import { createBrowserHistory } from 'history';
+import * as serviceWorker from './serviceWorker';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
+import apiMiddleware from './middleware/custom-apiMiddleware';
 // import {client} from "./middleware/axios-middleware";
-import { BrowserRouter } from "react-router-dom";
-export const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk, apiMiddleware)
-);
+import { BrowserRouter } from 'react-router-dom';
+export const store = createStore(rootReducer, applyMiddleware(thunk, apiMiddleware));
 // eslint-disable-next-line no-undef
 _mdsp.init({
-    title: "dormakaba",
-    appId: "_mdspcontent",
-    appInfoPath: "app-info.json"
+	title: 'dormakaba',
+	appId: '_mdspcontent',
+	appInfoPath: 'app-info.json',
 });
 export const history = createBrowserHistory();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter history={history}>
-      <App />
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById("root")
+	<Provider store={store}>
+		<BrowserRouter history={history}>
+			<App />
+		</BrowserRouter>
+	</Provider>,
+	document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
