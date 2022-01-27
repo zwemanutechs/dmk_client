@@ -753,14 +753,14 @@ class OverView extends React.PureComponent {
 									border={true}
 									subTitle={''}
 									range={[
-										{ value: 6.0, color: '#b2b2b2' },
+										{ value: 5.5, color: '#b2b2b2' },
 										{ value: 8.0, color: '#154a98' },
-										{ value: 9.0, color: '#ff1029' },
+										{ value: 9.5, color: '#ff1029' },
 									]}
 									unit={''}
-									min={5.0}
-									max={9.0}
-									LL={6.0}
+									min={4.0}
+									max={9.5}
+									LL={5.5}
 									HH={8.0}
 								/>
 							</Grid>

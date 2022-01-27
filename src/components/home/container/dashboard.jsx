@@ -302,14 +302,14 @@ class Dashboard extends React.PureComponent {
 												border={true}
 												subTitle={''}
 												range={[
-													{ value: 70, color: '#b2b2b2' },
+													{ value: 50, color: '#b2b2b2' },
 													{ value: 81.5, color: '#154a98' },
-													{ value: 93, color: '#ff1029' },
+													{ value: 113, color: '#ff1029' },
 												]}
 												unit={'cm'}
-												min={58.5}
-												max={93}
-												LL={70}
+												min={18.5}
+												max={113}
+												LL={50}
 												HH={81.5}
 											/>
 										</Paper>
@@ -495,14 +495,14 @@ class Dashboard extends React.PureComponent {
 												subTitle={''}
 												range={[
 													{ value: 70, color: '#b2b2b2' },
-													{ value: 76, color: '#154a98' },
-													{ value: 82, color: '#ff1029' },
+													{ value: 77, color: '#154a98' },
+													{ value: 84, color: '#ff1029' },
 												]}
 												unit={'cm'}
-												min={64}
-												max={82}
+												min={63}
+												max={84}
 												LL={70}
-												HH={76}
+												HH={77}
 											/>
 										</Paper>
 									</Grid>
