@@ -373,6 +373,9 @@ class Notification extends PureComponent {
 	getData = async (pageNo) => {
 		let from = new Date();
 		let to = new Date();
+		let baseDate = new Date('2022, 01, 20'); // Event rules were set on Jan 20, 2022 by Kayne
+		let fromDate = from.setMonth(from.getMonth() - 5);
+		let newFromDate = fromDate > baseDate ? fromDate : baseDate;
 		let tempData = [];
 		const assets = [
 			{ name: 'Oven', id: OVEN_ASSETID },
@@ -382,7 +385,7 @@ class Notification extends PureComponent {
 
 		await Promise.all(
 			assets.map(async (asset) => {
-				await loadEventData(from.setHours(from.getHours() - 23), to, asset.id, 500)
+				await loadEventData(newFromDate, to, asset.id, 500)
 					.then((response) => {
 						if (
 							response &&
@@ -408,10 +411,10 @@ class Notification extends PureComponent {
 					});
 			})
 		);
-		const response = await get(`NotificationMessage?pageNo=${pageNo === undefined ? 0 : pageNo}&pageSize=${10}`);
-		if (response) {
-			tempData.push(response.data.data.data);
-		}
+		// const response = await get(`NotificationMessage?pageNo=${pageNo === undefined ? 0 : pageNo}&pageSize=${10}`);
+		// if (response) {
+		// 	tempData.push(response.data.data.data);
+		// }
 		const totalData = [].concat(...tempData);
 		this.setState((state) => ({
 			tableData: totalData,
